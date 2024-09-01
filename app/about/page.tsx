@@ -29,7 +29,7 @@ export default function AboutPage() {
 					<p className="text-lg text-indigo-700 mb-6">Our platform is specifically designed for graduate students, postdocs, and early-career researchers navigating the competitive academic job market. We understand the unique challenges faced by scholars who have invested years in their academic pursuits and aim to help them showcase their achievements effectively.</p>
 
 					<h2 className="text-2xl font-bold text-indigo-800 mb-4">Our Unique Approach</h2>
-					<p className="text-lg text-indigo-700 mb-6">Lumina.ai stands out with its AI-assisted, field-specific document creation for academic jobs. We combine advanced language models with deep understanding of academic requirements to generate, refine, and optimize application materials that truly reflect each individual's unique qualifications and potential.</p>
+					<p className="text-lg text-indigo-700 mb-6">Lumina.ai stands out with its AI-assisted, field-specific document creation for academic jobs. We combine advanced language models with deep understanding of academic requirements to generate, refine, and optimize application materials that truly reflect each individual&apos;s unique qualifications and potential.</p>
 
 					<h2 className="text-2xl font-bold text-indigo-800 mb-4">Key Benefits</h2>
 					<ul className="list-disc list-inside text-lg text-indigo-700 mb-6">

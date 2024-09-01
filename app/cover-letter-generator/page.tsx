@@ -9,6 +9,7 @@ import CVUpload from '../../components/CoverLetter/CVUpload';
 import GenerateButton from '../../components/CoverLetter/GenerateButton';
 import ResultDisplay from '../../components/CoverLetter/ResultDisplay';
 import ErrorMessage from '../../components/CoverLetter/ErrorMessage';
+import Loading from '../../components/ui/Loading/Loading';
 
 const CoverLetterGenerator = () => {
 	const [selectedTemplate, setSelectedTemplate] = useState('');
@@ -24,28 +25,43 @@ const CoverLetterGenerator = () => {
 		setGeneratedCoverLetter('');
 
 		try {
-			const response = await fetch('/api/generate-cover-letter', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({
-					template: selectedTemplate,
-					jobDescription,
-					cv: cvFile ? await cvFile.text() : '',
-				}),
+			const formData = new FormData();
+			formData.append('template', selectedTemplate);
+			formData.append('jobDescription', jobDescription);
+			if (cvFile) {
+				formData.append('file', cvFile);
+			}
+
+			console.log('Sending request with:', {
+				template: selectedTemplate,
+				jobDescription: jobDescription,
+				file: cvFile ? cvFile.name : 'No file',
 			});
 
+			const response = await fetch('/api/generate-cover-letter', {
+				method: 'POST',
+				body: formData,
+			});
+
+			console.log('Response status:', response.status);
+
 			if (!response.ok) {
-				throw new Error('Failed to generate cover letter');
+				const errorText = await response.text();
+				console.error('Error response:', errorText);
+				throw new Error(`Failed to generate cover letter: ${response.status} ${errorText}`);
 			}
 
 			const data = await response.json();
-			console.log('data: ', data.coverLetter);
+			console.log('Response data:', data);
+
+			if (!data.coverLetter) {
+				throw new Error('No cover letter in response');
+			}
+
 			setGeneratedCoverLetter(data.coverLetter);
 		} catch (error) {
-			console.error('Error generating cover letter:', error);
-			setError('An error occurred while generating the cover letter. Please try again.');
+			console.error('Error in handleGenerate:', error);
+			setError(error instanceof Error ? error.message : 'An unknown error occurred');
 		} finally {
 			setIsLoading(false);
 		}
@@ -68,11 +84,15 @@ const CoverLetterGenerator = () => {
 						/>
 					</div>
 				</div>
+
+				{isLoading && <Loading message="Generating Cover Letter" />}
 				{error && <ErrorMessage message={error} />}
-				<ResultDisplay
-					content={generatedCoverLetter}
-					isLoading={isLoading}
-				/>
+				{generatedCoverLetter && (
+					<ResultDisplay
+						content={generatedCoverLetter}
+						isLoading={isLoading}
+					/>
+				)}
 			</div>
 		</div>
 	);

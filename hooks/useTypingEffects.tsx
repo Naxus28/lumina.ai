@@ -1,7 +1,7 @@
 // src/hooks/useTypingEffect.ts
 import { useState, useEffect, useCallback } from 'react';
 
-const useTypingEffect = (text: string, speed: number = 20) => {
+const useTypingEffect = (text: string, speed: number = 10) => {
 	const [displayedText, setDisplayedText] = useState('');
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [isComplete, setIsComplete] = useState(false);

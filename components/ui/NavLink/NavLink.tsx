@@ -4,8 +4,14 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { ReactNode } from 'react';
 
-const NavLink = ({ href, children }) => {
+interface NavLinkProps {
+	href: string;
+	children: ReactNode;
+}
+
+const NavLink = ({ href = '', children }: NavLinkProps) => {
 	const pathname = usePathname();
 	const isActive = pathname === href;
 
