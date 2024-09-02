@@ -85,14 +85,9 @@ const CoverLetterGenerator = () => {
 					</div>
 				</div>
 
-				{isLoading && <Loading message="Generating Cover Letter" />}
+				{/* {isLoading && <Loading message="Generating Cover Letter" />} */}
 				{error && <ErrorMessage message={error} />}
-				{generatedCoverLetter && (
-					<ResultDisplay
-						content={generatedCoverLetter}
-						isLoading={isLoading}
-					/>
-				)}
+				{generatedCoverLetter && <ResultDisplay content={generatedCoverLetter} />}
 			</div>
 		</div>
 	);

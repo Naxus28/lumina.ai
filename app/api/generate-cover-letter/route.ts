@@ -27,6 +27,7 @@ export async function POST(req: Request) {
 		}
 
 		// Dynamically import pdf-parse
+		const time1 = performance.now();
 		const pdfParse = await import('pdf-parse/lib/pdf-parse.js');
 
 		const arrayBuffer = await file.arrayBuffer();
@@ -35,8 +36,13 @@ export async function POST(req: Request) {
 		const pdfData = await pdfParse.default(buffer);
 		const cvText = pdfData.text;
 
+		const time2 = performance.now();
+		console.log('time to extract text from PDF:', time2 - time1);
+
 		const generateCoverLetterPrompt = createPromptGenerator('coverLetter', { template });
 		const prompt = generateCoverLetterPrompt({ jobDescription, cv: cvText });
+
+		const time3 = performance.now();
 
 		const message = await anthropic.messages.create({
 			model: 'claude-3-sonnet-20240229',
@@ -48,6 +54,10 @@ export async function POST(req: Request) {
 				},
 			],
 		});
+
+		const time4 = performance.now();
+
+		console.log('time to get api response:', time4 - time3);
 
 		if (message.content && message.content[0] && message.content[0].type === 'text') {
 			let coverLetter = message.content[0].text.trim();

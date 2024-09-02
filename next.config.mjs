@@ -9,6 +9,11 @@ const nextConfig = {
 			},
 		];
 	},
+	webpack: (config, { isServer }) => {
+		// This will make Webpack ignore the warning
+		config.ignoreWarnings = [{ module: /node_modules\/punycode/ }];
+		return config;
+	},
 };
 
 export default nextConfig;

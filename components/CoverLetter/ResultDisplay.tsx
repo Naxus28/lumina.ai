@@ -4,10 +4,9 @@ import useTypingEffect from '../../hooks/useTypingEffects';
 
 interface ResultDisplayProps {
 	content: string;
-	isLoading: boolean;
 }
 
-const ResultDisplay: React.FC<ResultDisplayProps> = memo(({ content, isLoading }) => {
+const ResultDisplay: React.FC<ResultDisplayProps> = memo(({ content }) => {
 	console.log(content);
 	const { displayedText, isComplete } = useTypingEffect(content, 5);
 	const containerRef = useRef<HTMLDivElement>(null);
@@ -17,7 +16,6 @@ const ResultDisplay: React.FC<ResultDisplayProps> = memo(({ content, isLoading }
 			containerRef.current.scrollTop = containerRef.current.scrollHeight;
 		}
 	}, [displayedText]);
-
 
 	return (
 		<div className="mt-8">

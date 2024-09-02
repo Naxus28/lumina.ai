@@ -13,7 +13,7 @@ export function createPromptGenerator<T extends PromptType>(promptType: T, commo
 		const promptFunction = promptsCatalog[promptType] as PromptFunction<T>;
 
 		if (!(promptType in promptsCatalog)) {
-			throw new Error(`Unsupported prompt type: ${promptType}`);
+			throw new Error(`Unsupported document type: ${promptType}`);
 		}
 
 		return promptFunction({ ...commonArgs, ...specificArgs });
