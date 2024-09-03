@@ -1,7 +1,7 @@
 // src/app/cover-letter-generator/page.tsx
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import Header from '../../components/ui/Header/Header';
 import TemplateSelection from '../../components/CoverLetter/TemplateSelection';
 import JobDescriptionInput from '../../components/CoverLetter/JobDescriptionInput';
@@ -19,7 +19,7 @@ const CoverLetterGenerator = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 
-	const handleGenerate = async () => {
+	const handleGenerate = useCallback(async () => {
 		setIsLoading(true);
 		setError(null);
 		setGeneratedCoverLetter('');
@@ -32,11 +32,11 @@ const CoverLetterGenerator = () => {
 				formData.append('file', cvFile);
 			}
 
-			console.log('Sending request with:', {
-				template: selectedTemplate,
-				jobDescription: jobDescription,
-				file: cvFile ? cvFile.name : 'No file',
-			});
+			// console.log('Sending request with:', {
+			// 	template: selectedTemplate,
+			// 	jobDescription: jobDescription,
+			// 	file: cvFile ? cvFile.name : 'No file',
+			// });
 
 			const response = await fetch('/api/generate-cover-letter', {
 				method: 'POST',
@@ -51,21 +51,27 @@ const CoverLetterGenerator = () => {
 				throw new Error(`Failed to generate cover letter: ${response.status} ${errorText}`);
 			}
 
-			const data = await response.json();
-			console.log('Response data:', data);
+			// Handle streaming response
+			const reader = response.body?.getReader();
+			const decoder = new TextDecoder();
 
-			if (!data.coverLetter) {
-				throw new Error('No cover letter in response');
+			if (reader) {
+				while (true) {
+					const { done, value } = await reader.read();
+					if (done) break;
+					const chunk = decoder.decode(value, { stream: true });
+					setGeneratedCoverLetter((prev) => prev + chunk);
+				}
+			} else {
+				throw new Error('Unable to read response stream');
 			}
-
-			setGeneratedCoverLetter(data.coverLetter);
 		} catch (error) {
 			console.error('Error in handleGenerate:', error);
 			setError(error instanceof Error ? error.message : 'An unknown error occurred');
 		} finally {
 			setIsLoading(false);
 		}
-	};
+	}, [selectedTemplate, jobDescription, cvFile]);
 
 	return (
 		<div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">

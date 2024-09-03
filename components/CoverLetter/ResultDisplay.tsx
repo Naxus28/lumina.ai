@@ -8,14 +8,14 @@ interface ResultDisplayProps {
 
 const ResultDisplay: React.FC<ResultDisplayProps> = memo(({ content }) => {
 	console.log(content);
-	const { displayedText, isComplete } = useTypingEffect(content, 5);
+	// const { displayedText, isComplete } = useTypingEffect(content, 5);
 	const containerRef = useRef<HTMLDivElement>(null);
 
-	useEffect(() => {
-		if (containerRef.current) {
-			containerRef.current.scrollTop = containerRef.current.scrollHeight;
-		}
-	}, [displayedText]);
+	// useEffect(() => {
+	// 	if (containerRef.current) {
+	// 		containerRef.current.scrollTop = containerRef.current.scrollHeight;
+	// 	}
+	// }, [displayedText]);
 
 	return (
 		<div className="mt-8">
@@ -26,8 +26,8 @@ const ResultDisplay: React.FC<ResultDisplayProps> = memo(({ content }) => {
 				style={{ maxHeight: '400px' }}
 			>
 				<pre className="whitespace-pre-wrap text-gray-600">
-					{displayedText}
-					{!isComplete && <span className="animate-pulse">|</span>}
+					{content}
+					{/* {!isComplete && <span className="animate-pulse">|</span>} */}
 				</pre>
 			</div>
 		</div>
