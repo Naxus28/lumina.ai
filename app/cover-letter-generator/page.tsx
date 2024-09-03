@@ -1,7 +1,7 @@
 // src/app/cover-letter-generator/page.tsx
 'use client';
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import Header from '../../components/ui/Header/Header';
 import TemplateSelection from '../../components/CoverLetter/TemplateSelection';
 import JobDescriptionInput from '../../components/CoverLetter/JobDescriptionInput';
@@ -10,19 +10,24 @@ import GenerateButton from '../../components/CoverLetter/GenerateButton';
 import ResultDisplay from '../../components/CoverLetter/ResultDisplay';
 import ErrorMessage from '../../components/CoverLetter/ErrorMessage';
 import Loading from '../../components/ui/Loading/Loading';
+import { jsPDF } from 'jspdf';
 
 const CoverLetterGenerator = () => {
 	const [selectedTemplate, setSelectedTemplate] = useState('');
 	const [jobDescription, setJobDescription] = useState('');
 	const [cvFile, setCVFile] = useState<File | null>(null);
 	const [generatedCoverLetter, setGeneratedCoverLetter] = useState('');
+	const [editableCoverLetter, setEditableCoverLetter] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
+	const [isGenerationComplete, setIsGenerationComplete] = useState(false);
 
 	const handleGenerate = useCallback(async () => {
 		setIsLoading(true);
 		setError(null);
 		setGeneratedCoverLetter('');
+		setEditableCoverLetter('');
+		setIsGenerationComplete(false);
 
 		try {
 			const formData = new FormData();
@@ -31,12 +36,6 @@ const CoverLetterGenerator = () => {
 			if (cvFile) {
 				formData.append('file', cvFile);
 			}
-
-			// console.log('Sending request with:', {
-			// 	template: selectedTemplate,
-			// 	jobDescription: jobDescription,
-			// 	file: cvFile ? cvFile.name : 'No file',
-			// });
 
 			const response = await fetch('/api/generate-cover-letter', {
 				method: 'POST',
@@ -58,9 +57,16 @@ const CoverLetterGenerator = () => {
 			if (reader) {
 				while (true) {
 					const { done, value } = await reader.read();
-					if (done) break;
+					if (done) {
+						setIsGenerationComplete(true);
+						break;
+					}
 					const chunk = decoder.decode(value, { stream: true });
-					setGeneratedCoverLetter((prev) => prev + chunk);
+					setGeneratedCoverLetter((prev) => {
+						const newContent = prev + chunk;
+						setEditableCoverLetter(newContent);
+						return newContent;
+					});
 				}
 			} else {
 				throw new Error('Unable to read response stream');
@@ -72,6 +78,29 @@ const CoverLetterGenerator = () => {
 			setIsLoading(false);
 		}
 	}, [selectedTemplate, jobDescription, cvFile]);
+
+	const handleDownloadPDF = useCallback(() => {
+		const doc = new jsPDF();
+		const pageHeight = doc.internal.pageSize.height;
+		const margin = 15;
+		let y = margin;
+
+		// Split the content into lines
+		const lines = doc.splitTextToSize(editableCoverLetter, doc.internal.pageSize.width - 2 * margin);
+
+		// Add lines to pages
+		lines.forEach((line: string) => {
+			if (y > pageHeight - margin) {
+				doc.addPage();
+				y = margin;
+			}
+			doc.text(line, margin, y);
+			y += 7; // Adjust line height as needed
+		});
+
+		// Save the PDF
+		doc.save('cover_letter.pdf');
+	}, [editableCoverLetter]);
 
 	return (
 		<div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
@@ -91,9 +120,26 @@ const CoverLetterGenerator = () => {
 					</div>
 				</div>
 
-				{/* {isLoading && <Loading message="Generating Cover Letter" />} */}
+				{isLoading && <Loading message="Generating Cover Letter" />}
 				{error && <ErrorMessage message={error} />}
-				{generatedCoverLetter && <ResultDisplay content={generatedCoverLetter} />}
+				{generatedCoverLetter && (
+					<div>
+						<ResultDisplay
+							content={editableCoverLetter}
+							isLoading={isLoading}
+							isEditable={true}
+							onEdit={setEditableCoverLetter}
+						/>
+						{isGenerationComplete && (
+							<button
+								onClick={handleDownloadPDF}
+								className="mt-4 bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition duration-300"
+							>
+								Download as PDF
+							</button>
+						)}
+					</div>
+				)}
 			</div>
 		</div>
 	);
