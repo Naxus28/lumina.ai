@@ -1,21 +1,29 @@
 import React from 'react';
-import Header from './components/landing/Header';
-import Hero from './components/landing/Hero';
-import Features from './components/landing/Features';
-import Benefits from './components/landing/Benefits';
-import Pricing from './components/landing/Pricing';
-import { DocumentTypes, TemplateShowcase } from './components/landing/DocumentSections';
+import { Header } from './components/landing/Header';
+import { HeroSection } from './components/landing/HeroSection';
+import { FeaturesSection } from './components/landing/FeaturesSection';
+import { HowItWorksSection } from './components/landing/HowItWorksSection';
+import { PortfolioSection } from './components/landing/PortfolioSection';
+import { StylesSection } from './components/landing/StylesSection';
+import { PricingSection } from './components/landing/PricingSection';
+// import { Footer } from './components/landing/Footer';
 
-export default function Home() {
+export default function LandingPage() {
 	return (
-		<div className="bg-gradient-to-b from-blue-50 to-indigo-100">
+		<div
+			className="flex flex-col min-h-screen bg-white font-sans"
+			style={{ fontFamily: 'var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"' }}
+		>
 			<Header />
-			<Hero />
-			<Features />
-			<DocumentTypes />
-			<TemplateShowcase />
-			<Benefits />
-			<Pricing />
+			<main className="flex-grow">
+				<HeroSection />
+				<FeaturesSection />
+				<HowItWorksSection />
+				<PortfolioSection />
+				<StylesSection />
+				<PricingSection />
+			</main>
+			{/* <Footer /> */}
 		</div>
 	);
 }
