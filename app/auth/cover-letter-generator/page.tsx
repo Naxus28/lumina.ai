@@ -34,7 +34,7 @@ const templates = [
 	},
 ];
 
-export const CoverLetterGenerator: React.FC = () => {
+const CoverLetterGenerator: React.FC = () => {
 	const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
 	const [jobDescription, setJobDescription] = useState('');
 	const [cvFile, setCvFile] = useState<File | null>(null);
@@ -67,8 +67,7 @@ export const CoverLetterGenerator: React.FC = () => {
 			});
 
 			if (!response.ok) {
-				const errorData = await response.json();
-				throw new Error(errorData.error || 'Failed to generate cover letter');
+				throw new Error(`HTTP error! status: ${response.status}`);
 			}
 
 			const reader = response.body?.getReader();
@@ -100,7 +99,27 @@ export const CoverLetterGenerator: React.FC = () => {
 	}, [selectedTemplate, jobDescription, cvFile]);
 
 	const handleDownloadPDF = useCallback(() => {
-		// ... (keep your existing PDF generation logic)
+		const doc = new jsPDF();
+		const pageWidth = doc.internal.pageSize.getWidth();
+		const pageHeight = doc.internal.pageSize.getHeight();
+		const margin = 15;
+		const maxWidth = pageWidth - 2 * margin;
+		const fontSize = 12;
+		doc.setFontSize(fontSize);
+
+		const lines = doc.splitTextToSize(editableCoverLetter, maxWidth);
+		let cursorY = margin;
+
+		lines.forEach((line: string) => {
+			if (cursorY > pageHeight - margin) {
+				doc.addPage();
+				cursorY = margin;
+			}
+			doc.text(line, margin, cursorY);
+			cursorY += fontSize * 1.15; // Line height
+		});
+
+		doc.save('cover_letter.pdf');
 	}, [editableCoverLetter]);
 
 	return (
@@ -123,7 +142,6 @@ export const CoverLetterGenerator: React.FC = () => {
 					disabled={!selectedTemplate || !jobDescription || !cvFile}
 					isLoading={isLoading}
 				/>
-
 				{error && <ErrorMessage message={error} />}
 				{generatedCoverLetter && (
 					<ResultDisplay
@@ -136,7 +154,7 @@ export const CoverLetterGenerator: React.FC = () => {
 				{isGenerationComplete && (
 					<Button
 						onClick={handleDownloadPDF}
-						className="mt-4 bg-indigo-600 hover:bg-indigo-700 text-white"
+						className="mt-4 bg-[#006D77] hover:bg-[#005a63] text-white"
 					>
 						Download as PDF
 					</Button>
@@ -146,4 +164,4 @@ export const CoverLetterGenerator: React.FC = () => {
 	);
 };
 
-export default CoverLetterGenerator;
+export default CoverLetterGenerator
