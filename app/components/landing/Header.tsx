@@ -44,7 +44,7 @@ export const Header: React.FC = () => {
 				</div>
 				<nav>
 					<ul className="flex space-x-4">
-						{['features', 'how-it-works', 'portfolio', 'styles', 'pricing'].map((item) => (
+						{['features', 'how-it-works', 'portfolio', 'styles', 'document-management', 'pricing'].map((item) => (
 							<li key={item}>
 								<a
 									onClick={() => scrollToSection(item)}

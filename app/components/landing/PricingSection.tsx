@@ -12,7 +12,7 @@ export const PricingSection: React.FC = () => {
 	return (
 		<section
 			id="pricing"
-			className="py-20 px-4 sm:px-6 lg:px-8 bg-white"
+			className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50"
 		>
 			<div className="max-w-7xl mx-auto">
 				<h2 className="text-3xl font-bold text-center mb-12 text-[#006D77]">Choose Your Plan</h2>

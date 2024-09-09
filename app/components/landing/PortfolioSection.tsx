@@ -1,6 +1,6 @@
 import React from 'react';
 import { PortfolioItem } from './PortfolioItem';
-import { FileText, HelpCircle, GraduationCap } from 'lucide-react';
+import { FileText, LibraryBig, GraduationCap } from 'lucide-react';
 
 export const PortfolioSection: React.FC = () => (
 	<section
@@ -8,7 +8,7 @@ export const PortfolioSection: React.FC = () => (
 		className="py-20 px-4 sm:px-6 lg:px-8 bg-white"
 	>
 		<div className="max-w-7xl mx-auto">
-			<h2 className="text-3xl font-bold text-center mb-4 text-gray-900">Craft Your Complete Academic Portfolio</h2>
+			<h2 className="text-3xl font-bold text-center mb-4 text-gray-900">Craft a Complete Academic Portfolio</h2>
 			<p className="text-center text-gray-600 mb-12 max-w-3xl mx-auto">Lumina helps you create a comprehensive portfolio tailored to your field and career stage, covering all essential documents for academic job applications.</p>
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 				<PortfolioItem
@@ -22,7 +22,7 @@ export const PortfolioSection: React.FC = () => (
 					description="Compose impactful cover letters that highlight your unique qualifications and enthusiasm for each position."
 				/>
 				<PortfolioItem
-					icon={HelpCircle}
+					icon={LibraryBig}
 					title="Research Statement"
 					description="Develop a clear and persuasive research statement that outlines your past work, current projects, and future directions."
 				/>

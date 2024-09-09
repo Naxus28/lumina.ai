@@ -4,8 +4,9 @@ import { HeroSection } from './components/landing/HeroSection';
 import { FeaturesSection } from './components/landing/FeaturesSection';
 import { HowItWorksSection } from './components/landing/HowItWorksSection';
 import { PortfolioSection } from './components/landing/PortfolioSection';
-import { StylesSection } from './components/landing/StylesSection';
+import { DocumentStylesSection } from './components/landing/DocumentStylesSection';
 import { PricingSection } from './components/landing/PricingSection';
+import { DocumentManagementSection } from './components/landing/DocumentManagementSection';
 // import { Footer } from './components/landing/Footer';
 
 export default function LandingPage() {
@@ -20,7 +21,8 @@ export default function LandingPage() {
 				<FeaturesSection />
 				<HowItWorksSection />
 				<PortfolioSection />
-				<StylesSection />
+				<DocumentStylesSection />
+				<DocumentManagementSection />
 				<PricingSection />
 			</main>
 			{/* <Footer /> */}

@@ -1,9 +1,9 @@
 import React from 'react';
-import { FileText, PenTool, GraduationCap } from 'lucide-react';
+import { FileText, PenTool, GraduationCap, MonitorCog, Brain } from 'lucide-react';
 
 const StepItem: React.FC<{ icon: React.ElementType; title: string; description: string }> = ({ icon: Icon, title, description }) => (
 	<div className="flex flex-col items-center text-center">
-		<Icon className="h-12 w-12 text-[#006D77] mb-4" />
+		<Icon className="h-10 w-10 text-[#006D77] mb-4" />
 		<h3 className="text-xl font-semibold text-gray-900 mb-2">{title}</h3>
 		<p className="text-gray-600">{description}</p>
 	</div>
@@ -24,12 +24,12 @@ export const HowItWorksSection: React.FC = () => (
 					description="Provide your academic background, research, and teaching experiences through our user-friendly interface."
 				/>
 				<StepItem
-					icon={PenTool}
+					icon={MonitorCog}
 					title="2. AI Generates Documents"
 					description="Our AI crafts tailored CVs, cover letters, research statements, and teaching philosophies based on your input."
 				/>
 				<StepItem
-					icon={GraduationCap}
+					icon={PenTool}
 					title="3. Review and Refine"
 					description="Easily review, edit, and perfect your documents with our intuitive editing tools and AI suggestions."
 				/>
