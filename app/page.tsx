@@ -1,13 +1,12 @@
 import React from 'react';
 import { Header } from './components/landing/Header';
-import { HeroSection } from './components/landing/HeroSection';
-import { FeaturesSection } from './components/landing/FeaturesSection';
-import { HowItWorksSection } from './components/landing/HowItWorksSection';
-import { PortfolioSection } from './components/landing/PortfolioSection';
-import { DocumentStylesSection } from './components/landing/DocumentStylesSection';
-import { PricingSection } from './components/landing/PricingSection';
-import { DocumentManagementSection } from './components/landing/DocumentManagementSection';
-// import { Footer } from './components/landing/Footer';
+import { HeroSection } from './components/landing/hero/HeroSection';
+import { FeaturesSection } from './components/landing/features/FeaturesSection';
+import { HowItWorksSection } from './components/landing/how-it-works/HowItWorksSection';
+import { PortfolioSection } from './components/landing/portfolio/PortfolioSection';
+import { DocumentStylesSection } from './components/landing/document-styles/DocumentStylesSection';
+import { PricingSection } from './components/landing/pricing/PricingSection';
+import { DocumentManagementSection } from './components/landing/document-management/DocumentManagementSection';
 
 export default function LandingPage() {
 	return (

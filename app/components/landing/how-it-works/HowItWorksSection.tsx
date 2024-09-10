@@ -1,9 +1,13 @@
 import React from 'react';
-import { FileText, PenTool, GraduationCap, MonitorCog, Brain } from 'lucide-react';
+import { FileText, PenTool, MonitorCog } from 'lucide-react';
+import { IconWrapper } from '@/components/ui/iconWrapper';
 
 const StepItem: React.FC<{ icon: React.ElementType; title: string; description: string }> = ({ icon: Icon, title, description }) => (
 	<div className="flex flex-col items-center text-center">
-		<Icon className="h-10 w-10 text-[#006D77] mb-4" />
+		<IconWrapper
+			Icon={Icon}
+			size={50}
+		/>
 		<h3 className="text-xl font-semibold text-gray-900 mb-2">{title}</h3>
 		<p className="text-gray-600">{description}</p>
 	</div>
@@ -12,7 +16,7 @@ const StepItem: React.FC<{ icon: React.ElementType; title: string; description: 
 export const HowItWorksSection: React.FC = () => (
 	<section
 		id="how-it-works"
-		className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50"
+		className="py-20 px-4 sm:px-6 lg:px-8 bg-[#f8fafc]"
 	>
 		<div className="max-w-7xl mx-auto">
 			<h2 className="text-3xl font-bold text-center mb-4 text-gray-900">How It Works</h2>

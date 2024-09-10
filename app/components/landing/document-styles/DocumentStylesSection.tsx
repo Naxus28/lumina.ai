@@ -4,7 +4,7 @@ import { DocumentStyleCard } from './DocumentStyleCard';
 export const DocumentStylesSection: React.FC = () => (
 	<section
 		id="styles"
-		className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50"
+		className="py-20 px-4 sm:px-6 lg:px-8 bg-[#f8fafc]"
 	>
 		<div className="max-w-7xl mx-auto">
 			<h2 className="text-3xl font-bold text-center mb-4 text-gray-900">Tailored Document Styles for Every Academic Need</h2>

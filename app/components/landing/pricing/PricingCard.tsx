@@ -1,8 +1,7 @@
 import React from 'react';
-import { Button } from '@/app/layout/ui/Button';
+import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Star } from 'lucide-react';
-import { Badge } from '@/app/layout/ui/Badge';
 
 const CheckIcon: React.FC<{ className?: string }> = ({ className }) => (
 	<svg
@@ -64,7 +63,10 @@ export const PricingCard: React.FC<PricingCardProps> = ({ title, price, period, 
 			</ul>
 			{isBestValue && (
 				<div className="mt-4 flex items-center">
-					<Star className="h-5 w-5 text-[#006D77] mr-2" />
+					<Star
+						fill="#FFD700"
+						className="h-5 w-5 text-[#FFD700] mr-2"
+					/>
 					<span className="text-sm font-semibold text-[#006D77]">Best value</span>
 				</div>
 			)}
