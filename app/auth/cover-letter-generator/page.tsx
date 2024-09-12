@@ -100,27 +100,62 @@ const CoverLetterGenerator: React.FC = () => {
 
 	const handleDownloadPDF = useCallback(() => {
 		const doc = new jsPDF();
-		const pageWidth = doc.internal.pageSize.getWidth();
-		const pageHeight = doc.internal.pageSize.getHeight();
+		const pageHeight = doc.internal.pageSize.height;
 		const margin = 15;
-		const maxWidth = pageWidth - 2 * margin;
 		const fontSize = 12;
-		doc.setFontSize(fontSize);
+    const lineHeight = 1.15;
+		const font = ['times','roman'];
+		const indent = 36; // 0.5 inch indent (36 points)
+		let y = margin;
 
-		const lines = doc.splitTextToSize(editableCoverLetter, maxWidth);
-		let cursorY = margin;
+  // Set font to Times New Roman, 12pt
+	doc.setFont(font[0], font[1]);
+	doc.setFontSize(fontSize);
 
-		lines.forEach((line: string) => {
-			if (cursorY > pageHeight - margin) {
+		// Split the content into lines
+		const lines = doc.splitTextToSize(editableCoverLetter, doc.internal.pageSize.width - 2 * margin);
+
+		// Add lines to pages
+		lines.forEach((line: string, lineIndex: number) => {
+			if (y > pageHeight - margin) {
 				doc.addPage();
-				cursorY = margin;
+				y = margin;
 			}
-			doc.text(line, margin, cursorY);
-			cursorY += fontSize * 1.15; // Line height
+      
+			console.log('line: ', line)
+
+			 // Indent first line of paragraph (except for first paragraph)
+			 const x = lineIndex > 0 ? margin : margin + indent;
+			 doc.text(line, x, y);
+			 y += fontSize * lineHeight;
 		});
 
+		// Save the PDF
 		doc.save('cover_letter.pdf');
 	}, [editableCoverLetter]);
+	// const handleDownloadPDF = useCallback(() => {
+	// 	const doc = new jsPDF();
+	// 	const pageWidth = doc.internal.pageSize.getWidth();
+	// 	const pageHeight = doc.internal.pageSize.getHeight();
+	// 	const margin = 15;
+	// 	const maxWidth = pageWidth - 2 * margin;
+	// 	const fontSize = 12;
+	// 	doc.setFontSize(fontSize);
+
+	// 	const lines = doc.splitTextToSize(editableCoverLetter, maxWidth);
+	// 	let cursorY = margin;
+
+	// 	lines.forEach((line: string) => {
+	// 		if (cursorY > pageHeight - margin) {
+	// 			doc.addPage();
+	// 			cursorY = margin;
+	// 		}
+	// 		doc.text(line, margin, cursorY);
+	// 		cursorY += fontSize * 1.15; // Line height
+	// 	});
+
+	// 	doc.save('cover_letter.pdf');
+	// }, [editableCoverLetter]);
 
 	return (
 		<div className="min-h-screen bg-gray-50">
@@ -164,4 +199,4 @@ const CoverLetterGenerator: React.FC = () => {
 	);
 };
 
-export default CoverLetterGenerator
+export default CoverLetterGenerator;

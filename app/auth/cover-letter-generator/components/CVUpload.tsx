@@ -11,6 +11,8 @@ export const CVUpload: React.FC<CVUploadProps> = ({ onFileSelect }) => {
 	const fileInputRef = useRef<HTMLInputElement>(null);
 
 	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		console.log('event', event);
+		console.log('event.target.files', event.target.files);
 		const file = event.target.files?.[0];
 		if (file) {
 			setFileName(file.name);

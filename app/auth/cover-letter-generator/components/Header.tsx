@@ -10,7 +10,7 @@ export const Header: React.FC = () => (
 			<div className="flex items-center space-x-4">
 				<Avatar>
 					<AvatarImage
-						src="/placeholder.svg?height=32&width=32"
+						src="/mini-love.png"
 						alt="User avatar"
 					/>
 					<AvatarFallback>U</AvatarFallback>
