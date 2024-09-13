@@ -4,10 +4,13 @@ import { FeatureCard } from './DocumentManagementCard';
 
 export const DocumentManagementSection = () => {
 	return (
-		<section className="py-20 px-4 sm:px-6 lg:px-8 bg-white" id="document-management">
+		<section
+			className="py-20 px-4 sm:px-6 lg:px-8 bg-white"
+			id="document-management"
+		>
 			<div className="max-w-7xl mx-auto">
 				<div className="flex items-center justify-center mb-4">
-					<h2 className="text-3xl font-bold text-center text-gray-900">Document Management Solution</h2>
+					<h2 className="text-3xl font-bold text-center text-gray-700">Document Management Solution</h2>
 				</div>
 				<p className="text-center text-gray-600 mb-12 max-w-3xl mx-auto">Lumina offers a straightforward solution to manage and organize all your academic application materials in one place, making your job search more efficient and stress-free.</p>
 

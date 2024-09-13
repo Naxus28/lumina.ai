@@ -42,8 +42,8 @@ interface PricingCardProps {
 export const PricingCard: React.FC<PricingCardProps> = ({ title, price, period, description, features, buttonText, isHighlighted = false, isBestValue = false }) => (
 	<Card className={`flex flex-col h-full ${isHighlighted ? 'border-2 border-[#006D77]' : 'border border-gray-200'}`}>
 		<CardHeader className="space-y-1 pb-2">
-			<CardTitle className="text-xl font-bold text-gray-900">{title}</CardTitle>
-			<div className="mt-1 flex items-baseline text-gray-900">
+			<CardTitle className="text-xl font-bold text-gray-700">{title}</CardTitle>
+			<div className="mt-1 flex items-baseline text-gray-700">
 				<span className="text-xl font-extrabold tracking-tight">${price}</span>
 				<span className="ml-1 text-xl font-normal text-gray-500">/{period}</span>
 			</div>

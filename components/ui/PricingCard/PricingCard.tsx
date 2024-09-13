@@ -13,7 +13,7 @@ interface PricingCardProps {
 const PricingCard = ({ title, price, period, features, buttonText, isCustom = false }: PricingCardProps) => (
 	<div className="bg-white rounded-lg shadow-lg p-6 flex flex-col h-full">
 		<div className="flex-grow">
-			<h3 className="text-xl font-bold mb-2 text-gray-800">{title}</h3>
+			<h3 className="text-xl font-bold mb-2 text-gray-700">{title}</h3>
 			{!isCustom && (
 				<div className="text-3xl font-bold mb-4 text-indigo-600">
 					${price}

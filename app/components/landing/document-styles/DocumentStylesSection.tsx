@@ -7,7 +7,7 @@ export const DocumentStylesSection: React.FC = () => (
 		className="py-20 px-4 sm:px-6 lg:px-8 bg-[#f8fafc]"
 	>
 		<div className="max-w-7xl mx-auto">
-			<h2 className="text-3xl font-bold text-center mb-4 text-gray-900">Tailored Document Styles for Every Academic Need</h2>
+			<h2 className="text-3xl font-bold text-center mb-4 text-gray-800">Tailored Document Styles for Every Academic Need</h2>
 			<p className="text-center text-gray-600 mb-12 max-w-3xl mx-auto">Choose from a variety of document styles, and let our AI generate tailored content. Lumina's AI adapts to your selected style, ensuring your application stands out across diverse academic fields and career stages.</p>
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 				<DocumentStyleCard

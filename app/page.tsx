@@ -12,7 +12,7 @@ export default function LandingPage() {
 	return (
 		<div
 			className="flex flex-col min-h-screen bg-white font-sans"
-			style={{ fontFamily: 'var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"' }}
+			style={{ fontFamily: 'Lato, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"', fontWeight: 300 }}
 		>
 			<Header />
 			<main className="flex-grow">

@@ -3,13 +3,14 @@
 import React, { useState, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Header } from './components/Header';
-import { TemplateSelector } from './components/TemplateSelector';
+import { TemplateSelector } from './components/document-styles/TemplateSelector';
 import { JobDescriptionInput } from './components/JobDescriptionInput';
 import { CVUpload } from './components/CVUpload';
 import { GenerateButton } from './components/GenerateButton';
 import { ResultDisplay } from './components/ResultDisplay';
 import { ErrorMessage } from './components/ErrorMessage';
 import { jsPDF } from 'jspdf';
+import {documentStyles as templates} from './components/document-styles/document-style-list'
 
 const templates = [
 	{
@@ -54,7 +55,7 @@ const CoverLetterGenerator: React.FC = () => {
 		try {
 			const formData = new FormData();
 			if (selectedTemplate) {
-				formData.append('template', selectedTemplate);
+				formData.append('template', 'traditional academic');
 			}
 			formData.append('jobDescription', jobDescription);
 			if (cvFile) {
@@ -103,14 +104,14 @@ const CoverLetterGenerator: React.FC = () => {
 		const pageHeight = doc.internal.pageSize.height;
 		const margin = 15;
 		const fontSize = 12;
-    const lineHeight = 1.15;
-		const font = ['times','roman'];
+		const lineHeight = 1.15;
+		const font = ['times', 'roman'];
 		const indent = 36; // 0.5 inch indent (36 points)
 		let y = margin;
 
-  // Set font to Times New Roman, 12pt
-	doc.setFont(font[0], font[1]);
-	doc.setFontSize(fontSize);
+		// Set font to Times New Roman, 12pt
+		doc.setFont(font[0], font[1]);
+		doc.setFontSize(fontSize);
 
 		// Split the content into lines
 		const lines = doc.splitTextToSize(editableCoverLetter, doc.internal.pageSize.width - 2 * margin);
@@ -121,13 +122,13 @@ const CoverLetterGenerator: React.FC = () => {
 				doc.addPage();
 				y = margin;
 			}
-      
-			console.log('line: ', line)
 
-			 // Indent first line of paragraph (except for first paragraph)
-			 const x = lineIndex > 0 ? margin : margin + indent;
-			 doc.text(line, x, y);
-			 y += fontSize * lineHeight;
+			console.log('line: ', line);
+
+			// Indent first line of paragraph (except for first paragraph)
+			const x = lineIndex > 0 ? margin : margin + indent;
+			doc.text(line, x, y);
+			y += fontSize * lineHeight;
 		});
 
 		// Save the PDF
@@ -161,7 +162,7 @@ const CoverLetterGenerator: React.FC = () => {
 		<div className="min-h-screen bg-gray-50">
 			<Header />
 			<main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-				<h1 className="text-4xl font-bold text-gray-900 mb-8">Generate Your Cover Letter</h1>
+				<h1 className="text-4xl font-bold text-gray-700 mb-8">Generate Your Cover Letter</h1>
 				<TemplateSelector
 					templates={templates}
 					selectedTemplate={selectedTemplate}

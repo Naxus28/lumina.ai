@@ -34,7 +34,7 @@ export const CVUpload: React.FC<CVUploadProps> = ({ onFileSelect }) => {
 
 	return (
 		<section className="mb-8">
-			<h2 className="text-2xl font-bold text-gray-900 mb-4">3. Upload Your CV</h2>
+			<h2 className="text-2xl font-bold text-gray-700 mb-4">3. Upload Your CV</h2>
 			<input
 				ref={fileInputRef}
 				type="file"
