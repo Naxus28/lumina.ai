@@ -3,28 +3,44 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogClose } from '@/components/ui/dialog';
 import { X } from 'lucide-react';
 import { TemplateCard } from './TemplateCard';
-import { documentStyleList as templates } from './document-style-list';
-import { DocumentStyle } from './models';
+import { CoverLetterTemplate } from './models';
 
-export const TemplateSelector: React.FC = ({}) => {
-	const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
+interface TemplateSelectorProps {
+	onSelectTemplate: (template: CoverLetterTemplate) => void;
+	selectedTemplate: string | null;
+	templates: CoverLetterTemplate[];
+}
+
+export const TemplateSelector: React.FC<TemplateSelectorProps> = ({ onSelectTemplate, selectedTemplate, templates }) => {
 	const [viewingPdf, setViewingPdf] = useState<string | null>(null);
 
 	const handleViewPdf = (pdfUrl: string) => {
 		setViewingPdf(pdfUrl);
 	};
 
+	const handleSelectTemplate = (template: CoverLetterTemplate) => {
+		onSelectTemplate(template);
+	};
+
 	return (
-		<section className="py-8 px-4">
-			<div className="max-w-6xl mx-auto">
-				<h1 className="text-3xl font-bold text-center text-gray-700 mb-6">Choose Your Cover Letter Style</h1>
+		<section className="pb-8">
+			<div className="container mx-auto pt-4">
+				<header className="mb-12">
+					<h1 className="text-4xl font-bold text-gray-700 mb-4">Create Your Academic Cover Letter</h1>
+					<p className="text-xl text-gray-600 max-w-2xl">Craft a compelling cover letter that showcases your academic achievements and potential.</p>
+				</header>
+
+				<div className="flex items-center mb-4">
+					<div className="bg-[#006D77] text-white rounded-full w-6 h-6 flex items-center justify-center font-bold mr-2 text-xs">1</div>
+					<h2 className="text-2xl font-semibold text-gray-700">Choose Your Cover Letter Style</h2>
+				</div>
 				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-					{templates.map((template: DocumentStyle) => (
+					{templates.map((template: CoverLetterTemplate) => (
 						<TemplateCard
 							key={template.name}
 							template={template}
 							isSelected={selectedTemplate === template.name}
-							onSelect={() => setSelectedTemplate(template.name)}
+							onSelect={() => handleSelectTemplate(template)}
 							onView={handleViewPdf}
 						/>
 					))}

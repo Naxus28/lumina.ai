@@ -3,40 +3,18 @@
 import React, { useState, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Header } from './components/Header';
-import { TemplateSelector } from './components/document-styles/TemplateSelector';
+import { TemplateSelector } from './components/document-templates/TemplateSelector';
 import { JobDescriptionInput } from './components/JobDescriptionInput';
 import { CVUpload } from './components/CVUpload';
 import { GenerateButton } from './components/GenerateButton';
 import { ResultDisplay } from './components/ResultDisplay';
 import { ErrorMessage } from './components/ErrorMessage';
 import { jsPDF } from 'jspdf';
-import {documentStyles as templates} from './components/document-styles/document-style-list'
-
-const templates = [
-	{
-		name: 'Traditional Academic',
-		preview: 'https://g-g1ekrvkztt3.vusercontent.net/placeholder.svg?height=100&width=80',
-		description: 'A formal structure emphasizing academic achievements and research experience.',
-	},
-	{
-		name: 'Research Emphasis',
-		preview: 'https://g-g1ekrvkztt3.vusercontent.net/placeholder.svg?height=100&width=80',
-		description: 'Highlights your research contributions and potential for future projects.',
-	},
-	{
-		name: 'Teaching Focus',
-		preview: 'https://g-g1ekrvkztt3.vusercontent.net/placeholder.svg?height=100&width=80',
-		description: 'Showcases your teaching philosophy and classroom experiences.',
-	},
-	{
-		name: 'Interdisciplinary Approach',
-		preview: 'https://g-g1ekrvkztt3.vusercontent.net/placeholder.svg?height=100&width=80',
-		description: 'Demonstrates your ability to work across multiple academic disciplines.',
-	},
-];
+import { CoverLetterTemplate } from './components/document-templates/models';
+import { coverLetterTemplates } from './components/document-templates/templates';
 
 const CoverLetterGenerator: React.FC = () => {
-	const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
+	const [selectedTemplate, setSelectedTemplate] = useState<CoverLetterTemplate | null>(null);
 	const [jobDescription, setJobDescription] = useState('');
 	const [cvFile, setCvFile] = useState<File | null>(null);
 	const [generatedCoverLetter, setGeneratedCoverLetter] = useState('');
@@ -44,6 +22,10 @@ const CoverLetterGenerator: React.FC = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 	const [isGenerationComplete, setIsGenerationComplete] = useState(false);
+
+	const handleSelectTemplate = useCallback((template: CoverLetterTemplate) => {
+		setSelectedTemplate(template);
+	}, []);
 
 	const handleGenerate = useCallback(async () => {
 		setIsLoading(true);
@@ -55,7 +37,7 @@ const CoverLetterGenerator: React.FC = () => {
 		try {
 			const formData = new FormData();
 			if (selectedTemplate) {
-				formData.append('template', 'traditional academic');
+				formData.append('template', selectedTemplate.name);
 			}
 			formData.append('jobDescription', jobDescription);
 			if (cvFile) {
@@ -109,64 +91,33 @@ const CoverLetterGenerator: React.FC = () => {
 		const indent = 36; // 0.5 inch indent (36 points)
 		let y = margin;
 
-		// Set font to Times New Roman, 12pt
 		doc.setFont(font[0], font[1]);
 		doc.setFontSize(fontSize);
 
-		// Split the content into lines
 		const lines = doc.splitTextToSize(editableCoverLetter, doc.internal.pageSize.width - 2 * margin);
 
-		// Add lines to pages
 		lines.forEach((line: string, lineIndex: number) => {
 			if (y > pageHeight - margin) {
 				doc.addPage();
 				y = margin;
 			}
 
-			console.log('line: ', line);
-
-			// Indent first line of paragraph (except for first paragraph)
 			const x = lineIndex > 0 ? margin : margin + indent;
 			doc.text(line, x, y);
 			y += fontSize * lineHeight;
 		});
 
-		// Save the PDF
 		doc.save('cover_letter.pdf');
 	}, [editableCoverLetter]);
-	// const handleDownloadPDF = useCallback(() => {
-	// 	const doc = new jsPDF();
-	// 	const pageWidth = doc.internal.pageSize.getWidth();
-	// 	const pageHeight = doc.internal.pageSize.getHeight();
-	// 	const margin = 15;
-	// 	const maxWidth = pageWidth - 2 * margin;
-	// 	const fontSize = 12;
-	// 	doc.setFontSize(fontSize);
-
-	// 	const lines = doc.splitTextToSize(editableCoverLetter, maxWidth);
-	// 	let cursorY = margin;
-
-	// 	lines.forEach((line: string) => {
-	// 		if (cursorY > pageHeight - margin) {
-	// 			doc.addPage();
-	// 			cursorY = margin;
-	// 		}
-	// 		doc.text(line, margin, cursorY);
-	// 		cursorY += fontSize * 1.15; // Line height
-	// 	});
-
-	// 	doc.save('cover_letter.pdf');
-	// }, [editableCoverLetter]);
 
 	return (
 		<div className="min-h-screen bg-gray-50">
 			<Header />
 			<main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-				<h1 className="text-4xl font-bold text-gray-700 mb-8">Generate Your Cover Letter</h1>
 				<TemplateSelector
-					templates={templates}
-					selectedTemplate={selectedTemplate}
-					setSelectedTemplate={setSelectedTemplate}
+					templates={coverLetterTemplates}
+					onSelectTemplate={handleSelectTemplate}
+					selectedTemplate={selectedTemplate?.name || null}
 				/>
 				<JobDescriptionInput
 					jobDescription={jobDescription}

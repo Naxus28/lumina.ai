@@ -13,7 +13,7 @@ export const GenerateButton: React.FC<GenerateButtonProps> = ({ onClick, disable
 		className="w-full bg-[#006D77] hover:bg-[#005a63] text-white"
 		size="lg"
 		onClick={onClick}
-		disabled={isLoading}
+		disabled={disabled || isLoading}
 	>
 		{isLoading ? (
 			<>

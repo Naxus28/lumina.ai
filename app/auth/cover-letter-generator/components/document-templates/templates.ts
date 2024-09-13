@@ -1,7 +1,7 @@
 import { FileText, LibraryBig, GraduationCap, Network } from 'lucide-react';
-import { DocumentStyle } from './models';
+import { CoverLetterTemplate } from './models';
 
-export const documentStyleList: DocumentStyle[] = [
+export const coverLetterTemplates: CoverLetterTemplate[] = [
 	{
 		name: 'Traditional Academic',
 		description: 'A formal structure emphasizing academic achievements and research experience.',

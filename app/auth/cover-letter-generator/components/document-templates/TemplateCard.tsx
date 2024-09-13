@@ -2,10 +2,10 @@ import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Check } from 'lucide-react';
-import { DocumentStyle } from './models';
+import { CoverLetterTemplate } from './models';
 
 interface TemplateCardProps {
-	template: DocumentStyle;
+	template: CoverLetterTemplate;
 	isSelected: boolean;
 	onSelect: () => void;
 	onView: (pdfUrl: string) => void;

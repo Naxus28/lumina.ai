@@ -1,4 +1,4 @@
-export interface DocumentStyle {
+export interface CoverLetterTemplate {
 	name: string;
 	description: string;
 	pdfUrl: string;

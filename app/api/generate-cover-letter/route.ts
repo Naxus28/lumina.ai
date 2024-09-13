@@ -1,4 +1,3 @@
-// src/app/api/generate-cover-letter/route.ts
 import { NextRequest } from 'next/server';
 import { Anthropic } from '@anthropic-ai/sdk';
 import { createPromptGenerator } from '../../../utils/generatePrompt';
