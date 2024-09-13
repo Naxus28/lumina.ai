@@ -57,7 +57,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({ title, price, period, 
 						className="flex items-start"
 					>
 						<CheckIcon className="flex-shrink-0 mr-2 mt-1" />
-						<span className="text-sm text-gray-600">{feature}</span>
+						<span className="text-sm text-gray-900">{feature}</span>
 					</li>
 				))}
 			</ul>

@@ -15,7 +15,7 @@ export const PortfolioItem: React.FC<PortfolioItemProps> = ({ icon: Icon, title,
 			<CardTitle className="text-xl font-semibold text-[#006D77]">{title}</CardTitle>
 		</CardHeader>
 		<CardContent>
-			<p className="text-gray-600">{description}</p>
+			<p className="text-gray-900">{description}</p>
 		</CardContent>
 	</Card>
 );

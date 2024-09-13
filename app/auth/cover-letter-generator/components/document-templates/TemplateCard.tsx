@@ -21,7 +21,7 @@ export const TemplateCard: React.FC<TemplateCardProps> = ({ template, isSelected
 				<template.icon className="h-6 w-6 text-white" />
 			</div>
 			<h3 className="text-sm font-semibold text-[#006D77] mb-2">{template.name}</h3>
-			<p className="text-xs text-gray-600 mb-4 flex-grow">{template.description}</p>
+			<p className="text-xs text-gray-900 mb-4 flex-grow">{template.description}</p>
 			<div className="flex justify-between mt-auto pt-4 gap-2">
 				<Button
 					variant="outline"

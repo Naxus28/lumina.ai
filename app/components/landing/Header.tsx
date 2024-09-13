@@ -48,7 +48,7 @@ export const Header: React.FC = () => {
 							<li key={item}>
 								<a
 									onClick={() => scrollToSection(item)}
-									className="text-gray-600 hover:text-[#006D77] cursor-pointer"
+									className="text-gray-900 hover:text-[#006D77] cursor-pointer"
 								>
 									{item
 										.split('-')

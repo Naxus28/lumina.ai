@@ -27,7 +27,7 @@ export const DocumentStyleCard: React.FC<DocumentStyleCardProps> = ({ icon, titl
 					{Icon && <IconWrapper Icon={Icon} />}
 					<h3 className="text-lg font-semibold text-[#006D77]">{title}</h3>
 				</div>
-				<p className="text-gray-600 text-sm mb-4">{description}</p>
+				<p className="text-gray-900 text-sm mb-4">{description}</p>
 				<div className="flex flex-wrap gap-2">
 					{examples.map((example, index) => (
 						<span

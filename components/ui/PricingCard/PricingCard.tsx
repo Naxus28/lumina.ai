@@ -17,10 +17,10 @@ const PricingCard = ({ title, price, period, features, buttonText, isCustom = fa
 			{!isCustom && (
 				<div className="text-3xl font-bold mb-4 text-indigo-600">
 					${price}
-					<span className="text-sm font-normal text-gray-600">/{period}</span>
+					<span className="text-sm font-normal text-gray-900">/{period}</span>
 				</div>
 			)}
-			<ul className="mb-6 text-gray-600">
+			<ul className="mb-6 text-gray-900">
 				{features.map((feature, index) => (
 					<li
 						key={index}

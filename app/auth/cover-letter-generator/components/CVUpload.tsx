@@ -57,7 +57,7 @@ export const CVUpload: React.FC<CVUploadProps> = ({ onFileSelect }) => {
 				</Button>
 			) : (
 				<div className="flex items-center justify-between p-2 border border-gray-300 rounded-md">
-					<span className="text-sm text-gray-600 truncate max-w-[80%]">{fileName}</span>
+					<span className="text-sm text-gray-900 truncate max-w-[80%]">{fileName}</span>
 					<Button
 						variant="ghost"
 						size="sm"

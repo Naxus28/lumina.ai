@@ -14,8 +14,8 @@ const FeatureCard = ({ imageSrc, title, description }: { imageSrc: string; title
 			/>
 		</div>
 		<div className="p-4 flex flex-col flex-grow">
-			<h3 className="text-xl font-semibold mb-2 text-center text-gray-600">{title}</h3>
-			<p className="text-gray-600 text-left flex-grow flex items-center justify-center">{description}</p>
+			<h3 className="text-xl font-semibold mb-2 text-center text-gray-900">{title}</h3>
+			<p className="text-gray-900 text-left flex-grow flex items-center justify-center">{description}</p>
 		</div>
 	</div>
 );

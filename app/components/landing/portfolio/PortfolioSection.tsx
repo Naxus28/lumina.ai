@@ -9,7 +9,7 @@ export const PortfolioSection: React.FC = () => (
 	>
 		<div className="max-w-7xl mx-auto">
 			<h2 className="text-3xl font-bold text-center mb-4 text-gray-700">Craft a Complete Academic Portfolio</h2>
-			<p className="text-center text-gray-600 mb-12 max-w-3xl mx-auto">Lumina helps you create a comprehensive portfolio tailored to your field and career stage, covering all essential documents for academic job applications.</p>
+			<p className="text-center text-gray-900 mb-12 max-w-3xl mx-auto">Lumina helps you create a comprehensive portfolio tailored to your field and career stage, covering all essential documents for academic job applications.</p>
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 				<PortfolioItem
 					icon={FileText}

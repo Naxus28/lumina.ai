@@ -58,15 +58,15 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({ content, isEditabl
 
 	return (
 		<div className="mt-8">
-			<h2 className="text-xl font-semibold mb-2 text-gray-600">Generated Cover Letter</h2>
-			<p className="font-semibold mb-2 text-gray-600">You can edit this document before downloading the PDF</p>
+			<h2 className="text-xl font-semibold mb-2 text-gray-900">Generated Cover Letter</h2>
+			<p className="font-semibold mb-2 text-gray-900">You can edit this document before downloading the PDF</p>
 			<div
 				className="bg-white border rounded shadow-md"
 				style={{ width: '8.5in', height: '11in', margin: 'auto', overflow: 'hidden' }}
 			>
 				<div
 					ref={contentRef}
-					className="w-full h-full text-gray-600 focus:outline-none"
+					className="w-full h-full text-gray-900 focus:outline-none"
 					style={commonStyles}
 				>
 					{isEditing ? (
