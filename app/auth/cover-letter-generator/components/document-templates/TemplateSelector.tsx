@@ -28,7 +28,7 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = ({ onSelectTemp
 			<div className="container mx-auto pt-4">
 				<header className="mb-12">
 					<h1 className="text-4xl font-bold text-gray-700 mb-4">Create Your Academic Cover Letter</h1>
-					<p className="text-xl text-gray-900 max-w-2xl">In 3 easy steps, craft a compelling cover letter that showcases your academic achievements and potential.</p>
+					<p className="text-xl text-gray-900 max-w-2xl">In 4 easy steps, craft a compelling cover letter that showcases your academic achievements and potential.</p>
 				</header>
 				{/* <Container padding="sm">
           <AnimatedSteps />

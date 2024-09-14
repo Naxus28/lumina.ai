@@ -8,6 +8,7 @@ import { JobDescriptionInput } from './components/JobDescriptionInput';
 import { CVUpload } from './components/CVUpload';
 import { GenerateButton } from './components/GenerateButton';
 import { ResultDisplay } from './components/ResultDisplay';
+import { AddresseeSenderForm } from './components/address/AddresseeSenderForm';
 import { ErrorMessage } from './components/ErrorMessage';
 import { jsPDF } from 'jspdf';
 import { CoverLetterTemplate } from './components/document-templates/models';
@@ -121,6 +122,9 @@ const CoverLetterGenerator: React.FC = () => {
 						onSelectTemplate={handleSelectTemplate}
 						selectedTemplate={selectedTemplate?.name || null}
 					/>
+				</Container>
+				<Container padding="md">
+					<AddresseeSenderForm onDataChange={() => {}} />
 				</Container>
 				<Container>
 					<JobDescriptionInput
