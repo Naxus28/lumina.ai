@@ -59,7 +59,7 @@ export const CVUpload: React.FC<CVUploadProps> = ({ onFileSelect }) => {
 
 	return (
 		<div className="mb-12">
-			<h2 className="text-2xl font-semibold text-gray-800 mb-6">3. Upload Your CV</h2>
+			<h2 className="text-lg font-semibold text-gray-800 mb-4 uppercase">3. Upload Your CV</h2>
 			<div
 				className={`flex flex-col items-center justify-center w-full h-64 border-2 border-dashed rounded-lg cursor-pointer ${isDragging ? 'border-[#006D77] bg-[#E0F2F1]' : 'border-gray-300 bg-gray-50 hover:bg-gray-100'}`}
 				onDragEnter={handleDragEnter}

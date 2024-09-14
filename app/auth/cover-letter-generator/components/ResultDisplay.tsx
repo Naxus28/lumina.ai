@@ -75,7 +75,8 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({ content, isEditabl
 							onChange={handleChange}
 							style={{
 								...commonStyles,
-								resize: 'none',
+								padding: 'none',
+								resize: 'none',	
 								outline: 'none',
 								backgroundColor: 'transparent',
 							}}

@@ -9,7 +9,7 @@ interface JobDescriptionInputProps {
 export const JobDescriptionInput: React.FC<JobDescriptionInputProps> = ({ jobDescription, setJobDescription }) => (
 	<section>
 		<div className="flex items-center mb-4">
-			<h2 className="text-2xl font-semibold text-gray-700">2. Enter Job Description</h2>
+			<h2 className="text-lg font-semibold text-gray-700 uppercase">2. Enter Job Description</h2>
 		</div>
 		<Textarea
 			placeholder="Paste the job description here..."
