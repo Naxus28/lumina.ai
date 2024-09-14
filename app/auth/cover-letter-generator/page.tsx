@@ -12,6 +12,7 @@ import { ErrorMessage } from './components/ErrorMessage';
 import { jsPDF } from 'jspdf';
 import { CoverLetterTemplate } from './components/document-templates/models';
 import { coverLetterTemplates } from './components/document-templates/templates';
+import { Container } from '../../layout-components/components/Container';
 
 const CoverLetterGenerator: React.FC = () => {
 	const [selectedTemplate, setSelectedTemplate] = useState<CoverLetterTemplate | null>(null);
@@ -114,21 +115,27 @@ const CoverLetterGenerator: React.FC = () => {
 		<div className="min-h-screen bg-gray-50">
 			<Header />
 			<main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-				<TemplateSelector
-					templates={coverLetterTemplates}
-					onSelectTemplate={handleSelectTemplate}
-					selectedTemplate={selectedTemplate?.name || null}
-				/>
-				<JobDescriptionInput
-					jobDescription={jobDescription}
-					setJobDescription={setJobDescription}
-				/>
-				<CVUpload onFileSelect={setCvFile} />
-				<GenerateButton
-					onClick={handleGenerate}
-					disabled={!selectedTemplate || !jobDescription || !cvFile}
-					isLoading={isLoading}
-				/>
+				<Container padding="md">
+					<TemplateSelector
+						templates={coverLetterTemplates}
+						onSelectTemplate={handleSelectTemplate}
+						selectedTemplate={selectedTemplate?.name || null}
+					/>
+				</Container>
+				<Container>
+					<JobDescriptionInput
+						jobDescription={jobDescription}
+						setJobDescription={setJobDescription}
+					/>
+				</Container>
+				<Container>
+					<CVUpload onFileSelect={setCvFile} />
+					<GenerateButton
+						onClick={handleGenerate}
+						disabled={!selectedTemplate || !jobDescription || !cvFile}
+						isLoading={isLoading}
+					/>
+				</Container>
 				{error && <ErrorMessage message={error} />}
 				{generatedCoverLetter && (
 					<ResultDisplay

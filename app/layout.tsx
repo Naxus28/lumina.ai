@@ -1,6 +1,6 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import RootLayout from './layout/RootLayout';
+import RootLayout from './layout-components/RootLayout';
 
 export const metadata: Metadata = {
 	title: 'Lumina - Bright Careers, Brilliantly Presented',

@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Upload, X } from 'lucide-react';
+import { Input } from '@/components/ui/input';
 
 interface CVUploadProps {
 	onFileSelect: (file: File | null) => void;
@@ -8,11 +9,10 @@ interface CVUploadProps {
 
 export const CVUpload: React.FC<CVUploadProps> = ({ onFileSelect }) => {
 	const [fileName, setFileName] = useState<string | null>(null);
+	const [isDragging, setIsDragging] = useState(false);
 	const fileInputRef = useRef<HTMLInputElement>(null);
 
 	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		console.log('event', event);
-		console.log('event.target.files', event.target.files);
 		const file = event.target.files?.[0];
 		if (file) {
 			setFileName(file.name);
@@ -28,46 +28,73 @@ export const CVUpload: React.FC<CVUploadProps> = ({ onFileSelect }) => {
 		}
 	};
 
-	const handleUploadClick = () => {
-		fileInputRef.current?.click();
+	const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
+		e.preventDefault();
+		e.stopPropagation();
+		setIsDragging(true);
+	};
+
+	const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
+		e.preventDefault();
+		e.stopPropagation();
+		setIsDragging(false);
+	};
+
+	const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+		e.preventDefault();
+		e.stopPropagation();
+	};
+
+	const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+		e.preventDefault();
+		e.stopPropagation();
+		setIsDragging(false);
+
+		const file = e.dataTransfer.files?.[0];
+		if (file && file.type === 'application/pdf') {
+			setFileName(file.name);
+			onFileSelect(file);
+		}
 	};
 
 	return (
-		<section className="mb-8">
-			<div className="flex items-center mb-4">
-				<div className="bg-[#006D77] text-white rounded-full w-6 h-6 flex items-center justify-center font-bold mr-2 text-xs">3</div>
-				<h2 className="text-2xl font-semibold text-gray-700">Upload Your CV</h2>
+		<div className="mb-12">
+			<h2 className="text-2xl font-semibold text-gray-800 mb-6">3. Upload Your CV</h2>
+			<div
+				className={`flex flex-col items-center justify-center w-full h-64 border-2 border-dashed rounded-lg cursor-pointer ${isDragging ? 'border-[#006D77] bg-[#E0F2F1]' : 'border-gray-300 bg-gray-50 hover:bg-gray-100'}`}
+				onDragEnter={handleDragEnter}
+				onDragLeave={handleDragLeave}
+				onDragOver={handleDragOver}
+				onDrop={handleDrop}
+				onClick={() => fileInputRef.current?.click()}
+			>
+				<Upload className="w-10 h-10 mb-3 text-gray-400" />
+				<p className="mb-2 text-sm text-gray-500">
+					<span className="font-semibold">Click to upload</span> or drag and drop
+				</p>
+				<p className="text-xs text-gray-500">PDF (MAX. 10MB)</p>
+				<Input
+					id="cv-file"
+					type="file"
+					className="hidden"
+					accept=".pdf"
+					ref={fileInputRef}
+					onChange={handleFileChange}
+				/>
 			</div>
-			<input
-				ref={fileInputRef}
-				type="file"
-				accept=".pdf"
-				onChange={handleFileChange}
-				className="hidden"
-				id="cv-upload"
-			/>
-			{!fileName ? (
-				<Button
-					variant="outline"
-					className="w-full border-gray-300 text-gray-700"
-					onClick={handleUploadClick}
-				>
-					<Upload className="mr-2 h-5 w-5" />
-					Upload CV (PDF)
-				</Button>
-			) : (
-				<div className="flex items-center justify-between p-2 border border-gray-300 rounded-md">
-					<span className="text-sm text-gray-900 truncate max-w-[80%]">{fileName}</span>
+			{fileName && (
+				<div className="flex items-center mt-4">
+					<p className="text-sm text-gray-600 mr-2">{fileName}</p>
 					<Button
 						variant="ghost"
 						size="sm"
 						onClick={handleRemoveFile}
-						className="text-gray-500 hover:text-gray-700"
+						className="p-1"
 					>
-						<X className="h-4 w-4" />
+						<X className="h-4 w-4 text-gray-500" />
 					</Button>
 				</div>
 			)}
-		</section>
+		</div>
 	);
 };
