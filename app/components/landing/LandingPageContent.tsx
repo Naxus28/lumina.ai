@@ -11,6 +11,8 @@ import { PortfolioSection } from './portfolio/PortfolioSection';
 import { DocumentStylesSection } from './document-styles/DocumentStylesSection';
 import { PricingSection } from './pricing/PricingSection';
 import { DocumentManagementSection } from './document-management/DocumentManagementSection';
+import { IntroductionSection } from './introduction/IntroductionSection';
+import { WhoWeServeSection } from './who-we-serve/WhoWeServeSection';
 
 const AnimatedSection: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 	const [ref, inView] = useInView({
@@ -42,6 +44,12 @@ export default function LandingPageContent() {
 					<HeroSection />
 				</AnimatedSection>
 				<AnimatedSection>
+					<IntroductionSection />
+				</AnimatedSection>
+				<AnimatedSection>
+					<WhoWeServeSection />
+				</AnimatedSection>
+				<AnimatedSection>
 					<FeaturesSection />
 				</AnimatedSection>
 				<AnimatedSection>
@@ -50,14 +58,11 @@ export default function LandingPageContent() {
 				<AnimatedSection>
 					<PortfolioSection />
 				</AnimatedSection>
-				{/* <AnimatedSection>
-					<DocumentStylesSection />
-				</AnimatedSection> */}
 				<AnimatedSection>
 					<DocumentManagementSection />
 				</AnimatedSection>
 				<AnimatedSection>
-					<PricingSection />
+						<PricingSection />
 				</AnimatedSection>
 			</main>
 			{/* <Footer /> */}
