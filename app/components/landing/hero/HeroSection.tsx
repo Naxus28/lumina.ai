@@ -11,11 +11,12 @@ export const HeroSection = () => {
 				<span className="text-white">Bright careers, </span>
 				<ReactTyped
 					strings={['strategically crafted', 'tailored to perfection', 'brilliantly presented']}
-					typeSpeed={50}
-					backSpeed={50}
-					backDelay={250}
+					typeSpeed={60}
+					backSpeed={60}
+					backDelay={700}
+					startDelay={700}
+					smartBackspace
 					showCursor={false}
-					startDelay={250}
 					className="text-teal-500"
 				/>
 			</H1>
