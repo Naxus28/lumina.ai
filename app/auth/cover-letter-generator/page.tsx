@@ -144,7 +144,7 @@ const CoverLetterGenerator: React.FC = () => {
 					<header>
 						<h1 className="text-4xl font-bold text-gray-700 mb-4">Create Your Academic Cover Letter</h1>
 						<p className="text-xl text-gray-700">
-							In 4 easy steps, craft a compelling cover letter that showcases your academic achievements and potential. <span className="text-xs block mt-2 italic">Items marked with * are required.</span>
+							In 4 easy steps, create a tailored cover letter that highlights your scholarly accomplishments, demonstrates your academic potential, and captivates hiring committees.<span className="text-xs block mt-2 italic underline">Items marked with * are required.</span>
 						</p>
 					</header>
 				</Container>

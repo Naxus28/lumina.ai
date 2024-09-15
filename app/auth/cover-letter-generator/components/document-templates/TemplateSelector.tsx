@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogClose } from '@/components/ui/dialog';
 import { X } from 'lucide-react';
@@ -24,14 +24,11 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = ({ onSelectTemp
 	};
 
 	return (
-		<section>
-			<div className="container mx-auto pt-4">
-				{/* <Container padding="sm">
-          <AnimatedSteps />
-        </Container> */}
+		<section className="space-y-4">
+			<div className="relative">
 				<Carousel className="w-full">
 					<CarouselContent className="-ml-2 md:-ml-4">
-						{templates.map((template: CoverLetterTemplate, index) => (
+						{templates.map((template: CoverLetterTemplate) => (
 							<CarouselItem
 								key={template.name}
 								className="pl-2 md:pl-4 md:basis-1/3 lg:basis-1/3"
@@ -45,28 +42,31 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = ({ onSelectTemp
 							</CarouselItem>
 						))}
 					</CarouselContent>
-					<CarouselPrevious className="left-0 -translate-x-1/2" />
-					<CarouselNext className="right-0 translate-x-1/2" />
+					<CarouselPrevious className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[calc(100%+8px)] hover:bg-[#E0F2F1] hover:text-[#006D77] data-[disabled]:opacity-50 data-[disabled]:cursor-not-allowed" />
+					<CarouselNext className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-[calc(100%+8px)] hover:bg-[#E0F2F1] hover:text-[#006D77] data-[disabled]:opacity-50 data-[disabled]:cursor-not-allowed" />
 				</Carousel>
-				{selectedTemplate && (
-					<div className="mt-8 text-center">
-						<Button className="bg-[#006D77] hover:bg-[#005a63] text-white px-6 py-2 rounded-md text-lg font-semibold transition-colors duration-300">Continue with {selectedTemplate} Template</Button>
-					</div>
-				)}
 			</div>
+
+			{selectedTemplate && (
+				<div className="text-center mt-4">
+					<span className="inline-block text-[#006D77] hover:text-[#005a63] text-lg font-semibold transition-colors duration-200 cursor-pointer border-b-2 border-[#006D77] hover:border-[#005a63] pb-1">Continue with {selectedTemplate}</span>
+				</div>
+			)}
+
 			<Dialog
 				open={!!viewingPdf}
 				onOpenChange={() => setViewingPdf(null)}
 			>
 				<DialogContent className="max-w-4xl w-full h-[90vh] p-0 overflow-hidden">
 					<div className="relative w-full h-full">
-						<DialogClose className="absolute right-4 top-4 z-10">
+						<DialogClose className="absolute right-2 top-2 z-10">
 							<Button
 								variant="ghost"
-								className="flex items-center gap-2 text-sm"
+								size="sm"
+								className="p-1"
 							>
-								<X className="h-5 w-5" />
-								Close
+								<X className="h-4 w-4" />
+								<span className="sr-only">Close</span>
 							</Button>
 						</DialogClose>
 						<object
@@ -75,12 +75,12 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = ({ onSelectTemp
 							className="w-full h-full"
 						>
 							<p className="p-4 text-sm">
-								It appears you don't have a PDF plugin for this browser. You can{' '}
+								PDF preview not available.{' '}
 								<a
 									href={viewingPdf || ''}
 									className="text-blue-600 hover:underline"
 								>
-									click here to download the PDF file.
+									Download PDF
 								</a>
 							</p>
 						</object>
