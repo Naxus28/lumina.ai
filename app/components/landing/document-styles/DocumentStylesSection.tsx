@@ -1,5 +1,6 @@
 import React from 'react';
 import { DocumentStyleCard } from './DocumentStyleCard';
+import { H2, Paragraph } from '@/app/components/typography';
 
 export const DocumentStylesSection: React.FC = () => (
 	<section
@@ -7,8 +8,8 @@ export const DocumentStylesSection: React.FC = () => (
 		className="py-20 px-4 sm:px-6 lg:px-8 bg-[#f8fafc]"
 	>
 		<div className="max-w-7xl mx-auto">
-			<h2 className="text-3xl font-bold text-center mb-4 text-gray-900">Tailored Document Styles for Every Academic Need</h2>
-			<p className="text-center text-gray-900 mb-12 max-w-3xl mx-auto">Choose from a variety of document styles, and let our AI generate tailored content. Lumina's AI adapts to your selected style, ensuring your application stands out across diverse academic fields and career stages.</p>
+			<H2>Tailored Document Styles for Every Academic Need</H2>
+			<Paragraph className="text-center text-gray-900 mb-12 max-w-3xl mx-auto">Choose from a variety of document styles, and let our AI generate tailored content. Lumina's AI adapts to your selected style, ensuring your application stands out across diverse academic fields and career stages.</Paragraph>
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 				<DocumentStyleCard
 					icon={'cv'}

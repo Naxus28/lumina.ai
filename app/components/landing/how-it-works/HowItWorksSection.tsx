@@ -1,6 +1,7 @@
 import React from 'react';
 import { FileText, PenTool, MonitorCog } from 'lucide-react';
 import { StepItem } from './StepItem';
+import { H2, Paragraph } from '@/app/components/typography';
 
 export const HowItWorksSection: React.FC = () => (
 	<section
@@ -8,8 +9,8 @@ export const HowItWorksSection: React.FC = () => (
 		className="py-20 px-4 sm:px-6 lg:px-8 bg-[#f8fafc]"
 	>
 		<div className="max-w-7xl mx-auto">
-			<h2 className="text-3xl font-bold text-center mb-4 text-gray-700">How It Works</h2>
-			<p className="text-center text-gray-900 mb-12 max-w-3xl mx-auto">Lumina provides a clear and easy, step-by-step approach to creating your application materials, making the academic job application process fast, smooth, and efficient.</p>
+			<H2>How It Works</H2>
+			<Paragraph className="text-center text-gray-900 mb-12 max-w-3xl mx-auto">Lumina provides a clear and easy, step-by-step approach to creating your application materials, making the academic job application process fast, smooth, and efficient.</Paragraph>
 			<div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 				<StepItem
 					icon={FileText}

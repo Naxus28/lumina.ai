@@ -1,6 +1,7 @@
 import React from 'react';
 import { FolderOpen, Save, FileSearch } from 'lucide-react';
 import { FeatureCard } from './DocumentManagementCard';
+import { H2, Paragraph } from '@/app/components/typography';
 
 export const DocumentManagementSection = () => {
 	return (
@@ -10,9 +11,9 @@ export const DocumentManagementSection = () => {
 		>
 			<div className="max-w-7xl mx-auto">
 				<div className="flex items-center justify-center mb-4">
-					<h2 className="text-3xl font-bold text-center text-gray-700">Document Management Solution</h2>
+					<H2>Document Management Solution</H2>
 				</div>
-				<p className="text-center text-gray-900 mb-12 max-w-3xl mx-auto">Lumina offers a straightforward solution to manage and organize all your academic application materials in one place, making your job search more efficient and stress-free.</p>
+				<Paragraph className="text-center text-gray-900 mb-12 max-w-3xl mx-auto">Lumina offers a straightforward solution to manage and organize all your academic application materials in one place, making your job search more efficient and stress-free.</Paragraph>
 
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
 					<FeatureCard

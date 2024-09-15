@@ -1,6 +1,7 @@
 import React from 'react';
 import { PricingCard } from './PricingCard';
 import { Badge } from '@/components/ui/badge';
+import { H2 } from '@/app/components/typography';
 
 export const PricingSection: React.FC = () => {
 	const monthlyPrice = 19.99;
@@ -15,7 +16,7 @@ export const PricingSection: React.FC = () => {
 			className="py-20 px-4 sm:px-6 lg:px-8 bg-[#f8fafc]"
 		>
 			<div className="max-w-7xl mx-auto">
-				<h2 className="text-3xl font-bold text-center mb-12 text-[#006D77]">Choose Your Plan</h2>
+				<H2 className="text-4xl font-bold text-center mb-12 text-teal-800">Choose Your Plan</H2>
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
 					<PricingCard
 						title="Free Tier"
