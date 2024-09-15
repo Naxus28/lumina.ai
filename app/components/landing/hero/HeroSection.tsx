@@ -3,17 +3,18 @@ import { Button } from '@/components/ui/button';
 
 export const HeroSection = () => {
 	return (
-		<section className="py-20 mt-10 px-4 sm:px-6 lg:px-8 bg-gray-900 text-center py-16 px-4">
-			<h1 className="text-4xl md:text-6xl font-bold mb-6">
-				<span className="text-white">Brilliant careers, </span>
+		<section className="py-[6rem] mt-10 px-4 sm:px-6 lg:px-8 bg-gray-900 text-center py-16 px-4">
+			<h2 className="text-gray-300 text-2xl mb-4 font-bold">Introducing AI-powered academic portfolio generation</h2>
+			<h1 className="text-4xl md:text-6xl font-bold mb-10 tracking-normal">
+				<span className="text-white">Bright careers, </span>
 				<span className="text-teal-500">brilliantly presented</span>
 			</h1>
 
-			<h2 className="text-2xl md:text-3xl text-white mb-8">Lumina revolutionizes academic job applications with AI-powered precision</h2>
+			<h2 className="text-2xl max-w-4xl mx-auto text-gray-300 mb-24">Lumina revolutionizes academic job applications with AI-powered precision, transforming your achievements into compelling narratives that capture hiring committees' attention and distinguish you in a competitive field.</h2>
 
-			<p className="text-gray-300 mb-8 max-w-5xl mx-auto text-[1.05rem] tracking-wide leading-relaxed">
+			{/* <p className="text-gray-300 mb-8 max-w-5xl mx-auto text-[1.05rem] tracking-wide leading-relaxed">
 				From recent PhD and Master's degree graduates to postdoctoral researchers and experienced professors, we transform your achievements into compelling narratives. Our platform crafts application materials that capture hiring committees' attention and distinguish you in a competitive field. By streamlining the application process, Lumina saves you valuable time, allowing you to fully dedicate yourself to your groundbreaking research and inspiring teaching.
-			</p>
+			</p> */}
 			<Button
 				size="lg"
 				className="bg-teal-500 text-white px-8 py-3 rounded-md text-lg font-semibold hover:bg-teal-600 transition-colors"
