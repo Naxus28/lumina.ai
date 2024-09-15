@@ -18,7 +18,7 @@ export function SenderForm({ onDataChange }: AddressFormBaseProps) {
           <InputGroup
             label="Full Name"
             name="name"
-            placeholder="e.g. Gabriel Ferraz"
+            placeholder="e.g. Dr. Jane Smith"
             icon={<User className="w-5 h-5 text-gray-400" />}
             value={formData.name}
             onChange={handleInputChange}
@@ -26,7 +26,7 @@ export function SenderForm({ onDataChange }: AddressFormBaseProps) {
           <InputGroup
             label="Title"
             name="title"
-            placeholder="e.g. PhD Candidate in Historical Musicology"
+            placeholder="e.g. Assistant Professor of Biology"
             icon={<User className="w-5 h-5 text-gray-400" />}
             value={formData.title}
             onChange={handleInputChange}
@@ -34,7 +34,7 @@ export function SenderForm({ onDataChange }: AddressFormBaseProps) {
           <InputGroup
             label="Institution"
             name="institution"
-            placeholder="e.g. University of Florida School of Music"
+            placeholder="e.g. University of California, Berkeley"
             icon={<Building className="w-5 h-5 text-gray-400" />}
             value={formData.institution}
             onChange={handleInputChange}
@@ -42,7 +42,7 @@ export function SenderForm({ onDataChange }: AddressFormBaseProps) {
           <InputGroup
             label="Address"
             name="address"
-            placeholder="e.g. P.O. Box 117900 - Gainesville, FL 32611-7900"
+            placeholder="e.g. 1234 University Ave, Berkeley, CA 94720"
             icon={<MapPin className="w-5 h-5 text-gray-400" />}
             value={formData.address}
             onChange={handleInputChange}

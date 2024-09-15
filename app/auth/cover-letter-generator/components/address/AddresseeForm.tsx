@@ -9,7 +9,7 @@ export function AddresseeForm({ onDataChange }: AddressFormBaseProps) {
 
   return (
     <Card>
-      <CardContent className="p-6">
+      <CardContent className="p-4">
         <h3 className="text-lg font-semibold mb-4 text-gray-800 flex items-center">
           <Send className="w-5 h-5 mr-2 text-[#006D77]" />
           Addressee Information
@@ -18,7 +18,7 @@ export function AddresseeForm({ onDataChange }: AddressFormBaseProps) {
           <InputGroup
             label="Full Name"
             name="name"
-            placeholder="e.g. C. William Bechman"
+            placeholder="e.g. Dr. John Doe"
             icon={<User className="w-5 h-5 text-gray-400" />}
             value={formData.name}
             onChange={handleInputChange}
@@ -26,7 +26,7 @@ export function AddresseeForm({ onDataChange }: AddressFormBaseProps) {
           <InputGroup
             label="Title"
             name="title"
-            placeholder="e.g. Human Resources Department"
+            placeholder="e.g. Chair, Search Committee"
             icon={<User className="w-5 h-5 text-gray-400" />}
             value={formData.title}
             onChange={handleInputChange}
@@ -34,7 +34,7 @@ export function AddresseeForm({ onDataChange }: AddressFormBaseProps) {
           <InputGroup
             label="Institution"
             name="institution"
-            placeholder="e.g. College of Mount Saint Vincent"
+            placeholder="e.g. Stanford University"
             icon={<Building className="w-5 h-5 text-gray-400" />}
             value={formData.institution}
             onChange={handleInputChange}
@@ -42,7 +42,7 @@ export function AddresseeForm({ onDataChange }: AddressFormBaseProps) {
           <InputGroup
             label="Address"
             name="address"
-            placeholder="e.g. 6301 Riverdale Ave. Bronx, NY 10471"
+            placeholder="e.g. 450 Serra Mall, Stanford, CA 94305"
             icon={<MapPin className="w-5 h-5 text-gray-400" />}
             value={formData.address}
             onChange={handleInputChange}
