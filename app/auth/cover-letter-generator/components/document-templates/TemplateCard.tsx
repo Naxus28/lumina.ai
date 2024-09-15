@@ -7,7 +7,7 @@ interface TemplateCardProps {
 	template: CoverLetterTemplate;
 	isSelected: boolean;
 	onSelect: () => void;
-	onView: (pdfUrl: string) => void;
+	onView: () => void;
 }
 
 export const TemplateCard: React.FC<TemplateCardProps> = ({ template, isSelected, onSelect, onView }) => (
@@ -22,7 +22,7 @@ export const TemplateCard: React.FC<TemplateCardProps> = ({ template, isSelected
 				<Button
 					variant="outline"
 					size="sm"
-					onClick={() => onView(template.pdfUrl)}
+					onClick={onView}
 					className="flex-1"
 				>
 					Preview

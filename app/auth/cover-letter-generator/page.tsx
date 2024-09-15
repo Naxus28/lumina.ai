@@ -32,6 +32,7 @@ const CoverLetterGenerator: React.FC = () => {
 	const [addressee, setAddressee] = useState({});
 
 	const handleSelectTemplate = useCallback((template: CoverLetterTemplate) => {
+		console.log('template: ', template);
 		setSelectedTemplate(template);
 	}, []);
 
@@ -133,6 +134,7 @@ const CoverLetterGenerator: React.FC = () => {
 		doc.save('cover_letter.pdf');
 	}, [editableCoverLetter]);
 
+	console.log('selectedTemplate: ', selectedTemplate);
 	return (
 		<div className="min-h-screen bg-gray-50">
 			<Header />

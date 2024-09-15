@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogClose } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { X } from 'lucide-react';
 import { TemplateCard } from './TemplateCard';
 import { CoverLetterTemplate } from './models';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import CoverLetterExample from './CoverLetterExamples';
+import { VisuallyHidden } from '@/components/ui/visually-hidden';
 
 interface TemplateSelectorProps {
 	onSelectTemplate: (template: CoverLetterTemplate) => void;
@@ -13,10 +14,10 @@ interface TemplateSelectorProps {
 }
 
 export const TemplateSelector: React.FC<TemplateSelectorProps> = ({ onSelectTemplate, selectedTemplate, templates }) => {
-	const [viewingPdf, setViewingPdf] = useState<string | null>(null);
+	const [viewingExample, setViewingExample] = useState<string | null>(null);
 
-	const handleViewPdf = (pdfUrl: string) => {
-		setViewingPdf(pdfUrl);
+	const handleViewExample = (templateName: string) => {
+		setViewingExample(templateName);
 	};
 
 	const handleSelectTemplate = (template: CoverLetterTemplate) => {
@@ -37,7 +38,7 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = ({ onSelectTemp
 									template={template}
 									isSelected={selectedTemplate === template.name}
 									onSelect={() => handleSelectTemplate(template)}
-									onView={handleViewPdf}
+									onView={() => handleViewExample(template.name)}
 								/>
 							</CarouselItem>
 						))}
@@ -54,36 +55,23 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = ({ onSelectTemp
 			)}
 
 			<Dialog
-				open={!!viewingPdf}
-				onOpenChange={() => setViewingPdf(null)}
+				open={!!viewingExample}
+				onOpenChange={() => setViewingExample(null)}
 			>
 				<DialogContent className="max-w-4xl w-full h-[90vh] p-0 overflow-hidden">
+					<DialogTitle>
+						<VisuallyHidden>Cover Letter Example</VisuallyHidden>
+					</DialogTitle>
 					<div className="relative w-full h-full">
-						<DialogClose className="absolute right-2 top-2 z-10">
-							<Button
-								variant="ghost"
-								size="sm"
-								className="p-1"
-							>
-								<X className="h-4 w-4" />
-								<span className="sr-only">Close</span>
-							</Button>
-						</DialogClose>
-						<object
-							data={viewingPdf || ''}
-							type="application/pdf"
-							className="w-full h-full"
+						<button
+							onClick={() => setViewingExample(null)}
+							className="absolute right-2 top-2 z-10 p-1 rounded-full hover:bg-gray-200 transition-colors"
+							aria-label="Close"
 						>
-							<p className="p-4 text-sm">
-								PDF preview not available.{' '}
-								<a
-									href={viewingPdf || ''}
-									className="text-blue-600 hover:underline"
-								>
-									Download PDF
-								</a>
-							</p>
-						</object>
+							<X className="h-4 w-4" />
+							<span className="sr-only">Close</span>
+						</button>
+						<CoverLetterExample templateType={viewingExample} />
 					</div>
 				</DialogContent>
 			</Dialog>
