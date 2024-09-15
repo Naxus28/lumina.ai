@@ -10,7 +10,7 @@ export const HeroSection = () => {
 			<H1 className="text-4xl md:text-6xl font-bold mb-10 tracking-normal">
 				<span className="text-white">Bright careers, </span>
 				<ReactTyped
-					strings={['tailored to perfection', 'crafted with precision', 'brilliantly presented']}
+					strings={['strategically crafted', 'tailored to perfection', 'brilliantly presented']}
 					typeSpeed={50}
 					backSpeed={50}
 					backDelay={250}
