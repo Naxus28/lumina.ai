@@ -59,8 +59,13 @@ const CoverLetterGenerator: React.FC = () => {
 			if (cvFile) {
 				formData.append('file', cvFile);
 			}
-			formData.append('sender', JSON.stringify(senderData));
-			formData.append('addressee', JSON.stringify(addresseeData));
+			// Only append sender and addressee data if they are not empty
+			if (Object.values(senderData).some(value => value !== '')) {
+				formData.append('sender', JSON.stringify(senderData));
+			}
+			if (Object.values(addresseeData).some(value => value !== '')) {
+				formData.append('addressee', JSON.stringify(addresseeData));
+			}
 
 			const response = await fetch('/api/generate-cover-letter', {
 				method: 'POST',
@@ -156,7 +161,7 @@ const CoverLetterGenerator: React.FC = () => {
 					<CVUpload onFileSelect={setCvFile} />
 					<GenerateButton
 						onClick={handleGenerate}
-						disabled={!selectedTemplate || !jobDescription || !cvFile || !senderData.name || !addresseeData.name}
+						disabled={!selectedTemplate || !jobDescription || !cvFile}
 						isLoading={isLoading}
 					/>
 				</Container>
