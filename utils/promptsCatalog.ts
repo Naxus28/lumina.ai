@@ -1,5 +1,3 @@
-// src/utils/promptsCatalog.ts
-
 export const promptsCatalog = {
 	coverLetter: ({ template, jobDescription, cv, sender, addressee }: { template: string; jobDescription: string; cv: string; sender: any; addressee: any }) => `
   SENDER_INFO:
@@ -47,7 +45,7 @@ export const promptsCatalog = {
 
       The resume should be concise, highlight relevant skills and experiences, and be formatted professionally.
       `;
-	}
+	},
 
 	// Add more prompt types as needed
 };

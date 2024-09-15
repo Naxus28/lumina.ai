@@ -13,7 +13,7 @@ export const DocumentManagementSection = () => {
 				<div className="flex items-center justify-center mb-4">
 					<H2>Document Management Solution</H2>
 				</div>
-				<Paragraph className="text-center text-gray-900 mb-12 max-w-3xl mx-auto">Lumina offers a straightforward solution to manage and organize all your academic application materials in one place, making your job search more efficient and stress-free.</Paragraph>
+				<Paragraph className="text-center text-gray-900 mb-12 max-w-3xl mx-auto text-xl">Lumina offers a straightforward solution to manage and organize all your academic application materials in one place, making your job search more efficient and stress-free.</Paragraph>
 
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
 					<FeatureCard

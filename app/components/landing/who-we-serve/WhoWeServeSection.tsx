@@ -8,7 +8,7 @@ export const WhoWeServeSection: React.FC = () => (
 		className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50"
 	>
 		<div className="max-w-7xl mx-auto">
-			<H2>Who Lumina Serves</H2>
+			<H2>Who Lumina Serves?</H2>
 			<div className="mt-8 space-y-12">
 				<div>
 					<div className="flex items-center mb-2">

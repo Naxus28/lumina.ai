@@ -10,7 +10,7 @@ export const HowItWorksSection: React.FC = () => (
 	>
 		<div className="max-w-7xl mx-auto">
 			<H2>How It Works</H2>
-			<Paragraph className="text-center text-gray-900 mb-12 max-w-3xl mx-auto">Lumina provides a clear and easy, step-by-step approach to creating your application materials, making the academic job application process fast, smooth, and efficient.</Paragraph>
+			<Paragraph className="text-center text-gray-900 mb-12 max-w-3xl mx-auto text-xl">Lumina provides a clear and easy, step-by-step approach to creating your application materials, making the academic job application process fast, smooth, and efficient.</Paragraph>
 			<div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 				<StepItem
 					icon={FileText}

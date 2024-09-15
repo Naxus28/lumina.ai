@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { H1, H2, Paragraph } from '@/app/components/typography';
+import { H1, H2 } from '@/app/components/typography';
 import { ReactTyped } from 'react-typed';
 
 export const HeroSection = () => {
