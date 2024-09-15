@@ -17,7 +17,7 @@ const CoverLetterExample = ({ templateType }: { templateType: CoverLetterTemplat
 			{ content: 'While my primary focus is research, I have enjoyed mentoring graduate students and teaching advanced courses in molecular biology and bioinformatics. I am particularly interested in involving students in cutting-edge research projects, fostering the next generation of innovative biologists.', label: 'Teaching' },
 			{ content: "I am excited about the prospect of establishing my research program at MIT and contributing to its world-class biology department. I look forward to discussing how my research agenda aligns with MIT's mission of advancing knowledge and educating students in science and technology. Thank you for your consideration.", label: 'Conclusion' },
 		],
-		'Teaching Focus': [
+		'Teaching Emphasis': [
 			{ content: 'I am writing to apply for the position of Assistant Professor of History at Williams College. As a Ph.D. graduate from Yale University with five years of diverse teaching experience, I am passionate about fostering critical thinking and a love for historical inquiry in undergraduate students.', label: 'Introduction' },
 			{ content: "My teaching philosophy centers on active learning and student engagement. In my survey courses on World History, I have developed a 'History Lab' model where students work with primary sources to construct historical narratives. For upper-level seminars, I employ a mix of debates, role-playing exercises, and digital history projects to deepen student understanding of historical processes and historiography.", label: 'Teaching Philosophy' },
 			{ content: "I have experience teaching a wide range of courses, from 'Introduction to Historical Methods' to specialized seminars on 'Global Environmental History' and 'Comparative Revolutions.' My student evaluations consistently praise my accessibility, enthusiasm, and ability to make complex historical concepts relatable. I have also mentored several undergraduate students in their honors thesis projects, two of which have won departmental awards.", label: 'Teaching Experience' },
@@ -25,7 +25,7 @@ const CoverLetterExample = ({ templateType }: { templateType: CoverLetterTemplat
 			{ content: 'While teaching is my primary passion, I maintain an active research agenda focused on environmental history and historical pedagogy. My recent article in The History Teacher explores innovative approaches to teaching climate history to non-majors.', label: 'Research' },
 			{ content: "I am thrilled at the prospect of joining Williams College's history department and contributing to its tradition of teaching excellence. Thank you for considering my application. I look forward to the opportunity to further discuss my teaching approach and how it aligns with Williams' commitment to liberal arts education.", label: 'Conclusion' },
 		],
-		'Interdisciplinary Approach': [
+		'Interdisciplinary Focus': [
 			{ content: "I am writing to apply for the Assistant Professor position in the Interdisciplinary Environmental Studies Program at the University of Michigan. My background, combining a Ph.D. in Environmental Science from UC Berkeley with a Master's in Public Policy from Harvard Kennedy School, uniquely positions me to contribute to your program's commitment to addressing complex environmental challenges through interdisciplinary research and teaching.", label: 'Introduction' },
 			{
 				content: "My research lies at the intersection of climate science, environmental policy, and social justice. My dissertation, 'Climate Adaptation Strategies in Coastal Communities: Integrating Science, Policy, and Equity,' combines climate modeling with policy analysis and community-based participatory research. This work has been published in Nature Climate Change and the Journal of Environmental Policy & Planning, demonstrating its relevance across disciplines.",
@@ -40,27 +40,43 @@ const CoverLetterExample = ({ templateType }: { templateType: CoverLetterTemplat
 
 	const templateSections = templateType && templateType !== '' ? templates[templateType as keyof typeof templates] : [];
 
+	const commonStyles: React.CSSProperties = {
+		fontFamily: 'Times New Roman',
+		fontSize: '12pt',
+		lineHeight: '1.15',
+		width: '100%',
+		height: '100%',
+		boxSizing: 'border-box',
+		margin: 0,
+		border: 'none',
+		overflowY: 'auto',
+		whiteSpace: 'pre-wrap',
+		wordWrap: 'break-word',
+	};
+
 	return (
 		<div
 			className="w-full max-w-[8.5in] mx-auto bg-white shadow-none"
 			style={{ height: '11in' }}
 		>
-			<div className="p-8 h-full overflow-auto">
-				<h2 className="text-2xl font-bold text-center mb-6">{templateType} Template</h2>
-				<div className="pr-4">
+			<div className="h-full overflow-hidden">
+				<h2 className="text-2xl font-bold text-center mb-6">{templateType} Cover Letter Example</h2>
+				<div className="pr-4 h-[calc(100%-4rem)] overflow-y-auto">
 					{templateSections.map((section, index) => (
-						<div className="flex items-center gap-8">
-							<div
-								key={index}
-								className="w-1/6 mb-6 text-left"
-							>
+						<div
+							key={index}
+							className="flex items-center gap-8 mb-4"
+						>
+							<div className="w-1/6 text-right">
 								<span className="text-xs font-semibold text-gray-500">{section.label}</span>
 							</div>
-							<div
-								key={index}
-								className="w-5/6 mb-6"
-							>
-								<p className="text-sm">{section.content}</p>
+							<div className="w-5/6">
+								<div
+									className="border-2 border-gray-400"
+									style={{ ...commonStyles, paddingLeft: '.5rem' }}
+								>
+									<p className="text-sm">{section.content}</p>
+								</div>
 							</div>
 						</div>
 					))}
