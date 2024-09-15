@@ -13,54 +13,54 @@ import { PricingSection } from './pricing/PricingSection';
 import { DocumentManagementSection } from './document-management/DocumentManagementSection';
 
 const AnimatedSection: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
+	const [ref, inView] = useInView({
+		triggerOnce: true,
+		threshold: 0.1,
+	});
 
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 50 }}
-      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-      transition={{ duration: 0.5 }}
-    >
-      {children}
-    </motion.div>
-  );
+	return (
+		<motion.div
+			ref={ref}
+			initial={{ opacity: 0, y: 50 }}
+			animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+			transition={{ duration: 0.8, ease: 'easeOut' }}
+		>
+			{children}
+		</motion.div>
+	);
 };
 
 export default function LandingPageContent() {
-  return (
-    <div
-      className="flex flex-col min-h-screen bg-white font-sans"
-      style={{ fontFamily: 'Lato, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"', fontWeight: 300 }}
-    >
-      <Header />
-      <main className="flex-grow">
-        <AnimatedSection>
-          <HeroSection />
-        </AnimatedSection>
-        <AnimatedSection>
-          <FeaturesSection />
-        </AnimatedSection>
-        <AnimatedSection>
-          <HowItWorksSection />
-        </AnimatedSection>
-        <AnimatedSection>
-          <PortfolioSection />
-        </AnimatedSection>
-        <AnimatedSection>
-          <DocumentStylesSection />
-        </AnimatedSection>
-        <AnimatedSection>
-          <DocumentManagementSection />
-        </AnimatedSection>
-        <AnimatedSection>
-          <PricingSection />
-        </AnimatedSection>
-      </main>
-      {/* <Footer /> */}
-    </div>
-  );
+	return (
+		<div
+			className="flex flex-col min-h-screen bg-white font-sans"
+			style={{ fontFamily: 'Lato, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"', fontWeight: 300 }}
+		>
+			<Header />
+			<main className="flex-grow">
+				<AnimatedSection>
+					<HeroSection />
+				</AnimatedSection>
+				<AnimatedSection>
+					<FeaturesSection />
+				</AnimatedSection>
+				<AnimatedSection>
+					<HowItWorksSection />
+				</AnimatedSection>
+				<AnimatedSection>
+					<PortfolioSection />
+				</AnimatedSection>
+				<AnimatedSection>
+					<DocumentStylesSection />
+				</AnimatedSection>
+				<AnimatedSection>
+					<DocumentManagementSection />
+				</AnimatedSection>
+				<AnimatedSection>
+					<PricingSection />
+				</AnimatedSection>
+			</main>
+			{/* <Footer /> */}
+		</div>
+	);
 }
