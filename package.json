@@ -48,5 +48,8 @@
 		"postcss": "^8",
 		"tailwindcss": "^3.4.1",
 		"typescript": "^5"
+	},
+		"resolutions": {
+    "lodash.template": "npm:lodash@^4.17.21"
 	}
 }
