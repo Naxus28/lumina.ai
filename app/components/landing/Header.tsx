@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { BookOpen } from 'lucide-react';
+import { BookOpen, Menu, X } from 'lucide-react';
 
 const scrollToSection = (id: string) => {
 	const element = document.getElementById(id);
@@ -19,10 +19,11 @@ const scrollToSection = (id: string) => {
 
 export const Header: React.FC = () => {
 	const [isScrolled, setIsScrolled] = useState(false);
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 	useEffect(() => {
 		const handleScroll = () => {
-			setIsScrolled(window.scrollY > 50); // Adjust this value as needed
+			setIsScrolled(window.scrollY > 80); // Adjust this value as needed
 		};
 
 		window.addEventListener('scroll', handleScroll);
@@ -31,6 +32,12 @@ export const Header: React.FC = () => {
 			window.removeEventListener('scroll', handleScroll);
 		};
 	}, []);
+
+	const toggleMenu = () => {
+		setIsMenuOpen(!isMenuOpen);
+	};
+
+	const menuItems = ['features', 'how-it-works', 'portfolio', 'styles', 'document-management', 'pricing'];
 
 	return (
 		<header
@@ -42,9 +49,9 @@ export const Header: React.FC = () => {
 					<BookOpen className="h-8 w-8 text-teal-500" />
 					<span className="ml-2 text-2xl font-bold text-teal-500">Lumina.ai</span>
 				</div>
-				<nav>
+				<nav className="hidden md:block">
 					<ul className="flex space-x-4">
-						{['features', 'how-it-works', 'portfolio', 'styles', 'document-management', 'pricing'].map((item) => (
+						{menuItems.map((item) => (
 							<li key={item}>
 								<a
 									onClick={() => scrollToSection(item)}
@@ -59,7 +66,37 @@ export const Header: React.FC = () => {
 						))}
 					</ul>
 				</nav>
+				<div className="md:hidden">
+					<button
+						onClick={toggleMenu}
+						className={`${isScrolled ? 'text-gray-900' : 'text-white'} focus:outline-none`}
+					>
+						{isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+					</button>
+				</div>
 			</div>
+			{isMenuOpen && (
+				<div className="md:hidden">
+					<ul className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+						{menuItems.map((item) => (
+							<li key={item}>
+								<a
+									onClick={() => {
+										scrollToSection(item);
+										setIsMenuOpen(false);
+									}}
+									className={`block px-3 py-2 rounded-md text-base font-medium ${isScrolled ? 'text-gray-900 hover:bg-gray-100' : 'text-white hover:bg-gray-700'} cursor-pointer`}
+								>
+									{item
+										.split('-')
+										.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+										.join(' ')}
+								</a>
+							</li>
+						))}
+					</ul>
+				</div>
+			)}
 		</header>
 	);
 };
