@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { FontBoldIcon, FontItalicIcon, TextAlignLeftIcon, TextAlignCenterIcon, TextAlignRightIcon } from '@radix-ui/react-icons';
+import { Pencil, Save } from 'lucide-react';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 interface ResultDisplayProps {
 	content: string;
@@ -12,12 +13,14 @@ interface ResultDisplayProps {
 
 const fontFamilies = ['Times New Roman', 'Arial', 'Calibri', 'Georgia'];
 const fontSizes = ['10pt', '11pt', '12pt', '14pt'];
+const lineSpacings = ['1', '1.15', '1.5', '2'];
 
 export const ResultDisplay: React.FC<ResultDisplayProps> = ({ content, isEditable: initialIsEditable, onEdit, isLoading }) => {
 	const [isEditing, setIsEditing] = useState(false);
 	const [editableContent, setEditableContent] = useState(content);
 	const [fontFamily, setFontFamily] = useState('Times New Roman');
 	const [fontSize, setFontSize] = useState('12pt');
+	const [lineSpacing, setLineSpacing] = useState('1.15');
 	const contentRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
@@ -47,10 +50,14 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({ content, isEditabl
 		setFontSize(value);
 	};
 
+	const handleLineSpacingChange = (value: string) => {
+		setLineSpacing(value);
+	};
+
 	const commonStyles: React.CSSProperties = {
 		fontFamily: fontFamily,
 		fontSize: fontSize,
-		lineHeight: 1.15,
+		lineHeight: lineSpacing,
 		padding: '1in',
 		width: '100%',
 		height: '100%',
@@ -73,10 +80,41 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({ content, isEditabl
 
 	return (
 		<div className="mt-8">
-			<h2 className="text-xl font-semibold mb-2 text-gray-900">Generated Cover Letter</h2>
-			<p className="font-semibold mb-2 text-gray-900">You can edit this document before downloading the PDF</p>
+			<div className="flex justify-between items-center mb-4">
+				<h2 className="text-xl font-semibold text-gray-900">Generated Cover Letter</h2>
+			</div>
+			<p className="text-sm text-gray-600 mb-4">You can edit this document before downloading the PDF</p>
 
 			<div className="mb-4 flex items-center space-x-4">
+				{!isLoading && (
+					<TooltipProvider>
+						<Tooltip>
+							<TooltipTrigger asChild>
+								<Button
+									variant="outline"
+									size="sm"
+									onClick={isEditing ? handleSave : handleEdit}
+									className="flex items-center gap-2"
+								>
+									{isEditing ? (
+										<>
+											<Save className="h-4 w-4" />
+											<span>Save Changes</span>
+										</>
+									) : (
+										<>
+											<Pencil className="h-4 w-4" />
+											<span>Edit</span>
+										</>
+									)}
+								</Button>
+							</TooltipTrigger>
+							<TooltipContent>
+								<p>{isEditing ? 'Save changes' : 'Click to edit the cover letter'}</p>
+							</TooltipContent>
+						</Tooltip>
+					</TooltipProvider>
+				)}
 				<Select
 					onValueChange={handleFontFamilyChange}
 					value={fontFamily}
@@ -115,36 +153,24 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({ content, isEditabl
 					</SelectContent>
 				</Select>
 
-				<Button
-					variant="outline"
-					size="icon"
+				<Select
+					onValueChange={handleLineSpacingChange}
+					value={lineSpacing}
 				>
-					<FontBoldIcon className="h-4 w-4" />
-				</Button>
-				<Button
-					variant="outline"
-					size="icon"
-				>
-					<FontItalicIcon className="h-4 w-4" />
-				</Button>
-				<Button
-					variant="outline"
-					size="icon"
-				>
-					<TextAlignLeftIcon className="h-4 w-4" />
-				</Button>
-				<Button
-					variant="outline"
-					size="icon"
-				>
-					<TextAlignCenterIcon className="h-4 w-4" />
-				</Button>
-				<Button
-					variant="outline"
-					size="icon"
-				>
-					<TextAlignRightIcon className="h-4 w-4" />
-				</Button>
+					<SelectTrigger className="w-[120px]">
+						<SelectValue placeholder="Line Spacing" />
+					</SelectTrigger>
+					<SelectContent>
+						{lineSpacings.map((spacing) => (
+							<SelectItem
+								key={spacing}
+								value={spacing}
+							>
+								{spacing}
+							</SelectItem>
+						))}
+					</SelectContent>
+				</Select>
 			</div>
 
 			<div
@@ -173,26 +199,6 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({ content, isEditabl
 					)}
 				</div>
 			</div>
-			{!isLoading && (
-				<div className="mt-4 flex justify-start space-x-2">
-					{!isEditing && (
-						<Button
-							className="w-full"
-							onClick={handleEdit}
-						>
-							Edit
-						</Button>
-					)}
-					{isEditing && (
-						<Button
-							className="w-full"
-							onClick={handleSave}
-						>
-							Save
-						</Button>
-					)}
-				</div>
-			)}
 		</div>
 	);
 };
