@@ -1,7 +1,16 @@
 // src/utils/promptsCatalog.ts
 
 export const promptsCatalog = {
-	coverLetter: ({ template, jobDescription, cv }: { template: string; jobDescription: string; cv: string }) => `
+	coverLetter: ({ template, jobDescription, cv, sender, addressee }: { template: string; jobDescription: string; cv: string; sender: any; addressee: any }) =>{ 
+		console.log("sender", JSON.stringify(sender));
+		console.log("addressee", JSON.stringify(addressee));
+	return `
+  SENDER_INFO:
+  ${JSON.stringify(sender)}
+
+  ADDRESSEE_INFO:
+  ${JSON.stringify(addressee)}
+
   CV_INFO:
   ${cv}
   
@@ -9,16 +18,25 @@ export const promptsCatalog = {
   ${jobDescription}
   
   INSTRUCTIONS:
-  1. Start with "Dear Search Committee,"
-  2. Mention the position and qualifications
-  3. Highlight relevant experiences
-  4. Relate skills to job requirements
-  5. Do NOT make up any additional information that is not in the CV
-  6. Conclude with interest in the position and thanks
-  7. End with "Sincerely," and a placeholder for the name
+  1. Format the letter in the following order:
+     a. Current date (at the very top)
+     b. Sender's information (name, address, etc.)
+     c. Addressee's information (name, title, company, address)
+  2. If sender information is not provided, extract it from the CV.
+  3. If addressee information is provided, use it for the salutation. Otherwise, use the contact information from the job description.
+  4. Begin the letter with "Dear [Addressee's name/title]," if available, or "Dear Members of the Hiring Committee," if not.
+  5. Mention the position and qualifications
+  6. Highlight relevant experiences
+  7. Relate skills to job requirements
+  8. Do NOT make up any additional information that is not in the CV
+  9. Conclude with interest in the position and thanks
+  10. Before the closing, add a paragraph offering additional information. Use a phrase like:
+      "If you require any additional information or have any questions, please don't hesitate to contact me at my email address (if provided on the CV; if not, just leave a placeholder like [email@example.com]). I look forward to the opportunity to further discuss how I can contribute to [Company/Institution Name]."
+  11. End with "Sincerely," followed by the sender's name and add a line for the signature.
+  12. Do NOT add a separate line with contact information at the end
   
-  Generate a ${template}-style cover letter based on the above information and ensuring absolute fidelity to the provided CV and following all the guidelines above
-  `,
+  Generate a ${template}-style cover letter based on the above information, ensuring absolute fidelity to the provided CV and following all the guidelines above. The AI has the freedom to choose different phrases for offering contact information, as long as it conveys the same message.
+  `},
 
 	// `
 	//   Your task is to generate a ${template}-style academic cover letter based EXCLUSIVELY on the provided CV and job description. Follow this two-step process, but ONLY RETURN THE FINAL COVER LETTER in your response.

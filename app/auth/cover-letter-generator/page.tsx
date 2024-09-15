@@ -8,12 +8,14 @@ import { JobDescriptionInput } from './components/JobDescriptionInput';
 import { CVUpload } from './components/CVUpload';
 import { GenerateButton } from './components/GenerateButton';
 import { ResultDisplay } from './components/ResultDisplay';
-import { AddresseeSenderForm } from './components/address/AddresseeSenderForm';
 import { ErrorMessage } from './components/ErrorMessage';
 import { jsPDF } from 'jspdf';
 import { CoverLetterTemplate } from './components/document-templates/models';
 import { coverLetterTemplates } from './components/document-templates/templates';
 import { Container } from '../../layout-components/components/Container';
+import { SenderForm } from './components/address/SenderForm';
+import { AddresseeForm } from './components/address/AddresseeForm';
+import { AddressData } from './components/address/AddressFormBase';
 
 const CoverLetterGenerator: React.FC = () => {
 	const [selectedTemplate, setSelectedTemplate] = useState<CoverLetterTemplate | null>(null);
@@ -24,9 +26,21 @@ const CoverLetterGenerator: React.FC = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 	const [isGenerationComplete, setIsGenerationComplete] = useState(false);
+	const [senderData, setSenderData] = useState<AddressData>({ name: '', title: '', institution: '', address: '' });
+	const [addresseeData, setAddresseeData] = useState<AddressData>({ name: '', title: '', institution: '', address: '' });
+	const [sender, setSender] = useState({});
+	const [addressee, setAddressee] = useState({});
 
 	const handleSelectTemplate = useCallback((template: CoverLetterTemplate) => {
 		setSelectedTemplate(template);
+	}, []);
+
+	const handleSenderDataChange = useCallback((data: AddressData) => {
+		setSenderData(data);
+	}, []);
+
+	const handleAddresseeDataChange = useCallback((data: AddressData) => {
+		setAddresseeData(data);
 	}, []);
 
 	const handleGenerate = useCallback(async () => {
@@ -45,6 +59,8 @@ const CoverLetterGenerator: React.FC = () => {
 			if (cvFile) {
 				formData.append('file', cvFile);
 			}
+			formData.append('sender', JSON.stringify(senderData));
+			formData.append('addressee', JSON.stringify(addresseeData));
 
 			const response = await fetch('/api/generate-cover-letter', {
 				method: 'POST',
@@ -81,7 +97,7 @@ const CoverLetterGenerator: React.FC = () => {
 		} finally {
 			setIsLoading(false);
 		}
-	}, [selectedTemplate, jobDescription, cvFile]);
+	}, [selectedTemplate, jobDescription, cvFile, senderData, addresseeData]);
 
 	const handleDownloadPDF = useCallback(() => {
 		const doc = new jsPDF();
@@ -124,7 +140,11 @@ const CoverLetterGenerator: React.FC = () => {
 					/>
 				</Container>
 				<Container padding="md">
-					<AddresseeSenderForm onDataChange={() => {}} />
+					<h2 className="text-lg font-semibold text-gray-800 mb-4 uppercase">2. Provide the sender and addressee details to add to your cover letter</h2>
+					<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+						<SenderForm onDataChange={handleSenderDataChange} />
+						<AddresseeForm onDataChange={handleAddresseeDataChange} />
+					</div>
 				</Container>
 				<Container>
 					<JobDescriptionInput
@@ -136,7 +156,7 @@ const CoverLetterGenerator: React.FC = () => {
 					<CVUpload onFileSelect={setCvFile} />
 					<GenerateButton
 						onClick={handleGenerate}
-						disabled={!selectedTemplate || !jobDescription || !cvFile}
+						disabled={!selectedTemplate || !jobDescription || !cvFile || !senderData.name || !addresseeData.name}
 						isLoading={isLoading}
 					/>
 				</Container>

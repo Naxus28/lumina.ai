@@ -16,6 +16,8 @@ export async function POST(req: NextRequest) {
 	const file = formData.get('file') as File | null;
 	const template = formData.get('template') as string | null;
 	const jobDescription = formData.get('jobDescription') as string | null;
+	const sender = formData.get('sender') as string | null;
+	const addressee = formData.get('addressee') as string | null;
 
 	if (!file || !template || !jobDescription) {
 		return new Response(JSON.stringify({ error: 'Missing required fields' }), { status: 400 });
@@ -30,7 +32,7 @@ export async function POST(req: NextRequest) {
 		const cvText = pdfData.text;
 
 		const generateCoverLetterPrompt = createPromptGenerator('coverLetter', { template });
-		const prompt = generateCoverLetterPrompt({ jobDescription, cv: cvText });
+		const prompt = generateCoverLetterPrompt({ jobDescription, cv: cvText, addressee, sender });
 
 		// Create a ReadableStream to handle the Anthropic MessageStream
 		const stream = new ReadableStream({
