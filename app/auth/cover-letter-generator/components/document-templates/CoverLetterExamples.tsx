@@ -48,7 +48,6 @@ const CoverLetterExample = ({ templateType }: { templateType: CoverLetterTemplat
 		height: '100%',
 		boxSizing: 'border-box',
 		margin: 0,
-		border: 'none',
 		overflowY: 'auto',
 		whiteSpace: 'pre-wrap',
 		wordWrap: 'break-word',
@@ -72,7 +71,7 @@ const CoverLetterExample = ({ templateType }: { templateType: CoverLetterTemplat
 							</div>
 							<div className="w-5/6">
 								<div
-									className="border-2 border-gray-400"
+									className="border-s-2 border-gray-400"
 									style={{ ...commonStyles, paddingLeft: '.5rem' }}
 								>
 									<p className="text-sm">{section.content}</p>
