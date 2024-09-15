@@ -26,16 +26,9 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = ({ onSelectTemp
 	return (
 		<section>
 			<div className="container mx-auto pt-4">
-				<header className="mb-12">
-					<h1 className="text-4xl font-bold text-gray-700 mb-4">Create Your Academic Cover Letter</h1>
-					<p className="text-xl text-gray-900 max-w-2xl">In 4 easy steps, craft a compelling cover letter that showcases your academic achievements and potential.</p>
-				</header>
 				{/* <Container padding="sm">
           <AnimatedSteps />
         </Container> */}
-				<div className="flex items-center mb-4">
-					<h2 className="text-lg font-semibold text-gray-700 uppercase">1. Choose Your Cover Letter Style</h2>
-				</div>
 				<Carousel className="w-full">
 					<CarouselContent className="-ml-2 md:-ml-4">
 						{templates.map((template: CoverLetterTemplate, index) => (

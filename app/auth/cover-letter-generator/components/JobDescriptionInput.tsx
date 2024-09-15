@@ -7,15 +7,10 @@ interface JobDescriptionInputProps {
 }
 
 export const JobDescriptionInput: React.FC<JobDescriptionInputProps> = ({ jobDescription, setJobDescription }) => (
-	<section>
-		<div className="flex items-center mb-4">
-			<h2 className="text-lg font-semibold text-gray-700 uppercase">3. Enter Job Description</h2>
-		</div>
-		<Textarea
-			placeholder="Paste the job description here..."
-			value={jobDescription}
-			onChange={(e) => setJobDescription(e.target.value)}
-			className="min-h-[200px] max-h-[500px] w-full p-4 border border-gray-300 rounded-lg"
-		/>
-	</section>
+	<Textarea
+		placeholder="Paste the job description here..."
+		value={jobDescription}
+		onChange={(e) => setJobDescription(e.target.value)}
+		className="min-h-[256px] max-h-[500px] w-full p-4 border border-gray-300 rounded-lg"
+	/>
 );

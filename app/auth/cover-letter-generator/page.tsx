@@ -60,10 +60,10 @@ const CoverLetterGenerator: React.FC = () => {
 				formData.append('file', cvFile);
 			}
 			// Only append sender and addressee data if they are not empty
-			if (Object.values(senderData).some(value => value !== '')) {
+			if (Object.values(senderData).some((value) => value !== 'p')) {
 				formData.append('sender', JSON.stringify(senderData));
 			}
-			if (Object.values(addresseeData).some(value => value !== '')) {
+			if (Object.values(addresseeData).some((value) => value !== '')) {
 				formData.append('addressee', JSON.stringify(addresseeData));
 			}
 
@@ -136,36 +136,75 @@ const CoverLetterGenerator: React.FC = () => {
 	return (
 		<div className="min-h-screen bg-gray-50">
 			<Header />
-			<main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-				<Container padding="md">
+			<main className="max-w-4xl mx-auto py-12">
+				<Container
+					className="mb-16"
+					paddingX="none"
+				>
+					<header>
+						<h1 className="text-4xl font-bold text-gray-700 mb-4">Create Your Academic Cover Letter</h1>
+						<p className="text-xl text-gray-700">
+							In 4 easy steps, craft a compelling cover letter that showcases your academic achievements and potential. <span className="text-xs block mt-2 italic">Items marked with * are required.</span>
+						</p>
+					</header>
+				</Container>
+
+				<Container
+					className="mb-16"
+					paddingX="none"
+				>
+					<h2 className="text-lg font-semibold text-gray-700 uppercase">1. Choose Your Cover Letter Style *</h2>
 					<TemplateSelector
 						templates={coverLetterTemplates}
 						onSelectTemplate={handleSelectTemplate}
 						selectedTemplate={selectedTemplate?.name || null}
 					/>
 				</Container>
-				<Container padding="md">
-					<h2 className="text-lg font-semibold text-gray-800 mb-4 uppercase">2. Provide the sender and addressee details to add to your cover letter</h2>
-					<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-						<SenderForm onDataChange={handleSenderDataChange} />
-						<AddresseeForm onDataChange={handleAddresseeDataChange} />
-					</div>
-				</Container>
-				<Container>
+
+				<Container
+					className="mb-16"
+					paddingX="none"
+				>
+					<h2 className="text-lg font-semibold text-gray-700 mb-4 uppercase">2. Enter Job Description *</h2>
 					<JobDescriptionInput
 						jobDescription={jobDescription}
 						setJobDescription={setJobDescription}
 					/>
 				</Container>
-				<Container>
+
+				<Container
+					className="mb-16"
+					paddingX="none"
+				>
+					<h2 className="text-lg font-semibold text-gray-700 mb-4 uppercase">3. Upload your CV *</h2>
 					<CVUpload onFileSelect={setCvFile} />
+				</Container>
+
+				<Container
+					className="mb-16"
+					paddingX="none"
+				>
+					<h2 className="text-lg font-semibold text-gray-700 uppercase">4. Additional details (optional)</h2>
+					<p className="text-sm text-gray-600 mb-4">For precise control, fill in the form below. Otherwise, the AI will extract info from your CV and job description (if provided). You can also edit the final document later as well.</p>
+					<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+						<SenderForm onDataChange={handleSenderDataChange} />
+						<AddresseeForm onDataChange={handleAddresseeDataChange} />
+					</div>
+				</Container>
+
+				<Container
+					className="mb-16"
+					paddingX="none"
+				>
 					<GenerateButton
 						onClick={handleGenerate}
 						disabled={!selectedTemplate || !jobDescription || !cvFile}
 						isLoading={isLoading}
 					/>
 				</Container>
+
 				{error && <ErrorMessage message={error} />}
+
 				{generatedCoverLetter && (
 					<ResultDisplay
 						content={editableCoverLetter}
@@ -174,6 +213,7 @@ const CoverLetterGenerator: React.FC = () => {
 						onEdit={setEditableCoverLetter}
 					/>
 				)}
+
 				{isGenerationComplete && (
 					<Button
 						onClick={handleDownloadPDF}

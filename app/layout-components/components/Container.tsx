@@ -1,45 +1,35 @@
-import React from 'react'
-import { cn } from "@/lib/utils"
+import React from 'react';
+import { cn } from '@/lib/utils';
 
 interface ContainerProps {
-  children: React.ReactNode
-  className?: string
-  maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'full'
-  padding?: 'none' | 'sm' | 'md' | 'lg'
-}
-
-const maxWidthClasses = {
-  sm: 'max-w-screen-sm',
-  md: 'max-w-screen-md',
-  lg: 'max-w-screen-lg',
-  xl: 'max-w-screen-xl',
-  '2xl': 'max-w-screen-2xl',
-  full: 'max-w-full',
+	children: React.ReactNode;
+	className?: string;
+	padding?: 'none' | 'sm' | 'md' | 'lg';
+	paddingX?: 'none' | 'sm' | 'md' | 'lg';
+	paddingY?: 'none' | 'sm' | 'md' | 'lg';
 }
 
 const paddingClasses = {
-  none: 'py-0',
-  sm: 'py-4',
-  md: 'py-8',
-  lg: 'py-16',
-}
+	none: '',
+	sm: 'p-2',
+	md: 'p-4',
+	lg: 'p-6',
+};
 
-export function Container({
-  children,
-  className,
-  maxWidth = 'lg',
-  padding = 'md',
-}: ContainerProps) {
-  return (
-    <div
-      className={cn(
-        'mx-auto px-4 w-full',
-        maxWidthClasses[maxWidth],
-        paddingClasses[padding],
-        className
-      )}
-    >
-      {children}
-    </div>
-  )
-}
+const paddingXClasses = {
+	none: '',
+	sm: 'px-2',
+	md: 'px-4',
+	lg: 'px-6',
+};
+
+const paddingYClasses = {
+	none: '',
+	sm: 'py-2',
+	md: 'py-4',
+	lg: 'py-6',
+};
+
+export const Container: React.FC<ContainerProps> = ({ children, className, padding = 'none', paddingX = 'none', paddingY = 'none' }) => {
+	return <div className={cn(paddingClasses[padding], paddingXClasses[paddingX], paddingYClasses[paddingY], className)}>{children}</div>;
+};

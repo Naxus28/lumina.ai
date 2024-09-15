@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { FontBoldIcon, FontItalicIcon, TextAlignLeftIcon, TextAlignCenterIcon, TextAlignRightIcon } from '@radix-ui/react-icons';
 
 interface ResultDisplayProps {
 	content: string;
@@ -8,9 +10,14 @@ interface ResultDisplayProps {
 	onEdit?: (newContent: string) => void;
 }
 
+const fontFamilies = ['Times New Roman', 'Arial', 'Calibri', 'Georgia'];
+const fontSizes = ['10pt', '11pt', '12pt', '14pt'];
+
 export const ResultDisplay: React.FC<ResultDisplayProps> = ({ content, isEditable: initialIsEditable, onEdit, isLoading }) => {
 	const [isEditing, setIsEditing] = useState(false);
 	const [editableContent, setEditableContent] = useState(content);
+	const [fontFamily, setFontFamily] = useState('Times New Roman');
+	const [fontSize, setFontSize] = useState('12pt');
 	const contentRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
@@ -32,9 +39,17 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({ content, isEditabl
 		setEditableContent(e.target.value);
 	};
 
+	const handleFontFamilyChange = (value: string) => {
+		setFontFamily(value);
+	};
+
+	const handleFontSizeChange = (value: string) => {
+		setFontSize(value);
+	};
+
 	const commonStyles: React.CSSProperties = {
-		fontFamily: 'Times New Roman, serif',
-		fontSize: '12pt',
+		fontFamily: fontFamily,
+		fontSize: fontSize,
 		lineHeight: 1.15,
 		padding: '1in',
 		width: '100%',
@@ -60,9 +75,81 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({ content, isEditabl
 		<div className="mt-8">
 			<h2 className="text-xl font-semibold mb-2 text-gray-900">Generated Cover Letter</h2>
 			<p className="font-semibold mb-2 text-gray-900">You can edit this document before downloading the PDF</p>
+
+			<div className="mb-4 flex items-center space-x-4">
+				<Select
+					onValueChange={handleFontFamilyChange}
+					value={fontFamily}
+				>
+					<SelectTrigger className="w-[180px]">
+						<SelectValue placeholder="Font Family" />
+					</SelectTrigger>
+					<SelectContent>
+						{fontFamilies.map((font) => (
+							<SelectItem
+								key={font}
+								value={font}
+							>
+								{font}
+							</SelectItem>
+						))}
+					</SelectContent>
+				</Select>
+
+				<Select
+					onValueChange={handleFontSizeChange}
+					value={fontSize}
+				>
+					<SelectTrigger className="w-[100px]">
+						<SelectValue placeholder="Font Size" />
+					</SelectTrigger>
+					<SelectContent>
+						{fontSizes.map((size) => (
+							<SelectItem
+								key={size}
+								value={size}
+							>
+								{size}
+							</SelectItem>
+						))}
+					</SelectContent>
+				</Select>
+
+				<Button
+					variant="outline"
+					size="icon"
+				>
+					<FontBoldIcon className="h-4 w-4" />
+				</Button>
+				<Button
+					variant="outline"
+					size="icon"
+				>
+					<FontItalicIcon className="h-4 w-4" />
+				</Button>
+				<Button
+					variant="outline"
+					size="icon"
+				>
+					<TextAlignLeftIcon className="h-4 w-4" />
+				</Button>
+				<Button
+					variant="outline"
+					size="icon"
+				>
+					<TextAlignCenterIcon className="h-4 w-4" />
+				</Button>
+				<Button
+					variant="outline"
+					size="icon"
+				>
+					<TextAlignRightIcon className="h-4 w-4" />
+				</Button>
+			</div>
+
 			<div
 				className="bg-white border rounded shadow-md"
-				style={{ width: '8.5in', height: '11in', margin: 'auto', overflow: 'hidden' }}
+				style={{ height: '11in', margin: 'auto', overflow: 'hidden' }}
 			>
 				<div
 					ref={contentRef}
@@ -76,7 +163,7 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({ content, isEditabl
 							style={{
 								...commonStyles,
 								padding: 'none',
-								resize: 'none',	
+								resize: 'none',
 								outline: 'none',
 								backgroundColor: 'transparent',
 							}}
