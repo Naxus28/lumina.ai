@@ -13,10 +13,10 @@ export const PricingSection: React.FC = () => {
 	return (
 		<section
 			id="pricing"
-			className="py-20 px-4 sm:px-6 lg:px-8 bg-[#f8fafc]"
+			className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-800"
 		>
 			<div className="max-w-7xl mx-auto">
-				<H2 className="text-4xl font-bold text-center mb-12 text-teal-800">Choose Your Plan</H2>
+				<H2 className="text-4xl font-bold text-center mb-12 text-white">Choose Your Plan</H2>
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
 					<PricingCard
 						title="Free Tier"
@@ -39,7 +39,7 @@ export const PricingSection: React.FC = () => {
 						period="month"
 						description={
 							<>
-								<Badge className="bg-[#006D77] text-white">Save 15%</Badge>
+								<Badge className="bg-[#14b8a6] text-white">Save 15%</Badge>
 								<p className="mt-1 text-sm text-gray-500">Billed annually at ${annualTotal}</p>
 							</>
 						}

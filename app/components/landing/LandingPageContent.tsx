@@ -50,9 +50,9 @@ export default function LandingPageContent() {
 				<AnimatedSection>
 					<PortfolioSection />
 				</AnimatedSection>
-				<AnimatedSection>
+				{/* <AnimatedSection>
 					<DocumentStylesSection />
-				</AnimatedSection>
+				</AnimatedSection> */}
 				<AnimatedSection>
 					<DocumentManagementSection />
 				</AnimatedSection>

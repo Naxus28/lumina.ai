@@ -16,7 +16,7 @@ const CheckIcon: React.FC<{ className?: string }> = ({ className }) => (
 			cx="10"
 			cy="10"
 			r="10"
-			fill="#006D77"
+			fill="#14b8a6"
 		/>
 		<path
 			d="M14.6668 6.5L8.25016 12.9167L5.3335 10"
@@ -40,7 +40,7 @@ interface PricingCardProps {
 }
 
 export const PricingCard: React.FC<PricingCardProps> = ({ title, price, period, description, features, buttonText, isHighlighted = false, isBestValue = false }) => (
-	<Card className={`flex flex-col h-full ${isHighlighted ? 'border-2 border-[#006D77]' : 'border border-gray-200'}`}>
+	<Card className={`flex flex-col h-full ${isHighlighted ? 'border-2 border-teal-500' : 'border border-gray-200'}`}>
 		<CardHeader className="space-y-1 pb-2">
 			<CardTitle className="text-xl font-bold text-gray-700">{title}</CardTitle>
 			<div className="mt-1 flex items-baseline text-gray-700">
@@ -67,12 +67,12 @@ export const PricingCard: React.FC<PricingCardProps> = ({ title, price, period, 
 						fill="#FFD700"
 						className="h-5 w-5 text-[#FFD700] mr-2"
 					/>
-					<span className="text-sm font-semibold text-[#006D77]">Best value</span>
+					<span className="text-sm font-semibold text-teal-500">Best value</span>
 				</div>
 			)}
 		</CardContent>
 		<CardFooter className="pt-4">
-			<Button className={`w-full ${isHighlighted ? 'bg-[#006D77] hover:bg-[#005a63] text-white' : 'bg-[#006D77] hover:bg-[#005a63] text-white'}`}>{buttonText}</Button>
+			<Button className={`w-full ${isHighlighted ? 'bg-teal-500 hover:bg-[#005a63] text-white' : 'bg-teal-500 hover:bg-[#005a63] text-white'}`}>{buttonText}</Button>
 		</CardFooter>
 	</Card>
 );
