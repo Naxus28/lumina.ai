@@ -35,12 +35,12 @@ export const Header: React.FC = () => {
 	return (
 		<header
 			className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ease-in-out
-                ${isScrolled ? 'bg-white shadow-md py-4' : 'bg-transparent py-4'}`}
+                ${isScrolled ? 'bg-white shadow-md py-4' : 'bg-gray-900 py-4'}`}
 		>
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
 				<div className="flex items-center">
-					<BookOpen className="h-8 w-8 text-[#006D77]" />
-					<span className="ml-2 text-2xl font-bold text-[#006D77]">Lumina.ai</span>
+					<BookOpen className="h-8 w-8 text-teal-500" />
+					<span className="ml-2 text-2xl font-bold text-teal-500">Lumina.ai</span>
 				</div>
 				<nav>
 					<ul className="flex space-x-4">
@@ -48,7 +48,7 @@ export const Header: React.FC = () => {
 							<li key={item}>
 								<a
 									onClick={() => scrollToSection(item)}
-									className="text-gray-900 hover:text-[#006D77] cursor-pointer"
+									className={`${isScrolled ? 'text-gray-900' : 'text-white'} hover:text-[#006D77] cursor-pointer`}
 								>
 									{item
 										.split('-')
