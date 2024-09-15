@@ -13,9 +13,9 @@ export const HeroSection = () => {
 					strings={['tailored to perfection', 'crafted with precision', 'brilliantly presented']}
 					typeSpeed={50}
 					backSpeed={50}
-					backDelay={100}
+					backDelay={250}
 					showCursor={false}
-					startDelay={200}
+					startDelay={250}
 					className="text-teal-500"
 				/>
 			</H1>
