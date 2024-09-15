@@ -37,7 +37,7 @@ export const Header: React.FC = () => {
 		setIsMenuOpen(!isMenuOpen);
 	};
 
-	const menuItems = ['features', 'how-it-works', 'portfolio', 'styles', 'document-management', 'pricing'];
+	const menuItems = ['features', 'how-it-works', 'portfolio', 'document-styles', 'document-management', 'pricing'];
 
 	return (
 		<header
@@ -49,7 +49,7 @@ export const Header: React.FC = () => {
 					<BookOpen className="h-8 w-8 text-teal-500" />
 					<span className="ml-2 text-2xl font-bold text-teal-500">Lumina.ai</span>
 				</div>
-				<nav className="hidden md:block">
+				<nav className="hidden lg:block">
 					<ul className="flex space-x-4">
 						{menuItems.map((item) => (
 							<li key={item}>
@@ -66,7 +66,7 @@ export const Header: React.FC = () => {
 						))}
 					</ul>
 				</nav>
-				<div className="md:hidden">
+				<div className="lg:hidden">
 					<button
 						onClick={toggleMenu}
 						className={`${isScrolled ? 'text-gray-900' : 'text-white'} focus:outline-none`}
@@ -76,7 +76,7 @@ export const Header: React.FC = () => {
 				</div>
 			</div>
 			{isMenuOpen && (
-				<div className="md:hidden">
+				<div className="lg:hidden">
 					<ul className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
 						{menuItems.map((item) => (
 							<li key={item}>
