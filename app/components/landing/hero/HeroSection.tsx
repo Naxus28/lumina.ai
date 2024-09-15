@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { H1, H2, Paragraph } from '@/app/components/typography';
+import { ReactTyped } from 'react-typed';
 
 export const HeroSection = () => {
 	return (
@@ -8,7 +9,15 @@ export const HeroSection = () => {
 			<H2 className="text-gray-300 text-2xl mb-4 font-bold">Introducing AI-powered academic portfolio generation</H2>
 			<H1 className="text-4xl md:text-6xl font-bold mb-10 tracking-normal">
 				<span className="text-white">Bright careers, </span>
-				<span className="text-teal-500">brilliantly presented</span>
+				<ReactTyped
+					strings={['tailored to perfection', 'crafted with precision', 'brilliantly presented']}
+					typeSpeed={50}
+					backSpeed={50}
+					backDelay={100}
+					showCursor={false}
+					startDelay={200}
+					className="text-teal-500"
+				/>
 			</H1>
 
 			<H2 className="text-2xl max-w-4xl mx-auto text-gray-300 mb-24">Lumina revolutionizes academic job applications with AI-powered precision, transforming your achievements into compelling narratives that capture hiring committees' attention and distinguish you in a competitive field.</H2>

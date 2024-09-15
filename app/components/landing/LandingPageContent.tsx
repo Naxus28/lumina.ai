@@ -40,9 +40,7 @@ export default function LandingPageContent() {
 		>
 			<Header />
 			<main className="flex-grow">
-				<AnimatedSection>
-					<HeroSection />
-				</AnimatedSection>
+				<HeroSection />
 				<AnimatedSection>
 					<IntroductionSection />
 				</AnimatedSection>
@@ -62,7 +60,7 @@ export default function LandingPageContent() {
 					<DocumentManagementSection />
 				</AnimatedSection>
 				<AnimatedSection>
-						<PricingSection />
+					<PricingSection />
 				</AnimatedSection>
 			</main>
 			{/* <Footer /> */}
