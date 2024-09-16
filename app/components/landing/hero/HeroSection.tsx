@@ -21,7 +21,7 @@ export const HeroSection = () => {
 				/>
 			</H1>
 
-			<H2 className="text-2xl max-w-4xl mx-auto text-gray-300 mb-24">Lumina revolutionizes academic job applications with AI-powered precision, transforming your achievements into compelling narratives that capture hiring committees' attention and distinguish you in a competitive field.</H2>
+			<H2 className="text-2xl max-w-4xl mx-auto text-gray-300 mb-24">Lumina revolutionizes academic job applications with AI-powered precision, transforming your achievements into compelling narratives that capture the attention of hiring committees and distinguish you in a competitive field.</H2>
 
 			<Button
 				size="lg"
