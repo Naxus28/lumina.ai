@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { FileText, Clock, Zap, Sparkles, Award, BrainCircuit } from 'lucide-react';
+import { FileText, Clock, Sparkles, Award, BrainCircuit } from 'lucide-react';
 
 const benefits = [
 	{
