@@ -3,9 +3,9 @@ import { Button } from '@/components/ui/button';
 import { H1, H2 } from '@/app/components/typography';
 import { ReactTyped } from 'react-typed';
 
-export const HeroSection = () => {
+export const HeroSection: React.FC = () => {
 	return (
-		<section className="py-[6rem] mt-10 px-4 sm:px-6 lg:px-8 bg-gray-900 text-center py-16 px-4">
+		<section className="py-52 px-4 sm:px-6 lg:px-8 bg-gray-900 text-center">
 			<H2 className="text-gray-300 text-2xl mb-4 font-bold">Introducing AI-powered academic portfolio generation</H2>
 			<H1 className="text-4xl md:text-6xl font-bold mb-10 tracking-normal">
 				<span className="text-white">Bright careers, </span>

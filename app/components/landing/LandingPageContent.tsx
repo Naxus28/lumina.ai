@@ -8,11 +8,9 @@ import { HeroSection } from './hero/HeroSection';
 import { FeaturesSection } from './features/FeaturesSection';
 import { HowItWorksSection } from './how-it-works/HowItWorksSection';
 import { PortfolioSection } from './portfolio/PortfolioSection';
-import { DocumentStylesSection } from './document-styles/DocumentStylesSection';
 import { PricingSection } from './pricing/PricingSection';
 import { DocumentManagementSection } from './document-management/DocumentManagementSection';
 import { IntroductionSection } from './introduction/IntroductionSection';
-import { WhoWeServeSection } from './who-we-serve/WhoWeServeSection';
 
 const AnimatedSection: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 	const [ref, inView] = useInView({
@@ -45,9 +43,6 @@ export default function LandingPageContent() {
 				</AnimatedSection>
 				<AnimatedSection>
 					<IntroductionSection />
-				</AnimatedSection>
-				<AnimatedSection>
-					<WhoWeServeSection />
 				</AnimatedSection>
 				<AnimatedSection>
 					<FeaturesSection />

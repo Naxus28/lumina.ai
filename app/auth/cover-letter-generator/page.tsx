@@ -134,7 +134,6 @@ const CoverLetterGenerator: React.FC = () => {
 		doc.save('cover_letter.pdf');
 	}, [editableCoverLetter]);
 
-	console.log('selectedTemplate: ', selectedTemplate);
 	return (
 		<div className="min-h-screen bg-gray-50">
 			<Header />
