@@ -6,7 +6,7 @@ import { ReactTyped } from 'react-typed';
 export const HeroSection: React.FC = () => {
 	return (
 		<section className="py-52 px-4 sm:px-6 lg:px-8 bg-gray-900 text-center">
-			<H2 className="text-gray-300 text-2xl mb-4 font-bold">Introducing AI-powered academic portfolio generation</H2>
+			<H2 className="text-gray-300 text-2xl mb-4">Introducing AI-powered academic portfolio generation</H2>
 			<H1 className="text-4xl md:text-6xl font-bold mb-10 tracking-normal">
 				<span className="text-white">Bright careers, </span>
 				<ReactTyped
@@ -21,7 +21,7 @@ export const HeroSection: React.FC = () => {
 				/>
 			</H1>
 
-			<H2 className="text-2xl max-w-4xl mx-auto text-gray-300 mb-24">Lumina revolutionizes academic job applications with AI-powered precision, transforming your achievements into compelling narratives that capture the attention of hiring committees and distinguish you in a competitive field.</H2>
+			<H2 className="text-2xl max-w-4xl mx-auto text-gray-300 mb-24 font-light">Lumina revolutionizes academic job applications with AI-powered precision, transforming your achievements into compelling narratives that capture the attention of hiring committees and distinguish you in a competitive field.</H2>
 
 			<Button
 				size="lg"
