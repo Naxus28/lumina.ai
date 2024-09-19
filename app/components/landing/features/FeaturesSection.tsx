@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { FileText, Clock, Sparkles, Award, BrainCircuit } from 'lucide-react';
+import { H2, Paragraph } from '@/app/components/typography';
 
 const benefits = [
 	{
@@ -79,10 +80,10 @@ export const FeaturesSection: React.FC = () => {
 		<section
 			id="features"
 			ref={ref}
-			className="py-20 bg-gray-50"
+			className="py-20 bg-gray-800 text-white"
 		>
 			<div className="container mx-auto px-4">
-				<h2 className="text-4xl font-bold text-center text-[#4FD1C5] mb-12">Why Choose Lumina?</h2>
+				<H2 className="text-4xl font-bold text-center text-[#4FD1C5] mb-12">Why Choose Lumina?</H2>
 
 				<motion.div
 					variants={containerVariants}
@@ -90,7 +91,7 @@ export const FeaturesSection: React.FC = () => {
 					animate={controls}
 				>
 					<motion.div className="mb-16 text-center">
-						<p className="text-xl text-gray-700 max-w-3xl mx-auto">Recognizing the myriad demands on an academic's time, Lumina eliminates the added burden of crafting numerous, tailored job application materials. Whether you're applying to multiple positions or seeking that perfect role, Lumina ensures each application is customized to the specific requirements of the position and institution.</p>
+						<Paragraph className="text-xl text-gray-300 max-w-3xl mx-auto">Recognizing the myriad demands on an academic's time, Lumina eliminates the added burden of crafting numerous, tailored job application materials. Whether you're applying to multiple positions or seeking that perfect role, Lumina ensures each application is customized to the specific requirements of the position and institution.</Paragraph>
 					</motion.div>
 
 					<div className="relative max-w-4xl mx-auto">
@@ -108,15 +109,15 @@ export const FeaturesSection: React.FC = () => {
 							>
 								<div className={`w-1/2 ${index % 2 === 0 ? 'pl-8' : 'pr-8'}`}>
 									<h3 className={`text-2xl font-semibold mb-2 ${index % 2 === 0 ? 'text-right' : 'text-left'} text-[#4FD1C5]`}>{benefit.title}</h3>
-									<div className="bg-white p-6 rounded-lg shadow-lg">
-										<p className="text-gray-700 font-medium text-left">{benefit.description}</p>
+									<div className="bg-gray-700 p-6 rounded-lg shadow-lg">
+										<p className="text-gray-300 font-medium text-left">{benefit.description}</p>
 									</div>
 								</div>
 								<motion.div
-									className="w-16 h-16 rounded-full bg-white border-4 border-[#4FD1C5] z-10 flex items-center justify-center flex-shrink-0"
+									className="w-16 h-16 rounded-full bg-gray-800 border-4 border-[#4FD1C5] z-10 flex items-center justify-center flex-shrink-0"
 									initial={{ scale: 0, opacity: 0 }}
 									animate={{ scale: 1, opacity: 1 }}
-									transition={{ delay: index + 1, duration: 0.2 }}
+									transition={{ delay: index === 0 ? 0.5 : index + 1, duration: 0.3 }}
 								>
 									<benefit.icon className="w-8 h-8 text-[#4FD1C5]" />
 								</motion.div>
@@ -127,7 +128,7 @@ export const FeaturesSection: React.FC = () => {
 
 					<motion.div
 						variants={itemVariants}
-						className="mt-24 bg-[#4FD1C5] text-white p-8 rounded-lg shadow-xl max-w-3xl mx-auto relative"
+						className="mt-24 bg-[#4FD1C5] text-gray-900 p-8 rounded-lg shadow-xl max-w-3xl mx-auto relative"
 					>
 						<h3 className="text-2xl font-semibold mb-4">Your Brilliance, Our Focus</h3>
 						<p className="text-lg">Your brilliance should shine through your research, teaching, and field contributions, not your ability to write applications. You've invested years perfecting your craft; we believe your focus should remain there.</p>
