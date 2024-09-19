@@ -69,14 +69,15 @@ export const FeaturesSection: React.FC = () => {
 			height: '100%',
 			transition: {
 				delay: 1,
-				duration: 4.5,
-				ease: [0.42, 0.3, 0.4, 0.5],
+				duration: 4.6,
+				ease: [0.42, 0.28, 0.4, 0.5],
 			},
 		},
 	};
 
 	return (
 		<section
+			id="features"
 			ref={ref}
 			className="py-20 bg-gray-50"
 		>
