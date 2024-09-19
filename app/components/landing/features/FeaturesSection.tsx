@@ -50,7 +50,7 @@ export const FeaturesSection: React.FC = () => {
 			opacity: 1,
 			transition: {
 				delayChildren: 0,
-				staggerChildren: 0.9,
+				staggerChildren: 1.25,
 			},
 		},
 	};
@@ -68,9 +68,9 @@ export const FeaturesSection: React.FC = () => {
 		visible: {
 			height: '100%',
 			transition: {
-				delay: 1,
-				duration: 4.6,
-				ease: [0.42, 0.28, 0.4, 0.5],
+				delay: 1.5,
+				duration: 6.5,
+				ease: [0.4, 0.3, 0.4, 0.5],
 			},
 		},
 	};
