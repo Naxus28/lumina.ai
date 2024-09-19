@@ -49,8 +49,8 @@ export const FeaturesSection: React.FC = () => {
 		visible: {
 			opacity: 1,
 			transition: {
-				delayChildren: 0.6,
-				staggerChildren: 0.6,
+				delayChildren: 0,
+				staggerChildren: 0.9,
 			},
 		},
 	};
@@ -60,6 +60,18 @@ export const FeaturesSection: React.FC = () => {
 		visible: {
 			opacity: 1,
 			y: 0,
+		},
+	};
+
+	const lineVariants = {
+		hidden: { height: 0 },
+		visible: {
+			height: '100%',
+			transition: {
+				delay: 1,
+				duration: 4.5,
+				ease: [0.42, 0.3, 0.4, 0.5],
+			},
 		},
 	};
 
@@ -76,20 +88,21 @@ export const FeaturesSection: React.FC = () => {
 					initial="hidden"
 					animate={controls}
 				>
-					<motion.div
-						variants={itemVariants}
-						className="mb-16 text-center"
-					>
+					<motion.div className="mb-16 text-center">
 						<p className="text-xl text-gray-700 max-w-3xl mx-auto">Recognizing the myriad demands on an academic's time, Lumina eliminates the added burden of crafting numerous, tailored job application materials. Whether you're applying to multiple positions or seeking that perfect role, Lumina ensures each application is customized to the specific requirements of the position and institution.</p>
 					</motion.div>
 
 					<div className="relative max-w-4xl mx-auto">
-						<div className="absolute left-1/2 top-[92px] -bottom-24 w-1 bg-[#4FD1C5] transform -translate-x-1/2"></div>
+						<motion.div
+							className="absolute left-1/2 top-[110px] w-1 bg-[#4FD1C5] transform -translate-x-1/2"
+							variants={lineVariants}
+						/>
 
 						{benefits.map((benefit, index) => (
 							<motion.div
 								key={index}
 								variants={itemVariants}
+								custom={index}
 								className={`flex items-center mb-12 ${index % 2 === 0 ? 'flex-row-reverse' : ''}`}
 							>
 								<div className={`w-1/2 ${index % 2 === 0 ? 'pl-8' : 'pr-8'}`}>
@@ -98,9 +111,14 @@ export const FeaturesSection: React.FC = () => {
 										<p className="text-gray-700 font-medium text-left">{benefit.description}</p>
 									</div>
 								</div>
-								<div className="w-16 h-16 rounded-full bg-white border-4 border-[#4FD1C5] z-10 flex items-center justify-center flex-shrink-0">
+								<motion.div
+									className="w-16 h-16 rounded-full bg-white border-4 border-[#4FD1C5] z-10 flex items-center justify-center flex-shrink-0"
+									initial={{ scale: 0, opacity: 0 }}
+									animate={{ scale: 1, opacity: 1 }}
+									transition={{ delay: index + 1, duration: 0.3 }}
+								>
 									<benefit.icon className="w-8 h-8 text-[#4FD1C5]" />
-								</div>
+								</motion.div>
 								<div className="w-1/2"></div>
 							</motion.div>
 						))}
@@ -110,7 +128,6 @@ export const FeaturesSection: React.FC = () => {
 						variants={itemVariants}
 						className="mt-24 bg-[#4FD1C5] text-white p-8 rounded-lg shadow-xl max-w-3xl mx-auto relative"
 					>
-						{/* <div className="absolute left-1/2 top-0 w-1 bg-[#4FD1C5] h-24 -translate-x-1/2 -translate-y-full"></div> */}
 						<h3 className="text-2xl font-semibold mb-4">Your Brilliance, Our Focus</h3>
 						<p className="text-lg">Your brilliance should shine through your research, teaching, and field contributions, not your ability to write applications. You've invested years perfecting your craft; we believe your focus should remain there.</p>
 					</motion.div>
