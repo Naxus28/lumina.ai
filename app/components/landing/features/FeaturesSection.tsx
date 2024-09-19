@@ -116,7 +116,7 @@ export const FeaturesSection: React.FC = () => {
 									className="w-16 h-16 rounded-full bg-white border-4 border-[#4FD1C5] z-10 flex items-center justify-center flex-shrink-0"
 									initial={{ scale: 0, opacity: 0 }}
 									animate={{ scale: 1, opacity: 1 }}
-									transition={{ delay: index + 1, duration: 0.3 }}
+									transition={{ delay: index + 1, duration: 0.2 }}
 								>
 									<benefit.icon className="w-8 h-8 text-[#4FD1C5]" />
 								</motion.div>
