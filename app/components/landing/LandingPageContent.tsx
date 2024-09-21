@@ -3,9 +3,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Header } from './Header';
+import { Header } from './header/Header'; // Updated import
 import { HeroSection } from './hero/HeroSection';
-import { FeaturesSection } from './features/FeaturesSection';
+import { AdvantagesSection } from './features/AdvantagesSection';
 import { HowItWorksSection } from './how-it-works/HowItWorksSection';
 import { PortfolioSection } from './portfolio/PortfolioSection';
 import { PricingSection } from './pricing/PricingSection';
@@ -45,7 +45,7 @@ export default function LandingPageContent() {
 					<IntroductionSection />
 				</AnimatedSection>
 				<AnimatedSection>
-					<FeaturesSection />
+					<AdvantagesSection />
 				</AnimatedSection>
 				<AnimatedSection>
 					<HowItWorksSection />

@@ -9,7 +9,7 @@ interface H2Props extends React.HTMLAttributes<HTMLHeadingElement> {
 export const H2: React.FC<H2Props> = ({ children, className, ...props }) => {
 	return (
 		<h2
-			className={cn('text-4xl font-bold text-center mb-4 text-gray-700', className)}
+			className={cn('text-5xl font-bold text-center mb-4 text-gray-700', className)}
 			{...props}
 		>
 			{children}

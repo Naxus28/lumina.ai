@@ -1,13 +1,35 @@
 import React from 'react';
-import { IconWrapper } from '@/components/ui/iconWrapper';
+import { motion } from 'framer-motion';
+import { LucideIcon } from 'lucide-react';
 
-export const StepItem: React.FC<{ icon: React.ElementType; title: string; description: string }> = ({ icon: Icon, title, description }) => (
-	<div className="flex flex-col items-center text-center">
-		<IconWrapper
-			Icon={Icon}
-			size={50}
-		/>
-		<h3 className="text-xl font-semibold text-gray-700 mb-2">{title}</h3>
-		<p className="text-gray-900">{description}</p>
-	</div>
+interface StepItemProps {
+	icon: LucideIcon;
+	title: string;
+	description: string;
+}
+
+const itemVariants = {
+	hidden: { opacity: 0, y: 20 },
+	visible: {
+		opacity: 1,
+		y: 0,
+		transition: {
+			duration: 0.5,
+		},
+	},
+};
+
+export const StepItem: React.FC<StepItemProps> = ({ icon: Icon, title, description }) => (
+	<motion.div
+		className="flex flex-col items-center w-full md:w-1/3 px-4 mb-8 md:mb-0"
+		variants={itemVariants}
+	>
+		<div className="mb-4">
+			<div className="w-20 h-20 rounded-full bg-[#4FD1C5] flex items-center justify-center">
+				<Icon className="w-10 h-10 text-white" />
+			</div>
+		</div>
+		<h3 className="text-xl font-semibold text-gray-900 mb-2 text-center">{title}</h3>
+		<p className="text-gray-700 text-center">{description}</p>
+	</motion.div>
 );

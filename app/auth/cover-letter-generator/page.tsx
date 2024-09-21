@@ -9,7 +9,7 @@ import { CVUpload } from './components/CVUpload';
 import { GenerateButton } from './components/GenerateButton';
 import { ResultDisplay } from './components/ResultDisplay';
 import { ErrorMessage } from './components/ErrorMessage';
-import { jsPDF } from 'jspdf';
+import jsPDF from 'jspdf';
 import { CoverLetterTemplate } from './components/document-templates/models';
 import { coverLetterTemplates } from './components/document-templates/templates';
 import { Container } from '../../layout-components/components/Container';
@@ -28,11 +28,8 @@ const CoverLetterGenerator: React.FC = () => {
 	const [isGenerationComplete, setIsGenerationComplete] = useState(false);
 	const [senderData, setSenderData] = useState<AddressData>({ name: '', title: '', institution: '', address: '' });
 	const [addresseeData, setAddresseeData] = useState<AddressData>({ name: '', title: '', institution: '', address: '' });
-	const [sender, setSender] = useState({});
-	const [addressee, setAddressee] = useState({});
 
 	const handleSelectTemplate = useCallback((template: CoverLetterTemplate) => {
-		console.log('template: ', template);
 		setSelectedTemplate(template);
 	}, []);
 

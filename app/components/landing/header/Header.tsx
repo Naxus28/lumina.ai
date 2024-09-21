@@ -2,11 +2,12 @@
 
 import React, { useState, useEffect } from 'react';
 import { BookOpen, Menu, X } from 'lucide-react';
+import { MenuItem } from './MenuItem';
 
 const scrollToSection = (id: string) => {
 	const element = document.getElementById(id);
 	if (element) {
-		const headerOffset = 80; // Adjust this value based on your header height
+		const headerOffset = 80;
 		const elementPosition = element.getBoundingClientRect().top;
 		const offsetPosition = elementPosition + window.scrollY - headerOffset;
 
@@ -23,7 +24,7 @@ export const Header: React.FC = () => {
 
 	useEffect(() => {
 		const handleScroll = () => {
-			setIsScrolled(window.scrollY > 120); // Adjust this value as needed
+			setIsScrolled(window.scrollY > 120);
 		};
 
 		window.addEventListener('scroll', handleScroll);
@@ -37,12 +38,12 @@ export const Header: React.FC = () => {
 		setIsMenuOpen(!isMenuOpen);
 	};
 
-	const menuItems = ['features', 'how-it-works', 'portfolio', 'document-styles', 'document-management', 'pricing'];
+	const menuItems = ['introduction', 'features', 'how-it-works', 'portfolio', 'document-styles', 'document-management', 'pricing'];
 
 	return (
 		<nav
 			className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ease-in-out
-                ${isScrolled ? 'bg-white shadow-md py-6' : 'bg-gray-900 py-6'}`}
+        ${isScrolled ? 'bg-white shadow-md py-6' : 'bg-gray-900 py-6'}`}
 		>
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
 				<div className="flex items-center">
@@ -52,17 +53,12 @@ export const Header: React.FC = () => {
 				<nav className="hidden lg:block">
 					<ul className="flex space-x-4">
 						{menuItems.map((item) => (
-							<li key={item}>
-								<a
-									onClick={() => scrollToSection(item)}
-									className={`${isScrolled ? 'text-gray-900' : 'text-white'} text-sm font-semibold leading-6 hover:text-[#4FD1C5] cursor-pointer`}
-								>
-									{item
-										.split('-')
-										.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-										.join(' ')}
-								</a>
-							</li>
+							<MenuItem
+								key={item}
+								item={item}
+								onClick={() => scrollToSection(item)}
+								isScrolled={isScrolled}
+							/>
 						))}
 					</ul>
 				</nav>
@@ -79,20 +75,15 @@ export const Header: React.FC = () => {
 				<div className="lg:hidden">
 					<ul className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
 						{menuItems.map((item) => (
-							<li key={item}>
-								<a
-									onClick={() => {
-										scrollToSection(item);
-										setIsMenuOpen(false);
-									}}
-									className={`block px-3 py-2 rounded-md text-base font-medium ${isScrolled ? 'text-gray-900 hover:bg-gray-100' : 'text-white hover:bg-gray-700'} cursor-pointer`}
-								>
-									{item
-										.split('-')
-										.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-										.join(' ')}
-								</a>
-							</li>
+							<MenuItem
+								key={item}
+								item={item}
+								onClick={() => {
+									scrollToSection(item);
+									setIsMenuOpen(false);
+								}}
+								isScrolled={isScrolled}
+							/>
 						))}
 					</ul>
 				</div>

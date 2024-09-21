@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
 		const pdfData = await pdfParse.default(buffer);
 		const cvText = pdfData.text;
 
-		const generateCoverLetterPrompt = createPromptGenerator('coverLetter', { template });
+		const generateCoverLetterPrompt = createPromptGenerator('foo', { template });
 		const prompt = generateCoverLetterPrompt({ jobDescription, cv: cvText, addressee, sender });
 
 		// Create a ReadableStream to handle the Anthropic MessageStream
