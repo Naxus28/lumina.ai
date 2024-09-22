@@ -15,11 +15,11 @@ export const HeroSection: React.FC = () => {
 					sequence={[
 						1000,
 						'strategically crafted',
-						1500,
+						1200,
 						'tailored to perfection',
-						1500,
+						1200,
 						'brilliantly presented',
-						1500,
+						1200,
 					]}
 					wrapper="span"
 					speed={40}

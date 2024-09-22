@@ -52,7 +52,7 @@ export const HowItWorksSection: React.FC = () => {
 
 	return (
 		<Section id="how-it-works" ref={ref} paddingY="6xl" bgColor="bg-white" className="text-gray-900">
-			<H2 className="text-center mb-6">How It Works</H2>
+			<H2 className="text-center text-gray-800 mb-6">How It Works</H2>
 			<Paragraph className="text-xl text-gray-700 text-center max-w-3xl mx-auto mb-16">
 				Lumina provides a clear and easy, step-by-step approach to creating your application materials, making the
 				academic job application process fast, smooth, and efficient.

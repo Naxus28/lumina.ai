@@ -42,8 +42,8 @@ export const Header: React.FC = () => {
 		'introduction',
 		'portfolio',
 		'maximize-impact',
-		'advantages',
 		'how-it-works',
+		'why-choose-lumina',
 		'document-management',
 		'pricing',
 	];
@@ -51,11 +51,11 @@ export const Header: React.FC = () => {
 	return (
 		<nav
 			className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ease-in-out
-        ${isScrolled ? 'bg-white shadow-md py-6' : 'bg-gray-900 py-6'}`}
+        ${isScrolled ? 'bg-white shadow-md py-6' : 'bg-gray-900 py-6'} ${isMenuOpen && 'pb-0'}`}
 		>
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-				<div className="flex items-center">
-					<BookOpen className="h-8 w-8 text-teal-500" />
+				<div className="flex items-center mr-[20px]">
+					<BookOpen className="h-8 w-8 text-teal-500 " />
 					<span className="ml-2 text-2xl font-bold text-teal-500">Lumina.ai</span>
 				</div>
 				<nav className="hidden lg:block">
@@ -66,15 +66,18 @@ export const Header: React.FC = () => {
 					</ul>
 				</nav>
 				<div className="lg:hidden">
-					<button onClick={toggleMenu} className={`${isScrolled ? 'text-gray-900' : 'text-white'} focus:outline-none`}>
+					<button
+						onClick={toggleMenu}
+						className={`${isScrolled ? 'text-gray-900' : 'text-white'} focus:outline-none padding`}
+					>
 						{isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
 					</button>
 				</div>
 			</div>
 			{isMenuOpen && (
 				<div className="lg:hidden">
-					<ul className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-						{menuItems.map((item) => (
+					<ul className="px-2 pt-2 pb-3 sm:px-3">
+						{menuItems.map((item, index) => (
 							<MenuItem
 								key={item}
 								item={item}
@@ -83,6 +86,7 @@ export const Header: React.FC = () => {
 									setIsMenuOpen(false);
 								}}
 								isScrolled={isScrolled}
+								className={`${index !== menuItems.length - 1 && 'border-b-[1px]'} p-4 border-[#4FD1C5] w-full`}
 							/>
 						))}
 					</ul>

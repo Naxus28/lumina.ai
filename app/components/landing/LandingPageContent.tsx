@@ -37,10 +37,10 @@ export default function LandingPageContent() {
 					<MaximizeImpactSection />
 				</AnimatedSection>
 				<AnimatedSection>
-					<AdvantagesSection />
+					<HowItWorksSection />
 				</AnimatedSection>
 				<AnimatedSection>
-					<HowItWorksSection />
+					<AdvantagesSection />
 				</AnimatedSection>
 				<AnimatedSection>
 					<DocumentManagementSection />

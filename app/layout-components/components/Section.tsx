@@ -52,7 +52,7 @@ export const Section = forwardRef<HTMLElement, SectionProps>(
 					'px-4 sm:px-6 lg:px-8', // Default horizontal padding
 					paddingYClasses[paddingY],
 					bgColor,
-					className
+					className // This will override any conflicting classes
 				)}
 				{...props}
 			>

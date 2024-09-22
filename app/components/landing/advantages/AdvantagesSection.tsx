@@ -71,8 +71,8 @@ export const AdvantagesSection: React.FC = () => {
 	};
 
 	return (
-		<Section id="advantages" ref={ref} paddingY="6xl" bgColor="bg-gray-800" className="text-white">
-			<H2 className="font-bold text-center text-[#4FD1C5] mb-12">Why Choose Lumina?</H2>
+		<Section id="why-choose-lumina" ref={ref} paddingY="6xl" bgColor="bg-gray-800" className="text-white">
+			<H2 className="text-center text-[#4FD1C5] mb-6">Why Choose Lumina?</H2>
 
 			<motion.div variants={containerVariants} initial="hidden" animate={controls}>
 				<motion.div className="mb-16 text-center">

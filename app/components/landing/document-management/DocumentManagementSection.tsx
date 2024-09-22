@@ -51,12 +51,7 @@ export const DocumentManagementSection: React.FC = () => {
 	};
 
 	return (
-		<Section
-			id="document-management"
-			ref={ref}
-			paddingY="6xl"
-			bgColor="bg-[#F0F4F8]"
-		>
+		<Section id="document-management" ref={ref} paddingY="6xl" bgColor="bg-white" className="text-gray-900">
 			<motion.div
 				initial={{ opacity: 0, y: -20 }}
 				animate={controls}
@@ -65,7 +60,7 @@ export const DocumentManagementSection: React.FC = () => {
 				}}
 				transition={{ duration: 0.5 }}
 			>
-				<H2 className="text-center text-gray-900 mb-6">Document Management Solution</H2>
+				<H2 className="text-center text-gray-800 mb-6">Document Management Solution</H2>
 			</motion.div>
 
 			<motion.div
@@ -77,8 +72,8 @@ export const DocumentManagementSection: React.FC = () => {
 				transition={{ duration: 0.5, delay: 0.2 }}
 			>
 				<Paragraph className="text-center text-gray-700 mb-16 max-w-3xl mx-auto">
-					Lumina offers a straightforward solution to manage and organize all your academic application materials in
-					one place, making your job search more organized, more efficient, and stress-free.
+					Lumina offers a straightforward solution to manage and organize all your academic application materials in one
+					place, making your job search more organized, more efficient, and stress-free.
 				</Paragraph>
 			</motion.div>
 
