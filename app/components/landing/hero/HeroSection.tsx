@@ -5,12 +5,22 @@ import { TypeAnimation } from 'react-type-animation';
 
 export const HeroSection: React.FC = () => {
 	return (
-		<section className="py-52 px-4 sm:px-6 lg:px-8 bg-gray-900 text-center">
-			<H1 className="text-gray-300 text-2xl mb-4 tracking-wide">Introducing AI-powered academic portfolio generation</H1>
+		<section className="pt-[288px] pb-52 px-4 sm:px-6 lg:px-8 bg-gray-900 text-center">
+			<H1 className="text-gray-300 text-2xl mb-4 tracking-wide">
+				Introducing AI-powered academic portfolio generation
+			</H1>
 			<H2 className="text-4xl md:text-6xl font-bold mb-10 tracking-normal">
 				<span className="text-white">Bright careers, </span>
 				<TypeAnimation
-					sequence={[1000, 'strategically crafted', 1500, 'tailored to perfection', 1500, 'brilliantly presented', 1500]}
+					sequence={[
+						1000,
+						'strategically crafted',
+						1500,
+						'tailored to perfection',
+						1500,
+						'brilliantly presented',
+						1500,
+					]}
 					wrapper="span"
 					speed={40}
 					style={{ color: '#4FD1C5', display: 'inline-block' }}
@@ -18,7 +28,11 @@ export const HeroSection: React.FC = () => {
 				/>
 			</H2>
 
-			<Paragraph className="text-2xl max-w-4xl mx-auto text-gray-300 mb-24 font-light tracking-wide">Lumina revolutionizes academic job applications with AI-powered precision, transforming your achievements into compelling narratives that capture the attention of hiring committees and distinguish you in a competitive field.</Paragraph>
+			<Paragraph className="text-2xl max-w-4xl mx-auto text-gray-300 mb-24 font-light tracking-wide">
+				Lumina revolutionizes academic job applications with AI-powered precision, transforming your achievements into
+				compelling narratives that capture the attention of hiring committees and distinguish you in a competitive
+				field.
+			</Paragraph>
 
 			<Button
 				size="lg"

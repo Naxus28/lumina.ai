@@ -1,37 +1,92 @@
 import React from 'react';
-import { FolderOpen, Save, FileSearch } from 'lucide-react';
-import { FeatureCard } from './DocumentManagementCard';
+import { motion, useAnimation } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
+import { Save, FolderOpen, Search } from 'lucide-react';
 import { H2, Paragraph } from '@/app/components/typography';
+import { DocumentManagementCard } from './DocumentManagementCard';
 
-export const DocumentManagementSection = () => {
+const features = [
+	{
+		icon: Save,
+		title: 'Easy Document Saving',
+		description: 'Save all your generated documents directly within the platform for quick access anytime, anywhere.',
+	},
+	{
+		icon: FolderOpen,
+		title: 'Organized Folders',
+		description:
+			'Create custom folders to organize your application materials by institution, position, or any category that suits your needs.',
+	},
+	{
+		icon: Search,
+		title: 'Quick Retrieval',
+		description:
+			'Easily search and find the documents you need, when you need them, saving you time and reducing stress during your job search.',
+	},
+];
+
+export const DocumentManagementSection: React.FC = () => {
+	const controls = useAnimation();
+	const [ref, inView] = useInView({
+		triggerOnce: true,
+		threshold: 0.2,
+	});
+
+	React.useEffect(() => {
+		if (inView) {
+			controls.start('visible');
+		}
+	}, [controls, inView]);
+
+	const containerVariants = {
+		hidden: { opacity: 0 },
+		visible: {
+			opacity: 1,
+			transition: {
+				delayChildren: 0.3,
+				staggerChildren: 0.2,
+			},
+		},
+	};
+
 	return (
-		<section
-			className="py-20 px-4 sm:px-6 lg:px-8 bg-white"
-			id="document-management"
-		>
-			<div className="max-w-7xl mx-auto">
-				<div className="flex items-center justify-center mb-4">
-					<H2>Document Management Solution</H2>
-				</div>
-				<Paragraph className="text-center text-gray-900 mb-12 max-w-3xl mx-auto text-xl">Lumina offers a straightforward solution to manage and organize all your academic application materials in one place, making your job search more organized, more efficient, and stress-free.</Paragraph>
+		<section className="py-20 bg-[#F0F4F8]" id="document-management" ref={ref}>
+			<div className="container mx-auto px-4">
+				<motion.div
+					initial={{ opacity: 0, y: -20 }}
+					animate={controls}
+					variants={{
+						visible: { opacity: 1, y: 0 },
+					}}
+					transition={{ duration: 0.5 }}
+				>
+					<H2 className="text-center text-gray-900 mb-6">Document Management Solution</H2>
+				</motion.div>
 
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-					<FeatureCard
-						icon={Save}
-						title="Easy Document Saving"
-						description="Save all your generated documents directly within the platform for quick access anytime, anywhere."
-					/>
-					<FeatureCard
-						icon={FolderOpen}
-						title="Organized Folders"
-						description="Create custom folders to organize your application materials by institution, position, or any category that suits your needs."
-					/>
-					<FeatureCard
-						icon={FileSearch}
-						title="Quick Retrieval"
-						description="Easily search and find the documents you need, when you need them, saving you time and reducing stress during your job search."
-					/>
-				</div>
+				<motion.div
+					initial={{ opacity: 0, y: -20 }}
+					animate={controls}
+					variants={{
+						visible: { opacity: 1, y: 0 },
+					}}
+					transition={{ duration: 0.5, delay: 0.2 }}
+				>
+					<Paragraph className="text-center text-gray-700 mb-16 max-w-3xl mx-auto">
+						Lumina offers a straightforward solution to manage and organize all your academic application materials in
+						one place, making your job search more organized, more efficient, and stress-free.
+					</Paragraph>
+				</motion.div>
+
+				<motion.div
+					className="grid grid-cols-1 md:grid-cols-3 gap-8"
+					variants={containerVariants}
+					initial="hidden"
+					animate={controls}
+				>
+					{features.map((feature, index) => (
+						<DocumentManagementCard key={index} feature={feature} index={index} />
+					))}
+				</motion.div>
 			</div>
 		</section>
 	);

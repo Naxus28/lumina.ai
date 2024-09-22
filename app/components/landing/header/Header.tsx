@@ -38,7 +38,15 @@ export const Header: React.FC = () => {
 		setIsMenuOpen(!isMenuOpen);
 	};
 
-	const menuItems = ['introduction', 'features', 'how-it-works', 'portfolio', 'document-styles', 'document-management', 'pricing'];
+	const menuItems = [
+		'introduction',
+		'portfolio',
+		'maximize-impact',
+		'advantages',
+		'how-it-works',
+		'document-management',
+		'pricing',
+	];
 
 	return (
 		<nav
@@ -53,20 +61,12 @@ export const Header: React.FC = () => {
 				<nav className="hidden lg:block">
 					<ul className="flex space-x-4">
 						{menuItems.map((item) => (
-							<MenuItem
-								key={item}
-								item={item}
-								onClick={() => scrollToSection(item)}
-								isScrolled={isScrolled}
-							/>
+							<MenuItem key={item} item={item} onClick={() => scrollToSection(item)} isScrolled={isScrolled} />
 						))}
 					</ul>
 				</nav>
 				<div className="lg:hidden">
-					<button
-						onClick={toggleMenu}
-						className={`${isScrolled ? 'text-gray-900' : 'text-white'} focus:outline-none`}
-					>
+					<button onClick={toggleMenu} className={`${isScrolled ? 'text-gray-900' : 'text-white'} focus:outline-none`}>
 						{isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
 					</button>
 				</div>

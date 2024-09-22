@@ -11,25 +11,27 @@ export const PricingSection: React.FC = () => {
 	const annualTotal = Math.round(roundedAnnualPrice * 12);
 
 	return (
-		<section
-			id="pricing"
-			className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-800"
-		>
+		<section id="pricing" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-800">
 			<div className="max-w-7xl mx-auto">
 				<H2 className="text-4xl font-bold text-center mb-12 text-white">Choose Your Plan</H2>
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-					<PricingCard
+					{/* <PricingCard
 						title="Free Tier"
 						price="0"
 						period="month"
 						features={['1 basic CV template improvement', '2 refinements', 'No time limit', 'Choose template for CV structure', 'Basic AI assistance for CV']}
 						buttonText="Get Started"
-					/>
+					/> */}
 					<PricingCard
 						title="Monthly Plan"
 						price={monthlyPrice.toFixed(2)}
 						period="month"
-						features={['Unlimited document creations', '10 refinements per document', 'Access to all templates and features', 'Priority support']}
+						features={[
+							'Unlimited document creations',
+							'10 refinements per document',
+							'Access to all templates and features',
+							'Priority support',
+						]}
 						buttonText="Choose Monthly"
 						isHighlighted={true}
 					/>
@@ -43,7 +45,12 @@ export const PricingSection: React.FC = () => {
 								<p className="mt-1 text-sm text-gray-500">Billed annually at ${annualTotal}</p>
 							</>
 						}
-						features={['All benefits of monthly plan', 'Exclusive webinars', 'Early access to new features', 'Full portfolio management']}
+						features={[
+							'All benefits of monthly plan',
+							'Exclusive webinars',
+							'Early access to new features',
+							'Full portfolio management',
+						]}
 						buttonText="Choose Annual"
 						isBestValue={true}
 					/>

@@ -1,20 +1,35 @@
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { IconWrapper } from '@/components/ui/iconWrapper';
-interface DocumentManagementCardProps {
-	icon: React.ElementType;
+import { motion } from 'framer-motion';
+import { LucideIcon } from 'lucide-react';
+
+interface Feature {
+	icon: LucideIcon;
 	title: string;
 	description: string;
 }
 
-export const FeatureCard: React.FC<DocumentManagementCardProps> = ({ icon: Icon, title, description }) => (
-	<Card className="flex flex-col h-full border border-gray-200 shadow-sm">
-		<CardHeader className="flex flex-row items-center space-y-0 pb-2">
-			<IconWrapper Icon={Icon} />
-			<CardTitle className="text-xl font-semibold text-[#006D77]">{title}</CardTitle>
-		</CardHeader>
-		<CardContent>
-			<p className="text-gray-900">{description}</p>
-		</CardContent>
-	</Card>
-);
+interface DocumentManagementCardProps {
+	feature: Feature;
+	index: number;
+}
+
+export const DocumentManagementCard: React.FC<DocumentManagementCardProps> = ({ feature, index }) => {
+	return (
+		<motion.div
+			className="bg-white p-8 rounded-lg shadow-lg"
+			variants={{
+				hidden: { opacity: 0, y: 50 },
+				visible: { opacity: 1, y: 0 },
+			}}
+			transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
+		>
+			<div className="flex items-center mb-4">
+				<div className="bg-[#4FD1C5] p-3 rounded-full mr-4">
+					<feature.icon className="w-6 h-6 text-white" />
+				</div>
+				<h3 className="text-xl font-semibold text-gray-900">{feature.title}</h3>
+			</div>
+			<p className="text-gray-700">{feature.description}</p>
+		</motion.div>
+	);
+};
