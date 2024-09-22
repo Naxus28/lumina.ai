@@ -4,6 +4,7 @@ import { useInView } from 'react-intersection-observer';
 import { FileText, BookType, SquarePen, Users, BookOpenText } from 'lucide-react';
 import { H2, Paragraph } from '@/app/components/typography';
 import { PortfolioItem } from './PortfolioItem';
+import { Section } from '@/app/layout-components/components/Section';
 
 const documentTypes = [
 	{
@@ -35,11 +36,27 @@ const documentTypes = [
 	},
 ];
 
+const containerVariants = {
+	hidden: { opacity: 0 },
+	visible: {
+		opacity: 1,
+		transition: {
+			delayChildren: 0.3,
+			staggerChildren: 0.1,
+		},
+	},
+};
+
+const itemVariants = {
+	hidden: { x: 100, opacity: 0 },
+	visible: { x: 0, opacity: 1, transition: { type: 'spring', stiffness: 100, damping: 20 } },
+};
+
 export function PortfolioSection() {
 	const controls = useAnimation();
 	const [ref, inView] = useInView({
 		triggerOnce: true,
-		threshold: 0.2,
+		threshold: 0.1,
 	});
 
 	React.useEffect(() => {
@@ -48,45 +65,27 @@ export function PortfolioSection() {
 		}
 	}, [controls, inView]);
 
-	const containerVariants = {
-		hidden: {},
-		visible: {
-			transition: {
-				delayChildren: 0.4,
-				staggerChildren: 0.4,
-			},
-		},
-	};
-
 	return (
-		<section id="portfolio" className="py-32 bg-gray-50 overflow-hidden" ref={ref}>
-			<div className="container mx-auto px-4">
-				<H2 className="text-center text-gray-800 mb-6">Craft Your Complete Academic Portfolio</H2>
-				<Paragraph className="text-center text-gray-900 mb-12 max-w-3xl mx-auto">
-					Lumina empowers you to create a comprehensive academic portfolio, tailored to your field and career stage. Our
-					AI-driven platform helps you develop a suite of professional documents that showcase your unique
-					qualifications and potential.
-				</Paragraph>
+		<Section id="portfolio" ref={ref} paddingY="6xl" bgColor="bg-gray-50" className="overflow-hidden">
+			<H2 className="text-center text-gray-800 mb-6">Craft a Complete Academic Portfolio</H2>
+			<Paragraph className="text-center text-gray-700 mb-12 max-w-3xl mx-auto">
+				Lumina empowers you to create a comprehensive academic portfolio, tailored to your field and career stage. Our
+				AI-driven platform helps you develop a suite of professional documents that showcase your unique qualifications
+				and potential.
+			</Paragraph>
 
-				<div className="relative">
-					<div className="absolute inset-0 flex items-center justify-center">
-						<div className="w-1/2 h-1/2 bg-[#4FD1C5] opacity-10 rounded-full filter blur-3xl"></div>
-					</div>
-
-					<motion.div
-						className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 relative z-10"
-						variants={containerVariants}
-						initial="hidden"
-						animate={controls}
-					>
-						{documentTypes.map((doc, index) => (
-							<div key={index} className="w-full">
-								<PortfolioItem icon={doc.icon} title={doc.title} description={doc.description} />
-							</div>
-						))}
+			<motion.div
+				className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6"
+				variants={containerVariants}
+				initial="hidden"
+				animate={controls}
+			>
+				{documentTypes.map((doc, index) => (
+					<motion.div key={index} variants={itemVariants}>
+						<PortfolioItem icon={doc.icon} title={doc.title} description={doc.description} />
 					</motion.div>
-				</div>
-			</div>
-		</section>
+				))}
+			</motion.div>
+		</Section>
 	);
 }

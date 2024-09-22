@@ -4,6 +4,7 @@ import { useInView } from 'react-intersection-observer';
 import { Save, FolderOpen, Search } from 'lucide-react';
 import { H2, Paragraph } from '@/app/components/typography';
 import { DocumentManagementCard } from './DocumentManagementCard';
+import { Section } from '@/app/layout-components/components/Section';
 
 const features = [
 	{
@@ -50,44 +51,47 @@ export const DocumentManagementSection: React.FC = () => {
 	};
 
 	return (
-		<section className="py-20 bg-[#F0F4F8]" id="document-management" ref={ref}>
-			<div className="container mx-auto px-4">
-				<motion.div
-					initial={{ opacity: 0, y: -20 }}
-					animate={controls}
-					variants={{
-						visible: { opacity: 1, y: 0 },
-					}}
-					transition={{ duration: 0.5 }}
-				>
-					<H2 className="text-center text-gray-900 mb-6">Document Management Solution</H2>
-				</motion.div>
+		<Section
+			id="document-management"
+			ref={ref}
+			paddingY="6xl"
+			bgColor="bg-[#F0F4F8]"
+		>
+			<motion.div
+				initial={{ opacity: 0, y: -20 }}
+				animate={controls}
+				variants={{
+					visible: { opacity: 1, y: 0 },
+				}}
+				transition={{ duration: 0.5 }}
+			>
+				<H2 className="text-center text-gray-900 mb-6">Document Management Solution</H2>
+			</motion.div>
 
-				<motion.div
-					initial={{ opacity: 0, y: -20 }}
-					animate={controls}
-					variants={{
-						visible: { opacity: 1, y: 0 },
-					}}
-					transition={{ duration: 0.5, delay: 0.2 }}
-				>
-					<Paragraph className="text-center text-gray-700 mb-16 max-w-3xl mx-auto">
-						Lumina offers a straightforward solution to manage and organize all your academic application materials in
-						one place, making your job search more organized, more efficient, and stress-free.
-					</Paragraph>
-				</motion.div>
+			<motion.div
+				initial={{ opacity: 0, y: -20 }}
+				animate={controls}
+				variants={{
+					visible: { opacity: 1, y: 0 },
+				}}
+				transition={{ duration: 0.5, delay: 0.2 }}
+			>
+				<Paragraph className="text-center text-gray-700 mb-16 max-w-3xl mx-auto">
+					Lumina offers a straightforward solution to manage and organize all your academic application materials in
+					one place, making your job search more organized, more efficient, and stress-free.
+				</Paragraph>
+			</motion.div>
 
-				<motion.div
-					className="grid grid-cols-1 md:grid-cols-3 gap-8"
-					variants={containerVariants}
-					initial="hidden"
-					animate={controls}
-				>
-					{features.map((feature, index) => (
-						<DocumentManagementCard key={index} feature={feature} index={index} />
-					))}
-				</motion.div>
-			</div>
-		</section>
+			<motion.div
+				className="grid grid-cols-1 md:grid-cols-3 gap-8"
+				variants={containerVariants}
+				initial="hidden"
+				animate={controls}
+			>
+				{features.map((feature, index) => (
+					<DocumentManagementCard key={index} feature={feature} index={index} />
+				))}
+			</motion.div>
+		</Section>
 	);
 };

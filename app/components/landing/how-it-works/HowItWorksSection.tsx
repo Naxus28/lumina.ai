@@ -4,6 +4,7 @@ import { useInView } from 'react-intersection-observer';
 import { FileText, MonitorCog, Edit } from 'lucide-react';
 import { StepItem } from './StepItem';
 import { H2, Paragraph } from '@/app/components/typography';
+import { Section } from '@/app/layout-components/components/Section';
 
 const steps = [
 	{
@@ -30,8 +31,8 @@ const containerVariants = {
 	visible: {
 		opacity: 1,
 		transition: {
-			delayChildren: 0.8,
-			staggerChildren: 1.4,
+			delayChildren: 0.5,
+			staggerChildren: 0.8,
 		},
 	},
 };
@@ -50,25 +51,23 @@ export const HowItWorksSection: React.FC = () => {
 	}, [controls, inView]);
 
 	return (
-		<section className="py-20 bg-[#f8fafc]" id="how-it-works" ref={ref}>
-			<div className="container mx-auto px-4">
-				<H2 className="text-center text-gray-900 mb-6">How It Works</H2>
-				<Paragraph className="text-xl text-gray-700 text-center max-w-3xl mx-auto mb-16">
-					Lumina provides a clear and easy, step-by-step approach to creating your application materials, making the
-					academic job application process fast, smooth, and efficient.
-				</Paragraph>
+		<Section id="how-it-works" ref={ref} paddingY="6xl" bgColor="bg-white" className="text-gray-900">
+			<H2 className="text-center mb-6">How It Works</H2>
+			<Paragraph className="text-xl text-gray-700 text-center max-w-3xl mx-auto mb-16">
+				Lumina provides a clear and easy, step-by-step approach to creating your application materials, making the
+				academic job application process fast, smooth, and efficient.
+			</Paragraph>
 
-				<motion.div
-					className="flex flex-col md:flex-row justify-between items-start max-w-5xl mx-auto"
-					variants={containerVariants}
-					initial="hidden"
-					animate={controls}
-				>
-					{steps.map((step, index) => (
-						<StepItem key={index} icon={step.icon} title={step.title} description={step.description} />
-					))}
-				</motion.div>
-			</div>
-		</section>
+			<motion.div
+				className="flex flex-col md:flex-row justify-between items-start max-w-5xl mx-auto"
+				variants={containerVariants}
+				initial="hidden"
+				animate={controls}
+			>
+				{steps.map((step, index) => (
+					<StepItem key={index} icon={step.icon} title={step.title} description={step.description} />
+				))}
+			</motion.div>
+		</Section>
 	);
 };

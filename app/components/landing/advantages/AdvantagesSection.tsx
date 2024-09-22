@@ -4,6 +4,7 @@ import { useInView } from 'react-intersection-observer';
 import { FileText, Clock, Sparkles, Award, BrainCircuit } from 'lucide-react';
 import { H2, Paragraph } from '@/app/components/typography';
 import { AdvantageCard } from './AdvantageCard';
+import { Section } from '@/app/layout-components/components/Section';
 
 const benefits = [
 	{
@@ -70,51 +71,48 @@ export const AdvantagesSection: React.FC = () => {
 	};
 
 	return (
-		<section id="advantages" ref={ref} className="py-20 bg-gray-800 text-white">
-			<div className="container mx-auto px-4">
-				<H2 className="font-bold text-center text-[#4FD1C5] mb-12">Why Choose Lumina?</H2>
+		<Section id="advantages" ref={ref} paddingY="6xl" bgColor="bg-gray-800" className="text-white">
+			<H2 className="font-bold text-center text-[#4FD1C5] mb-12">Why Choose Lumina?</H2>
 
-				<motion.div variants={containerVariants} initial="hidden" animate={controls}>
-					<motion.div className="mb-16 text-center">
-						<Paragraph className="text-gray-300 text-center max-w-3xl mx-auto mb-16">
-							Recognizing the myriad demands on an academic's time, Lumina eliminates the added burden of crafting
-							numerous, tailored job application materials. Whether you're applying to multiple positions or seeking
-							that perfect role, Lumina ensures each application is customized to the specific requirements of the
-							position and institution.
-						</Paragraph>
-					</motion.div>
-
-					<div className="relative max-w-4xl mx-auto">
-						<motion.div
-							className="absolute left-1/2 top-[110px] w-1 bg-[#4FD1C5] transform -translate-x-1/2"
-							variants={lineVariants}
-						/>
-
-						{benefits.map((benefit, index) => (
-							<AdvantageCard
-								key={index}
-								icon={benefit.icon}
-								title={benefit.title}
-								description={benefit.description}
-								index={index}
-								isEven={index % 2 === 0}
-							/>
-						))}
-					</div>
-
-					<motion.div
-						variants={containerVariants}
-						className="mt-24 bg-[#4FD1C5] text-gray-900 p-8 rounded-lg shadow-xl max-w-3xl mx-auto relative"
-					>
-						<h3 className="text-2xl font-semibold mb-4">Your Brilliance, Our Focus</h3>
-						<Paragraph>
-							Your brilliance should shine through your research, teaching, and field contributions, not your ability to
-							write applications. You've invested years perfecting your craft; we believe your focus should remain
-							there.
-						</Paragraph>
-					</motion.div>
+			<motion.div variants={containerVariants} initial="hidden" animate={controls}>
+				<motion.div className="mb-16 text-center">
+					<Paragraph className="text-gray-300 text-center max-w-3xl mx-auto mb-16">
+						Recognizing the myriad demands on an academic's time, Lumina eliminates the added burden of crafting
+						numerous, tailored job application materials. Whether you're applying to multiple positions or seeking that
+						perfect role, Lumina ensures each application is customized to the specific requirements of the position and
+						institution.
+					</Paragraph>
 				</motion.div>
-			</div>
-		</section>
+
+				<div className="relative max-w-4xl mx-auto">
+					<motion.div
+						className="absolute left-1/2 top-[110px] w-1 bg-[#4FD1C5] transform -translate-x-1/2"
+						variants={lineVariants}
+					/>
+
+					{benefits.map((benefit, index) => (
+						<AdvantageCard
+							key={index}
+							icon={benefit.icon}
+							title={benefit.title}
+							description={benefit.description}
+							index={index}
+							isEven={index % 2 === 0}
+						/>
+					))}
+				</div>
+
+				<motion.div
+					variants={containerVariants}
+					className="mt-24 bg-[#4FD1C5] text-gray-900 p-8 rounded-lg shadow-xl max-w-3xl mx-auto relative"
+				>
+					<h3 className="text-2xl font-semibold mb-4">Your Brilliance, Our Focus</h3>
+					<Paragraph>
+						Your brilliance should shine through your research, teaching, and field contributions, not your ability to
+						write applications. You've invested years perfecting your craft; we believe your focus should remain there.
+					</Paragraph>
+				</motion.div>
+			</motion.div>
+		</Section>
 	);
 };
