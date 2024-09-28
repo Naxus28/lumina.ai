@@ -27,7 +27,12 @@ const CoverLetterGenerator: React.FC = () => {
 	const [error, setError] = useState<string | null>(null);
 	const [isGenerationComplete, setIsGenerationComplete] = useState(false);
 	const [senderData, setSenderData] = useState<AddressData>({ name: '', title: '', institution: '', address: '' });
-	const [addresseeData, setAddresseeData] = useState<AddressData>({ name: '', title: '', institution: '', address: '' });
+	const [addresseeData, setAddresseeData] = useState<AddressData>({
+		name: '',
+		title: '',
+		institution: '',
+		address: '',
+	});
 
 	const handleSelectTemplate = useCallback((template: CoverLetterTemplate) => {
 		setSelectedTemplate(template);
@@ -132,8 +137,8 @@ const CoverLetterGenerator: React.FC = () => {
 	}, [editableCoverLetter]);
 
 	return (
-		<div className="min-h-screen bg-gray-50">
-			<Header />
+		<div className="min-h-screen bg-gray-50 w-full">
+			{/* <Header /> */}
 			<main className="max-w-4xl mx-auto py-12">
 				<Container
 					className="mb-16"
@@ -142,7 +147,9 @@ const CoverLetterGenerator: React.FC = () => {
 					<header>
 						<h1 className="text-4xl font-bold text-gray-700 mb-4">Create Your Academic Cover Letter</h1>
 						<p className="text-xl text-gray-700">
-							In 4 easy steps, create a tailored cover letter that highlights your scholarly accomplishments, demonstrates your academic potential, and captivates hiring committees.<span className="text-xs block mt-2 italic underline">Items marked with * are required.</span>
+							In 4 easy steps, create a tailored cover letter that highlights your scholarly accomplishments,
+							demonstrates your academic potential, and captivates hiring committees.
+							<span className="text-xs block mt-2 italic underline">Items marked with * are required.</span>
 						</p>
 					</header>
 				</Container>
@@ -183,7 +190,10 @@ const CoverLetterGenerator: React.FC = () => {
 					paddingX="none"
 				>
 					<h2 className="text-lg font-semibold text-gray-700 uppercase">4. Additional details (optional)</h2>
-					<p className="text-sm text-gray-600 mb-4">For precise control, fill in the form below. Otherwise, the AI will extract info from your CV and job description (if provided). You can also edit the final document later as well.</p>
+					<p className="text-sm text-gray-600 mb-4">
+						For precise control, fill in the form below. Otherwise, the AI will extract info from your CV and job
+						description (if provided). You can also edit the final document later as well.
+					</p>
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 						<SenderForm onDataChange={handleSenderDataChange} />
 						<AddresseeForm onDataChange={handleAddresseeDataChange} />

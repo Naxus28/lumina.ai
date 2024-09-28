@@ -6,7 +6,7 @@ export const metadata: Metadata = {
 	title: 'Lumina - Bright Careers, Brilliantly Presented',
 	description: 'AI-powered academic job application assistant',
 };
-
+// TODO: add theme toggle: https://ui.shadcn.com/docs/dark-mode/next
 export default function Layout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="en">
