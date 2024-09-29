@@ -141,7 +141,7 @@ const CoverLetterGenerator: React.FC = () => {
 	return (
 		<div className="min-h-screen bg-gray-50 w-full">
 			{/* <Header /> */}
-			<main className="px-24 mx-auto py-12">
+			<main className="mx-auto py-12">
 				<Container paddingX="none">
 					<header>
 						<H1>Create Your Academic Cover Letter</H1>

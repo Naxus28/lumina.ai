@@ -107,7 +107,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
 										src="/placeholder-user.jpg"
 										alt="User"
 									/>
-									<AvatarFallback>U</AvatarFallback>
+									<AvatarFallback className="text-purple-800">U</AvatarFallback>
 								</Avatar>
 							</DropdownMenuTrigger>
 							<DropdownMenuContent
@@ -180,7 +180,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
 			</div>
 
 			{/* Main content */}
-			<div className="flex-1 overflow-auto p-8">{children}</div>
+			<div className="flex-1 overflow-auto p-4 sm:p-6 md:p-8 lg:p-12 xl:p-24">{children}</div>
 		</div>
 	);
 }
