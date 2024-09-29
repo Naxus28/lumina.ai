@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -62,6 +62,10 @@ const menuItems = [
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
 	const [activeItem, setActiveItem] = useState('Home');
 	const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+	const closeSidebar = useCallback(() => {
+		setIsSidebarOpen(false);
+	}, []);
 
 	return (
 		<div className="flex h-screen bg-gray-50">
@@ -165,7 +169,8 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
 								<Link
 									key={subItem.title}
 									href={subItem.url}
-									passHref
+									onClick={closeSidebar}
+									className="block w-full"
 								>
 									<Button
 										variant="ghost"
