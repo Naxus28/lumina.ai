@@ -1,24 +1,15 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Switch } from '@/components/ui/switch';
-import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import {
 	Home,
 	BarChart2,
 	ChartLine,
-	Layers,
-	CheckSquare,
-	Flag,
-	Users,
-	Bell,
-	Link,
 	Settings,
 	LogOut,
 	Menu,
@@ -26,6 +17,7 @@ import {
 	User,
 	CreditCard,
 	HelpCircle,
+	Bell,
 } from 'lucide-react';
 import {
 	DropdownMenu,
@@ -37,34 +29,35 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 const menuItems = [
-	{ icon: Home, label: 'Home', items: ['Dashboard', 'My Documents'] },
+	{
+		icon: Home,
+		label: 'Home',
+		items: [
+			{ title: 'Dashboard', url: '/dashboard' },
+			{ title: 'My Documents', url: '/my-documents' },
+		],
+	},
 	{
 		icon: SquarePen,
 		label: 'Create Documents',
 		items: [
-			'CV',
-			'Cover Letter',
-			'Teaching Philosophy',
-			'Research Statement',
-			'Diversity Statement',
-			'Document History',
+			{ title: 'CV', url: '/cv' },
+			{ title: 'Cover Letter', url: '/cover-letter' },
+			{ title: 'Teaching Philosophy', url: '/teaching-philosophy' },
+			{ title: 'Research Statement', url: '/research-statement' },
+			{ title: 'Diversity Statement', url: '/diversity-statement' },
+			{ title: 'Document History', url: '/document-history' },
 		],
 	},
-	{ icon: ChartLine, label: 'Analytics', items: ['AI Job Matcher Rank', 'CV Analyzer'] },
-	// { icon: CheckSquare, label: 'Tasks', items: ['My Tasks', 'Shared', 'Projects'] },
-	// { icon: Flag, label: 'Campaigns', items: ['Active', 'Drafts', 'Completed'] },
-	// { icon: Users, label: 'Team', items: ['Members', 'Invites', 'Groups'] },
+	{
+		icon: ChartLine,
+		label: 'Analytics',
+		items: [
+			{ title: 'AI Job Matcher Rank', url: '/analytics/job-matcher' },
+			{ title: 'CV Analyzer', url: '/analytics/cv-analyzer' },
+		],
+	},
 ];
-
-// const settingsItems = [
-// 	{ icon: Flag, label: 'My details' },
-// 	{ icon: Users, label: 'Profile', badge: '10' },
-// 	{ icon: Link, label: 'Password' },
-// 	{ icon: Users, label: 'Team' },
-// 	{ icon: CheckSquare, label: 'Billing' },
-// 	{ icon: Bell, label: 'Notifications' },
-// 	{ icon: Link, label: 'Integrations' },
-// ];
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
 	const [activeItem, setActiveItem] = useState('Home');
@@ -106,14 +99,6 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
 						</Button>
 					))}
 					<div className="mt-auto flex flex-col items-center">
-						{/* <Button
-							variant="ghost"
-							size="icon"
-							className={cn('mb-6 text-white hover:bg-purple-700', activeItem === 'Settings' && 'bg-purple-700')}
-							onClick={() => setActiveItem('Settings')}
-						>
-							<Settings className="h-5 w-5" />
-						</Button> */}
 						<Separator className="w-8 bg-purple-600 mb-6" />
 						<DropdownMenu>
 							<DropdownMenuTrigger asChild>
@@ -177,13 +162,18 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
 						{menuItems
 							.find((item) => item.label === activeItem)
 							?.items.map((subItem) => (
-								<Button
-									key={subItem}
-									variant="ghost"
-									className="w-full justify-start text-gray-700 hover:bg-gray-200"
+								<Link
+									key={subItem.title}
+									href={subItem.url}
+									passHref
 								>
-									{subItem}
-								</Button>
+									<Button
+										variant="ghost"
+										className="w-full justify-start text-gray-700 hover:bg-gray-200"
+									>
+										{subItem.title}
+									</Button>
+								</Link>
 							))}
 					</nav>
 				</div>
