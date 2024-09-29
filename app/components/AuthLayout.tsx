@@ -6,19 +6,7 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Separator } from '@/components/ui/separator';
-import {
-	Home,
-	BarChart2,
-	ChartLine,
-	Settings,
-	LogOut,
-	Menu,
-	SquarePen,
-	User,
-	CreditCard,
-	HelpCircle,
-	Bell,
-} from 'lucide-react';
+import { Home, ChartLine, Settings, LogOut, Menu, SquarePen, User, CreditCard, HelpCircle, Bell } from 'lucide-react';
 import {
 	DropdownMenu,
 	DropdownMenuContent,

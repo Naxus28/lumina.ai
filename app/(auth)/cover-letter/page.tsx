@@ -155,7 +155,7 @@ const CoverLetterGenerator: React.FC = () => {
 				</Container>
 
 				<Container paddingX="none">
-					<H2 className="text-lg font-semibold">Choose Your Cover Letter Style *</H2>
+					<H2 className="text-lg">Choose Your Cover Letter Style *</H2>
 					<TemplateSelector
 						templates={coverLetterTemplates}
 						onSelectTemplate={handleSelectTemplate}
