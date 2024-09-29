@@ -4,7 +4,7 @@ import { useInView } from 'react-intersection-observer';
 import { Save, FolderOpen, Search } from 'lucide-react';
 import { H2, Paragraph } from '@/app/components/typography';
 import { DocumentManagementCard } from './DocumentManagementCard';
-import { Section } from '@/app/layout-components/components/Section';
+import { Section } from '@/app/layout-components/Section';
 
 const features = [
 	{

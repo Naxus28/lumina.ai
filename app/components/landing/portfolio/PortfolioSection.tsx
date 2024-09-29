@@ -4,7 +4,7 @@ import { useInView } from 'react-intersection-observer';
 import { FileText, BookType, SquarePen, Users, BookOpenText } from 'lucide-react';
 import { H2, Paragraph } from '@/app/components/typography';
 import { PortfolioItem } from './PortfolioItem';
-import { Section } from '@/app/layout-components/components/Section';
+import { Section } from '@/app/layout-components/Section';
 
 const documentTypes = [
 	{
@@ -66,7 +66,13 @@ export function PortfolioSection() {
 	}, [controls, inView]);
 
 	return (
-		<Section id="portfolio" ref={ref} paddingY="6xl" bgColor="bg-white" className="overflow-hidden">
+		<Section
+			id="portfolio"
+			ref={ref}
+			paddingY="6xl"
+			bgColor="bg-white"
+			className="overflow-hidden"
+		>
 			<H2 className="text-center text-gray-800 mb-6">Craft a Complete Academic Portfolio</H2>
 			<Paragraph className="text-center text-gray-700 mb-12 max-w-3xl mx-auto">
 				Lumina empowers you to create a comprehensive academic portfolio, tailored to your field and career stage. Our
@@ -81,8 +87,15 @@ export function PortfolioSection() {
 				animate={controls}
 			>
 				{documentTypes.map((doc, index) => (
-					<motion.div key={index} variants={itemVariants}>
-						<PortfolioItem icon={doc.icon} title={doc.title} description={doc.description} />
+					<motion.div
+						key={index}
+						variants={itemVariants}
+					>
+						<PortfolioItem
+							icon={doc.icon}
+							title={doc.title}
+							description={doc.description}
+						/>
 					</motion.div>
 				))}
 			</motion.div>

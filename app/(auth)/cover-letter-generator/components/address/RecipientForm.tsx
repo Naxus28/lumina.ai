@@ -4,7 +4,7 @@ import { User, Building, MapPin, Send } from 'lucide-react';
 import { RecipientFormBase, AddressFormBaseProps } from './RecipientFormBase';
 import { InputGroup } from './InputGroup';
 
-export function SenderForm({ onDataChange }: AddressFormBaseProps) {
+export function RecipientForm({ onDataChange }: AddressFormBaseProps) {
 	const { formData, handleInputChange } = RecipientFormBase({ onDataChange });
 
 	return (
@@ -12,13 +12,13 @@ export function SenderForm({ onDataChange }: AddressFormBaseProps) {
 			<CardContent className="p-4">
 				<h3 className="text-lg font-semibold mb-4 text-gray-800 flex items-center">
 					<Send className="w-5 h-5 mr-2 text-[#006D77]" />
-					Sender Information
+					Recipient Information
 				</h3>
 				<div className="space-y-4">
 					<InputGroup
 						label="Full Name"
 						name="name"
-						placeholder="e.g. Dr. Jane Smith"
+						placeholder="e.g. Dr. John Doe"
 						icon={<User className="w-5 h-5 text-gray-400" />}
 						value={formData.name}
 						onChange={handleInputChange}
@@ -26,7 +26,7 @@ export function SenderForm({ onDataChange }: AddressFormBaseProps) {
 					<InputGroup
 						label="Title"
 						name="title"
-						placeholder="e.g. Assistant Professor of Biology"
+						placeholder="e.g. Chair, Search Committee"
 						icon={<User className="w-5 h-5 text-gray-400" />}
 						value={formData.title}
 						onChange={handleInputChange}
@@ -34,7 +34,7 @@ export function SenderForm({ onDataChange }: AddressFormBaseProps) {
 					<InputGroup
 						label="Institution"
 						name="institution"
-						placeholder="e.g. University of California, Berkeley"
+						placeholder="e.g. Stanford University"
 						icon={<Building className="w-5 h-5 text-gray-400" />}
 						value={formData.institution}
 						onChange={handleInputChange}
@@ -42,7 +42,7 @@ export function SenderForm({ onDataChange }: AddressFormBaseProps) {
 					<InputGroup
 						label="Address"
 						name="address"
-						placeholder="e.g. 1234 University Ave, Berkeley, CA 94720"
+						placeholder="e.g. 450 Serra Mall, Stanford, CA 94305"
 						icon={<MapPin className="w-5 h-5 text-gray-400" />}
 						value={formData.address}
 						onChange={handleInputChange}

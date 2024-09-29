@@ -2,7 +2,7 @@ import React from 'react';
 import { H2 } from '@/app/components/typography';
 import { CoreFunctionality } from './CoreFunctionality';
 import { WhoLuminaServes } from './WhoLuminaServes';
-import { Section } from '@/app/layout-components/components/Section';
+import { Section } from '@/app/layout-components/Section';
 
 export const IntroductionSection: React.FC = () => (
 	<Section id="introduction" paddingY="6xl" bgColor="bg-[#2C7A7B]" className="text-white">

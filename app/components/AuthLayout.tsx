@@ -56,15 +56,15 @@ const menuItems = [
 	// { icon: Users, label: 'Team', items: ['Members', 'Invites', 'Groups'] },
 ];
 
-const settingsItems = [
-	{ icon: Flag, label: 'My details' },
-	{ icon: Users, label: 'Profile', badge: '10' },
-	{ icon: Link, label: 'Password' },
-	{ icon: Users, label: 'Team' },
-	{ icon: CheckSquare, label: 'Billing' },
-	{ icon: Bell, label: 'Notifications' },
-	{ icon: Link, label: 'Integrations' },
-];
+// const settingsItems = [
+// 	{ icon: Flag, label: 'My details' },
+// 	{ icon: Users, label: 'Profile', badge: '10' },
+// 	{ icon: Link, label: 'Password' },
+// 	{ icon: Users, label: 'Team' },
+// 	{ icon: CheckSquare, label: 'Billing' },
+// 	{ icon: Bell, label: 'Notifications' },
+// 	{ icon: Link, label: 'Integrations' },
+// ];
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
 	const [activeItem, setActiveItem] = useState('Home');
@@ -106,14 +106,14 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
 						</Button>
 					))}
 					<div className="mt-auto flex flex-col items-center">
-						<Button
+						{/* <Button
 							variant="ghost"
 							size="icon"
 							className={cn('mb-6 text-white hover:bg-purple-700', activeItem === 'Settings' && 'bg-purple-700')}
 							onClick={() => setActiveItem('Settings')}
 						>
 							<Settings className="h-5 w-5" />
-						</Button>
+						</Button> */}
 						<Separator className="w-8 bg-purple-600 mb-6" />
 						<DropdownMenu>
 							<DropdownMenuTrigger asChild>
@@ -126,9 +126,12 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
 								</Avatar>
 							</DropdownMenuTrigger>
 							<DropdownMenuContent
-								className="w-56"
-								align="end"
+								className="w-56 ml-5"
+								align="start"
+								side="top"
 								forceMount
+								sideOffset={-40}
+								alignOffset={100}
 							>
 								<DropdownMenuLabel className="font-normal">
 									<div className="flex flex-col space-y-1">
@@ -177,7 +180,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
 								<Button
 									key={subItem}
 									variant="ghost"
-									className="w-full justify-start text-gray-700 hover:bg-purple-600"
+									className="w-full justify-start text-gray-700 hover:bg-gray-200"
 								>
 									{subItem}
 								</Button>

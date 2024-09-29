@@ -4,7 +4,7 @@ import { useInView } from 'react-intersection-observer';
 import { FileText, Clock, Sparkles, Award, BrainCircuit } from 'lucide-react';
 import { H2, Paragraph } from '@/app/components/typography';
 import { AdvantageCard } from './AdvantageCard';
-import { Section } from '@/app/layout-components/components/Section';
+import { Section } from '@/app/layout-components/Section';
 
 const benefits = [
 	{

@@ -5,7 +5,7 @@ import { Zap, Target, TrendingUp, ListOrdered } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { H2, Paragraph } from '@/app/components/typography';
 import { FeatureCard } from './FeatureCard';
-import { Section } from '@/app/layout-components/components/Section';
+import { Section } from '@/app/layout-components/Section';
 
 const features = [
 	{

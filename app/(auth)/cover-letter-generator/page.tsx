@@ -12,11 +12,12 @@ import { ErrorMessage } from './components/ErrorMessage';
 import jsPDF from 'jspdf';
 import { CoverLetterTemplate } from './components/document-templates/models';
 import { coverLetterTemplates } from './components/document-templates/templates';
-import { Container } from '../../layout-components/components/Container';
+import { Container } from '../../layout-components/Container';
 import { SenderForm } from './components/address/SenderForm';
-import { AddresseeForm } from './components/address/AddresseeForm';
-import { AddressData } from './components/address/AddressFormBase';
+import { RecipientForm } from './components/address/RecipientForm';
+import { AddressData } from './components/address/RecipientFormBase';
 import { ChevronLeft, ChevronRight } from 'lucide-react'; // Make sure these icons are imported
+import { H2 } from '@/app/components/typography';
 
 const CoverLetterGenerator: React.FC = () => {
 	const [selectedTemplate, setSelectedTemplate] = useState<CoverLetterTemplate | null>(null);
@@ -141,12 +142,9 @@ const CoverLetterGenerator: React.FC = () => {
 		<div className="min-h-screen bg-gray-50 w-full">
 			{/* <Header /> */}
 			<main className="px-24 mx-auto py-12">
-				<Container
-					className="mb-4"
-					paddingX="none"
-				>
+				<Container paddingX="none">
 					<header>
-						<h1 className="text-4xl font-bold text-gray-700 mb-4">Create Your Academic Cover Letter</h1>
+						<h1 className="text-4xl font-bold text-gray-700">Create Your Academic Cover Letter</h1>
 						<p className="text-xl text-gray-700">
 							In 4 easy steps, create a tailored cover letter that highlights your scholarly accomplishments,
 							demonstrates your academic potential, and captivates hiring committees.
@@ -155,11 +153,8 @@ const CoverLetterGenerator: React.FC = () => {
 					</header>
 				</Container>
 
-				<Container
-					className="mb-16"
-					paddingX="none"
-				>
-					<h2 className="text-lg font-semibold text-gray-700 mb-4 uppercase">1. Choose Your Cover Letter Style *</h2>
+				<Container paddingX="none">
+					<H2 className="text-lg font-semibold">1. Choose Your Cover Letter Style *</H2>
 					<TemplateSelector
 						templates={coverLetterTemplates}
 						onSelectTemplate={handleSelectTemplate}
@@ -167,44 +162,33 @@ const CoverLetterGenerator: React.FC = () => {
 					/>
 				</Container>
 
-				<Container
-					className="mb-16"
-					paddingX="none"
-				>
-					<h2 className="text-lg font-semibold text-gray-700 mb-4 uppercase">2. Enter Job Description *</h2>
+				<Container paddingX="none">
+					<H2 className="text-lg font-semibold text-gray-700">2. Enter Job Description *</H2>
 					<JobDescriptionInput
 						jobDescription={jobDescription}
 						setJobDescription={setJobDescription}
 					/>
 				</Container>
 
-				<Container
-					className="mb-16"
-					paddingX="none"
-				>
-					<h2 className="text-lg font-semibold text-gray-700 mb-4 uppercase">3. Upload your CV *</h2>
+				<Container paddingX="none">
+					<H2 className="text-lg font-semibold text-gray-700">3. Upload your CV *</H2>
 					<CVUpload onFileSelect={setCvFile} />
 				</Container>
 
-				<Container
-					className="mb-16"
-					paddingX="none"
-				>
-					<h2 className="text-lg font-semibold text-gray-700 uppercase">4. Additional details (optional)</h2>
-					<p className="text-sm text-gray-600 mb-4">
+				<Container paddingX="none">
+					<H2 className="text-lg font-semibold text-gray-700">4. Additional details (optional)</H2>
+					<p className="text-sm text-gray-600">
 						For precise control, fill in the form below. Otherwise, the AI will extract info from your CV and job
-						description (if provided). You can also edit the final document later as well.
+						description (if the recipient is provided in job description). You can also edit the final document later as
+						well.
 					</p>
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 						<SenderForm onDataChange={handleSenderDataChange} />
-						<AddresseeForm onDataChange={handleAddresseeDataChange} />
+						<RecipientForm onDataChange={handleAddresseeDataChange} />
 					</div>
 				</Container>
 
-				<Container
-					className="mb-16"
-					paddingX="none"
-				>
+				<Container paddingX="none">
 					<GenerateButton
 						onClick={handleGenerate}
 						disabled={!selectedTemplate || !jobDescription || !cvFile}

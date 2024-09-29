@@ -4,7 +4,7 @@ import { useInView } from 'react-intersection-observer';
 import { FileText, MonitorCog, Edit } from 'lucide-react';
 import { StepItem } from './StepItem';
 import { H2, Paragraph } from '@/app/components/typography';
-import { Section } from '@/app/layout-components/components/Section';
+import { Section } from '@/app/layout-components/Section';
 
 const steps = [
 	{

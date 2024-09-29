@@ -1,5 +1,17 @@
 export const promptsCatalog = {
-	coverLetter: ({ template, jobDescription, cv, sender, addressee }: { template: string; jobDescription: string; cv: string; sender: any; addressee: any }) => `
+	coverLetter: ({
+		template,
+		jobDescription,
+		cv,
+		sender,
+		addressee,
+	}: {
+		template: string;
+		jobDescription: string;
+		cv: string;
+		sender: any;
+		addressee: any;
+	}) => `
   SENDER_INFO:
   ${JSON.stringify(sender)}
 
@@ -16,7 +28,7 @@ export const promptsCatalog = {
   1. Format the letter in the following order:
      a. Current date (at the very top)
      b. Sender's information (name, address, etc.)
-     c. Addressee's information (name, title, institution, address)
+     c. Recipient's information (name, title, institution, address)
   2. If sender information is not provided, extract it from the CV. Include the applicant's name, address, and contact information (email and phone) as found in the CV.
   3. If addressee information is not provided and not found in the job description, use placeholders like [Search Committee Chair's Title and Name], [Institution Name], [Institution Address], etc.
   4. Begin the letter with "Dear [Search Committee Chair's Title and Name]," if available, or "Dear Search Committee," if not.
@@ -33,7 +45,15 @@ export const promptsCatalog = {
   
   Generate a ${template}-style cover letter based on the above information, ensuring absolute fidelity to the provided CV and following all the guidelines above. The AI has the freedom to choose different phrases for offering contact information, as long as it conveys the same message and uses only the information provided or appropriate placeholders where information is missing.
   `,
-	resume: ({ template, jobDescription, experience }: { template: string; jobDescription: string; experience: string }) => {
+	resume: ({
+		template,
+		jobDescription,
+		experience,
+	}: {
+		template: string;
+		jobDescription: string;
+		experience: string;
+	}) => {
 		return `
       Create a ${template} resume tailored for the following job description:
 

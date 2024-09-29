@@ -2,7 +2,7 @@ import React from 'react';
 import { PricingCard } from './PricingCard';
 import { Badge } from '@/components/ui/badge';
 import { H2 } from '@/app/components/typography';
-import { Section } from '@/app/layout-components/components/Section';
+import { Section } from '@/app/layout-components/Section';
 
 export const PricingSection: React.FC = () => {
 	const monthlyPrice = 19.99;
@@ -12,7 +12,11 @@ export const PricingSection: React.FC = () => {
 	const annualTotal = Math.round(roundedAnnualPrice * 12);
 
 	return (
-		<Section id="pricing" paddingY="6xl" bgColor="bg-gray-800">
+		<Section
+			id="pricing"
+			paddingY="6xl"
+			bgColor="bg-gray-800"
+		>
 			<H2 className="font-bold text-center mb-12 text-white">Choose Your Plan</H2>
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
 				{/* <PricingCard
