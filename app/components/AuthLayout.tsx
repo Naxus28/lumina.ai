@@ -185,7 +185,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
 			</div>
 
 			{/* Main content */}
-			<div className="flex-1 overflow-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-24">{children}</div>
+			<div className="flex-1 overflow-auto px-4 sm:px-6 md:px-12 lg:px-12 xl:px-24">{children}</div>
 		</div>
 	);
 }
