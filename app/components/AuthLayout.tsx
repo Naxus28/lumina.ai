@@ -35,7 +35,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
 	const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
 	return (
-		<div className="flex h-screen bg-gray-100">
+		<div className="flex h-screen bg-gray-50">
 			{/* Hamburger menu for small screens */}
 			<Button
 				variant="ghost"
@@ -47,10 +47,12 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
 			</Button>
 
 			{/* Sidebar */}
-			<div className={cn(
-				"fixed inset-y-0 left-0 z-40 flex bg-purple-700 text-white transition-transform duration-300 ease-in-out lg:relative lg:translate-x-0",
-				isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-			)}>
+			<div
+				className={cn(
+					'fixed inset-y-0 left-0 z-40 flex bg-purple-700 text-white transition-transform duration-300 ease-in-out lg:relative lg:translate-x-0',
+					isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+				)}
+			>
 				{/* Icon column */}
 				<div className="w-[72px] flex flex-col items-center py-4 bg-purple-800">
 					<div className="w-12 h-12 bg-white rounded-xl mb-8 flex items-center justify-center">
@@ -141,9 +143,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
 			</div>
 
 			{/* Main content */}
-			<div className="flex-1 overflow-auto">
-				{children}
-			</div>
+			<div className="flex-1 overflow-auto p-4">{children}</div>
 		</div>
 	);
 }

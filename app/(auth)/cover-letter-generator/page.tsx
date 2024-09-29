@@ -141,7 +141,7 @@ const CoverLetterGenerator: React.FC = () => {
 			{/* <Header /> */}
 			<main className="max-w-4xl mx-auto py-12">
 				<Container
-					className="mb-16"
+					className="mb-4"
 					paddingX="none"
 				>
 					<header>
