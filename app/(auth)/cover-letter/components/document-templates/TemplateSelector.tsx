@@ -36,7 +36,7 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = ({
 						{templates.map((template: CoverLetterTemplate) => (
 							<CarouselItem
 								key={template.name}
-								className="pl-2 md:pl-4 md:basis-1/3 lg:basis-1/3"
+								className="pl-2 md:pl-4 basis-[85%] sm:basis-[45%] md:basis-1/3"
 							>
 								<TemplateCard
 									template={template}
@@ -47,18 +47,10 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = ({
 							</CarouselItem>
 						))}
 					</CarouselContent>
-					<CarouselPrevious className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[calc(100%+8px)] hover:bg-purple-800 hover:text-white data-[disabled]:opacity-50 data-[disabled]:cursor-not-allowed" />
-					<CarouselNext className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-[calc(100%+8px)] hover:bg-purple-800 hover:text-white data-[disabled]:opacity-50 data-[disabled]:cursor-not-allowed" />
+					<CarouselPrevious className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[calc(100%+8px)] hover:bg-purple-800 hover:text-white data-[disabled]:opacity-50 data-[disabled]:cursor-not-allowed hidden md:flex" />
+					<CarouselNext className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-[calc(100%+8px)] hover:bg-purple-800 hover:text-white data-[disabled]:opacity-50 data-[disabled]:cursor-not-allowed hidden md:flex" />
 				</Carousel>
 			</div>
-
-			{/* {selectedTemplate && (
-				<div className="text-center mt-4">
-					<span className="inline-block text-purple-800 hover:text-border-purple-900 text-lg font-semibold transition-colors duration-200 cursor-pointer border-b-2 border-purple-800 hover:border-purple-900 pb-1">
-						Continue with {selectedTemplate}
-					</span>
-				</div>
-			)} */}
 
 			<Dialog
 				open={!!viewingExample}
