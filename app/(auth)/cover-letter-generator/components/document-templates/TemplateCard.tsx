@@ -2,6 +2,7 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { CoverLetterTemplate } from './models';
+import { Paragraph } from '@/app/components/typography';
 
 interface TemplateCardProps {
 	template: CoverLetterTemplate;
@@ -13,11 +14,11 @@ interface TemplateCardProps {
 export const TemplateCard: React.FC<TemplateCardProps> = ({ template, isSelected, onSelect, onView }) => (
 	<Card className={`h-full ${isSelected ? 'ring-2 ring-purple-800 ring-inset' : ''}`}>
 		<CardContent className="p-4 flex flex-col h-full">
-			<div className="mb-2">
-				<template.icon className="h-10 w-10 text-purple-800" />
+			<div className="flex items-center mb-2">
+				<template.icon className="h-6 w-6 text-purple-800 mr-2" />
+				<h3 className={'text-m font-semibold text-gray-600'}>{template.name}</h3>
 			</div>
-			<h3 className={'text-m font-semibold mb-2 text-gray-600'}>{template.name}</h3>
-			<p className="text-xs text-gray-600 mb-2 flex-grow">{template.description}</p>
+			<Paragraph className="text-sm mb-2 flex-grow">{template.description}</Paragraph>
 			<div className="flex justify-between mt-auto pt-4 gap-2">
 				<Button
 					variant="outline"

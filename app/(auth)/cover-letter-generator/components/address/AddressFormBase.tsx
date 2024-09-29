@@ -11,7 +11,7 @@ export interface AddressFormBaseProps {
 	onDataChange: (data: AddressData) => void;
 }
 
-export function RecipientFormBase({ onDataChange }: AddressFormBaseProps) {
+export function AddressFormBase({ onDataChange }: AddressFormBaseProps) {
 	const [formData, setFormData] = useState<AddressData>({
 		name: '',
 		title: '',

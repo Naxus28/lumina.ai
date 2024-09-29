@@ -15,9 +15,9 @@ import { coverLetterTemplates } from './components/document-templates/templates'
 import { Container } from '../../layout-components/Container';
 import { SenderForm } from './components/address/SenderForm';
 import { RecipientForm } from './components/address/RecipientForm';
-import { AddressData } from './components/address/RecipientFormBase';
+import { AddressData } from './components/address/AddressFormBase';
 import { ChevronLeft, ChevronRight } from 'lucide-react'; // Make sure these icons are imported
-import { H1, H2, Paragraph } from '@/app/components/typography';
+import { H1, H2, Paragraph, Span } from '@/app/components/typography';
 
 const CoverLetterGenerator: React.FC = () => {
 	const [selectedTemplate, setSelectedTemplate] = useState<CoverLetterTemplate | null>(null);
@@ -146,9 +146,10 @@ const CoverLetterGenerator: React.FC = () => {
 					<header>
 						<H1>Create Your Academic Cover Letter</H1>
 						<Paragraph>
-							In a few easy steps, create a tailored cover letter that highlights your scholarly accomplishments,
-							demonstrates your academic potential, and captivates hiring committees.
-							<span className="text-xs block mt-2 italic underline">Items marked with * are required.</span>
+							Let our AI craft a tailored cover letter showcasing your scholarly achievements and academic potential.
+							You'll then have the opportunity to refine and personalize the letter, ensuring it captivates hiring
+							committees with your unique voice and qualifications.
+							<Span className="text-xs block mt-2 italic underline">Items marked with * are required.</Span>
 						</Paragraph>
 					</header>
 				</Container>
