@@ -54,7 +54,7 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = ({
 
 			{selectedTemplate && (
 				<div className="text-center mt-4">
-					<span className="inline-block text-[#006D77] hover:text-[#005a63] text-lg font-semibold transition-colors duration-200 cursor-pointer border-b-2 border-[#006D77] hover:border-[#005a63] pb-1">
+					<span className="inline-block text-purple-800 hover:text-border-purple-900 text-lg font-semibold transition-colors duration-200 cursor-pointer border-b-2 border-purple-800 hover:border-purple-900 pb-1">
 						Continue with {selectedTemplate}
 					</span>
 				</div>

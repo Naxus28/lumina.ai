@@ -17,7 +17,7 @@ import { SenderForm } from './components/address/SenderForm';
 import { RecipientForm } from './components/address/RecipientForm';
 import { AddressData } from './components/address/RecipientFormBase';
 import { ChevronLeft, ChevronRight } from 'lucide-react'; // Make sure these icons are imported
-import { H2 } from '@/app/components/typography';
+import { H1, H2, Paragraph } from '@/app/components/typography';
 
 const CoverLetterGenerator: React.FC = () => {
 	const [selectedTemplate, setSelectedTemplate] = useState<CoverLetterTemplate | null>(null);
@@ -144,17 +144,17 @@ const CoverLetterGenerator: React.FC = () => {
 			<main className="px-24 mx-auto py-12">
 				<Container paddingX="none">
 					<header>
-						<h1 className="text-4xl font-bold text-gray-700">Create Your Academic Cover Letter</h1>
-						<p className="text-xl text-gray-700">
-							In 4 easy steps, create a tailored cover letter that highlights your scholarly accomplishments,
+						<H1>Create Your Academic Cover Letter</H1>
+						<Paragraph>
+							In a few easy steps, create a tailored cover letter that highlights your scholarly accomplishments,
 							demonstrates your academic potential, and captivates hiring committees.
 							<span className="text-xs block mt-2 italic underline">Items marked with * are required.</span>
-						</p>
+						</Paragraph>
 					</header>
 				</Container>
 
 				<Container paddingX="none">
-					<H2 className="text-lg font-semibold">1. Choose Your Cover Letter Style *</H2>
+					<H2 className="text-lg font-semibold">Choose Your Cover Letter Style *</H2>
 					<TemplateSelector
 						templates={coverLetterTemplates}
 						onSelectTemplate={handleSelectTemplate}
@@ -163,7 +163,7 @@ const CoverLetterGenerator: React.FC = () => {
 				</Container>
 
 				<Container paddingX="none">
-					<H2 className="text-lg font-semibold text-gray-700">2. Enter Job Description *</H2>
+					<H2 className="text-lg">Enter Job Description *</H2>
 					<JobDescriptionInput
 						jobDescription={jobDescription}
 						setJobDescription={setJobDescription}
@@ -171,16 +171,16 @@ const CoverLetterGenerator: React.FC = () => {
 				</Container>
 
 				<Container paddingX="none">
-					<H2 className="text-lg font-semibold text-gray-700">3. Upload your CV *</H2>
+					<H2 className="text-lg">Upload your CV *</H2>
 					<CVUpload onFileSelect={setCvFile} />
 				</Container>
 
 				<Container paddingX="none">
-					<H2 className="text-lg font-semibold text-gray-700">4. Additional details (optional)</H2>
-					<p className="text-sm text-gray-600">
-						For precise control, fill in the form below. Otherwise, the AI will extract info from your CV and job
-						description (if the recipient is provided in job description). You can also edit the final document later as
-						well.
+					<H2 className="text-lg">Additional details (optional)</H2>
+					<p className="text-sm text-gray-600 pb-4">
+						For precise customization, please complete the form below. If left blank, our AI system will automatically
+						extract relevant information from your CV and the provided job description (including recipient details if
+						available). You'll have the opportunity to review and edit the final document before submission.
 					</p>
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 						<SenderForm onDataChange={handleSenderDataChange} />
@@ -210,7 +210,7 @@ const CoverLetterGenerator: React.FC = () => {
 				{isGenerationComplete && (
 					<Button
 						onClick={handleDownloadPDF}
-						className="mt-4 bg-[#006D77] hover:bg-[#005a63] text-white"
+						className="mt-4 bg-purple-800 hover:bg-purple-900 text-white"
 					>
 						Download as PDF
 					</Button>

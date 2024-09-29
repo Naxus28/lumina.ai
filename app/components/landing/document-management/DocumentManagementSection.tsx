@@ -51,7 +51,13 @@ export const DocumentManagementSection: React.FC = () => {
 	};
 
 	return (
-		<Section id="document-management" ref={ref} paddingY="6xl" bgColor="bg-white" className="text-gray-900">
+		<Section
+			id="document-management"
+			ref={ref}
+			paddingY="6xl"
+			bgColor="bg-white"
+			className="text-gray-900"
+		>
 			<motion.div
 				initial={{ opacity: 0, y: -20 }}
 				animate={controls}
@@ -60,7 +66,7 @@ export const DocumentManagementSection: React.FC = () => {
 				}}
 				transition={{ duration: 0.5 }}
 			>
-				<H2 className="text-center text-gray-800 mb-6">Document Management Solution</H2>
+				<H2 className="text-center text-gray-600 mb-6">Document Management Solution</H2>
 			</motion.div>
 
 			<motion.div
@@ -84,7 +90,11 @@ export const DocumentManagementSection: React.FC = () => {
 				animate={controls}
 			>
 				{features.map((feature, index) => (
-					<DocumentManagementCard key={index} feature={feature} index={index} />
+					<DocumentManagementCard
+						key={index}
+						feature={feature}
+						index={index}
+					/>
 				))}
 			</motion.div>
 		</Section>

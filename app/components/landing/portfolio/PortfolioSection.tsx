@@ -73,7 +73,7 @@ export function PortfolioSection() {
 			bgColor="bg-white"
 			className="overflow-hidden"
 		>
-			<H2 className="text-center text-gray-800 mb-6">Craft a Complete Academic Portfolio</H2>
+			<H2 className="text-center text-gray-600 mb-6">Craft a Complete Academic Portfolio</H2>
 			<Paragraph className="text-center text-gray-700 mb-12 max-w-3xl mx-auto">
 				Lumina empowers you to create a comprehensive academic portfolio, tailored to your field and career stage. Our
 				AI-driven platform helps you develop a suite of professional documents that showcase your unique qualifications

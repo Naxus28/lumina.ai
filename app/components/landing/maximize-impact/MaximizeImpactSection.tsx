@@ -60,10 +60,20 @@ export const MaximizeImpactSection: React.FC = () => {
 	}, [controls, inView]);
 
 	return (
-		<Section id="maximize-impact" ref={ref} paddingY="6xl" bgColor="bg-gray-50">
-			<motion.div initial="hidden" animate={controls} variants={containerVariants} className="text-center mb-12">
+		<Section
+			id="maximize-impact"
+			ref={ref}
+			paddingY="6xl"
+			bgColor="bg-gray-50"
+		>
+			<motion.div
+				initial="hidden"
+				animate={controls}
+				variants={containerVariants}
+				className="text-center mb-12"
+			>
 				<motion.div variants={itemVariants}>
-					<H2 className="text-gray-800 mb-6">Maximize Your Application Impact</H2>
+					<H2 className="text-gray-600 mb-6">Maximize Your Application Impact</H2>
 				</motion.div>
 				<motion.div variants={itemVariants}>
 					<Paragraph className="text-gray-700 max-w-3xl mx-auto">
@@ -80,12 +90,24 @@ export const MaximizeImpactSection: React.FC = () => {
 				className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12"
 			>
 				{features.map((feature, index) => (
-					<FeatureCard key={index} feature={feature} variants={itemVariants} />
+					<FeatureCard
+						key={index}
+						feature={feature}
+						variants={itemVariants}
+					/>
 				))}
 			</motion.div>
 
-			<motion.div variants={itemVariants} initial="hidden" animate={controls} className="text-center">
-				<Button size="lg" className="bg-[#4FD1C5] text-white hover:bg-[#3DB1A5]">
+			<motion.div
+				variants={itemVariants}
+				initial="hidden"
+				animate={controls}
+				className="text-center"
+			>
+				<Button
+					size="lg"
+					className="bg-[#4FD1C5] text-white hover:bg-[#3DB1A5]"
+				>
 					Try CV Analysis Now
 				</Button>
 			</motion.div>

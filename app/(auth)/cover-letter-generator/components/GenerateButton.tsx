@@ -10,7 +10,7 @@ interface GenerateButtonProps {
 
 export const GenerateButton: React.FC<GenerateButtonProps> = ({ onClick, disabled, isLoading }) => (
 	<Button
-		className="w-full bg-[#006D77] hover:bg-[#005a63] text-white"
+		className="w-full bg-purple-800 hover:bg-purple-800 text-white"
 		size="lg"
 		onClick={onClick}
 		disabled={disabled || isLoading}

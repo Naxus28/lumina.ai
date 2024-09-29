@@ -10,7 +10,7 @@ export function RecipientForm({ onDataChange }: AddressFormBaseProps) {
 	return (
 		<Card>
 			<CardContent className="p-4">
-				<h3 className="text-lg font-semibold mb-4 text-gray-800 flex items-center">
+				<h3 className="text-lg font-semibold mb-4 text-gray-600 flex items-center">
 					<Send className="w-5 h-5 mr-2 text-[#006D77]" />
 					Recipient Information
 				</h3>
