@@ -90,15 +90,15 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
 				</div>
 
 				{/* Menu items column */}
-				<div className="w-56 bg-purple-700 p-4 flex flex-col">
-					<h2 className="text-xl font-bold mb-4">{activeItem}</h2>
+				<div className="w-56 bg-gray-50 p-4 flex flex-col border-r-[1px] border-gray-200">
+					<h2 className="text-xl font-bold mb-4 text-gray-700">{activeItem}</h2>
 					<nav className="space-y-2 flex-grow">
 						{activeItem === 'Settings'
 							? settingsItems.map((item) => (
 									<Button
 										key={item.label}
 										variant="ghost"
-										className="w-full justify-start text-white hover:bg-purple-600"
+										className="w-full justify-start text-gray-700 hover:bg-purple-600"
 									>
 										<item.icon className="mr-2 h-4 w-4" />
 										{item.label}
@@ -118,7 +118,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
 										<Button
 											key={subItem}
 											variant="ghost"
-											className="w-full justify-start text-white hover:bg-purple-600"
+											className="w-full justify-start text-gray-700 hover:bg-purple-600"
 										>
 											{subItem}
 										</Button>
@@ -128,7 +128,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
 						<div className="flex items-center space-x-3">
 							<div className="flex-1 min-w-0">
 								<p className="text-sm font-medium truncate">Olivia Rhye</p>
-								<p className="text-xs text-purple-300 truncate">olivia@untitledui.com</p>
+								<p className="text-xs text-gray-700 truncate">olivia@untitledui.com</p>
 							</div>
 							<Button
 								variant="ghost"
@@ -143,7 +143,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
 			</div>
 
 			{/* Main content */}
-			<div className="flex-1 overflow-auto p-4">{children}</div>
+			<div className="flex-1 overflow-auto p-8">{children}</div>
 		</div>
 	);
 }

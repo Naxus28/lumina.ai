@@ -1,7 +1,8 @@
 import { NextRequest } from 'next/server';
 import { Anthropic } from '@anthropic-ai/sdk';
 import { createPromptGenerator } from '../../../utils/generatePrompt';
-const ANTHROPIC_API_KEY = '***REMOVED***';
+const ANTHROPIC_API_KEY =
+	'***REMOVED***';
 
 const anthropic = new Anthropic({
 	apiKey: ANTHROPIC_API_KEY,
@@ -31,7 +32,7 @@ export async function POST(req: NextRequest) {
 		const pdfData = await pdfParse.default(buffer);
 		const cvText = pdfData.text;
 
-		const generateCoverLetterPrompt = createPromptGenerator('foo', { template });
+		const generateCoverLetterPrompt = createPromptGenerator('coverLetter', { template });
 		const prompt = generateCoverLetterPrompt({ jobDescription, cv: cvText, addressee, sender });
 
 		// Create a ReadableStream to handle the Anthropic MessageStream
@@ -41,7 +42,8 @@ export async function POST(req: NextRequest) {
 					model: 'claude-3-sonnet-20240229',
 					max_tokens: 1500,
 					temperature: 0.3,
-					system: 'You are an AI assistant specialized in writing academic cover letters. Be concise, professional, and adhere strictly to the provided instructions.',
+					system:
+						'You are an AI assistant specialized in writing academic cover letters. Be concise, professional, and adhere strictly to the provided instructions.',
 					messages: [
 						{
 							role: 'user',

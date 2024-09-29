@@ -16,6 +16,7 @@ import { Container } from '../../layout-components/components/Container';
 import { SenderForm } from './components/address/SenderForm';
 import { AddresseeForm } from './components/address/AddresseeForm';
 import { AddressData } from './components/address/AddressFormBase';
+import { ChevronLeft, ChevronRight } from 'lucide-react'; // Make sure these icons are imported
 
 const CoverLetterGenerator: React.FC = () => {
 	const [selectedTemplate, setSelectedTemplate] = useState<CoverLetterTemplate | null>(null);
