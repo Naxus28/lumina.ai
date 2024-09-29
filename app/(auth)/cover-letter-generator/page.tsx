@@ -140,7 +140,7 @@ const CoverLetterGenerator: React.FC = () => {
 	return (
 		<div className="min-h-screen bg-gray-50 w-full">
 			{/* <Header /> */}
-			<main className="max-w-4xl mx-auto py-12">
+			<main className="px-24 mx-auto py-12">
 				<Container
 					className="mb-4"
 					paddingX="none"

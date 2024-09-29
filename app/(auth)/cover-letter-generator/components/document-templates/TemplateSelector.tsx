@@ -28,29 +28,31 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = ({ onSelectTemp
 		<section className="space-y-4">
 			<div className="relative">
 				<Carousel className="w-full">
-					<CarouselContent className="-ml-2 md:-ml-4">
-						{templates.map((template: CoverLetterTemplate) => (
-							<CarouselItem
-								key={template.name}
-								className="pl-2 md:pl-4 md:basis-1/3 lg:basis-1/3"
-							>
-								<TemplateCard
-									template={template}
-									isSelected={selectedTemplate === template.name}
-									onSelect={() => handleSelectTemplate(template)}
-									onView={() => handleViewExample(template.name)}
-								/>
-							</CarouselItem>
-						))}
-					</CarouselContent>
-					<CarouselPrevious className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[calc(100%+8px)] hover:bg-[#E0F2F1] hover:text-[#006D77] data-[disabled]:opacity-50 data-[disabled]:cursor-not-allowed" />
-					<CarouselNext className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-[calc(100%+8px)] hover:bg-[#E0F2F1] hover:text-[#006D77] data-[disabled]:opacity-50 data-[disabled]:cursor-not-allowed" />
+					<div className="relative px-10"> {/* Added padding for arrow space */}
+						<CarouselContent className="-ml-2 md:-ml-4">
+							{templates.map((template: CoverLetterTemplate) => (
+								<CarouselItem
+									key={template.name}
+									className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3"
+								>
+									<TemplateCard
+										template={template}
+										isSelected={selectedTemplate === template.name}
+										onSelect={() => handleSelectTemplate(template)}
+										onView={() => handleViewExample(template.name)}
+									/>
+								</CarouselItem>
+							))}
+						</CarouselContent>
+					</div>
+					<CarouselPrevious className="absolute left-0 top-1/2 -translate-y-1/2 hover:bg-[#E0F2F1] hover:text-[#006D77] data-[disabled]:opacity-50 data-[disabled]:cursor-not-allowed" />
+					<CarouselNext className="absolute right-0 top-1/2 -translate-y-1/2 hover:bg-[#E0F2F1] hover:text-[#006D77] data-[disabled]:opacity-50 data-[disabled]:cursor-not-allowed" />
 				</Carousel>
 			</div>
 
 			{selectedTemplate && (
 				<div className="text-center mt-4">
-					<span className="inline-block text-[#006D77] hover:text-[#005a63] text-lg font-semibold transition-colors duration-200 cursor-pointer border-b-2 border-[#006D77] hover:border-[#005a63] pb-1">Continue with {selectedTemplate}</span>
+						<span className="inline-block text-[#006D77] hover:text-[#005a63] text-lg font-semibold transition-colors duration-200 cursor-pointer border-b-2 border-[#006D77] hover:border-[#005a63] pb-1">Continue with {selectedTemplate}</span>
 				</div>
 			)}
 

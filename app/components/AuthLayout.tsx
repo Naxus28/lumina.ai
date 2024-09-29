@@ -9,15 +9,51 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { Home, BarChart2, Layers, CheckSquare, Flag, Users, Bell, Link, Settings, LogOut, Menu } from 'lucide-react';
+import {
+	Home,
+	BarChart2,
+	ChartLine,
+	Layers,
+	CheckSquare,
+	Flag,
+	Users,
+	Bell,
+	Link,
+	Settings,
+	LogOut,
+	Menu,
+	SquarePen,
+	User,
+	CreditCard,
+	HelpCircle,
+} from 'lucide-react';
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuLabel,
+	DropdownMenuSeparator,
+	DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 const menuItems = [
-	{ icon: Home, label: 'Home', items: ['Dashboard', 'Projects', 'Team'] },
-	{ icon: BarChart2, label: 'Analytics', items: ['Overview', 'Reports', 'Insights'] },
-	{ icon: Layers, label: 'Assets', items: ['Files', 'Images', 'Videos'] },
-	{ icon: CheckSquare, label: 'Tasks', items: ['My Tasks', 'Shared', 'Projects'] },
-	{ icon: Flag, label: 'Campaigns', items: ['Active', 'Drafts', 'Completed'] },
-	{ icon: Users, label: 'Team', items: ['Members', 'Invites', 'Groups'] },
+	{ icon: Home, label: 'Home', items: ['Dashboard', 'My Documents'] },
+	{
+		icon: SquarePen,
+		label: 'Create Documents',
+		items: [
+			'CV',
+			'Cover Letter',
+			'Teaching Philosophy',
+			'Research Statement',
+			'Diversity Statement',
+			'Document History',
+		],
+	},
+	{ icon: ChartLine, label: 'Analytics', items: ['AI Job Matcher Rank', 'CV Analyzer'] },
+	// { icon: CheckSquare, label: 'Tasks', items: ['My Tasks', 'Shared', 'Projects'] },
+	// { icon: Flag, label: 'Campaigns', items: ['Active', 'Drafts', 'Completed'] },
+	// { icon: Users, label: 'Team', items: ['Members', 'Invites', 'Groups'] },
 ];
 
 const settingsItems = [
@@ -31,7 +67,7 @@ const settingsItems = [
 ];
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
-	const [activeItem, setActiveItem] = useState('Settings');
+	const [activeItem, setActiveItem] = useState('Home');
 	const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
 	return (
@@ -79,13 +115,55 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
 							<Settings className="h-5 w-5" />
 						</Button>
 						<Separator className="w-8 bg-purple-600 mb-6" />
-						<Avatar className="w-10 h-10">
-							<AvatarImage
-								src="/placeholder-user.jpg"
-								alt="Olivia Rhye"
-							/>
-							<AvatarFallback>OR</AvatarFallback>
-						</Avatar>
+						<DropdownMenu>
+							<DropdownMenuTrigger asChild>
+								<Avatar className="w-10 h-10 cursor-pointer">
+									<AvatarImage
+										src="/placeholder-user.jpg"
+										alt="User"
+									/>
+									<AvatarFallback>U</AvatarFallback>
+								</Avatar>
+							</DropdownMenuTrigger>
+							<DropdownMenuContent
+								className="w-56"
+								align="end"
+								forceMount
+							>
+								<DropdownMenuLabel className="font-normal">
+									<div className="flex flex-col space-y-1">
+										<p className="text-sm font-medium leading-none">User Name</p>
+										<p className="text-xs leading-none text-muted-foreground">user@example.com</p>
+									</div>
+								</DropdownMenuLabel>
+								<DropdownMenuSeparator />
+								<DropdownMenuItem>
+									<User className="mr-2 h-4 w-4" />
+									<span>Profile</span>
+								</DropdownMenuItem>
+								<DropdownMenuItem>
+									<CreditCard className="mr-2 h-4 w-4" />
+									<span>Billing</span>
+								</DropdownMenuItem>
+								<DropdownMenuItem>
+									<Settings className="mr-2 h-4 w-4" />
+									<span>Settings</span>
+								</DropdownMenuItem>
+								<DropdownMenuItem>
+									<Bell className="mr-2 h-4 w-4" />
+									<span>Notifications</span>
+								</DropdownMenuItem>
+								<DropdownMenuItem>
+									<HelpCircle className="mr-2 h-4 w-4" />
+									<span>Help & Support</span>
+								</DropdownMenuItem>
+								<DropdownMenuSeparator />
+								<DropdownMenuItem>
+									<LogOut className="mr-2 h-4 w-4" />
+									<span>Log out</span>
+								</DropdownMenuItem>
+							</DropdownMenuContent>
+						</DropdownMenu>
 					</div>
 				</div>
 
@@ -93,52 +171,18 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
 				<div className="w-56 bg-gray-50 p-4 flex flex-col border-r-[1px] border-gray-200">
 					<h2 className="text-xl font-bold mb-4 text-gray-700">{activeItem}</h2>
 					<nav className="space-y-2 flex-grow">
-						{activeItem === 'Settings'
-							? settingsItems.map((item) => (
-									<Button
-										key={item.label}
-										variant="ghost"
-										className="w-full justify-start text-gray-700 hover:bg-purple-600"
-									>
-										<item.icon className="mr-2 h-4 w-4" />
-										{item.label}
-										{item.badge && (
-											<Badge
-												variant="secondary"
-												className="ml-auto"
-											>
-												{item.badge}
-											</Badge>
-										)}
-									</Button>
-							  ))
-							: menuItems
-									.find((item) => item.label === activeItem)
-									?.items.map((subItem) => (
-										<Button
-											key={subItem}
-											variant="ghost"
-											className="w-full justify-start text-gray-700 hover:bg-purple-600"
-										>
-											{subItem}
-										</Button>
-									))}
+						{menuItems
+							.find((item) => item.label === activeItem)
+							?.items.map((subItem) => (
+								<Button
+									key={subItem}
+									variant="ghost"
+									className="w-full justify-start text-gray-700 hover:bg-purple-600"
+								>
+									{subItem}
+								</Button>
+							))}
 					</nav>
-					<div className="mt-auto pt-4">
-						<div className="flex items-center space-x-3">
-							<div className="flex-1 min-w-0">
-								<p className="text-sm font-medium truncate">Olivia Rhye</p>
-								<p className="text-xs text-gray-700 truncate">olivia@untitledui.com</p>
-							</div>
-							<Button
-								variant="ghost"
-								size="icon"
-								className="text-white hover:bg-purple-600"
-							>
-								<LogOut className="h-4 w-4" />
-							</Button>
-						</div>
-					</div>
 				</div>
 			</div>
 
