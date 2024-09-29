@@ -53,8 +53,8 @@ const menuItems = [
 		icon: ChartLine,
 		label: 'Analytics',
 		items: [
-			{ title: 'AI Job Matcher Rank', url: '/analytics/job-matcher' },
-			{ title: 'CV Analyzer', url: '/analytics/cv-analyzer' },
+			{ title: 'Job Matcher', url: '/job-matcher' },
+			{ title: 'CV Analyzer', url: '/cv-analyzer' },
 		],
 	},
 ];

@@ -73,7 +73,7 @@ export const MaximizeImpactSection: React.FC = () => {
 				className="text-center mb-12"
 			>
 				<motion.div variants={itemVariants}>
-					<H2 className="text-gray-600 mb-6">Maximize Your Application Impact</H2>
+					<H2 className="text-gray-600 mb-6 text-center">Maximize Your Application Impact</H2>
 				</motion.div>
 				<motion.div variants={itemVariants}>
 					<Paragraph className="text-gray-700 max-w-3xl mx-auto">

@@ -9,15 +9,15 @@ export const HeroSection: React.FC = () => {
 			<H1 className="text-gray-300 text-2xl mb-4 tracking-wide">
 				Introducing AI-powered academic portfolio generation
 			</H1>
-			<H2 className="text-4xl md:text-6xl font-bold mb-10 tracking-normal">
+			<H2 className="text-4xl md:text-6xl font-bold mb-10 text-center tracking-normal">
 				<span className="text-white">Bright careers, </span>
 				<TypeAnimation
 					sequence={[
 						1000,
-						'strategically crafted',
-						1200,
-						'tailored to perfection',
-						1200,
+						// 'strategically crafted',
+						// 1200,
+						// 'tailored to perfection',
+						// 1200,
 						'brilliantly presented',
 						1200,
 					]}
