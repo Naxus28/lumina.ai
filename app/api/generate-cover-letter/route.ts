@@ -1,18 +1,8 @@
 import { NextRequest } from 'next/server';
-import { Anthropic } from '@anthropic-ai/sdk';
-import { createPromptGenerator } from '../../ai/utils/generatePrompt';
-const ANTHROPIC_API_KEY =
-	'***REMOVED***';
-
-const anthropic = new Anthropic({
-	apiKey: ANTHROPIC_API_KEY,
-});
+import { generateCoverLetter } from '@/app/ai/coverLetterGenerator';
+import { parsePDF } from '@/app/utils/pdfParser';
 
 export async function POST(req: NextRequest) {
-	if (!ANTHROPIC_API_KEY) {
-		return new Response(JSON.stringify({ error: 'Anthropic API key not configured' }), { status: 500 });
-	}
-
 	const formData = await req.formData();
 	const file = formData.get('file') as File | null;
 	const template = formData.get('template') as string | null;
@@ -25,41 +15,9 @@ export async function POST(req: NextRequest) {
 	}
 
 	try {
-		// Parse PDF
-		const pdfParse = await import('pdf-parse/lib/pdf-parse.js');
-		const arrayBuffer = await file.arrayBuffer();
-		const buffer = Buffer.from(arrayBuffer);
-		const pdfData = await pdfParse.default(buffer);
-		const cvText = pdfData.text;
+		const cvText = await parsePDF(file);
 
-		const generateCoverLetterPrompt = createPromptGenerator('coverLetter', { template });
-		const prompt = generateCoverLetterPrompt({ jobDescription, cv: cvText, addressee, sender });
-
-		// Create a ReadableStream to handle the Anthropic MessageStream
-		const stream = new ReadableStream({
-			async start(controller) {
-				const messageStream = anthropic.messages.stream({
-					model: 'claude-3-sonnet-20240229',
-					max_tokens: 1500,
-					temperature: 0.3,
-					system:
-						'You are an AI assistant specialized in writing academic cover letters. Be concise, professional, and adhere strictly to the provided instructions.',
-					messages: [
-						{
-							role: 'user',
-							content: prompt,
-						},
-					],
-				});
-
-				for await (const chunk of messageStream) {
-					if (chunk.type === 'content_block_delta' && 'text' in chunk.delta) {
-						controller.enqueue(chunk.delta.text);
-					}
-				}
-				controller.close();
-			},
-		});
+		const stream = await generateCoverLetter(cvText, jobDescription, template, sender || undefined, addressee || undefined);
 
 		// Return the streaming response
 		return new Response(stream, {
