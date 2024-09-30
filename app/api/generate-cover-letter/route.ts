@@ -1,6 +1,6 @@
 import { NextRequest } from 'next/server';
 import { Anthropic } from '@anthropic-ai/sdk';
-import { createPromptGenerator } from '../../../utils/generatePrompt';
+import { createPromptGenerator } from '../../ai/utils/generatePrompt';
 const ANTHROPIC_API_KEY =
 	'***REMOVED***';
 
