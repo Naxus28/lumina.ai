@@ -1,8 +1,5 @@
 import { Anthropic } from '@anthropic-ai/sdk';
-
-const anthropicSDK = new Anthropic({
-	apiKey: process.env.ANTHROPIC_API_KEY,
-});
+import { anthropicSDK } from '../sdk/anthropicClient';
 
 export interface GenerateDocumentParams {
 	prompt: string;
