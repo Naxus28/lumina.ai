@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Header } from './components/Header';
 import { TemplateSelector } from './components/document-templates/TemplateSelector';
@@ -35,6 +35,14 @@ const CoverLetterGenerator: React.FC = () => {
 		institution: '',
 		address: '',
 	});
+	const resultDisplayRef = useRef<HTMLDivElement>(null);
+	const [isStreamStarted, setIsStreamStarted] = useState(false);
+
+	useEffect(() => {
+		if (isStreamStarted && resultDisplayRef.current) {
+			resultDisplayRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+		}
+	}, [isStreamStarted]);
 
 	const handleSelectTemplate = useCallback((template: CoverLetterTemplate) => {
 		setSelectedTemplate(template);
@@ -54,6 +62,7 @@ const CoverLetterGenerator: React.FC = () => {
 		setGeneratedCoverLetter('');
 		setEditableCoverLetter('');
 		setIsGenerationComplete(false);
+		setIsStreamStarted(false);
 
 		try {
 			const formData = new FormData();
@@ -95,6 +104,9 @@ const CoverLetterGenerator: React.FC = () => {
 					setGeneratedCoverLetter((prev) => {
 						const newContent = prev + chunk;
 						setEditableCoverLetter(newContent);
+						if (!isStreamStarted) {
+							setIsStreamStarted(true);
+						}
 						return newContent;
 					});
 				}
@@ -200,12 +212,14 @@ const CoverLetterGenerator: React.FC = () => {
 				{error && <ErrorMessage message={error} />}
 
 				{generatedCoverLetter && (
-					<ResultDisplay
-						content={editableCoverLetter}
-						isLoading={isLoading}
-						isEditable={true}
-						onEdit={setEditableCoverLetter}
-					/>
+					<div ref={resultDisplayRef}>
+						<ResultDisplay
+							content={editableCoverLetter}
+							isLoading={isLoading}
+							isEditable={true}
+							onEdit={setEditableCoverLetter}
+						/>
+					</div>
 				)}
 
 				{isGenerationComplete && (
