@@ -39,9 +39,13 @@ export const promptsCatalog = {
   9. Conclude with interest in the position and thanks
   10. Before the closing, add a paragraph offering additional information. Use the applicant's actual contact information from the CV or sender info, not placeholders. For example:
       "If you require any additional information or have any questions, please don't hesitate to contact me at [email from CV] or [phone number from CV], or both if they are both present on the CV. I look forward to the opportunity to further discuss how I can contribute to [Institution Name]."
-  11. End with "Sincerely," followed by the sender's name (use the name from the CV if not provided in sender info) and add a line for the signature.
-  12. Do NOT add any introductory or explanatory text before or after the letter content
-  13. Use only the information provided in the CV, job description, sender info, and addressee info. Do not invent or assume any additional details.
+  11. End with "Sincerely," followed by two line breaks (\n\n).
+  12. Add the sender's name (use the name from the CV if not provided in sender info).
+  13. After the sender's name, add six line breaks (\n\n\n\n\n\n).
+  14. Create a signature line using underscores (_). The number of underscores should EXACTLY match the number of characters in the sender's name, including spaces but EXCLUDING periods. For example, if the name is "John A. Doe", the signature line should be "___________" (11 underscores).
+  15. Do NOT add any additional line breaks before or after the signature line.
+  16. Do NOT add any introductory or explanatory text before or after the letter content.
+  17. Use only the information provided in the CV, job description, sender info, and addressee info. Do not invent or assume any additional details.
   
   Generate a ${template}-style cover letter based on the above information, ensuring absolute fidelity to the provided CV and following all the guidelines above. The AI has the freedom to choose different phrases for offering contact information, as long as it conveys the same message and uses only the information provided or appropriate placeholders where information is missing.
   `,
