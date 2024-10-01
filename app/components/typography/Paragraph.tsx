@@ -9,7 +9,7 @@ interface ParagraphProps extends React.HTMLAttributes<HTMLParagraphElement> {
 export const Paragraph: React.FC<ParagraphProps> = ({ children, className, ...props }) => {
 	return (
 		<p
-			className={cn('text-xl tracking-normal font-normal leading-relaxed text-gray-600 mb-4', className)}
+			className={cn('text-xl tracking-normal font-normal leading-normal text-gray-600 mb-4', className)}
 			{...props}
 		>
 			{children}

@@ -6,7 +6,19 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Separator } from '@/components/ui/separator';
-import { Home, ChartLine, Settings, LogOut, Menu, SquarePen, User, CreditCard, HelpCircle, Bell } from 'lucide-react';
+import {
+	Home,
+	ChartLine,
+	Settings,
+	LogOut,
+	Menu,
+	SquarePen,
+	User,
+	CreditCard,
+	HelpCircle,
+	Bell,
+	PencilLine,
+} from 'lucide-react';
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -27,7 +39,7 @@ const menuItems = [
 		],
 	},
 	{
-		icon: SquarePen,
+		icon: PencilLine,
 		label: 'Create Documents',
 		items: [
 			{ title: 'CV', url: '/cv' },

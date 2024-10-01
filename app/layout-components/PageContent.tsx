@@ -8,6 +8,8 @@ interface PageContentProps {
 
 export const PageContent: React.FC<PageContentProps> = ({ children, className }) => {
 	return (
-		<div className={cn('flex-1 overflow-auto px-4 sm:px-6 md:px-12 lg:px-12 xl:px-24', className)}>{children}</div>
+		<div className={cn('flex-1 overflow-auto px-4 sm:px-6 md:px-12 lg:px-12 xl:px-24 mx-auto py-12', className)}>
+			{children}
+		</div>
 	);
 };

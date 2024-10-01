@@ -12,7 +12,7 @@ interface TemplateCardProps {
 }
 
 export const TemplateCard: React.FC<TemplateCardProps> = ({ template, isSelected, onSelect, onView }) => (
-	<Card className={`h-full ${isSelected ? 'ring-2 ring-purple-800 ring-inset' : ''}`}>
+	<Card className={`h-full ${isSelected ? 'transition-all duration-200 ease-in-out border-purple-500' : ''}`}>
 		<CardContent className="p-4 flex flex-col h-full">
 			<div className="flex items-center mb-2">
 				<template.icon className="h-6 w-6 text-purple-800 mr-2" />
