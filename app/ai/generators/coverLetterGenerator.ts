@@ -1,7 +1,6 @@
 import { generateDocument } from './documentGenerator';
 import { createPromptGenerator } from '../utils/generatePrompt';
 
-
 interface GenerateCoverLetterParams {
 	cvText: string;
 	jobDescription: string;

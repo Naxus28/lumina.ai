@@ -1,6 +1,6 @@
 import { NextRequest } from 'next/server';
 import { parsePDF } from '@/app/utils/pdfParser';
-import { generateCoverLetter } from '@/app/ai/generators/coverLetterGenerator';
+import { generateCoverLetter } from '@/app/ai';
 
 export async function POST(req: NextRequest) {
 	const formData = await req.formData();
