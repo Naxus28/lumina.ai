@@ -1,6 +1,6 @@
 import { NextRequest } from 'next/server';
-import { generateCoverLetter } from '@/app/ai/coverLetterGenerator';
 import { parsePDF } from '@/app/utils/pdfParser';
+import { generateCoverLetter } from '@/app/ai/coverLetterGenerator';
 
 export async function POST(req: NextRequest) {
 	const formData = await req.formData();
@@ -16,8 +16,13 @@ export async function POST(req: NextRequest) {
 
 	try {
 		const cvText = await parsePDF(file);
-
-		const stream = await generateCoverLetter(cvText, jobDescription, template, sender || undefined, addressee || undefined);
+		const stream = await generateCoverLetter({
+			template,
+			cvText,
+			jobDescription,
+			sender: sender || undefined,
+			addressee: addressee || undefined,
+		});
 
 		// Return the streaming response
 		return new Response(stream, {
