@@ -11,6 +11,6 @@ export const JobDescriptionInput: React.FC<JobDescriptionInputProps> = ({ jobDes
 		placeholder="Paste the job description here..."
 		value={jobDescription}
 		onChange={(e) => setJobDescription(e.target.value)}
-		className="min-h-[256px] max-h-[500px] w-full p-4 border border-gray-300 rounded-lg"
+		className="min-h-[256px] max-h-[500px] w-full p-4 border-gray-300 rounded-lg transition-all duration-200 ease-in-out focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-purple-500"
 	/>
 );

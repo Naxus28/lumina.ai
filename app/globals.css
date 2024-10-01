@@ -2,26 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-}
-
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -43,13 +23,9 @@
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
     --radius: 0.5rem;
   }
+ 
   .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
@@ -70,11 +46,6 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
   }
 }
 
@@ -85,4 +56,41 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Update this section */
+@layer base {
+  input[type="text"],
+  input[type="email"],
+  input[type="url"],
+  input[type="password"],
+  input[type="number"],
+  input[type="date"],
+  input[type="datetime-local"],
+  input[type="month"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="time"],
+  input[type="week"],
+  textarea,
+  select {
+    @apply border-gray-300 rounded-md shadow-sm transition-all duration-200 ease-in-out;
+  }
+
+  input:focus,
+  textarea:focus,
+  select:focus {
+    @apply outline-none border-purple-500 ring-1 ring-purple-500;
+  }
+}
+
+/* Add this to remove focus-visible styles */
+*:focus:not(:focus-visible) {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+*:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
 }
