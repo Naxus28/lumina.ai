@@ -42,7 +42,7 @@ export const promptsCatalog = {
   11. End with "Sincerely," followed by two line breaks (\n\n).
   12. Add the sender's name (use the name from the CV if not provided in sender info).
   13. After the sender's name, add six line breaks (\n\n\n\n\n\n).
-  14. Create a signature line using underscores (_). The number of underscores should EXACTLY match the number of characters in the sender's name, including spaces but EXCLUDING periods. For example, if the name is "John A. Doe", the signature line should be "___________" (11 underscores).
+  14. Create a signature line using underscores (_). The number of underscores should EXACTLY match the number of characters in the sender's name, including spaces but EXCLUDING periods, PLUS TWO ADDITIONAL UNDERSCORES. For example, if the name is "John A. Doe", the signature line should be "_____________" (13 underscores: 11 for the name + 2 extra).
   15. Do NOT add any additional line breaks before or after the signature line.
   16. Do NOT add any introductory or explanatory text before or after the letter content.
   17. Use only the information provided in the CV, job description, sender info, and addressee info. Do not invent or assume any additional details.
