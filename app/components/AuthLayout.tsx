@@ -15,6 +15,7 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { PageContent } from '../layout-components/PageContent';
 
 const menuItems = [
 	{
@@ -173,7 +174,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
 			</div>
 
 			{/* Main content */}
-			<div className="flex-1 overflow-auto px-4 sm:px-6 md:px-12 lg:px-12 xl:px-24">{children}</div>
+			<PageContent>{children}</PageContent>
 		</div>
 	);
 }
