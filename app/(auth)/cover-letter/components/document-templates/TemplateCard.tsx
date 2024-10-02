@@ -15,7 +15,7 @@ export const TemplateCard: React.FC<TemplateCardProps> = ({ template, isSelected
 	<Card className={`h-full ${isSelected ? 'transition-all duration-200 ease-in-out border-purple-500' : ''}`}>
 		<CardContent className="p-4 flex flex-col h-full">
 			<div className="flex items-center mb-2">
-				<template.icon className="h-6 w-6 text-purple-800 mr-2" />
+				<template.icon className="h-6 w-6 text-purple-600 mr-2" />
 				<h3 className={'text-m font-semibold text-gray-600'}>{template.name}</h3>
 			</div>
 			<Paragraph className="text-sm mb-2 flex-grow">{template.description}</Paragraph>
@@ -33,7 +33,7 @@ export const TemplateCard: React.FC<TemplateCardProps> = ({ template, isSelected
 					size="sm"
 					onClick={onSelect}
 					className={`flex-1 ${
-						isSelected ? 'bg-purple-500 text-white hover:bg-purple-600' : 'bg-purple-800 text-white hover:bg-purple-900'
+						isSelected ? 'bg-purple-500 text-white hover:bg-purple-600' : 'bg-purple-700 text-white hover:bg-purple-800'
 					}`}
 				>
 					{isSelected ? 'Selected' : 'Select'}

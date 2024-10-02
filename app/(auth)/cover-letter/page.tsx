@@ -6,7 +6,7 @@ import { Header } from './components/Header';
 import { TemplateSelector } from './components/document-templates/TemplateSelector';
 import { JobDescriptionInput } from './components/JobDescriptionInput';
 import { CVUpload } from './components/CVUpload';
-import { GenerateButton } from './components/GenerateButton';
+import { GenerateButton } from '@/app/components/GenerateButton';
 import { ResultDisplay } from './components/ResultDisplay';
 import { ErrorMessage } from './components/ErrorMessage';
 import jsPDF from 'jspdf';
@@ -206,6 +206,7 @@ const CoverLetterGenerator: React.FC = () => {
 						onClick={handleGenerate}
 						disabled={!selectedTemplate || !jobDescription || !cvFile}
 						isLoading={isLoading}
+						documentType="Cover Letter"
 					/>
 				</Container>
 
@@ -219,7 +220,7 @@ const CoverLetterGenerator: React.FC = () => {
 							isEditable={true}
 							onEdit={setEditableCoverLetter}
 						/>
-					</div>
+						</div>
 				)}
 
 				{isGenerationComplete && (
