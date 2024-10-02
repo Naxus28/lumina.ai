@@ -12,6 +12,7 @@ import { PageContent } from '@/app/layout-components/PageContent';
 import { H1, H2, Paragraph } from '@/app/components/typography';
 import { InfoTooltip } from '@/app/components/InfoTooltip';
 import { GenerateButton } from '@/app/components/GenerateButton';
+import { cn } from '@/lib/utils';
 
 interface Inputs {
 	discipline: string;
@@ -30,6 +31,18 @@ interface Inputs {
 	teachingStyle: string;
 	anecdote: string;
 }
+
+const checkboxStyle = {
+	backgroundColor: '#e5e7eb', // Tailwind's gray-200
+	borderColor: '#d1d5db', // Tailwind's gray-300
+	color: '#7c3aed', // Tailwind's purple-600
+	'&:hover': {
+		backgroundColor: '#d1d5db', // Tailwind's gray-300
+	},
+	'&:focus': {
+		boxShadow: '0 0 0 2px rgba(124, 58, 237, 0.5)', // Tailwind's purple-500 with opacity
+	},
+};
 
 const TeachingPhilosophyGenerator = () => {
 	const [inputs, setInputs] = useState<Inputs>({
@@ -220,7 +233,7 @@ const TeachingPhilosophyGenerator = () => {
 					<H2 className="text-lg">Teaching Values and Methods</H2>
 					<div className="space-y-6">
 						<div className="space-y-2">
-							<Label className="text-gray-600">
+							<Label>
 								Teaching Values
 								<InfoTooltip content="Select the core values that guide your teaching philosophy and approach." />
 							</Label>
@@ -235,6 +248,7 @@ const TeachingPhilosophyGenerator = () => {
 												id={`value-${value}`}
 												checked={inputs.teachingValues.includes(value)}
 												onCheckedChange={(checked) => handleCheckboxChange('teachingValues', value)}
+												style={checkboxStyle}
 											/>
 											<label
 												htmlFor={`value-${value}`}
@@ -248,7 +262,7 @@ const TeachingPhilosophyGenerator = () => {
 							</div>
 						</div>
 						<div className="space-y-2">
-							<Label className="text-gray-600">
+							<Label>
 								Assessment Methods
 								<InfoTooltip content="Choose the methods you use to evaluate student learning and progress." />
 							</Label>
@@ -263,7 +277,7 @@ const TeachingPhilosophyGenerator = () => {
 									'Practical demonstrations',
 									'Portfolio assessments',
 									'Group work',
-									'Reflective journals',
+									'Reflective journals'
 								].map((method) => (
 									<div
 										key={method}
@@ -273,6 +287,7 @@ const TeachingPhilosophyGenerator = () => {
 											id={`assessment-${method}`}
 											checked={inputs.assessmentMethods.includes(method)}
 											onCheckedChange={(checked) => handleCheckboxChange('assessmentMethods', method)}
+											style={checkboxStyle}
 										/>
 										<label
 											htmlFor={`assessment-${method}`}
@@ -290,7 +305,7 @@ const TeachingPhilosophyGenerator = () => {
 				<Container>
 					<H2 className="text-lg">Teaching Style</H2>
 					<div className="space-y-2">
-						<Label className="text-gray-600">
+						<Label>
 							Primary Teaching Style
 							<InfoTooltip content="Select the teaching style that best describes your overall approach." />
 						</Label>
@@ -307,6 +322,10 @@ const TeachingPhilosophyGenerator = () => {
 										<RadioGroupItem
 											value={style.toLowerCase()}
 											id={`r${index + 1}`}
+											className={cn(
+												"border-gray-300 text-purple-600 focus:ring-purple-500",
+												"bg-gray-200 hover:bg-gray-300"
+											)}
 										/>
 										<Label
 											htmlFor={`r${index + 1}`}
