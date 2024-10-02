@@ -2,61 +2,16 @@
 
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-
-const InfoIcon = () => (
-	<svg
-		xmlns="http://www.w3.org/2000/svg"
-		width="16"
-		height="16"
-		viewBox="0 0 24 24"
-		fill="none"
-		stroke="currentColor"
-		strokeWidth="2"
-		strokeLinecap="round"
-		strokeLinejoin="round"
-		className="inline-block ml-2 text-gray-500"
-	>
-		<circle
-			cx="12"
-			cy="12"
-			r="10"
-		></circle>
-		<line
-			x1="12"
-			y1="16"
-			x2="12"
-			y2="12"
-		></line>
-		<line
-			x1="12"
-			y1="8"
-			x2="12.01"
-			y2="8"
-		></line>
-	</svg>
-);
-
-const InfoTooltip = ({ content }: { content: string }) => (
-	<TooltipProvider>
-		<Tooltip>
-			<TooltipTrigger asChild>
-				<span>
-					<InfoIcon />
-				</span>
-			</TooltipTrigger>
-			<TooltipContent>
-				<p className="w-80 text-sm">{content}</p>
-			</TooltipContent>
-		</Tooltip>
-	</TooltipProvider>
-);
+import { Info } from 'lucide-react';
+import { Container } from '@/app/layout-components/Container';
+import { PageContent } from '@/app/layout-components/PageContent';
+import { H1, H2, Paragraph } from '@/app/components/typography';
+import { InfoTooltip } from '@/app/components/InfoTooltip';
 
 interface Inputs {
 	discipline: string;
@@ -114,12 +69,17 @@ const TeachingPhilosophyGenerator = () => {
 	};
 
 	return (
-		<Card className="w-full max-w-3xl mx-auto">
-			<CardHeader>
-				<CardTitle className="text-2xl font-bold text-center">Create Your Teaching Philosophy</CardTitle>
-			</CardHeader>
-			<CardContent className="space-y-6">
-				{/* Text Inputs */}
+		<PageContent>
+			<Container>
+				<H1>Create Your Teaching Philosophy</H1>
+				<Paragraph>
+					Craft a compelling teaching philosophy that showcases your approach to education, your values as an educator,
+					and your vision for student learning.
+				</Paragraph>
+			</Container>
+
+			<Container>
+				<H2 className="text-lg">Basic Information</H2>
 				<div className="space-y-4">
 					<div>
 						<Label htmlFor="discipline">
@@ -147,8 +107,10 @@ const TeachingPhilosophyGenerator = () => {
 						/>
 					</div>
 				</div>
+			</Container>
 
-				{/* Textareas */}
+			<Container>
+				<H2 className="text-lg">Philosophy Details</H2>
 				<div className="space-y-4">
 					{[
 						{
@@ -221,14 +183,16 @@ const TeachingPhilosophyGenerator = () => {
 								id={name}
 								name={name as keyof typeof inputs}
 								value={inputs[name as keyof typeof inputs]}
-								onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => handleInputChange(e)}
+								onChange={handleInputChange}
 								rows={3}
 							/>
 						</div>
 					))}
 				</div>
+			</Container>
 
-				{/* Multiple Choice (Checkboxes) */}
+			<Container>
+				<H2 className="text-lg">Teaching Values and Methods</H2>
 				<div className="space-y-4">
 					<div>
 						<Label>
@@ -291,56 +255,42 @@ const TeachingPhilosophyGenerator = () => {
 						</div>
 					</div>
 				</div>
+			</Container>
 
-				{/* Single Choice (Radio Buttons) */}
-				<div>
-					<Label>
-						Primary Teaching Style
-						<InfoTooltip content="Select the teaching style that best describes your overall approach." />
-					</Label>
-					<RadioGroup
-						onValueChange={(value) => setInputs((prev) => ({ ...prev, teachingStyle: value }))}
-						value={inputs.teachingStyle}
-					>
-						<div className="flex items-center space-x-2">
+			<Container>
+				<H2 className="text-lg">Teaching Style</H2>
+				<Label>
+					Primary Teaching Style
+					<InfoTooltip content="Select the teaching style that best describes your overall approach." />
+				</Label>
+				<RadioGroup
+					onValueChange={(value) => setInputs((prev) => ({ ...prev, teachingStyle: value }))}
+					value={inputs.teachingStyle}
+				>
+					{['Lecture-based', 'Discussion-oriented', 'Hands-on / Practical', 'Blended / Hybrid'].map((style, index) => (
+						<div
+							key={style}
+							className="flex items-center space-x-2"
+						>
 							<RadioGroupItem
-								value="lecture"
-								id="r1"
+								value={style.toLowerCase()}
+								id={`r${index + 1}`}
 							/>
-							<Label htmlFor="r1">Lecture-based</Label>
+							<Label htmlFor={`r${index + 1}`}>{style}</Label>
 						</div>
-						<div className="flex items-center space-x-2">
-							<RadioGroupItem
-								value="discussion"
-								id="r2"
-							/>
-							<Label htmlFor="r2">Discussion-oriented</Label>
-						</div>
-						<div className="flex items-center space-x-2">
-							<RadioGroupItem
-								value="hands-on"
-								id="r3"
-							/>
-							<Label htmlFor="r3">Hands-on / Practical</Label>
-						</div>
-						<div className="flex items-center space-x-2">
-							<RadioGroupItem
-								value="blended"
-								id="r4"
-							/>
-							<Label htmlFor="r4">Blended / Hybrid</Label>
-						</div>
-					</RadioGroup>
-				</div>
+					))}
+				</RadioGroup>
+			</Container>
 
+			<Container>
 				<Button
 					onClick={handleGenerate}
 					className="w-full"
 				>
 					Generate Teaching Philosophy
 				</Button>
-			</CardContent>
-		</Card>
+			</Container>
+		</PageContent>
 	);
 };
 
