@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Pencil, Save } from 'lucide-react';
+import { Pencil, Save, X } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 interface DocumentDisplayProps {
@@ -25,6 +25,7 @@ export const DocumentDisplay: React.FC<DocumentDisplayProps> = ({
 }) => {
 	const [isEditing, setIsEditing] = useState(false);
 	const [editableContent, setEditableContent] = useState(content);
+	const [originalContent, setOriginalContent] = useState(content);
 	const [fontFamily, setFontFamily] = useState('Times New Roman');
 	const [fontSize, setFontSize] = useState('12pt');
 	const [lineSpacing, setLineSpacing] = useState('1.15');
@@ -32,10 +33,12 @@ export const DocumentDisplay: React.FC<DocumentDisplayProps> = ({
 
 	useEffect(() => {
 		setEditableContent(content);
+		setOriginalContent(content);
 	}, [content]);
 
 	const handleEdit = () => {
 		setIsEditing(true);
+		setOriginalContent(editableContent);
 	};
 
 	const handleSave = () => {
@@ -43,6 +46,11 @@ export const DocumentDisplay: React.FC<DocumentDisplayProps> = ({
 		if (onEdit) {
 			onEdit(editableContent);
 		}
+	};
+
+	const handleCancel = () => {
+		setIsEditing(false);
+		setEditableContent(originalContent);
 	};
 
 	const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -97,27 +105,41 @@ export const DocumentDisplay: React.FC<DocumentDisplayProps> = ({
 					<TooltipProvider>
 						<Tooltip>
 							<TooltipTrigger asChild>
-								<Button
-									variant="outline"
-									size="sm"
-									onClick={isEditing ? handleSave : handleEdit}
-									className="flex items-center gap-2"
-								>
-									{isEditing ? (
-										<>
+								{isEditing ? (
+									<div className="flex space-x-2">
+										<Button
+											variant="outline"
+											size="sm"
+											onClick={handleSave}
+											className="flex items-center gap-2"
+										>
 											<Save className="h-4 w-4" />
 											<span>Save Changes</span>
-										</>
-									) : (
-										<>
-											<Pencil className="h-4 w-4" />
-											<span>Edit</span>
-										</>
-									)}
-								</Button>
+										</Button>
+										<Button
+											variant="outline"
+											size="sm"
+											onClick={handleCancel}
+											className="flex items-center gap-2"
+										>
+											<X className="h-4 w-4" />
+											<span>Cancel</span>
+										</Button>
+									</div>
+								) : (
+									<Button
+										variant="outline"
+										size="sm"
+										onClick={handleEdit}
+										className="flex items-center gap-2"
+									>
+										<Pencil className="h-4 w-4" />
+										<span>Edit</span>
+									</Button>
+								)}
 							</TooltipTrigger>
 							<TooltipContent>
-								<p>{isEditing ? 'Save changes' : `Click to edit the ${documentType}`}</p>
+								<p>{isEditing ? 'Save changes or cancel' : `Click to edit the ${documentType}`}</p>
 							</TooltipContent>
 						</Tooltip>
 					</TooltipProvider>
