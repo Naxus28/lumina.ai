@@ -2,12 +2,11 @@
 
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Header } from './components/Header';
 import { TemplateSelector } from './components/document-templates/TemplateSelector';
 import { JobDescriptionInput } from './components/JobDescriptionInput';
 import { CVUpload } from './components/CVUpload';
 import { GenerateButton } from '@/app/components/GenerateButton';
-import { ResultDisplay } from './components/ResultDisplay';
+import { DocumentDisplay } from '@/app/components/shared/DocumentDisplay';
 import { ErrorMessage } from './components/ErrorMessage';
 import jsPDF from 'jspdf';
 import { CoverLetterTemplate } from './components/document-templates/models';
@@ -16,7 +15,6 @@ import { Container } from '../../layout-components/Container';
 import { SenderForm } from './components/address/SenderForm';
 import { RecipientForm } from './components/address/RecipientForm';
 import { AddressData } from './components/address/AddressFormBase';
-import { ChevronLeft, ChevronRight } from 'lucide-react'; // Make sure these icons are imported
 import { H1, H2, Paragraph, Span } from '@/app/components/typography';
 
 const CoverLetterGenerator: React.FC = () => {
@@ -24,7 +22,6 @@ const CoverLetterGenerator: React.FC = () => {
 	const [jobDescription, setJobDescription] = useState('');
 	const [cvFile, setCvFile] = useState<File | null>(null);
 	const [generatedCoverLetter, setGeneratedCoverLetter] = useState('');
-	const [editableCoverLetter, setEditableCoverLetter] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 	const [isGenerationComplete, setIsGenerationComplete] = useState(false);
@@ -60,7 +57,6 @@ const CoverLetterGenerator: React.FC = () => {
 		setIsLoading(true);
 		setError(null);
 		setGeneratedCoverLetter('');
-		setEditableCoverLetter('');
 		setIsGenerationComplete(false);
 		setIsStreamStarted(false);
 
@@ -73,8 +69,7 @@ const CoverLetterGenerator: React.FC = () => {
 			if (cvFile) {
 				formData.append('file', cvFile);
 			}
-			// Only append sender and addressee data if they are not empty
-			if (Object.values(senderData).some((value) => value !== 'p')) {
+			if (Object.values(senderData).some((value) => value !== '')) {
 				formData.append('sender', JSON.stringify(senderData));
 			}
 			if (Object.values(addresseeData).some((value) => value !== '')) {
@@ -103,7 +98,6 @@ const CoverLetterGenerator: React.FC = () => {
 					const chunk = decoder.decode(value, { stream: true });
 					setGeneratedCoverLetter((prev) => {
 						const newContent = prev + chunk;
-						setEditableCoverLetter(newContent);
 						if (!isStreamStarted) {
 							setIsStreamStarted(true);
 						}
@@ -121,6 +115,10 @@ const CoverLetterGenerator: React.FC = () => {
 		}
 	}, [selectedTemplate, jobDescription, cvFile, senderData, addresseeData]);
 
+	const handleEdit = useCallback((newContent: string) => {
+		setGeneratedCoverLetter(newContent);
+	}, []);
+
 	const handleDownloadPDF = useCallback(() => {
 		const doc = new jsPDF();
 		const pageHeight = doc.internal.pageSize.height;
@@ -134,7 +132,7 @@ const CoverLetterGenerator: React.FC = () => {
 		doc.setFont(font[0], font[1]);
 		doc.setFontSize(fontSize);
 
-		const lines = doc.splitTextToSize(editableCoverLetter, doc.internal.pageSize.width - 2 * margin);
+		const lines = doc.splitTextToSize(generatedCoverLetter, doc.internal.pageSize.width - 2 * margin);
 
 		lines.forEach((line: string, lineIndex: number) => {
 			if (y > pageHeight - margin) {
@@ -148,11 +146,10 @@ const CoverLetterGenerator: React.FC = () => {
 		});
 
 		doc.save('cover_letter.pdf');
-	}, [editableCoverLetter]);
+	}, [generatedCoverLetter]);
 
 	return (
 		<div className="min-h-screen bg-gray-50 w-full">
-			{/* <Header /> */}
 			<main>
 				<Container paddingX="none">
 					<header>
@@ -214,11 +211,12 @@ const CoverLetterGenerator: React.FC = () => {
 
 				{generatedCoverLetter && (
 					<div ref={resultDisplayRef}>
-						<ResultDisplay
-							content={editableCoverLetter}
+						<DocumentDisplay
+							content={generatedCoverLetter}
 							isLoading={isLoading}
 							isEditable={true}
-							onEdit={setEditableCoverLetter}
+							documentType="Cover Letter"
+							onEdit={handleEdit}
 						/>
 					</div>
 				)}

@@ -4,10 +4,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Pencil, Save } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
-interface ResultDisplayProps {
+interface DocumentDisplayProps {
 	content: string;
 	isLoading: boolean;
 	isEditable: boolean;
+	documentType: string;
 	onEdit?: (newContent: string) => void;
 }
 
@@ -15,7 +16,13 @@ const fontFamilies = ['Times New Roman', 'Arial', 'Calibri', 'Georgia'];
 const fontSizes = ['10pt', '11pt', '12pt', '14pt'];
 const lineSpacings = ['1', '1.15', '1.5', '2'];
 
-export const ResultDisplay: React.FC<ResultDisplayProps> = ({ content, isEditable: initialIsEditable, onEdit, isLoading }) => {
+export const DocumentDisplay: React.FC<DocumentDisplayProps> = ({
+	content,
+	isEditable: initialIsEditable,
+	onEdit,
+	isLoading,
+	documentType,
+}) => {
 	const [isEditing, setIsEditing] = useState(false);
 	const [editableContent, setEditableContent] = useState(content);
 	const [fontFamily, setFontFamily] = useState('Times New Roman');
@@ -81,12 +88,12 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({ content, isEditabl
 	return (
 		<div className="mt-8">
 			<div className="flex justify-between items-center mb-4">
-				<h2 className="text-xl font-semibold text-gray-900">Generated Cover Letter</h2>
+				<h2 className="text-xl font-semibold text-gray-900">Generated {documentType}</h2>
 			</div>
 			<p className="text-sm text-gray-600 mb-4">You can edit this document before downloading the PDF</p>
 
 			<div className="mb-4 flex items-center space-x-4">
-				{!isLoading && (
+				{!isLoading && initialIsEditable && (
 					<TooltipProvider>
 						<Tooltip>
 							<TooltipTrigger asChild>
@@ -110,7 +117,7 @@ export const ResultDisplay: React.FC<ResultDisplayProps> = ({ content, isEditabl
 								</Button>
 							</TooltipTrigger>
 							<TooltipContent>
-								<p>{isEditing ? 'Save changes' : 'Click to edit the cover letter'}</p>
+								<p>{isEditing ? 'Save changes' : `Click to edit the ${documentType}`}</p>
 							</TooltipContent>
 						</Tooltip>
 					</TooltipProvider>
