@@ -1,5 +1,5 @@
 import { generateDocument } from './documentGenerator';
-import { createPromptGenerator } from '../utils/generatePrompt';
+import { generatePrompt } from '../utils/generatePrompt';
 
 interface GenerateCoverLetterParams {
 	cvText: string;
@@ -16,8 +16,13 @@ export async function generateCoverLetter({
 	sender,
 	addressee,
 }: GenerateCoverLetterParams) {
-	const generateCoverLetterPrompt = createPromptGenerator('coverLetter', { template });
-	const prompt = generateCoverLetterPrompt({ jobDescription, cv: cvText, addressee, sender });
+	const prompt = generatePrompt('coverLetter', {
+		jobDescription,
+		cv: cvText,
+		addressee,
+		sender,
+		template,
+	});
 
 	return generateDocument({
 		prompt,

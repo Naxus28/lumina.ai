@@ -49,27 +49,77 @@ export const promptsCatalog = {
   
   Generate a ${template}-style cover letter based on the above information, ensuring absolute fidelity to the provided CV and following all the guidelines above. The AI has the freedom to choose different phrases for offering contact information, as long as it conveys the same message and uses only the information provided or appropriate placeholders where information is missing.
   `,
-	resume: ({
-		template,
-		jobDescription,
+	teachingPhilosophy: ({
+		discipline,
 		experience,
+		educationPurpose,
+		teachingMotivation,
+		studentLearning,
+		teachingGoals,
+		effectiveMethods,
+		teachingValues,
+		assessmentMethods,
+		inclusiveness,
+		researchTeachingConnection,
+		challengesInnovations,
+		professionalDevelopment,
+		teachingStyles,
+		anecdote,
+		...customFields
 	}: {
-		template: string;
-		jobDescription: string;
+		discipline: string;
 		experience: string;
-	}) => {
-		return `
-      Create a ${template} resume tailored for the following job description:
+		educationPurpose: string;
+		teachingMotivation: string;
+		studentLearning: string;
+		teachingGoals: string;
+		effectiveMethods: string;
+		teachingValues: string[];
+		assessmentMethods: string[];
+		inclusiveness: string;
+		researchTeachingConnection: string;
+		challengesInnovations: string;
+		professionalDevelopment: string;
+		teachingStyles: string[];
+		anecdote: string;
+		[key: string]: string | string[];
+	}) => `
+  INSTRUCTIONS:
+  Create a professional and coherent teaching philosophy statement based on the following information. The statement should be well-structured, engaging, and reflect the teacher's unique approach and values.
 
-      Job Description:
-      ${jobDescription}
+  1. Begin with a strong opening that introduces the teacher's overall approach to education.
+  2. Organize the content into clear, logical sections that flow naturally from one to the next.
+  3. Use specific examples and anecdotes to illustrate key points and make the statement more personal and engaging.
+  4. Ensure that the statement reflects the teacher's passion for their discipline and for education in general.
+  5. Conclude with a summary that ties together the main points and reiterates the teacher's commitment to education.
+  6. The statement should be approximately 1-2 pages long (500-1000 words).
+  7. Use professional language throughout, but maintain a personal and authentic voice.
+  8. Incorporate all provided information, but feel free to organize and present it in the most effective way.
+  9. Do not invent any information not provided in the input.
 
-      Using the following professional experience:
-      ${experience}
+  TEACHER INFORMATION:
+  Discipline: ${discipline}
+  Teaching Experience: ${experience}
+  Purpose of Education: ${educationPurpose}
+  Teaching Motivation: ${teachingMotivation}
+  View on Student Learning: ${studentLearning}
+  Teaching Goals: ${teachingGoals}
+  Effective Teaching Methods: ${effectiveMethods}
+  Teaching Values: ${teachingValues.join(', ')}
+  Assessment Methods: ${assessmentMethods.join(', ')}
+  Approach to Inclusiveness: ${inclusiveness}
+  Research-Teaching Connection: ${researchTeachingConnection}
+  Challenges and Innovations: ${challengesInnovations}
+  Professional Development: ${professionalDevelopment}
+  Teaching Styles: ${teachingStyles.join(', ')}
+  Illustrative Anecdote: ${anecdote}
 
-      The resume should be concise, highlight relevant skills and experiences, and be formatted professionally.
-      `;
-	},
+  ${Object.entries(customFields)
+		.map(([key, value]) => `${key}: ${Array.isArray(value) ? value.join(', ') : value}`)
+		.join('\n')}
+
+  Based on this information, generate a comprehensive teaching philosophy statement that accurately represents the teacher's approach, values, and goals in education.
+  `,
 
 	// Add more prompt types as needed
 };
