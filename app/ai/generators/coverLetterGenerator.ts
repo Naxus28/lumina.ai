@@ -1,4 +1,4 @@
-import { generateDocument } from './documentGenerator';
+import { generateDocument } from '@/app/ai';
 import { generatePrompt } from '../utils/generatePrompt';
 
 interface GenerateCoverLetterParams {
