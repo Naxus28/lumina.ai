@@ -47,7 +47,7 @@ export const TeachingValuesAndMethods: React.FC<TeachingValuesAndMethodsProps> =
 		<div className="space-y-6">
 			<div className="space-y-2">
 				<Label>
-					Teaching Values
+					Teaching Values*
 					<InfoTooltip content="Select the core values that guide your teaching philosophy and approach." />
 				</Label>
 				<div className="space-y-2">
@@ -61,6 +61,7 @@ export const TeachingValuesAndMethods: React.FC<TeachingValuesAndMethodsProps> =
 								checked={inputs.teachingValues.includes(value)}
 								onCheckedChange={(checked) => handleCheckboxChange('teachingValues', value)}
 								style={checkboxStyle}
+								required={inputs.teachingValues.length === 0}
 							/>
 							<label
 								htmlFor={`value-${value}`}
@@ -74,7 +75,7 @@ export const TeachingValuesAndMethods: React.FC<TeachingValuesAndMethodsProps> =
 			</div>
 			<div className="space-y-2">
 				<Label>
-					Assessment Methods
+					Assessment Methods*
 					<InfoTooltip content="Choose the methods you use to evaluate student learning and progress." />
 				</Label>
 				<div className="space-y-2">
@@ -85,9 +86,10 @@ export const TeachingValuesAndMethods: React.FC<TeachingValuesAndMethodsProps> =
 						>
 							<Checkbox
 								id={`assessment-${method}`}
-								checked={inputs.assessmentMethods.includes(method)}
-								onCheckedChange={(checked) => handleCheckboxChange('assessmentMethods', method)}
-								style={checkboxStyle}
+									checked={inputs.assessmentMethods.includes(method)}
+									onCheckedChange={(checked) => handleCheckboxChange('assessmentMethods', method)}
+									style={checkboxStyle}
+									required={inputs.assessmentMethods.length === 0}
 							/>
 							<label
 								htmlFor={`assessment-${method}`}

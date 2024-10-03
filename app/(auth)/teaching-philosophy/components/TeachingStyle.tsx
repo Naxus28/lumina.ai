@@ -18,12 +18,13 @@ export const TeachingStyle: React.FC<TeachingStyleProps> = ({ teachingStyle, han
 		<H2 className="text-lg">Teaching Style</H2>
 		<div className="space-y-2">
 			<Label>
-				Primary Teaching Style
+				Primary Teaching Style*
 				<InfoTooltip content="Select the teaching style that best describes your overall approach." />
 			</Label>
 			<RadioGroup
 				onValueChange={handleInputChange}
 				value={teachingStyle}
+				required
 			>
 				{teachingStyles.map((style, index) => (
 					<div

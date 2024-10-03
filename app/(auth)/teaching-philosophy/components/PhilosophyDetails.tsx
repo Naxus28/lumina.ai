@@ -1,43 +1,47 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Textarea } from '@/components/ui/textarea';
+import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
 import { Container } from '@/app/layout-components/Container';
 import { H2 } from '@/app/components/typography';
 import { InfoTooltip } from '@/app/components/InfoTooltip';
 
 interface PhilosophyDetailsProps {
 	inputs: Record<string, string>;
-	handleInputChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+	handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+	addCustomField: (fieldName: string) => void;
+	customFields: string[];
 }
 
 const philosophyFields = [
 	{
 		name: 'educationPurpose',
-		label: 'Purpose of Education',
+		label: 'Purpose of Education*',
 		example:
 			'e.g., To empower students with critical thinking skills and subject-specific knowledge, fostering their ability to contribute meaningfully to their field and society at large.',
 	},
 	{
 		name: 'teachingMotivation',
-		label: 'Teaching Motivation',
+		label: 'Teaching Motivation*',
 		example:
 			"e.g., I'm passionate about inspiring students to become lifelong learners, helping them develop the skills and mindset needed to tackle complex challenges in their future careers and personal lives.",
 	},
 	{
 		name: 'studentLearning',
-		label: 'How Students Learn Best',
+		label: 'How Students Learn Best*',
 		example:
 			'e.g., Students learn best through a combination of theoretical foundations and practical applications, including collaborative projects, hands-on experiences, and exposure to real-world scenarios in the field.',
 	},
 	{
 		name: 'teachingGoals',
-		label: 'Teaching Goals',
+		label: 'Teaching Goals*',
 		example:
 			"e.g., My goals are to develop students' critical thinking and problem-solving skills, foster creativity and innovation, build a strong foundation in core principles, and instill an understanding of the ethical implications in our field.",
 	},
 	{
 		name: 'effectiveMethods',
-		label: 'Effective Teaching Methods',
+		label: 'Effective Teaching Methods*',
 		example:
 			'e.g., I employ a mix of interactive lectures, group discussions, project-based learning, and case studies. These methods encourage active participation and provide opportunities for practical application of concepts.',
 	},
@@ -73,32 +77,69 @@ const philosophyFields = [
 	},
 ];
 
-export const PhilosophyDetails: React.FC<PhilosophyDetailsProps> = ({ inputs, handleInputChange }) => (
-	<Container>
-		<H2 className="text-lg">Philosophy Details</H2>
-		<div className="space-y-8">
-			{philosophyFields.map(({ name, label, example }) => (
-				<div
-					key={name}
-					className="space-y-2"
-				>
-					<Label
-						htmlFor={name}
-						className="text-gray-600"
-					>
-						{label}
-						<InfoTooltip content={example} />
-					</Label>
-					<Textarea
-						id={name}
-						name={name}
-						value={inputs[name]}
-						onChange={handleInputChange}
-						className="min-h-[128px] max-h-[256px] w-full p-4 border-gray-300 rounded-lg transition-all duration-200 ease-in-out focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-purple-500"
-						rows={3}
+export const PhilosophyDetails: React.FC<PhilosophyDetailsProps> = ({ 
+	inputs, 
+	handleInputChange, 
+	addCustomField, 
+	customFields 
+}) => {
+	const [newFieldName, setNewFieldName] = useState('');
+
+	const handleAddField = () => {
+		if (newFieldName.trim()) {
+			addCustomField(newFieldName.trim());
+			setNewFieldName('');
+		}
+	};
+
+	return (
+		<Container>
+			<H2 className="text-lg">Philosophy Details</H2>
+			<div className="space-y-8">
+				{philosophyFields.map(({ name, label, example }) => (
+					<div key={name} className="space-y-2">
+						<Label htmlFor={name} className="text-gray-600">
+							{label}
+							<InfoTooltip content={example} />
+						</Label>
+						<Textarea
+							id={name}
+							name={name}
+							value={inputs[name]}
+							onChange={handleInputChange}
+							className="min-h-[128px] max-h-[256px] w-full p-4 border-gray-300 rounded-lg transition-all duration-200 ease-in-out focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-purple-500"
+							rows={3}
+							required={name === 'educationPurpose' || name === 'teachingMotivation' || name === 'studentLearning' || name === 'teachingGoals' || name === 'effectiveMethods'}
+						/>
+					</div>
+				))}
+				{customFields.map((fieldName) => (
+					<div key={fieldName} className="space-y-2">
+						<Label htmlFor={fieldName} className="text-gray-600">
+							{fieldName}
+						</Label>
+						<Textarea
+							id={fieldName}
+							name={fieldName}
+							value={inputs[fieldName] || ''}
+							onChange={handleInputChange}
+							className="min-h-[128px] max-h-[256px] w-full p-4 border-gray-300 rounded-lg transition-all duration-200 ease-in-out focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-purple-500"
+							rows={3}
+						/>
+					</div>
+				))}
+				<div className="flex space-x-2">
+					<Input
+						value={newFieldName}
+						onChange={(e) => setNewFieldName(e.target.value)}
+						placeholder="New field name"
+						className="flex-grow"
 					/>
+					<Button onClick={handleAddField} disabled={!newFieldName.trim()}>
+						Add Field
+					</Button>
 				</div>
-			))}
-		</div>
-	</Container>
-);
+			</div>
+		</Container>
+	);
+};

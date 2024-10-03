@@ -22,7 +22,7 @@ export const BasicInformation: React.FC<BasicInformationProps> = ({ inputs, hand
 					htmlFor="discipline"
 					className="text-gray-600"
 				>
-					Academic Discipline
+					Academic Discipline*
 					<InfoTooltip content="Your primary field of study, any specializations or focus areas, and interdisciplinary interests if applicable." />
 				</Label>
 				<Input
@@ -30,6 +30,7 @@ export const BasicInformation: React.FC<BasicInformationProps> = ({ inputs, hand
 					name="discipline"
 					value={inputs.discipline}
 					onChange={handleInputChange}
+					required
 				/>
 			</div>
 			<div className="space-y-2">
@@ -37,7 +38,7 @@ export const BasicInformation: React.FC<BasicInformationProps> = ({ inputs, hand
 					htmlFor="experience"
 					className="text-gray-600"
 				>
-					Years of Teaching Experience
+					Years of Teaching Experience*
 					<InfoTooltip content="E.g., 7 years, including 3 years as a teaching assistant and 4 years as a lecturer" />
 				</Label>
 				<Input
@@ -47,6 +48,7 @@ export const BasicInformation: React.FC<BasicInformationProps> = ({ inputs, hand
 					min="0"
 					value={inputs.experience}
 					onChange={handleInputChange}
+					required
 				/>
 			</div>
 		</div>

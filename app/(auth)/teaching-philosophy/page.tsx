@@ -26,6 +26,7 @@ interface Inputs {
 	professionalDevelopment: string;
 	teachingStyle: string;
 	anecdote: string;
+	[key: string]: string | string[]; // Allow for dynamic keys
 }
 
 const TeachingPhilosophyGenerator = () => {
@@ -47,6 +48,7 @@ const TeachingPhilosophyGenerator = () => {
 		anecdote: '',
 	});
 
+	const [customFields, setCustomFields] = useState<string[]>([]);
 	const [isLoading, setIsLoading] = useState(false);
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -61,6 +63,11 @@ const TeachingPhilosophyGenerator = () => {
 				? (prev[name as keyof typeof prev] as string[]).filter((item) => item !== value)
 				: [...(prev[name as keyof typeof prev] as string[]), value],
 		}));
+	};
+
+	const addCustomField = (fieldName: string) => {
+		setCustomFields((prev) => [...prev, fieldName]);
+		setInputs((prev) => ({ ...prev, [fieldName]: '' }));
 	};
 
 	const handleGenerate = () => {
@@ -91,6 +98,8 @@ const TeachingPhilosophyGenerator = () => {
 			<PhilosophyDetails
 				inputs={inputs}
 				handleInputChange={handleInputChange}
+				addCustomField={addCustomField}
+				customFields={customFields}
 			/>
 
 			<TeachingValuesAndMethods
