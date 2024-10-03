@@ -1,14 +1,15 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { Container } from '@/app/layout-components/Container';
-import { PageContent } from '@/app/layout-components/PageContent';
 import { H1, Paragraph, Span } from '@/app/components/typography';
 import { GenerateButton } from '@/app/components/GenerateButton';
 import { BasicInformation } from './components/BasicInformation';
 import { PhilosophyDetails } from './components/PhilosophyDetails';
 import { TeachingValuesAndMethods } from './components/TeachingValuesAndMethods';
 import { TeachingStyle } from './components/TeachingStyle';
+import { DocumentDisplay } from '@/app/components/shared/DocumentDisplay';
+import { ErrorMessage } from '../cover-letter/components/ErrorMessage';
 
 interface Inputs {
 	discipline: string;
@@ -50,6 +51,17 @@ const TeachingPhilosophyGenerator = () => {
 
 	const [customFields, setCustomFields] = useState<string[]>([]);
 	const [isLoading, setIsLoading] = useState(false);
+	const [generatedPhilosophy, setGeneratedPhilosophy] = useState('');
+	const [error, setError] = useState<string | null>(null);
+	const [isGenerationComplete, setIsGenerationComplete] = useState(false);
+	const resultDisplayRef = useRef<HTMLDivElement>(null);
+	const [isStreamStarted, setIsStreamStarted] = useState(false);
+
+	useEffect(() => {
+		if (isStreamStarted && resultDisplayRef.current) {
+			resultDisplayRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+		}
+	}, [isStreamStarted]);
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
 		const { name, value } = e.target;
@@ -70,11 +82,65 @@ const TeachingPhilosophyGenerator = () => {
 		setInputs((prev) => ({ ...prev, [fieldName]: '' }));
 	};
 
-	const handleGenerate = () => {
+	const handleGenerate = async () => {
 		setIsLoading(true);
-		console.log('Generating teaching philosophy...');
-		setTimeout(() => setIsLoading(false), 2000);
+		setError(null);
+		setGeneratedPhilosophy('');
+		setIsGenerationComplete(false);
+		setIsStreamStarted(false);
+
+		try {
+			const formData = new FormData();
+			Object.entries(inputs).forEach(([key, value]) => {
+				if (Array.isArray(value)) {
+					value.forEach((item) => formData.append(key, item));
+				} else {
+					formData.append(key, value);
+				}
+			});
+			console.log('formData: ', formData);
+			const response = await fetch('/api/generate-teaching-philosophy', {
+				method: 'POST',
+				body: formData,
+			});
+
+			if (!response.ok) {
+				throw new Error(`HTTP error! status: ${response.status}`);
+			}
+
+			const reader = response.body?.getReader();
+			const decoder = new TextDecoder();
+
+			if (reader) {
+				while (true) {
+					const { done, value } = await reader.read();
+					if (done) {
+						setIsGenerationComplete(true);
+						break;
+					}
+					const chunk = decoder.decode(value, { stream: true });
+					setGeneratedPhilosophy((prev) => {
+						const newContent = prev + chunk;
+						if (!isStreamStarted) {
+							setIsStreamStarted(true);
+						}
+						return newContent;
+					});
+				}
+			} else {
+				throw new Error('Unable to read response stream');
+			}
+		} catch (error) {
+			console.error('Error in handleGenerate:', error);
+			setError(error instanceof Error ? error.message : 'An unknown error occurred');
+		} finally {
+			setIsLoading(false);
+		}
 	};
+
+	const handleEdit = useCallback((newContent: string) => {
+		setGeneratedPhilosophy(newContent);
+	}, []);
 
 	const isFormValid = () => {
 		return (
@@ -84,7 +150,7 @@ const TeachingPhilosophyGenerator = () => {
 
 	return (
 		<main>
-			<Container>
+			<Container paddingX="none">
 				<H1>Create Your Teaching Philosophy</H1>
 				<Paragraph>
 					Craft a compelling teaching philosophy that showcases your approach to education, your values as an educator,
@@ -119,7 +185,7 @@ const TeachingPhilosophyGenerator = () => {
 				handleCheckboxChange={handleCheckboxChange}
 			/>
 
-			<Container>
+			<Container paddingX="none">
 				<GenerateButton
 					onClick={handleGenerate}
 					disabled={!isFormValid()}
@@ -127,6 +193,20 @@ const TeachingPhilosophyGenerator = () => {
 					documentType="Teaching Philosophy"
 				/>
 			</Container>
+
+			{error && <ErrorMessage message={error} />}
+
+			{generatedPhilosophy && (
+				<div ref={resultDisplayRef}>
+					<DocumentDisplay
+						content={generatedPhilosophy}
+						isLoading={isLoading}
+						isEditable={true}
+						documentType="Teaching Philosophy"
+						onEdit={handleEdit}
+					/>
+				</div>
+			)}
 		</main>
 	);
 };

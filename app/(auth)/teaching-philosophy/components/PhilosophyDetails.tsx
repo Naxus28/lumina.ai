@@ -77,11 +77,11 @@ const philosophyFields = [
 	},
 ];
 
-export const PhilosophyDetails: React.FC<PhilosophyDetailsProps> = ({ 
-	inputs, 
-	handleInputChange, 
-	addCustomField, 
-	customFields 
+export const PhilosophyDetails: React.FC<PhilosophyDetailsProps> = ({
+	inputs,
+	handleInputChange,
+	addCustomField,
+	customFields,
 }) => {
 	const [newFieldName, setNewFieldName] = useState('');
 
@@ -93,12 +93,18 @@ export const PhilosophyDetails: React.FC<PhilosophyDetailsProps> = ({
 	};
 
 	return (
-		<Container>
+		<Container paddingX="none">
 			<H2 className="text-lg">Philosophy Details</H2>
 			<div className="space-y-8">
 				{philosophyFields.map(({ name, label, example }) => (
-					<div key={name} className="space-y-2">
-						<Label htmlFor={name} className="text-gray-600 flex items-center">
+					<div
+						key={name}
+						className="space-y-2"
+					>
+						<Label
+							htmlFor={name}
+							className="text-gray-600 flex items-center"
+						>
 							{label}
 							<InfoTooltip content={example} />
 						</Label>
@@ -109,13 +115,25 @@ export const PhilosophyDetails: React.FC<PhilosophyDetailsProps> = ({
 							onChange={handleInputChange}
 							className="min-h-[128px] max-h-[256px] w-full p-4 border-gray-300 rounded-lg transition-all duration-200 ease-in-out focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-purple-500"
 							rows={3}
-							required={name === 'educationPurpose' || name === 'teachingMotivation' || name === 'studentLearning' || name === 'teachingGoals' || name === 'effectiveMethods'}
+							required={
+								name === 'educationPurpose' ||
+								name === 'teachingMotivation' ||
+								name === 'studentLearning' ||
+								name === 'teachingGoals' ||
+								name === 'effectiveMethods'
+							}
 						/>
 					</div>
 				))}
 				{customFields.map((fieldName) => (
-					<div key={fieldName} className="space-y-2">
-						<Label htmlFor={fieldName} className="text-gray-600">
+					<div
+						key={fieldName}
+						className="space-y-2"
+					>
+						<Label
+							htmlFor={fieldName}
+							className="text-gray-600"
+						>
 							{fieldName}
 						</Label>
 						<Textarea
@@ -135,7 +153,10 @@ export const PhilosophyDetails: React.FC<PhilosophyDetailsProps> = ({
 						placeholder="New field name"
 						className="flex-grow"
 					/>
-					<Button onClick={handleAddField} disabled={!newFieldName.trim()}>
+					<Button
+						onClick={handleAddField}
+						disabled={!newFieldName.trim()}
+					>
 						Add Field
 					</Button>
 				</div>

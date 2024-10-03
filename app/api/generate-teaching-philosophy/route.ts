@@ -24,14 +24,34 @@ const inputSchema = z
 
 export async function POST(req: NextRequest) {
 	const formData = await req.formData();
-	const inputs = Object.fromEntries(formData.entries());
+	const inputs: Record<string, string | string[]> = {};
+
+	formData.forEach((value, key) => {
+		if (inputs[key]) {
+			if (Array.isArray(inputs[key])) {
+				(inputs[key] as string[]).push(value as string);
+			} else {
+				inputs[key] = [inputs[key] as string, value as string];
+			}
+		} else {
+			inputs[key] = value as string;
+		}
+	});
+
+	console.log('Received inputs:', JSON.stringify(inputs, null, 2));
 
 	try {
 		// Validate inputs
 		const validationResult = inputSchema.safeParse(inputs);
 		if (!validationResult.success) {
-			return new Response(JSON.stringify({ error: 'Invalid input', details: validationResult.error.issues }), {
+			console.error('Validation failed:', validationResult.error);
+			return new Response(JSON.stringify({ 
+				error: 'Invalid input', 
+				details: validationResult.error.issues,
+				receivedInputs: inputs
+			}), {
 				status: 400,
+				headers: { 'Content-Type': 'application/json' }
 			});
 		}
 
@@ -46,6 +66,9 @@ export async function POST(req: NextRequest) {
 		});
 	} catch (error: any) {
 		console.error(`Error in API route:`, error);
-		return new Response(JSON.stringify({ error: `An error occurred: ${error.message}` }), { status: 500 });
+		return new Response(JSON.stringify({ error: `An error occurred: ${error.message}` }), { 
+			status: 500,
+			headers: { 'Content-Type': 'application/json' }
+		});
 	}
 }
