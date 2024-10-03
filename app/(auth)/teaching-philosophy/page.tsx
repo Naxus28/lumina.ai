@@ -111,7 +111,7 @@ const TeachingPhilosophyGenerator = () => {
 								className="text-gray-600"
 							>
 								Academic Discipline
-								<InfoTooltip content="E.g., Computer Science, focusing on artificial intelligence and machine learning" />
+								<InfoTooltip content="Your primary field of study, any specializations or focus areas, and interdisciplinary interests if applicable. E.g. Biology with a focus on molecular genetics, or History specializing in 20th century European studies, or Fine Arts concentrating on digital media, or Computer Science specializing in Artificial Inteligence, etc" />
 							</Label>
 							<Input
 								id="discipline"
@@ -148,61 +148,61 @@ const TeachingPhilosophyGenerator = () => {
 								name: 'educationPurpose',
 								label: 'Purpose of Education',
 								example:
-									'To empower students with the knowledge and skills to solve complex computational problems while fostering a deep understanding of the ethical implications of technology in society.',
+									'e.g., To empower students with critical thinking skills and subject-specific knowledge, fostering their ability to contribute meaningfully to their field and society at large.',
 							},
 							{
 								name: 'teachingMotivation',
 								label: 'Teaching Motivation',
 								example:
-									"I'm passionate about guiding students to become not just skilled programmers, but innovative problem-solvers who can adapt to the rapidly evolving field of computer science and contribute meaningfully to technological advancements.",
+									"e.g., I'm passionate about inspiring students to become lifelong learners, helping them develop the skills and mindset needed to tackle complex challenges in their future careers and personal lives.",
 							},
 							{
 								name: 'studentLearning',
 								label: 'How Students Learn Best',
 								example:
-									'Students in computer science learn best through a combination of theoretical foundations and practical, hands-on coding experiences. This includes algorithmic problem-solving, collaborative projects, and exposure to real-world software development practices.',
+									'e.g., Students learn best through a combination of theoretical foundations and practical applications, including collaborative projects, hands-on experiences, and exposure to real-world scenarios in the field.',
 							},
 							{
 								name: 'teachingGoals',
 								label: 'Teaching Goals',
 								example:
-									"My goals are to develop students' computational thinking skills, foster creativity in problem-solving, build a strong foundation in programming principles, and instill an understanding of the societal impact of technology.",
+									"e.g., My goals are to develop students' critical thinking and problem-solving skills, foster creativity and innovation, build a strong foundation in core principles, and instill an understanding of the ethical implications in our field.",
 							},
 							{
 								name: 'effectiveMethods',
 								label: 'Effective Teaching Methods',
 								example:
-									'I employ a mix of interactive coding demonstrations, pair programming sessions, project-based learning, and industry-relevant case studies. These methods simulate real-world software development environments and provide immediate feedback on code implementation.',
+									'e.g., I employ a mix of interactive lectures, group discussions, project-based learning, and case studies. These methods encourage active participation and provide opportunities for practical application of concepts.',
 							},
 							{
 								name: 'inclusiveness',
 								label: 'Inclusiveness Approach',
 								example:
-									'I create an inclusive environment by using diverse examples in my teaching materials, promoting equitable participation in class discussions and group projects, and providing multiple ways for students to demonstrate their understanding of complex concepts.',
+									'e.g., I create an inclusive environment by using diverse examples in my teaching materials, promoting equitable participation in class discussions, and providing multiple ways for students to demonstrate their understanding of complex concepts.',
 							},
 							{
 								name: 'researchTeachingConnection',
 								label: 'Connection between Teaching, Research, and Service',
 								example:
-									'My research in machine learning algorithms directly informs my teaching of advanced AI courses. I involve students in cutting-edge research projects and community service initiatives that apply their programming skills to solve local issues, bridging academic learning with real-world impact.',
+									'e.g., My research directly informs my teaching of advanced topics. I involve students in research projects and community service initiatives that apply their skills to real-world problems, bridging academic learning with practical impact.',
 							},
 							{
 								name: 'challengesInnovations',
 								label: 'Challenges and Innovations',
 								example:
-									"To address the challenge of teaching rapidly evolving technologies, I've implemented a flexible curriculum that incorporates current industry trends and invited guest speakers from tech companies. I've also developed interactive online modules to support self-paced learning of foundational concepts.",
+									"e.g., To address the challenge of keeping course content current, I've implemented a flexible curriculum that incorporates recent developments in the field and invited guest speakers from industry. I've also developed interactive online modules to support self-paced learning of foundational concepts.",
 							},
 							{
 								name: 'professionalDevelopment',
 								label: 'Professional Development',
 								example:
-									"I regularly attend computer science education conferences, participate in workshops on innovative teaching methods, and collaborate with colleagues to refine my teaching approach. I'm also pursuing additional certifications in emerging areas like quantum computing to stay at the forefront of the field.",
+									"e.g., I regularly attend educational conferences in my field, participate in workshops on innovative teaching methods, and collaborate with colleagues to refine my teaching approach. I'm also pursuing additional certifications in emerging areas to stay at the forefront of the field.",
 							},
 							{
 								name: 'anecdote',
 								label: 'Memorable Teaching Anecdote',
 								example:
-									'During a machine learning project, a student discovered an innovative approach to optimizing a neural network that outperformed existing methods. This led to a class-wide exploration of the algorithm, resulting in a collaborative research paper. This experience exemplified the power of fostering creativity and critical thinking in the classroom.',
+									'e.g., During a group project, students from diverse backgrounds collaborated to solve a complex problem, leading to an innovative solution that was later presented at a student conference. This experience highlighted the power of diverse perspectives and collaborative learning in fostering creativity and critical thinking.',
 							},
 						].map(({ name, label, example }) => (
 							<div
@@ -277,7 +277,7 @@ const TeachingPhilosophyGenerator = () => {
 									'Practical demonstrations',
 									'Portfolio assessments',
 									'Group work',
-									'Reflective journals'
+									'Reflective journals',
 								].map((method) => (
 									<div
 										key={method}
@@ -323,8 +323,8 @@ const TeachingPhilosophyGenerator = () => {
 											value={style.toLowerCase()}
 											id={`r${index + 1}`}
 											className={cn(
-												"border-gray-300 text-purple-600 focus:ring-purple-500",
-												"bg-gray-200 hover:bg-gray-300"
+												'border-gray-300 text-purple-600 focus:ring-purple-500',
+												'bg-gray-200 hover:bg-gray-300'
 											)}
 										/>
 										<Label
