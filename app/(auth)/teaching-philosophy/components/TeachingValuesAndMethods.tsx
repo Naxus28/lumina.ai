@@ -4,6 +4,7 @@ import { Label } from '@/components/ui/label';
 import { Container } from '@/app/layout-components/Container';
 import { H2 } from '@/app/components/typography';
 import { InfoTooltip } from '@/app/components/InfoTooltip';
+import { checkboxStyle } from '@/app/styles/shared-styles';
 
 interface TeachingValuesAndMethodsProps {
 	inputs: {
@@ -13,20 +14,16 @@ interface TeachingValuesAndMethodsProps {
 	handleCheckboxChange: (name: string, value: string) => void;
 }
 
-const checkboxStyle = {
-	backgroundColor: '#e5e7eb',
-	borderColor: '#d1d5db',
-	color: '#7c3aed',
-	'&:hover': { backgroundColor: '#d1d5db' },
-	'&:focus': { boxShadow: '0 0 0 2px rgba(124, 58, 237, 0.5)' },
-};
-
 const teachingValues = [
 	'Critical thinking',
 	'Technological ethics',
 	'Collaboration',
 	'Innovation',
 	'Lifelong learning',
+	'Inclusivity and Diversity',
+	'Academic Integrity',
+	'Adaptability',
+	'Student-Centered Learning',
 ];
 const assessmentMethods = [
 	'Projects and assignments',
@@ -46,7 +43,7 @@ export const TeachingValuesAndMethods: React.FC<TeachingValuesAndMethodsProps> =
 		<H2 className="text-lg">Teaching Values and Methods</H2>
 		<div className="space-y-6">
 			<div className="space-y-2">
-				<Label>
+				<Label className="flex items-center">
 					Teaching Values*
 					<InfoTooltip content="Select the core values that guide your teaching philosophy and approach." />
 				</Label>
@@ -74,7 +71,7 @@ export const TeachingValuesAndMethods: React.FC<TeachingValuesAndMethodsProps> =
 				</div>
 			</div>
 			<div className="space-y-2">
-				<Label>
+				<Label className="flex items-center">
 					Assessment Methods*
 					<InfoTooltip content="Choose the methods you use to evaluate student learning and progress." />
 				</Label>
@@ -86,10 +83,10 @@ export const TeachingValuesAndMethods: React.FC<TeachingValuesAndMethodsProps> =
 						>
 							<Checkbox
 								id={`assessment-${method}`}
-									checked={inputs.assessmentMethods.includes(method)}
-									onCheckedChange={(checked) => handleCheckboxChange('assessmentMethods', method)}
-									style={checkboxStyle}
-									required={inputs.assessmentMethods.length === 0}
+								checked={inputs.assessmentMethods.includes(method)}
+								onCheckedChange={(checked) => handleCheckboxChange('assessmentMethods', method)}
+								style={checkboxStyle}
+								required={inputs.assessmentMethods.length === 0}
 							/>
 							<label
 								htmlFor={`assessment-${method}`}

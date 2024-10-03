@@ -98,7 +98,7 @@ export const PhilosophyDetails: React.FC<PhilosophyDetailsProps> = ({
 			<div className="space-y-8">
 				{philosophyFields.map(({ name, label, example }) => (
 					<div key={name} className="space-y-2">
-						<Label htmlFor={name} className="text-gray-600">
+						<Label htmlFor={name} className="text-gray-600 flex items-center">
 							{label}
 							<InfoTooltip content={example} />
 						</Label>

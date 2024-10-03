@@ -20,10 +20,10 @@ export const BasicInformation: React.FC<BasicInformationProps> = ({ inputs, hand
 			<div className="space-y-2">
 				<Label
 					htmlFor="discipline"
-					className="text-gray-600"
+					className="text-gray-600 flex items-center"
 				>
 					Academic Discipline*
-					<InfoTooltip content="Your primary field of study, any specializations or focus areas, and interdisciplinary interests if applicable." />
+					<InfoTooltip content="Your primary field of study, any specializations or focus areas, and interdisciplinary interests if applicable. E.g. Computer Science (AI focus), with cognitive psychology interests; Environmental Biology, specializing in marine ecosystems; Comparative Literature, with digital humanities applications, etc." />
 				</Label>
 				<Input
 					id="discipline"
@@ -32,24 +32,24 @@ export const BasicInformation: React.FC<BasicInformationProps> = ({ inputs, hand
 					onChange={handleInputChange}
 					required
 				/>
-			</div>
-			<div className="space-y-2">
-				<Label
-					htmlFor="experience"
-					className="text-gray-600"
-				>
-					Years of Teaching Experience*
-					<InfoTooltip content="E.g., 7 years, including 3 years as a teaching assistant and 4 years as a lecturer" />
-				</Label>
-				<Input
-					id="experience"
-					name="experience"
-					type="number"
-					min="0"
-					value={inputs.experience}
-					onChange={handleInputChange}
-					required
-				/>
+				<div className="space-y-2">
+					<Label
+						htmlFor="experience"
+						className="text-gray-600 flex items-center"
+					>
+						Years of Teaching Experience*
+						<InfoTooltip content="E.g., 7 years, including 3 years as a teaching assistant and 4 years as a lecturer" />
+					</Label>
+					<Input
+						id="experience"
+						name="experience"
+						type="number"
+						min="0"
+						value={inputs.experience}
+						onChange={handleInputChange}
+						required
+					/>
+				</div>
 			</div>
 		</div>
 	</Container>

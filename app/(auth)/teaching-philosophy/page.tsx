@@ -24,7 +24,7 @@ interface Inputs {
 	researchTeachingConnection: string;
 	challengesInnovations: string;
 	professionalDevelopment: string;
-	teachingStyle: string;
+	teachingStyles: string[]; // Changed from string to string[]
 	anecdote: string;
 	[key: string]: string | string[]; // Allow for dynamic keys
 }
@@ -44,7 +44,7 @@ const TeachingPhilosophyGenerator = () => {
 		researchTeachingConnection: '',
 		challengesInnovations: '',
 		professionalDevelopment: '',
-		teachingStyle: '',
+		teachingStyles: [], // Initialize as an empty array
 		anecdote: '',
 	});
 
@@ -77,11 +77,13 @@ const TeachingPhilosophyGenerator = () => {
 	};
 
 	const isFormValid = () => {
-		return inputs.discipline !== '' && inputs.experience !== '';
+		return (
+			inputs.discipline !== '' && inputs.experience !== '' && inputs.teachingStyles.length > 0 // Changed from inputs.teachingStyle !== ''
+		);
 	};
 
 	return (
-		<PageContent>
+		<main>
 			<Container>
 				<H1>Create Your Teaching Philosophy</H1>
 				<Paragraph>
@@ -99,7 +101,9 @@ const TeachingPhilosophyGenerator = () => {
 			/>
 
 			<PhilosophyDetails
-				inputs={inputs}
+				inputs={Object.fromEntries(
+					Object.entries(inputs).map(([key, value]) => [key, Array.isArray(value) ? value.join(', ') : value])
+				)}
 				handleInputChange={handleInputChange}
 				addCustomField={addCustomField}
 				customFields={customFields}
@@ -111,8 +115,8 @@ const TeachingPhilosophyGenerator = () => {
 			/>
 
 			<TeachingStyle
-				teachingStyle={inputs.teachingStyle}
-				handleInputChange={(value) => setInputs((prev) => ({ ...prev, teachingStyle: value }))}
+				selectedStyles={inputs.teachingStyles}
+				handleCheckboxChange={handleCheckboxChange}
 			/>
 
 			<Container>
@@ -123,7 +127,7 @@ const TeachingPhilosophyGenerator = () => {
 					documentType="Teaching Philosophy"
 				/>
 			</Container>
-		</PageContent>
+		</main>
 	);
 };
 
