@@ -161,13 +161,13 @@ const CoverLetterGenerator: React.FC = () => {
 							Let our AI craft a tailored cover letter showcasing your scholarly achievements and academic potential.
 							You'll then have the opportunity to refine and personalize the letter, ensuring it captivates hiring
 							committees with your unique voice and qualifications.
-							<Span className="text-xs block mt-2 italic underline">Items marked with * are required.</Span>
 						</Paragraph>
+						<Span className="text-xs block mt-2 italic">Items marked with * are required.</Span>
 					</header>
 				</Container>
 
 				<Container paddingX="none">
-					<H2 className="text-lg">Choose Your Cover Letter Style *</H2>
+					<H2 className="text-lg">Choose Your Cover Letter Style*</H2>
 					<TemplateSelector
 						templates={coverLetterTemplates}
 						onSelectTemplate={handleSelectTemplate}
@@ -176,7 +176,7 @@ const CoverLetterGenerator: React.FC = () => {
 				</Container>
 
 				<Container paddingX="none">
-					<H2 className="text-lg">Enter Job Description *</H2>
+					<H2 className="text-lg">Enter Job Description*</H2>
 					<JobDescriptionInput
 						jobDescription={jobDescription}
 						setJobDescription={setJobDescription}
@@ -184,7 +184,7 @@ const CoverLetterGenerator: React.FC = () => {
 				</Container>
 
 				<Container paddingX="none">
-					<H2 className="text-lg">Upload your CV *</H2>
+					<H2 className="text-lg">Upload your CV*</H2>
 					<CVUpload onFileSelect={setCvFile} />
 				</Container>
 
@@ -220,7 +220,7 @@ const CoverLetterGenerator: React.FC = () => {
 							isEditable={true}
 							onEdit={setEditableCoverLetter}
 						/>
-						</div>
+					</div>
 				)}
 
 				{isGenerationComplete && (

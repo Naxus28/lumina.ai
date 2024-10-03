@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { Container } from '@/app/layout-components/Container';
 import { PageContent } from '@/app/layout-components/PageContent';
-import { H1, Paragraph } from '@/app/components/typography';
+import { H1, Paragraph, Span } from '@/app/components/typography';
 import { GenerateButton } from '@/app/components/GenerateButton';
 import { BasicInformation } from './components/BasicInformation';
 import { PhilosophyDetails } from './components/PhilosophyDetails';
@@ -86,8 +86,11 @@ const TeachingPhilosophyGenerator = () => {
 				<H1>Create Your Teaching Philosophy</H1>
 				<Paragraph>
 					Craft a compelling teaching philosophy that showcases your approach to education, your values as an educator,
-					and your vision for student learning.
+					and your vision for student learning. Our AI-powered tool is designed to generate a personalized document
+					based on your input. By collaborating with the AI, you'll provide the essential insights and experiences,
+					while the AI transforms them into a cohesive teaching philosophy statement.
 				</Paragraph>
+				<Span className="text-xs block mt-2 italic">Items marked with * are required.</Span>
 			</Container>
 
 			<BasicInformation
