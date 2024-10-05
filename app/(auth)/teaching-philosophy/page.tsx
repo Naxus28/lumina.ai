@@ -7,14 +7,28 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Progress } from '@/components/ui/progress';
+import { Info } from 'lucide-react';
 import { Container } from '@/app/layout-components/Container';
 import { H1, Paragraph, Span } from '@/app/components/typography';
 import { DocumentDisplay } from '@/app/components/shared/DocumentDisplay';
 import { ErrorMessage } from '../cover-letter/components/ErrorMessage';
 import { GenerateButton } from '@/app/components/GenerateButton';
-import { renderTextArea, textAreaConfigs } from './utils';
+
+const InfoTooltip = ({ content }: { content: string }) => (
+	<TooltipProvider>
+		<Tooltip>
+			<TooltipTrigger asChild>
+				<Info className="inline-block ml-2 h-4 w-4 text-gray-500" />
+			</TooltipTrigger>
+			<TooltipContent>
+				<p className="w-80 text-sm">{content}</p>
+			</TooltipContent>
+		</Tooltip>
+	</TooltipProvider>
+);
 
 interface Inputs {
 	discipline: string;
@@ -195,24 +209,34 @@ const TeachingPhilosophyGenerator = () => {
 		}
 	}, [isStreamStarted]);
 
-	// Update renderTextArea to use the utility function
-	const renderConfiguredTextArea = (key: string) => {
-		const config = textAreaConfigs[key as keyof typeof textAreaConfigs];
-		return renderTextArea(config, inputs[key as keyof Inputs] as string, handleInputChange);
-	};
+	const renderTextArea = (name: keyof Inputs, label: string, example: string, isMandatory = false) => (
+		<div key={name}>
+			<Label htmlFor={name}>
+				{label}
+				{isMandatory && <span className="text-red-500">*</span>}
+				<InfoTooltip content={example} />
+			</Label>
+			<Textarea
+				id={name}
+				name={name}
+				value={inputs[name] as string}
+				onChange={handleInputChange}
+				rows={3}
+			/>
+		</div>
+	);
 
-	// Add a function to check if the form is complete
-	const checkFormCompletion = () => {
-		// Add your logic here to check if all required fields are filled
-		// For example:
-		const allFieldsFilled = Object.values(inputs).every((field) => field.length > 0);
-		setIsFormComplete(allFieldsFilled);
-	};
+	const checkFormCompletion = useCallback(() => {
+		const mandatoryFieldsFilled = mandatoryFields.every(field => {
+			const value = inputs[field as keyof Inputs];
+			return Array.isArray(value) ? value.length > 0 : value !== '';
+		});
+		setIsFormComplete(mandatoryFieldsFilled);
+	}, [inputs]);
 
-	// Call checkFormCompletion whenever form data changes
 	useEffect(() => {
 		checkFormCompletion();
-	}, [inputs]);
+	}, [inputs, checkFormCompletion]);
 
 	return (
 		<>
@@ -268,7 +292,7 @@ const TeachingPhilosophyGenerator = () => {
 									name="discipline"
 									value={inputs.discipline}
 									onChange={handleInputChange}
-									placeholder="e.g., Computer Science"
+									placeholder="e.g., History"
 								/>
 							</div>
 							<div>
@@ -284,22 +308,42 @@ const TeachingPhilosophyGenerator = () => {
 									placeholder="e.g., 5"
 								/>
 							</div>
-							{renderConfiguredTextArea('educationPurpose')}
-							{renderConfiguredTextArea('teachingMotivation')}
+							{renderTextArea(
+								'educationPurpose',
+								'Purpose of Education',
+								'To cultivate critical thinking and foster a deep understanding of the subject matter, enabling students to apply their knowledge to real-world challenges.',
+								true
+							)}
+							{renderTextArea(
+								'teachingMotivation',
+								'Teaching Motivation',
+								"I'm driven by the opportunity to inspire curiosity and facilitate intellectual growth, guiding students to become lifelong learners and contributors in their chosen fields.",
+								true
+							)}
 						</TabsContent>
 
 						<TabsContent
 							value="approach"
 							className="space-y-4"
 						>
-							{renderConfiguredTextArea('studentLearning')}
-							{renderConfiguredTextArea('teachingGoals')}
+							{renderTextArea(
+								'studentLearning',
+								'How Students Learn Best',
+								'Students learn best through a combination of theoretical foundations and practical applications, including engaging discussions, hands-on activities, and real-world case studies.',
+								true
+							)}
+							{renderTextArea(
+								'teachingGoals',
+								'Teaching Goals',
+								"My goals are to develop students' critical thinking skills, foster creativity in problem-solving, build a strong foundation in core principles, and instill an understanding of the broader implications of their field.",
+								true
+							)}
 							<div>
 								<Label>
 									Primary Teaching Style<span className="text-red-500">*</span>
 								</Label>
 								<div className="grid grid-cols-2 gap-2">
-									{['Lecture-based', 'Discussion-oriented', 'Hands-on / Practical', 'Blended / Hybrid'].map((style) => (
+									{['Lecture-based', 'Discussion-oriented', 'Experiential', 'Blended / Hybrid'].map((style) => (
 										<div
 											key={style}
 											className="flex items-center"
@@ -325,15 +369,20 @@ const TeachingPhilosophyGenerator = () => {
 							value="methods"
 							className="space-y-4"
 						>
-							{renderConfiguredTextArea('effectiveMethods')}
+							{renderTextArea(
+								'effectiveMethods',
+								'Effective Teaching Methods',
+								'I employ a mix of interactive lectures, group discussions, project-based learning, and field-specific case studies. These methods encourage active engagement and provide opportunities for practical application of concepts.',
+								true
+							)}
 							<div>
 								<Label>
 									Teaching Values<span className="text-red-500">*</span>
 								</Label>
-								<div className="grid grid-cols-2 gap-2">
+								<div className="grid gap-2">
 									{[
 										'Critical thinking',
-										'Technological ethics',
+										'Ethical reasoning',
 										'Collaboration',
 										'Innovation',
 										'Lifelong learning',
@@ -361,13 +410,13 @@ const TeachingPhilosophyGenerator = () => {
 								<Label>
 									Assessment Methods<span className="text-red-500">*</span>
 								</Label>
-								<div className="grid grid-cols-2 gap-2">
+								<div className="grid gap-2">
 									{[
-										'Coding projects',
-										'Technical presentations',
-										'Peer code reviews',
-										'Algorithm design challenges',
-										'Research papers',
+										'Research projects',
+										'Presentations',
+										'Peer reviews',
+										'Problem-solving tasks',
+										'Reflective essays',
 									].map((method) => (
 										<div
 											key={method}
@@ -388,24 +437,48 @@ const TeachingPhilosophyGenerator = () => {
 									))}
 								</div>
 							</div>
-							{renderConfiguredTextArea('inclusiveness')}
+							{renderTextArea(
+								'inclusiveness',
+								'Inclusiveness Approach',
+								'I create an inclusive environment by using diverse examples, promoting equitable participation, and providing multiple ways for students to demonstrate their understanding of complex concepts.'
+							)}
 						</TabsContent>
 
 						<TabsContent
 							value="growth"
 							className="space-y-4"
 						>
-							{renderConfiguredTextArea('researchTeachingConnection')}
-							{renderConfiguredTextArea('challengesInnovations')}
-							{renderConfiguredTextArea('professionalDevelopment')}
+							{renderTextArea(
+								'researchTeachingConnection',
+								'Connection between Teaching, Research, and Service',
+								'My research informs my teaching by providing current insights and methodologies. I involve students in research projects and community service initiatives that apply their skills to real-world issues, bridging academic learning with practical impact.'
+							)}
+							{renderTextArea(
+								'challengesInnovations',
+								'Challenges and Innovations',
+								"To address evolving educational needs, I've implemented a flexible curriculum that incorporates current trends and invited guest speakers from relevant industries. I've also developed interactive online modules to support self-paced learning of foundational concepts."
+							)}
+							{renderTextArea(
+								'professionalDevelopment',
+								'Professional Development',
+								"I regularly attend educational conferences, participate in workshops on innovative teaching methods, and collaborate with colleagues to refine my teaching approach. I'm also pursuing additional certifications to stay at the forefront of my field."
+							)}
 						</TabsContent>
 
 						<TabsContent
 							value="reflection"
 							className="space-y-4"
 						>
-							{renderConfiguredTextArea('anecdote')}
-							{renderConfiguredTextArea('teachingPhilosophyEvolution')}
+							{renderTextArea(
+								'anecdote',
+								'Memorable Teaching Anecdote',
+								'During a class project, a student discovered an innovative approach that challenged existing methods in our field. This led to a class-wide exploration, resulting in a collaborative research initiative. This experience exemplified the power of fostering creativity and critical thinking in the classroom.'
+							)}
+							{renderTextArea(
+								'teachingPhilosophyEvolution',
+								'Evolution of Your Teaching Philosophy',
+								'Reflect on how your teaching philosophy has evolved over time. Consider key experiences or insights that have shaped your approach to teaching and how you anticipate your philosophy might continue to develop in the future.'
+							)}
 
 							<div className="space-y-4">
 								<h3 className="text-lg font-semibold">Custom Fields</h3>
