@@ -266,7 +266,7 @@ const TeachingPhilosophyGenerator = () => {
 						</div>
 						<Progress
 							value={progress}
-							className="w-full"
+							className="w-full transition-all duration-500 ease-in-out bg-purple-100"
 						/>
 					</div>
 
