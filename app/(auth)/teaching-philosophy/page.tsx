@@ -7,28 +7,14 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Progress } from '@/components/ui/progress';
-import { Info } from 'lucide-react';
 import { Container } from '@/app/layout-components/Container';
 import { H1, Paragraph, Span } from '@/app/components/typography';
 import { DocumentDisplay } from '@/app/components/shared/DocumentDisplay';
 import { ErrorMessage } from '../cover-letter/components/ErrorMessage';
 import { GenerateButton } from '@/app/components/GenerateButton';
-
-const InfoTooltip = ({ content }: { content: string }) => (
-	<TooltipProvider>
-		<Tooltip>
-			<TooltipTrigger asChild>
-				<Info className="inline-block ml-2 h-4 w-4 text-gray-500" />
-			</TooltipTrigger>
-			<TooltipContent>
-				<p className="w-80 text-sm">{content}</p>
-			</TooltipContent>
-		</Tooltip>
-	</TooltipProvider>
-);
+import { renderTextArea, textAreaConfigs } from './utils';
 
 interface Inputs {
 	discipline: string;
@@ -209,22 +195,11 @@ const TeachingPhilosophyGenerator = () => {
 		}
 	}, [isStreamStarted]);
 
-	const renderTextArea = (name: keyof Inputs, label: string, example: string, isMandatory = false) => (
-		<div key={name}>
-			<Label htmlFor={name}>
-				{label}
-				{isMandatory && <span className="text-red-500">*</span>}
-				<InfoTooltip content={example} />
-			</Label>
-			<Textarea
-				id={name}
-				name={name}
-				value={inputs[name] as string}
-				onChange={handleInputChange}
-				rows={3}
-			/>
-		</div>
-	);
+	// Update renderTextArea to use the utility function
+	const renderConfiguredTextArea = (key: string) => {
+		const config = textAreaConfigs[key as keyof typeof textAreaConfigs];
+		return renderTextArea(config, inputs[key as keyof Inputs] as string, handleInputChange);
+	};
 
 	// Add a function to check if the form is complete
 	const checkFormCompletion = () => {
@@ -240,14 +215,17 @@ const TeachingPhilosophyGenerator = () => {
 	}, [inputs]);
 
 	return (
-		<Container>
-			<H1>Create Your Teaching Philosophy</H1>
-			<Paragraph>
-				Craft a compelling teaching philosophy that showcases your approach to education, your values as an educator,
-				and your vision for student learning. Our AI-powered tool will generate a personalized document based on your
-				input.
-			</Paragraph>
-			<Span className="text-xs block mt-2 italic">Items marked with * are required.</Span>
+		<>
+			<Container paddingX="none">
+				<H1>Create Your Teaching Philosophy</H1>
+				<Paragraph>
+					Craft a compelling teaching philosophy that showcases your approach to education, your values as an educator,
+					and your vision for student learning. Our AI-powered tool is designed to generate a personalized document
+					based on your input. By collaborating with the AI, you'll provide the essential insights and experiences,
+					while the AI transforms them into a cohesive teaching philosophy statement.
+				</Paragraph>
+				<Span className="text-xs block mt-2 italic">Items marked with * are required.</Span>
+			</Container>
 
 			<Card className="w-full mt-8">
 				<CardHeader>
@@ -306,36 +284,16 @@ const TeachingPhilosophyGenerator = () => {
 									placeholder="e.g., 5"
 								/>
 							</div>
-							{renderTextArea(
-								'educationPurpose',
-								'Purpose of Education',
-								'To empower students with the knowledge and skills to solve complex computational problems while fostering a deep understanding of the ethical implications of technology in society.',
-								true
-							)}
-							{renderTextArea(
-								'teachingMotivation',
-								'Teaching Motivation',
-								"I'm passionate about guiding students to become not just skilled programmers, but innovative problem-solvers who can adapt to the rapidly evolving field of computer science and contribute meaningfully to technological advancements.",
-								true
-							)}
+							{renderConfiguredTextArea('educationPurpose')}
+							{renderConfiguredTextArea('teachingMotivation')}
 						</TabsContent>
 
 						<TabsContent
 							value="approach"
 							className="space-y-4"
 						>
-							{renderTextArea(
-								'studentLearning',
-								'How Students Learn Best',
-								'Students in computer science learn best through a combination of theoretical foundations and practical, hands-on coding experiences. This includes algorithmic problem-solving, collaborative projects, and exposure to real-world software development practices.',
-								true
-							)}
-							{renderTextArea(
-								'teachingGoals',
-								'Teaching Goals',
-								"My goals are to develop students' computational thinking skills, foster creativity in problem-solving, build a strong foundation in programming principles, and instill an understanding of the societal impact of technology.",
-								true
-							)}
+							{renderConfiguredTextArea('studentLearning')}
+							{renderConfiguredTextArea('teachingGoals')}
 							<div>
 								<Label>
 									Primary Teaching Style<span className="text-red-500">*</span>
@@ -367,12 +325,7 @@ const TeachingPhilosophyGenerator = () => {
 							value="methods"
 							className="space-y-4"
 						>
-							{renderTextArea(
-								'effectiveMethods',
-								'Effective Teaching Methods',
-								'I employ a mix of interactive coding demonstrations, pair programming sessions, project-based learning, and industry-relevant case studies. These methods simulate real-world software development environments and provide immediate feedback on code implementation.',
-								true
-							)}
+							{renderConfiguredTextArea('effectiveMethods')}
 							<div>
 								<Label>
 									Teaching Values<span className="text-red-500">*</span>
@@ -435,48 +388,24 @@ const TeachingPhilosophyGenerator = () => {
 									))}
 								</div>
 							</div>
-							{renderTextArea(
-								'inclusiveness',
-								'Inclusiveness Approach',
-								'I create an inclusive environment by using diverse examples in my teaching materials, promoting equitable participation in class discussions and group projects, and providing multiple ways for students to demonstrate their understanding of complex concepts.'
-							)}
+							{renderConfiguredTextArea('inclusiveness')}
 						</TabsContent>
 
 						<TabsContent
 							value="growth"
 							className="space-y-4"
 						>
-							{renderTextArea(
-								'researchTeachingConnection',
-								'Connection between Teaching, Research, and Service',
-								'My research in machine learning algorithms directly informs my teaching of advanced AI courses. I involve students in cutting-edge research projects and community service initiatives that apply their programming skills to solve local issues, bridging academic learning with real-world impact.'
-							)}
-							{renderTextArea(
-								'challengesInnovations',
-								'Challenges and Innovations',
-								"To address the challenge of teaching rapidly evolving technologies, I've implemented a flexible curriculum that incorporates current industry trends and invited guest speakers from tech companies. I've also developed interactive online modules to support self-paced learning of foundational concepts."
-							)}
-							{renderTextArea(
-								'professionalDevelopment',
-								'Professional Development',
-								"I regularly attend computer science education conferences, participate in workshops on innovative teaching methods, and collaborate with colleagues to refine my teaching approach. I'm also pursuing additional certifications in emerging areas like quantum computing to stay at the forefront of the field."
-							)}
+							{renderConfiguredTextArea('researchTeachingConnection')}
+							{renderConfiguredTextArea('challengesInnovations')}
+							{renderConfiguredTextArea('professionalDevelopment')}
 						</TabsContent>
 
 						<TabsContent
 							value="reflection"
 							className="space-y-4"
 						>
-							{renderTextArea(
-								'anecdote',
-								'Memorable Teaching Anecdote',
-								'During a machine learning project, a student discovered an innovative approach to optimizing a neural network that outperformed existing methods. This led to a class-wide exploration of the algorithm, resulting in a collaborative research paper. This experience exemplified the power of fostering creativity and critical thinking in the classroom.'
-							)}
-							{renderTextArea(
-								'teachingPhilosophyEvolution',
-								'Evolution of Your Teaching Philosophy',
-								'Reflect on how your teaching philosophy has evolved over time. Consider key experiences or insights that have shaped your approach to teaching and how you anticipate your philosophy might continue to develop in the future.'
-							)}
+							{renderConfiguredTextArea('anecdote')}
+							{renderConfiguredTextArea('teachingPhilosophyEvolution')}
 
 							<div className="space-y-4">
 								<h3 className="text-lg font-semibold">Custom Fields</h3>
@@ -525,7 +454,7 @@ const TeachingPhilosophyGenerator = () => {
 					/>
 				</div>
 			)}
-		</Container>
+		</>
 	);
 };
 
