@@ -37,7 +37,7 @@ interface Inputs {
 	teachingMotivation: string;
 	studentLearning: string;
 	teachingGoals: string;
-	teachingStyle: string[];
+	teachingStyles: string[];
 	effectiveMethods: string;
 	teachingValues: string[];
 	assessmentMethods: string[];
@@ -58,7 +58,7 @@ const TeachingPhilosophyGenerator = () => {
 		teachingMotivation: '',
 		studentLearning: '',
 		teachingGoals: '',
-		teachingStyle: [],
+		teachingStyles: [],
 		effectiveMethods: '',
 		teachingValues: [],
 		assessmentMethods: [],
@@ -90,7 +90,7 @@ const TeachingPhilosophyGenerator = () => {
 		'teachingMotivation',
 		'studentLearning',
 		'teachingGoals',
-		'teachingStyle',
+		'teachingStyles',
 		'effectiveMethods',
 		'teachingValues',
 		'assessmentMethods',
@@ -229,7 +229,10 @@ const TeachingPhilosophyGenerator = () => {
 	const checkFormCompletion = useCallback(() => {
 		const mandatoryFieldsFilled = mandatoryFields.every(field => {
 			const value = inputs[field as keyof Inputs];
-			return Array.isArray(value) ? value.length > 0 : value !== '';
+			if (field === 'teachingStyles' || field === 'teachingValues' || field === 'assessmentMethods') {
+				return (value as string[]).length > 0;
+			}
+			return value !== '';
 		});
 		setIsFormComplete(mandatoryFieldsFilled);
 	}, [inputs]);
@@ -350,8 +353,8 @@ const TeachingPhilosophyGenerator = () => {
 										>
 											<Checkbox
 												id={`style-${style}`}
-												checked={inputs.teachingStyle.includes(style)}
-												onCheckedChange={(checked) => handleCheckboxChange('teachingStyle', style)}
+												checked={inputs.teachingStyles.includes(style)}
+												onCheckedChange={(checked) => handleCheckboxChange('teachingStyles', style)}
 											/>
 											<label
 												htmlFor={`style-${style}`}

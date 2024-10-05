@@ -45,14 +45,17 @@ export async function POST(req: NextRequest) {
 		const validationResult = inputSchema.safeParse(inputs);
 		if (!validationResult.success) {
 			console.error('Validation failed:', validationResult.error);
-			return new Response(JSON.stringify({ 
-				error: 'Invalid input', 
-				details: validationResult.error.issues,
-				receivedInputs: inputs
-			}), {
-				status: 400,
-				headers: { 'Content-Type': 'application/json' }
-			});
+			return new Response(
+				JSON.stringify({
+					error: 'Invalid input',
+					details: validationResult.error.issues,
+					receivedInputs: inputs,
+				}),
+				{
+					status: 400,
+					headers: { 'Content-Type': 'application/json' },
+				}
+			);
 		}
 
 		const stream = await generateTeachingPhilosophy(validationResult.data);
@@ -66,9 +69,9 @@ export async function POST(req: NextRequest) {
 		});
 	} catch (error: any) {
 		console.error(`Error in API route:`, error);
-		return new Response(JSON.stringify({ error: `An error occurred: ${error.message}` }), { 
+		return new Response(JSON.stringify({ error: `An error occurred: ${error.message}` }), {
 			status: 500,
-			headers: { 'Content-Type': 'application/json' }
+			headers: { 'Content-Type': 'application/json' },
 		});
 	}
 }
