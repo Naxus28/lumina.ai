@@ -15,6 +15,7 @@ import { H1, Paragraph, Span } from '@/app/components/typography';
 import { DocumentDisplay } from '@/app/components/shared/DocumentDisplay';
 import { ErrorMessage } from '../cover-letter/components/ErrorMessage';
 import { GenerateButton } from '@/app/components/GenerateButton';
+import { cn } from '@/lib/utils';
 
 const InfoTooltip = ({ content }: { content: string }) => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -51,7 +52,7 @@ const InfoTooltip = ({ content }: { content: string }) => {
 					className="max-w-xs text-sm bg-white p-2 rounded shadow-lg border border-gray-200"
 					ref={tooltipRef}
 				>
-					<Container className="flex justify-between items-start p-2">
+					<div className="flex justify-between items-start">
 						<p>{content}</p>
 						<button
 							onClick={() => setIsOpen(false)}
@@ -59,7 +60,7 @@ const InfoTooltip = ({ content }: { content: string }) => {
 						>
 							<X className="w-4 h-4" />
 						</button>
-					</Container>
+					</div>
 				</TooltipContent>
 			</Tooltip>
 		</TooltipProvider>
@@ -250,13 +251,10 @@ const TeachingPhilosophyGenerator = () => {
 	}, [isStreamStarted]);
 
 	const renderTextArea = (name: keyof Inputs, label: string, example: string, isMandatory = false) => (
-		<Container
-			className="mb-6 p-0"
-			key={name}
-		>
+		<div key={name}>
 			<Label
 				htmlFor={name}
-				className="flex items-center"
+				className={cn('text-lg text-left mb-2 text-gray-600 font-normal', 'block')}
 			>
 				{label}
 				{isMandatory && <span className="text-red-500">*</span>}
@@ -269,7 +267,7 @@ const TeachingPhilosophyGenerator = () => {
 				onChange={handleInputChange}
 				className="max-h-32 min-h-[80px]"
 			/>
-		</Container>
+		</div>
 	);
 
 	const checkFormCompletion = useCallback(() => {
@@ -302,8 +300,6 @@ const TeachingPhilosophyGenerator = () => {
 			</Container>
 
 			<div className="w-full mt-8 space-y-6">
-				<h2 className="text-2xl font-bold text-center">Teaching Philosophy Generator</h2>
-
 				<div className="space-y-2">
 					<div className="flex justify-between items-center">
 						<span className="text-sm font-medium">Progress</span>
@@ -319,18 +315,54 @@ const TeachingPhilosophyGenerator = () => {
 					value={activeTab}
 					onValueChange={setActiveTab}
 				>
-					<TabsList className="grid w-full grid-cols-6">
-						<TabsTrigger value="basics">Basics</TabsTrigger>
-						<TabsTrigger value="approach">Approach</TabsTrigger>
-						<TabsTrigger value="methods">Methods</TabsTrigger>
-						<TabsTrigger value="growth">Growth</TabsTrigger>
-						<TabsTrigger value="reflection">Reflection</TabsTrigger>
-						<TabsTrigger value="custom">Custom Fields</TabsTrigger>
+					<TabsList className="grid w-full grid-cols-6 bg-transparent">
+						<TabsTrigger
+							value="basics"
+							className="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none data-[state=active]:text-gray-900 data-[state=active]:border-b-2 data-[state=active]:border-purple-500 bg-transparent !bg-transparent data-[state=active]:!bg-transparent rounded-none"
+						>
+							Basics
+						</TabsTrigger>
+						<TabsTrigger
+							value="approach"
+							className="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none data-[state=active]:text-gray-900 data-[state=active]:border-b-2 data-[state=active]:border-purple-500 bg-transparent !bg-transparent data-[state=active]:!bg-transparent rounded-none"
+						>
+							Approach
+						</TabsTrigger>
+						<TabsTrigger
+							value="methods"
+							className="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none data-[state=active]:text-gray-900 data-[state=active]:border-b-2 data-[state=active]:border-purple-500 bg-transparent !bg-transparent data-[state=active]:!bg-transparent rounded-none"
+						>
+							Methods
+						</TabsTrigger>
+						<TabsTrigger
+							value="growth"
+							className="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none data-[state=active]:text-gray-900 data-[state=active]:border-b-2 data-[state=active]:border-purple-500 bg-transparent !bg-transparent data-[state=active]:!bg-transparent rounded-none"
+						>
+							Growth
+						</TabsTrigger>
+						<TabsTrigger
+							value="reflection"
+							className="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none data-[state=active]:text-gray-900 data-[state=active]:border-b-2 data-[state=active]:border-purple-500 bg-transparent !bg-transparent data-[state=active]:!bg-transparent rounded-none"
+						>
+							Reflection
+						</TabsTrigger>
+						<TabsTrigger
+							value="custom"
+							className="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none data-[state=active]:text-gray-900 data-[state=active]:border-b-2 data-[state=active]:border-purple-500 bg-transparent !bg-transparent data-[state=active]:!bg-transparent rounded-none"
+						>
+							Custom Fields
+						</TabsTrigger>
 					</TabsList>
 					<div className="mt-12">
-						<TabsContent value="basics">
-							<Container className="mb-6 p-0">
-								<Label htmlFor="discipline">
+						<TabsContent
+							value="basics"
+							className="space-y-8"
+						>
+							<div>
+								<Label
+									htmlFor="discipline"
+									className={cn('text-lg text-left mb-2 text-gray-600 font-normal', 'block')}
+								>
 									Academic Discipline<span className="text-red-500">*</span>
 								</Label>
 								<Input
@@ -340,9 +372,12 @@ const TeachingPhilosophyGenerator = () => {
 									onChange={handleInputChange}
 									placeholder="e.g., History"
 								/>
-							</Container>
-							<Container className="mb-6 p-0">
-								<Label htmlFor="experience">
+							</div>
+							<div>
+								<Label
+									htmlFor="experience"
+									className={cn('text-lg text-left mb-2 text-gray-600 font-normal', 'block')}
+								>
 									Years of Teaching Experience<span className="text-red-500">*</span>
 								</Label>
 								<Input
@@ -353,9 +388,12 @@ const TeachingPhilosophyGenerator = () => {
 									onChange={handleInputChange}
 									placeholder="e.g., 5"
 								/>
-							</Container>
-							<Container className="mb-6 p-0">
-								<Label htmlFor="disciplinesTaught">
+							</div>
+							<div>
+								<Label
+									htmlFor="disciplinesTaught"
+									className={cn('text-lg text-left mb-2 text-gray-600 font-normal', 'block')}
+								>
 									Disciplines Taught and Where<span className="text-red-500">*</span>
 								</Label>
 								<Input
@@ -365,7 +403,7 @@ const TeachingPhilosophyGenerator = () => {
 									onChange={handleInputChange}
 									placeholder="e.g., Modern European History at XYZ University, American Civil War at ABC College"
 								/>
-							</Container>
+							</div>
 							{renderTextArea(
 								'educationPurpose',
 								'Purpose of Education',
@@ -379,7 +417,10 @@ const TeachingPhilosophyGenerator = () => {
 								true
 							)}
 						</TabsContent>
-						<TabsContent value="approach">
+						<TabsContent
+							value="approach"
+							className="space-y-8"
+						>
 							{renderTextArea(
 								'studentLearning',
 								'How Students Learn Best',
@@ -393,7 +434,10 @@ const TeachingPhilosophyGenerator = () => {
 								true
 							)}
 							<div>
-								<Label>
+								<Label
+									htmlFor="teachingStyles"
+									className={cn('text-lg text-left mb-2 text-gray-600 font-normal', 'block')}
+								>
 									Primary Teaching Style<span className="text-red-500">*</span>
 								</Label>
 								<div className="grid grid-cols-2 gap-2">
@@ -418,15 +462,21 @@ const TeachingPhilosophyGenerator = () => {
 								</div>
 							</div>
 						</TabsContent>
-						<TabsContent value="methods">
+						<TabsContent
+							value="methods"
+							className="space-y-8"
+						>
 							{renderTextArea(
 								'effectiveMethods',
 								'Effective Teaching Methods',
 								'I employ a mix of interactive lectures, group discussions, project-based learning, and field-specific case studies. These methods encourage active engagement and provide opportunities for practical application of concepts.',
 								true
 							)}
-							<Container className="mb-6 p-0">
-								<Label>
+							<div>
+								<Label
+									htmlFor="teachingValues"
+									className={cn('text-lg text-left mb-2 text-gray-600 font-normal', 'block')}
+								>
 									Teaching Values<span className="text-red-500">*</span>
 								</Label>
 								<div className="grid gap-2">
@@ -451,9 +501,12 @@ const TeachingPhilosophyGenerator = () => {
 										)
 									)}
 								</div>
-							</Container>
-							<Container className="mb-6 p-0">
-								<Label>
+							</div>
+							<div>
+								<Label
+									htmlFor="assessmentMethods"
+									className={cn('text-lg text-left mb-2 text-gray-600 font-normal', 'block')}
+								>
 									Assessment Methods<span className="text-red-500">*</span>
 								</Label>
 								<div className="grid gap-2">
@@ -482,14 +535,17 @@ const TeachingPhilosophyGenerator = () => {
 										</div>
 									))}
 								</div>
-							</Container>
+							</div>
 							{renderTextArea(
 								'inclusiveness',
 								'Inclusiveness Approach',
 								'I create an inclusive environment by using diverse examples, promoting equitable participation, and providing multiple ways for students to demonstrate their understanding of complex concepts.'
 							)}
 						</TabsContent>
-						<TabsContent value="growth">
+						<TabsContent
+							value="growth"
+							className="space-y-8"
+						>
 							{renderTextArea(
 								'researchTeachingConnection',
 								'Connection between Teaching, Research, and Service',
@@ -506,7 +562,10 @@ const TeachingPhilosophyGenerator = () => {
 								"I regularly attend educational conferences, participate in workshops on innovative teaching methods, and collaborate with colleagues to refine my teaching approach. I'm also pursuing additional certifications to stay at the forefront of my field."
 							)}
 						</TabsContent>
-						<TabsContent value="reflection">
+						<TabsContent
+							value="reflection"
+							className="space-y-8"
+						>
 							{renderTextArea(
 								'anecdote',
 								'Memorable Teaching Anecdote',
@@ -523,8 +582,11 @@ const TeachingPhilosophyGenerator = () => {
 								'Reflect on how your teaching philosophy has evolved over time. Consider key experiences or insights that have shaped your approach to teaching and how you anticipate your philosophy might continue to develop in the future.'
 							)}
 						</TabsContent>
-						<TabsContent value="custom">
-							<div className="space-y-4">
+						<TabsContent
+							value="custom"
+							className="space-y-8"
+						>
+							<div className="space-y-8">
 								<h3 className="text-lg font-semibold">Custom Fields</h3>
 								<p className="text-sm text-gray-600">
 									Add any additional information that you feel is important to your teaching philosophy. For example,
@@ -533,7 +595,12 @@ const TeachingPhilosophyGenerator = () => {
 								</p>
 								{Object.entries(inputs.customFields).map(([fieldName, fieldValue]) => (
 									<div key={fieldName}>
-										<Label htmlFor={fieldName}>{fieldName}</Label>
+										<Label
+											htmlFor={fieldName}
+											className={cn('text-lg text-left mb-2 text-gray-600 font-normal', 'block')}
+										>
+											{fieldName}
+										</Label>
 										<Textarea
 											id={fieldName}
 											value={fieldValue}
