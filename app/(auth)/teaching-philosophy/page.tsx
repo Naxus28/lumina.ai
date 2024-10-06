@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -10,25 +9,62 @@ import { Label } from '@/components/ui/label';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Progress } from '@/components/ui/progress';
-import { Info } from 'lucide-react';
+import { Info, X } from 'lucide-react';
 import { Container } from '@/app/layout-components/Container';
 import { H1, Paragraph, Span } from '@/app/components/typography';
 import { DocumentDisplay } from '@/app/components/shared/DocumentDisplay';
 import { ErrorMessage } from '../cover-letter/components/ErrorMessage';
 import { GenerateButton } from '@/app/components/GenerateButton';
 
-const InfoTooltip = ({ content }: { content: string }) => (
-	<TooltipProvider>
-		<Tooltip>
-			<TooltipTrigger asChild>
-				<Info className="inline-block ml-2 h-4 w-4 text-gray-500" />
-			</TooltipTrigger>
-			<TooltipContent>
-				<p className="w-80 text-sm">{content}</p>
-			</TooltipContent>
-		</Tooltip>
-	</TooltipProvider>
-);
+const InfoTooltip = ({ content }: { content: string }) => {
+	const [isOpen, setIsOpen] = useState(false);
+	const tooltipRef = useRef<HTMLDivElement>(null);
+
+	useEffect(() => {
+		const handleClickOutside = (event: MouseEvent) => {
+			if (tooltipRef.current && !tooltipRef.current.contains(event.target as Node)) {
+				setIsOpen(false);
+			}
+		};
+
+		document.addEventListener('mousedown', handleClickOutside);
+		return () => {
+			document.removeEventListener('mousedown', handleClickOutside);
+		};
+	}, []);
+
+	return (
+		<TooltipProvider>
+			<Tooltip open={isOpen}>
+				<TooltipTrigger asChild>
+					<button
+						onClick={() => setIsOpen(!isOpen)}
+						className="inline-flex items-center justify-center w-5 h-5 ml-2 text-gray-500 rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+					>
+						<Info className="w-4 h-4" />
+						<span className="sr-only">More information</span>
+					</button>
+				</TooltipTrigger>
+				<TooltipContent
+					side="top"
+					align="center"
+					className="max-w-xs text-sm bg-white p-2 rounded shadow-lg border border-gray-200"
+					ref={tooltipRef}
+				>
+					<Container className="flex justify-between items-start p-2">
+						<p>{content}</p>
+						<button
+							onClick={() => setIsOpen(false)}
+							className="ml-2 text-gray-500 hover:text-gray-700"
+						>
+							<X className="w-4 h-4" />
+						</button>
+					</Container>
+				</TooltipContent>
+			</Tooltip>
+		</TooltipProvider>
+	);
+};
 
 interface Inputs {
 	discipline: string;
@@ -48,6 +84,8 @@ interface Inputs {
 	anecdote: string;
 	teachingPhilosophyEvolution: string;
 	customFields: { [key: string]: string };
+	studentAccomplishment: string;
+	disciplinesTaught: string;
 }
 
 const TeachingPhilosophyGenerator = () => {
@@ -69,6 +107,8 @@ const TeachingPhilosophyGenerator = () => {
 		anecdote: '',
 		teachingPhilosophyEvolution: '',
 		customFields: {},
+		studentAccomplishment: '',
+		disciplinesTaught: '',
 	});
 
 	const [activeTab, setActiveTab] = useState('basics');
@@ -210,24 +250,30 @@ const TeachingPhilosophyGenerator = () => {
 	}, [isStreamStarted]);
 
 	const renderTextArea = (name: keyof Inputs, label: string, example: string, isMandatory = false) => (
-		<div key={name}>
-			<Label htmlFor={name}>
+		<Container
+			className="mb-6 p-0"
+			key={name}
+		>
+			<Label
+				htmlFor={name}
+				className="flex items-center"
+			>
 				{label}
 				{isMandatory && <span className="text-red-500">*</span>}
-				<InfoTooltip content={example} />
+				<InfoTooltip content={`i.e., ${example}`} />
 			</Label>
 			<Textarea
 				id={name}
 				name={name}
 				value={inputs[name] as string}
 				onChange={handleInputChange}
-				rows={3}
+				className="max-h-32 min-h-[80px]"
 			/>
-		</div>
+		</Container>
 	);
 
 	const checkFormCompletion = useCallback(() => {
-		const mandatoryFieldsFilled = mandatoryFields.every(field => {
+		const mandatoryFieldsFilled = mandatoryFields.every((field) => {
 			const value = inputs[field as keyof Inputs];
 			if (field === 'teachingStyles' || field === 'teachingValues' || field === 'assessmentMethods') {
 				return (value as string[]).length > 0;
@@ -247,46 +293,43 @@ const TeachingPhilosophyGenerator = () => {
 				<H1>Create Your Teaching Philosophy</H1>
 				<Paragraph>
 					Craft a compelling teaching philosophy that showcases your approach to education, your values as an educator,
-					and your vision for student learning. Our AI-powered tool is designed to generate a personalized document
-					based on your input. By collaborating with the AI, you'll provide the essential insights and experiences,
-					while the AI transforms them into a cohesive teaching philosophy statement.
+					and your vision for student learning. Our AI-powered tool generates a personalized document based on your
+					input. The more details you provide, the more unique your statement will be. However, you're free to include
+					as much or as little information as you prefer – our AI adapts to create a meaningful philosophy statement
+					regardless.
 				</Paragraph>
 				<Span className="text-xs block mt-2 italic">Items marked with * are required.</Span>
 			</Container>
 
-			<Card className="w-full mt-8">
-				<CardHeader>
-					<CardTitle className="text-2xl font-bold text-center">Teaching Philosophy Generator</CardTitle>
-				</CardHeader>
-				<CardContent className="space-y-6">
-					<div className="space-y-2">
-						<div className="flex justify-between items-center">
-							<span className="text-sm font-medium">Progress</span>
-							<span className="text-sm font-medium">{progress}%</span>
-						</div>
-						<Progress
-							value={progress}
-							className="w-full transition-all duration-500 ease-in-out bg-purple-100"
-						/>
+			<div className="w-full mt-8 space-y-6">
+				<h2 className="text-2xl font-bold text-center">Teaching Philosophy Generator</h2>
+
+				<div className="space-y-2">
+					<div className="flex justify-between items-center">
+						<span className="text-sm font-medium">Progress</span>
+						<span className="text-sm font-medium">{progress}%</span>
 					</div>
+					<Progress
+						value={progress}
+						className="w-full transition-all duration-500 ease-in-out bg-purple-100"
+					/>
+				</div>
 
-					<Tabs
-						value={activeTab}
-						onValueChange={setActiveTab}
-					>
-						<TabsList className="grid w-full grid-cols-5">
-							<TabsTrigger value="basics">Basics</TabsTrigger>
-							<TabsTrigger value="approach">Approach</TabsTrigger>
-							<TabsTrigger value="methods">Methods</TabsTrigger>
-							<TabsTrigger value="growth">Growth</TabsTrigger>
-							<TabsTrigger value="reflection">Reflection</TabsTrigger>
-						</TabsList>
-
-						<TabsContent
-							value="basics"
-							className="space-y-4"
-						>
-							<div>
+				<Tabs
+					value={activeTab}
+					onValueChange={setActiveTab}
+				>
+					<TabsList className="grid w-full grid-cols-6">
+						<TabsTrigger value="basics">Basics</TabsTrigger>
+						<TabsTrigger value="approach">Approach</TabsTrigger>
+						<TabsTrigger value="methods">Methods</TabsTrigger>
+						<TabsTrigger value="growth">Growth</TabsTrigger>
+						<TabsTrigger value="reflection">Reflection</TabsTrigger>
+						<TabsTrigger value="custom">Custom Fields</TabsTrigger>
+					</TabsList>
+					<div className="mt-12">
+						<TabsContent value="basics">
+							<Container className="mb-6 p-0">
 								<Label htmlFor="discipline">
 									Academic Discipline<span className="text-red-500">*</span>
 								</Label>
@@ -297,8 +340,8 @@ const TeachingPhilosophyGenerator = () => {
 									onChange={handleInputChange}
 									placeholder="e.g., History"
 								/>
-							</div>
-							<div>
+							</Container>
+							<Container className="mb-6 p-0">
 								<Label htmlFor="experience">
 									Years of Teaching Experience<span className="text-red-500">*</span>
 								</Label>
@@ -310,7 +353,19 @@ const TeachingPhilosophyGenerator = () => {
 									onChange={handleInputChange}
 									placeholder="e.g., 5"
 								/>
-							</div>
+							</Container>
+							<Container className="mb-6 p-0">
+								<Label htmlFor="disciplinesTaught">
+									Disciplines Taught and Where<span className="text-red-500">*</span>
+								</Label>
+								<Input
+									id="disciplinesTaught"
+									name="disciplinesTaught"
+									value={inputs.disciplinesTaught}
+									onChange={handleInputChange}
+									placeholder="e.g., Modern European History at XYZ University, American Civil War at ABC College"
+								/>
+							</Container>
 							{renderTextArea(
 								'educationPurpose',
 								'Purpose of Education',
@@ -324,11 +379,7 @@ const TeachingPhilosophyGenerator = () => {
 								true
 							)}
 						</TabsContent>
-
-						<TabsContent
-							value="approach"
-							className="space-y-4"
-						>
+						<TabsContent value="approach">
 							{renderTextArea(
 								'studentLearning',
 								'How Students Learn Best',
@@ -367,49 +418,41 @@ const TeachingPhilosophyGenerator = () => {
 								</div>
 							</div>
 						</TabsContent>
-
-						<TabsContent
-							value="methods"
-							className="space-y-4"
-						>
+						<TabsContent value="methods">
 							{renderTextArea(
 								'effectiveMethods',
 								'Effective Teaching Methods',
 								'I employ a mix of interactive lectures, group discussions, project-based learning, and field-specific case studies. These methods encourage active engagement and provide opportunities for practical application of concepts.',
 								true
 							)}
-							<div>
+							<Container className="mb-6 p-0">
 								<Label>
 									Teaching Values<span className="text-red-500">*</span>
 								</Label>
 								<div className="grid gap-2">
-									{[
-										'Critical thinking',
-										'Ethical reasoning',
-										'Collaboration',
-										'Innovation',
-										'Lifelong learning',
-									].map((value) => (
-										<div
-											key={value}
-											className="flex items-center"
-										>
-											<Checkbox
-												id={`value-${value}`}
-												checked={inputs.teachingValues.includes(value)}
-												onCheckedChange={(checked) => handleCheckboxChange('teachingValues', value)}
-											/>
-											<label
-												htmlFor={`value-${value}`}
-												className="ml-2 text-sm"
+									{['Critical thinking', 'Ethical reasoning', 'Collaboration', 'Innovation', 'Lifelong learning'].map(
+										(value) => (
+											<div
+												key={value}
+												className="flex items-center"
 											>
-												{value}
-											</label>
-										</div>
-									))}
+												<Checkbox
+													id={`value-${value}`}
+													checked={inputs.teachingValues.includes(value)}
+													onCheckedChange={(checked) => handleCheckboxChange('teachingValues', value)}
+												/>
+												<label
+													htmlFor={`value-${value}`}
+													className="ml-2 text-sm"
+												>
+													{value}
+												</label>
+											</div>
+										)
+									)}
 								</div>
-							</div>
-							<div>
+							</Container>
+							<Container className="mb-6 p-0">
 								<Label>
 									Assessment Methods<span className="text-red-500">*</span>
 								</Label>
@@ -439,18 +482,14 @@ const TeachingPhilosophyGenerator = () => {
 										</div>
 									))}
 								</div>
-							</div>
+							</Container>
 							{renderTextArea(
 								'inclusiveness',
 								'Inclusiveness Approach',
 								'I create an inclusive environment by using diverse examples, promoting equitable participation, and providing multiple ways for students to demonstrate their understanding of complex concepts.'
 							)}
 						</TabsContent>
-
-						<TabsContent
-							value="growth"
-							className="space-y-4"
-						>
+						<TabsContent value="growth">
 							{renderTextArea(
 								'researchTeachingConnection',
 								'Connection between Teaching, Research, and Service',
@@ -467,24 +506,31 @@ const TeachingPhilosophyGenerator = () => {
 								"I regularly attend educational conferences, participate in workshops on innovative teaching methods, and collaborate with colleagues to refine my teaching approach. I'm also pursuing additional certifications to stay at the forefront of my field."
 							)}
 						</TabsContent>
-
-						<TabsContent
-							value="reflection"
-							className="space-y-4"
-						>
+						<TabsContent value="reflection">
 							{renderTextArea(
 								'anecdote',
 								'Memorable Teaching Anecdote',
-								'During a class project, a student discovered an innovative approach that challenged existing methods in our field. This led to a class-wide exploration, resulting in a collaborative research initiative. This experience exemplified the power of fostering creativity and critical thinking in the classroom.'
+								'During a class project, a student discovered an innovative approach that challenged existing methods in our field. This led to a class-wide discussion on critical thinking and innovation.'
+							)}
+							{renderTextArea(
+								'studentAccomplishment',
+								'Student Accomplishment',
+								'A student who initially struggled with data analysis went on to present their research findings at a national conference, showcasing significant improvement in their analytical skills.'
 							)}
 							{renderTextArea(
 								'teachingPhilosophyEvolution',
 								'Evolution of Your Teaching Philosophy',
 								'Reflect on how your teaching philosophy has evolved over time. Consider key experiences or insights that have shaped your approach to teaching and how you anticipate your philosophy might continue to develop in the future.'
 							)}
-
+						</TabsContent>
+						<TabsContent value="custom">
 							<div className="space-y-4">
 								<h3 className="text-lg font-semibold">Custom Fields</h3>
+								<p className="text-sm text-gray-600">
+									Add any additional information that you feel is important to your teaching philosophy. For example,
+									you might add a field for "Desired Teaching Discipline" to specify a subject area you're interested in
+									teaching at the new university.
+								</p>
 								{Object.entries(inputs.customFields).map(([fieldName, fieldValue]) => (
 									<div key={fieldName}>
 										<Label htmlFor={fieldName}>{fieldName}</Label>
@@ -492,30 +538,35 @@ const TeachingPhilosophyGenerator = () => {
 											id={fieldName}
 											value={fieldValue}
 											onChange={(e) => handleCustomFieldChange(fieldName, e.target.value)}
-											rows={3}
+											className="max-h-32 min-h-[80px]"
 										/>
 									</div>
 								))}
 								<div className="flex items-center space-x-2">
 									<Input
-										placeholder="New field name"
+										placeholder="e.g., Desired Teaching Discipline"
 										value={newFieldName}
 										onChange={(e) => setNewFieldName(e.target.value)}
 									/>
-									<Button onClick={handleAddCustomField}>Add Field</Button>
+									<Button
+										onClick={handleAddCustomField}
+										className="bg-purple-600 hover:bg-purple-700 text-white"
+									>
+										Add Field
+									</Button>
 								</div>
 							</div>
 						</TabsContent>
-					</Tabs>
+					</div>
+				</Tabs>
 
-					<GenerateButton
-						onClick={handleGenerate}
-						disabled={!isFormComplete}
-						isLoading={isGenerating}
-						documentType="Teaching Philosophy"
-					/>
-				</CardContent>
-			</Card>
+				<GenerateButton
+					onClick={handleGenerate}
+					disabled={!isFormComplete}
+					isLoading={isGenerating}
+					documentType="Teaching Philosophy"
+				/>
+			</div>
 
 			{error && <ErrorMessage message={error} />}
 
