@@ -290,11 +290,12 @@ const TeachingPhilosophyGenerator = () => {
 			<Container paddingX="none">
 				<H1>Create Your Teaching Philosophy</H1>
 				<Paragraph>
-					Craft a compelling teaching philosophy that showcases your approach to education, your values as an educator,
-					and your vision for student learning. Our AI-powered tool generates a personalized document based on your
-					input. The more details you provide, the more unique your statement will be. However, you're free to include
-					as much or as little information as you prefer – our AI adapts to create a meaningful philosophy statement
-					regardless.
+					Articulate your educational vision with our AI-powered Teaching Philosophy Generator. This tool transforms
+					your insights into a cohesive narrative that reflects your teaching experience, pedagogical approaches, and
+					aspirations for student learning. While more detailed responses naturally yield a more personalized statement,
+					our AI adapts to your input, generating a meaningful teaching philosophy regardless of detail level. After
+					generation, you'll have the opportunity to edit and refine the document, ensuring it truly resonates with your
+					teaching practice.
 				</Paragraph>
 				<Span className="text-xs block mt-2 italic">Items marked with * are required.</Span>
 			</Container>
@@ -587,7 +588,7 @@ const TeachingPhilosophyGenerator = () => {
 							className="space-y-8"
 						>
 							<div className="space-y-8">
-								<h3 className="text-lg font-semibold">Custom Fields</h3>
+								<h3 className={cn('text-lg text-left mb-2 text-gray-600 font-normal', 'block')}>Custom Fields</h3>
 								<p className="text-sm text-gray-600">
 									Add any additional information that you feel is important to your teaching philosophy. For example,
 									you might add a field for "Desired Teaching Discipline" to specify a subject area you're interested in
