@@ -297,7 +297,7 @@ const TeachingPhilosophyGenerator = () => {
 
 	return (
 		<>
-			<Container paddingX="none">
+			<Container>
 				<H1>Create Your Teaching Philosophy</H1>
 				<Paragraph>
 					Articulate your educational vision with our AI-powered Teaching Philosophy Generator. This tool transforms
@@ -310,9 +310,9 @@ const TeachingPhilosophyGenerator = () => {
 				<Span className="text-xs block mt-2 italic">Items marked with * are required.</Span>
 			</Container>
 
-			<div className="w-full mt-8 space-y-6">
-				<div className="space-y-2 p-4 border border-gray-200 rounded-lg">
-					<H2 className="text-lg">Your Progress</H2>
+			<Container className="w-full mt-8">
+				<Container className="space-y-2 p-4 py-8 border border-gray-200 rounded-lg mb-12">
+					<H2 className="text-lg mb-4">Your Progress</H2>
 					<div className="space-y-2">
 						<Progress
 							value={progress}
@@ -325,8 +325,9 @@ const TeachingPhilosophyGenerator = () => {
 							</span>
 						</div>
 					</div>
-				</div>
+				</Container>
 
+				<H2 className="text-2xl font-semibold my-6">Teaching Philosophy Details</H2>
 				<Tabs
 					value={activeTab}
 					onValueChange={setActiveTab}
@@ -369,7 +370,7 @@ const TeachingPhilosophyGenerator = () => {
 							Custom Fields
 						</TabsTrigger>
 					</TabsList>
-					<div className="mt-12">
+					<Container className="mt-12 pb-8">
 						<TabsContent
 							value="basics"
 							className="space-y-8"
@@ -610,7 +611,10 @@ const TeachingPhilosophyGenerator = () => {
 									teaching at the new university.
 								</p>
 								{Object.entries(inputs.customFields).map(([fieldName, fieldValue]) => (
-									<div key={fieldName} className="space-y-2">
+									<div
+										key={fieldName}
+										className="space-y-2"
+									>
 										<div className="flex justify-between items-center">
 											<Label
 												htmlFor={fieldName}
@@ -651,16 +655,17 @@ const TeachingPhilosophyGenerator = () => {
 								</div>
 							</div>
 						</TabsContent>
-					</div>
+					</Container>
 				</Tabs>
-
-				<GenerateButton
-					onClick={handleGenerate}
-					disabled={!isFormComplete}
-					isLoading={isGenerating}
-					documentType="Teaching Philosophy"
-				/>
-			</div>
+				<Container className="py-8">
+					<GenerateButton
+						onClick={handleGenerate}
+						disabled={!isFormComplete}
+						isLoading={isGenerating}
+						documentType="Teaching Philosophy"
+					/>
+				</Container>
+			</Container>
 
 			{error && <ErrorMessage message={error} />}
 

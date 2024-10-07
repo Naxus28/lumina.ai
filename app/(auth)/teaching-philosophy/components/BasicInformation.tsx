@@ -14,7 +14,7 @@ interface BasicInformationProps {
 }
 
 export const BasicInformation: React.FC<BasicInformationProps> = ({ inputs, handleInputChange }) => (
-	<Container paddingX="none">
+	<Container>
 		<H2 className="text-lg">Basic Information</H2>
 		<div className="space-y-6">
 			<div className="space-y-2">

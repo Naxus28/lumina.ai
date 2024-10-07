@@ -39,7 +39,7 @@ const assessmentMethods = [
 ];
 
 export const TeachingValuesAndMethods: React.FC<TeachingValuesAndMethodsProps> = ({ inputs, handleCheckboxChange }) => (
-	<Container paddingX="none">
+	<Container>
 		<H2 className="text-lg">Teaching Values and Methods</H2>
 		<div className="space-y-6">
 			<div className="space-y-2">

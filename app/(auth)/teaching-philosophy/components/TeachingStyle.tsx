@@ -23,7 +23,7 @@ const teachingStyles = [
 ];
 
 export const TeachingStyle: React.FC<TeachingStyleProps> = ({ selectedStyles, handleCheckboxChange }) => (
-	<Container paddingX="none">
+	<Container>
 		<H2 className="text-lg">Teaching Styles</H2>
 		<div className="space-y-2">
 			<Label className="flex items-center">

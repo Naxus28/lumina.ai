@@ -93,7 +93,7 @@ export const PhilosophyDetails: React.FC<PhilosophyDetailsProps> = ({
 	};
 
 	return (
-		<Container paddingX="none">
+		<Container>
 			<H2 className="text-lg">Philosophy Details</H2>
 			<div className="space-y-8">
 				{philosophyFields.map(({ name, label, example }) => (

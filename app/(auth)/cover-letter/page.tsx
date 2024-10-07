@@ -151,7 +151,7 @@ const CoverLetterGenerator: React.FC = () => {
 	return (
 		<div className="min-h-screen bg-gray-50 w-full">
 			<main>
-				<Container paddingX="none">
+				<Container>
 					<header>
 						<H1>Create Your Academic Cover Letter</H1>
 						<Paragraph>
@@ -163,7 +163,7 @@ const CoverLetterGenerator: React.FC = () => {
 					</header>
 				</Container>
 
-				<Container paddingX="none">
+				<Container>
 					<H2 className="text-lg">Choose Your Cover Letter Style*</H2>
 					<TemplateSelector
 						templates={coverLetterTemplates}
@@ -172,7 +172,7 @@ const CoverLetterGenerator: React.FC = () => {
 					/>
 				</Container>
 
-				<Container paddingX="none">
+				<Container>
 					<H2 className="text-lg">Enter Job Description*</H2>
 					<JobDescriptionInput
 						jobDescription={jobDescription}
@@ -180,12 +180,12 @@ const CoverLetterGenerator: React.FC = () => {
 					/>
 				</Container>
 
-				<Container paddingX="none">
+				<Container>
 					<H2 className="text-lg">Upload your CV*</H2>
 					<CVUpload onFileSelect={setCvFile} />
 				</Container>
 
-				<Container paddingX="none">
+				<Container>
 					<H2 className="text-lg">Additional details (optional)</H2>
 					<p className="text-sm text-gray-600 pb-4">
 						For precise customization, please complete the form below. If left blank, our AI system will automatically
@@ -198,7 +198,7 @@ const CoverLetterGenerator: React.FC = () => {
 					</div>
 				</Container>
 
-				<Container paddingX="none">
+				<Container>
 					<GenerateButton
 						onClick={handleGenerate}
 						disabled={!selectedTemplate || !jobDescription || !cvFile}

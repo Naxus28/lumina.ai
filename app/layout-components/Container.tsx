@@ -110,7 +110,7 @@ const paddingYClasses = {
 };
 
 export const Container = forwardRef<HTMLElement, ContainerProps>(
-	({ children, className, padding = 'none', paddingX = 'xl', paddingY = 'xl', id = '', ...props }, ref) => {
+	({ children, className, padding = 'none', paddingX = 'none', paddingY = 'xl', id = '', ...props }, ref) => {
 		return (
 			<section
 				ref={ref}
