@@ -311,7 +311,12 @@ const TeachingPhilosophyGenerator = () => {
 			</Container>
 
 			<Container className="w-full mt-8">
-				<Container className="space-y-2 p-4 py-8 border border-gray-200 rounded-lg mb-12">
+				<Container
+					className={cn(
+						'space-y-2 p-4 py-8 border border-gray-200 rounded-lg mb-12',
+						isFormComplete && 'border-purple-500'
+					)}
+				>
 					<H2 className="text-lg mb-4">Your Progress</H2>
 					<div className="space-y-2">
 						<Progress
@@ -325,6 +330,12 @@ const TeachingPhilosophyGenerator = () => {
 							</span>
 						</div>
 					</div>
+					{isFormComplete && (
+						<p className="text-sm text-purple-600 mt-2">
+							Great job! You've completed all mandatory fields. Feel free to add more optional and custom fields to
+							personalize your document even further.
+						</p>
+					)}
 				</Container>
 
 				<H2 className="text-2xl font-semibold my-6">Teaching Philosophy Details</H2>
