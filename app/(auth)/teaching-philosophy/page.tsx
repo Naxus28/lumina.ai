@@ -11,7 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Progress } from '@/components/ui/progress';
 import { Info, X } from 'lucide-react';
 import { Container } from '@/app/layout-components/Container';
-import { H1, Paragraph, Span } from '@/app/components/typography';
+import { H1, H2, Paragraph, Span } from '@/app/components/typography';
 import { DocumentDisplay } from '@/app/components/shared/DocumentDisplay';
 import { ErrorMessage } from '../cover-letter/components/ErrorMessage';
 import { GenerateButton } from '@/app/components/GenerateButton';
@@ -123,6 +123,7 @@ const TeachingPhilosophyGenerator = () => {
 	const [isStreamStarted, setIsStreamStarted] = useState(false);
 	const [isFormComplete, setIsFormComplete] = useState(false);
 	const [isGenerating, setIsGenerating] = useState(false);
+	const [filledFieldsCount, setFilledFieldsCount] = useState(0);
 
 	const mandatoryFields = [
 		'discipline',
@@ -166,6 +167,14 @@ const TeachingPhilosophyGenerator = () => {
 			}));
 			setNewFieldName('');
 		}
+	};
+
+	const handleRemoveCustomField = (fieldName: string) => {
+		setInputs((prev) => {
+			const updatedCustomFields = { ...prev.customFields };
+			delete updatedCustomFields[fieldName];
+			return { ...prev, customFields: updatedCustomFields };
+		});
 	};
 
 	const handleGenerate = async () => {
@@ -230,19 +239,20 @@ const TeachingPhilosophyGenerator = () => {
 		setGeneratedPhilosophy(newContent);
 	}, []);
 
-	const calculateProgress = () => {
+	const calculateProgress = useCallback(() => {
 		const filledMandatoryFields = mandatoryFields.filter(
 			(field) =>
 				inputs[field as keyof Inputs] !== '' &&
 				(typeof inputs[field as keyof Inputs] !== 'object' || (inputs[field as keyof Inputs] as any).length > 0)
 		).length;
+		setFilledFieldsCount(filledMandatoryFields);
 		return Math.round((filledMandatoryFields / mandatoryFields.length) * 100);
-	};
+	}, [inputs]);
 
 	useEffect(() => {
 		const newProgress = calculateProgress();
 		setProgress(newProgress);
-	}, [inputs]);
+	}, [inputs, calculateProgress]);
 
 	useEffect(() => {
 		if (isStreamStarted && resultDisplayRef.current) {
@@ -301,15 +311,20 @@ const TeachingPhilosophyGenerator = () => {
 			</Container>
 
 			<div className="w-full mt-8 space-y-6">
-				<div className="space-y-2">
-					<div className="flex justify-between items-center">
-						<span className="text-sm font-medium">Progress</span>
-						<span className="text-sm font-medium">{progress}%</span>
+				<div className="space-y-2 p-4 border border-gray-200 rounded-lg">
+					<H2 className="text-lg">Your Progress</H2>
+					<div className="space-y-2">
+						<Progress
+							value={progress}
+							className="w-full transition-all duration-500 ease-in-out bg-gray-200 h-2"
+						/>
+						<div className="flex justify-between items-center text-sm text-gray-600">
+							<span>{progress}% Complete</span>
+							<span>
+								{filledFieldsCount} of {mandatoryFields.length} mandatory fields filled
+							</span>
+						</div>
 					</div>
-					<Progress
-						value={progress}
-						className="w-full transition-all duration-500 ease-in-out bg-purple-100"
-					/>
 				</div>
 
 				<Tabs
@@ -395,7 +410,7 @@ const TeachingPhilosophyGenerator = () => {
 									htmlFor="disciplinesTaught"
 									className={cn('text-lg text-left mb-2 text-gray-600 font-normal', 'block')}
 								>
-									Disciplines Taught and Where<span className="text-red-500">*</span>
+									Disciplines Taught and Where
 								</Label>
 								<Input
 									id="disciplinesTaught"
@@ -595,18 +610,28 @@ const TeachingPhilosophyGenerator = () => {
 									teaching at the new university.
 								</p>
 								{Object.entries(inputs.customFields).map(([fieldName, fieldValue]) => (
-									<div key={fieldName}>
-										<Label
-											htmlFor={fieldName}
-											className={cn('text-lg text-left mb-2 text-gray-600 font-normal', 'block')}
-										>
-											{fieldName}
-										</Label>
+									<div key={fieldName} className="space-y-2">
+										<div className="flex justify-between items-center">
+											<Label
+												htmlFor={fieldName}
+												className={cn('text-lg text-left mb-2 text-gray-600 font-normal', 'block')}
+											>
+												{fieldName}
+											</Label>
+											<Button
+												type="button"
+												variant="outline"
+												size="sm"
+												onClick={() => handleRemoveCustomField(fieldName)}
+											>
+												Remove
+											</Button>
+										</div>
 										<Textarea
 											id={fieldName}
 											value={fieldValue}
 											onChange={(e) => handleCustomFieldChange(fieldName, e.target.value)}
-											className="max-h-32 min-h-[80px]"
+											className="max-h-32 min-h-[80px] w-full"
 										/>
 									</div>
 								))}
@@ -615,6 +640,7 @@ const TeachingPhilosophyGenerator = () => {
 										placeholder="e.g., Desired Teaching Discipline"
 										value={newFieldName}
 										onChange={(e) => setNewFieldName(e.target.value)}
+										className="flex-grow"
 									/>
 									<Button
 										onClick={handleAddCustomField}
