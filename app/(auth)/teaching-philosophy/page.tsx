@@ -140,7 +140,12 @@ const TeachingPhilosophyGenerator = () => {
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
 		const { name, value } = e.target;
-		setInputs((prev) => ({ ...prev, [name]: value }));
+		if (name === 'experience') {
+			const numValue = Math.max(0, parseInt(value) || 0);
+			setInputs((prev) => ({ ...prev, [name]: numValue.toString() }));
+		} else {
+			setInputs((prev) => ({ ...prev, [name]: value }));
+		}
 	};
 
 	const handleCheckboxChange = (name: string, value: string) => {
@@ -260,6 +265,28 @@ const TeachingPhilosophyGenerator = () => {
 		}
 	}, [isStreamStarted]);
 
+	const renderInput = (name: keyof Inputs, label: string, example: string, type: string = 'text', isMandatory = false) => (
+		<div key={name}>
+			<Label
+				htmlFor={name}
+				className={cn('text-lg text-left mb-2 text-gray-600 font-normal', 'block')}
+			>
+				{label}
+				{isMandatory && <span className="text-red-500">*</span>}
+				<InfoTooltip content={`e.g., ${example}`} />
+			</Label>
+			<Input
+				id={name}
+				name={name}
+				type={type}
+				value={inputs[name] as string}
+				onChange={handleInputChange}
+				min={type === 'number' ? 0 : undefined}
+				step={type === 'number' ? 1 : undefined}
+			/>
+		</div>
+	);
+
 	const renderTextArea = (name: keyof Inputs, label: string, example: string, isMandatory = false) => (
 		<div key={name}>
 			<Label
@@ -268,7 +295,7 @@ const TeachingPhilosophyGenerator = () => {
 			>
 				{label}
 				{isMandatory && <span className="text-red-500">*</span>}
-				<InfoTooltip content={`i.e., ${example}`} />
+				<InfoTooltip content={`e.g., ${example}`} />
 			</Label>
 			<Textarea
 				id={name}
@@ -302,10 +329,10 @@ const TeachingPhilosophyGenerator = () => {
 				<Paragraph>
 					Articulate your educational vision with our AI-powered Teaching Philosophy Generator. This tool transforms
 					your insights into a cohesive narrative that reflects your teaching experience, pedagogical approaches, and
-					aspirations for student learning. While more detailed responses naturally yield a more personalized statement,
-					our AI adapts to your input, generating a meaningful teaching philosophy regardless of detail level. After
-					generation, you'll have the opportunity to edit and refine the document, ensuring it truly resonates with your
-					teaching practice.
+					aspirations for student learning. Some fields are mandatory to ensure our AI has essential information to
+					craft a compelling statement. While more detailed responses naturally yield a more personalized philosophy,
+					our AI adapts to your input, generating a meaningful document regardless of detail level. After generation,
+					you'll have the opportunity to edit and refine, ensuring it truly resonates with your teaching practice.
 				</Paragraph>
 				<Span className="text-xs block mt-2 italic">Items marked with * are required.</Span>
 			</Container>
@@ -386,52 +413,9 @@ const TeachingPhilosophyGenerator = () => {
 							value="basics"
 							className="space-y-8"
 						>
-							<div>
-								<Label
-									htmlFor="discipline"
-									className={cn('text-lg text-left mb-2 text-gray-600 font-normal', 'block')}
-								>
-									Academic Discipline<span className="text-red-500">*</span>
-								</Label>
-								<Input
-									id="discipline"
-									name="discipline"
-									value={inputs.discipline}
-									onChange={handleInputChange}
-									placeholder="e.g., History"
-								/>
-							</div>
-							<div>
-								<Label
-									htmlFor="experience"
-									className={cn('text-lg text-left mb-2 text-gray-600 font-normal', 'block')}
-								>
-									Years of Teaching Experience<span className="text-red-500">*</span>
-								</Label>
-								<Input
-									id="experience"
-									name="experience"
-									type="number"
-									value={inputs.experience}
-									onChange={handleInputChange}
-									placeholder="e.g., 5"
-								/>
-							</div>
-							<div>
-								<Label
-									htmlFor="disciplinesTaught"
-									className={cn('text-lg text-left mb-2 text-gray-600 font-normal', 'block')}
-								>
-									Disciplines Taught and Where
-								</Label>
-								<Input
-									id="disciplinesTaught"
-									name="disciplinesTaught"
-									value={inputs.disciplinesTaught}
-									onChange={handleInputChange}
-									placeholder="e.g., Modern European History at XYZ University, American Civil War at ABC College"
-								/>
-							</div>
+							{renderInput('discipline', 'Academic Discipline', 'History', 'text', true)}
+							{renderInput('experience', 'Years of Teaching Experience', '5', 'number', true)}
+							{renderInput('disciplinesTaught', 'Disciplines Taught and Where', 'Modern European History at XYZ University, American Civil War at ABC College')}
 							{renderTextArea(
 								'educationPurpose',
 								'Purpose of Education',
