@@ -451,9 +451,26 @@ const TeachingPhilosophyGenerator = () => {
 									className={cn('text-lg text-left mb-2 text-gray-600 font-normal', 'block')}
 								>
 									Primary Teaching Style<span className="text-red-500">*</span>
+									<InfoTooltip content="Select all that apply to your teaching approach" />
 								</Label>
-								<div className="grid grid-cols-2 gap-2">
-									{['Lecture-based', 'Discussion-oriented', 'Experiential', 'Blended / Hybrid'].map((style) => (
+								<div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+									{[
+										'Lecture-based',
+										'Discussion-oriented',
+										'Experiential',
+										'Blended / Hybrid',
+										'Inquiry-based',
+										'Project-based',
+										'Flipped classroom',
+										'Collaborative learning',
+										'Problem-based learning',
+										'Gamification',
+										'Case study method',
+										'Socratic method',
+										'Differentiated instruction',
+										'Peer instruction',
+										'Team-based learning'
+									].map((style) => (
 										<div
 											key={style}
 											className="flex items-center"
@@ -490,28 +507,48 @@ const TeachingPhilosophyGenerator = () => {
 									className={cn('text-lg text-left mb-2 text-gray-600 font-normal', 'block')}
 								>
 									Teaching Values<span className="text-red-500">*</span>
+									<InfoTooltip content="Select the values that are most important to your teaching philosophy" />
 								</Label>
-								<div className="grid gap-2">
-									{['Critical thinking', 'Ethical reasoning', 'Collaboration', 'Innovation', 'Lifelong learning'].map(
-										(value) => (
-											<div
-												key={value}
-												className="flex items-center"
+								<div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+									{[
+										'Critical thinking',
+										'Ethical reasoning',
+										'Collaboration',
+										'Innovation',
+										'Lifelong learning',
+										'Diversity and inclusion',
+										'Academic integrity',
+										'Intellectual curiosity',
+										'Effective communication',
+										'Problem-solving',
+										'Global awareness',
+										'Interdisciplinary approach',
+										'Analytical skills',
+										'Creativity',
+										'Research skills',
+										'Professional development',
+										'Social responsibility',
+										'Adaptability',
+										'Leadership',
+										'Reflective practice'
+									].map((value) => (
+										<div
+											key={value}
+											className="flex items-center"
+										>
+											<Checkbox
+												id={`value-${value}`}
+												checked={inputs.teachingValues.includes(value)}
+												onCheckedChange={(checked) => handleCheckboxChange('teachingValues', value)}
+											/>
+											<label
+												htmlFor={`value-${value}`}
+												className="ml-2 text-sm"
 											>
-												<Checkbox
-													id={`value-${value}`}
-													checked={inputs.teachingValues.includes(value)}
-													onCheckedChange={(checked) => handleCheckboxChange('teachingValues', value)}
-												/>
-												<label
-													htmlFor={`value-${value}`}
-													className="ml-2 text-sm"
-												>
-													{value}
-												</label>
-											</div>
-										)
-									)}
+												{value}
+											</label>
+										</div>
+									))}
 								</div>
 							</div>
 							<div>
@@ -520,14 +557,30 @@ const TeachingPhilosophyGenerator = () => {
 									className={cn('text-lg text-left mb-2 text-gray-600 font-normal', 'block')}
 								>
 									Assessment Methods<span className="text-red-500">*</span>
+									<InfoTooltip content="Select the assessment methods you use or plan to use in your teaching" />
 								</Label>
-								<div className="grid gap-2">
+								<div className="grid grid-cols-2 md:grid-cols-3 gap-2">
 									{[
 										'Research projects',
 										'Presentations',
 										'Peer reviews',
 										'Problem-solving tasks',
 										'Reflective essays',
+										'Written exams',
+										'Oral exams',
+										'Group projects',
+										'Portfolio assessments',
+										'Lab reports',
+										'Case study analyses',
+										'Literature reviews',
+										'Practical demonstrations',
+										'Simulations',
+										'Debates',
+										'Quizzes',
+										'Online discussions',
+										'Field work reports',
+										'Capstone projects',
+										'Thesis/Dissertation'
 									].map((method) => (
 										<div
 											key={method}
