@@ -265,7 +265,13 @@ const TeachingPhilosophyGenerator = () => {
 		}
 	}, [isStreamStarted]);
 
-	const renderInput = (name: keyof Inputs, label: string, example: string, type: string = 'text', isMandatory = false) => (
+	const renderInput = (
+		name: keyof Inputs,
+		label: string,
+		example: string,
+		type: string = 'text',
+		isMandatory = false
+	) => (
 		<div key={name}>
 			<Label
 				htmlFor={name}
@@ -323,7 +329,7 @@ const TeachingPhilosophyGenerator = () => {
 	}, [inputs, checkFormCompletion]);
 
 	return (
-		<>
+		<div className="pb-20">
 			<Container>
 				<H1>Create Your Teaching Philosophy</H1>
 				<Paragraph>
@@ -371,51 +377,35 @@ const TeachingPhilosophyGenerator = () => {
 					onValueChange={setActiveTab}
 				>
 					<TabsList className="grid w-full grid-cols-6 bg-transparent">
-						<TabsTrigger
-							value="basics"
-							className="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none data-[state=active]:text-gray-900 data-[state=active]:border-b-2 data-[state=active]:border-purple-500 bg-transparent !bg-transparent data-[state=active]:!bg-transparent rounded-none"
-						>
-							Basics
-						</TabsTrigger>
-						<TabsTrigger
-							value="approach"
-							className="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none data-[state=active]:text-gray-900 data-[state=active]:border-b-2 data-[state=active]:border-purple-500 bg-transparent !bg-transparent data-[state=active]:!bg-transparent rounded-none"
-						>
-							Approach
-						</TabsTrigger>
-						<TabsTrigger
-							value="methods"
-							className="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none data-[state=active]:text-gray-900 data-[state=active]:border-b-2 data-[state=active]:border-purple-500 bg-transparent !bg-transparent data-[state=active]:!bg-transparent rounded-none"
-						>
-							Methods
-						</TabsTrigger>
-						<TabsTrigger
-							value="growth"
-							className="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none data-[state=active]:text-gray-900 data-[state=active]:border-b-2 data-[state=active]:border-purple-500 bg-transparent !bg-transparent data-[state=active]:!bg-transparent rounded-none"
-						>
-							Growth
-						</TabsTrigger>
-						<TabsTrigger
-							value="reflection"
-							className="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none data-[state=active]:text-gray-900 data-[state=active]:border-b-2 data-[state=active]:border-purple-500 bg-transparent !bg-transparent data-[state=active]:!bg-transparent rounded-none"
-						>
-							Reflection
-						</TabsTrigger>
-						<TabsTrigger
-							value="custom"
-							className="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none data-[state=active]:text-gray-900 data-[state=active]:border-b-2 data-[state=active]:border-purple-500 bg-transparent !bg-transparent data-[state=active]:!bg-transparent rounded-none"
-						>
-							Custom Fields
-						</TabsTrigger>
+						{['basics', 'approach', 'methods', 'growth', 'reflection', 'custom'].map((tab) => (
+							<TabsTrigger
+								key={tab}
+								value={tab}
+								className={cn(
+									'px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none',
+									'border-b-2 border-transparent',
+									'data-[state=active]:text-gray-900 data-[state=active]:border-purple-500',
+									'bg-transparent !bg-transparent data-[state=active]:!bg-transparent',
+									'transition-colors duration-200',
+									'rounded-none'
+								)}
+							>
+								{tab.charAt(0).toUpperCase() + tab.slice(1)}
+							</TabsTrigger>
+						))}
 					</TabsList>
-					<Container className="mt-12 pb-8">
+					<Container className="mt-12 pb-8 fixed-height-container">
 						<TabsContent
 							value="basics"
 							className="space-y-8"
 						>
 							{renderInput('discipline', 'Academic Discipline', 'History', 'text', true)}
 							{renderInput('experience', 'Years of Teaching Experience', '5', 'number', true)}
-							{renderInput('disciplinesTaught', 'Disciplines Taught and Where', 'Modern European History at XYZ University, American Civil War at ABC College')}
+							{renderInput(
+								'disciplinesTaught',
+								'Disciplines Taught and Where',
+								'Modern European History at XYZ University, American Civil War at ABC College'
+							)}
 							{renderTextArea(
 								'educationPurpose',
 								'Purpose of Education',
@@ -469,7 +459,7 @@ const TeachingPhilosophyGenerator = () => {
 										'Socratic method',
 										'Differentiated instruction',
 										'Peer instruction',
-										'Team-based learning'
+										'Team-based learning',
 									].map((style) => (
 										<div
 											key={style}
@@ -530,7 +520,7 @@ const TeachingPhilosophyGenerator = () => {
 										'Social responsibility',
 										'Adaptability',
 										'Leadership',
-										'Reflective practice'
+										'Reflective practice',
 									].map((value) => (
 										<div
 											key={value}
@@ -580,7 +570,7 @@ const TeachingPhilosophyGenerator = () => {
 										'Online discussions',
 										'Field work reports',
 										'Capstone projects',
-										'Thesis/Dissertation'
+										'Thesis/Dissertation',
 									].map((method) => (
 										<div
 											key={method}
@@ -728,7 +718,7 @@ const TeachingPhilosophyGenerator = () => {
 					/>
 				</div>
 			)}
-		</>
+		</div>
 	);
 };
 
