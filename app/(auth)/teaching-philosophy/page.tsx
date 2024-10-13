@@ -18,6 +18,7 @@ import { InfoTooltip } from '@/app/components/InfoTooltip';
 import { useProgressCalculator } from '@/app/hooks/useProgressCalculator';
 import { LabeledTextarea } from '@/app/components/LabeledTextarea';
 import { LabeledInput } from '@/app/components/LabeledInput';
+import { Info } from 'lucide-react';
 
 interface Inputs {
 	discipline: string;
@@ -172,21 +173,21 @@ const TeachingPhilosophyGenerator = () => {
 			name: 'anecdote',
 			label: 'Memorable Teaching Anecdote',
 			example:
-				'During a class project, a student discovered an innovative approach that challenged existing methods in our field. This led to a class-wide discussion on critical thinking and innovation.',
+				'In my Research Methods course, a student proposed using social media analysis for data collection, challenging our traditional survey methods. This sparked a class-wide debate on research ethics and data validity. The discussion led to a student-organized workshop exploring new techniques, and ultimately resulted in a collaborative paper presented at a conference. This experience showcased how encouraging critical thinking and innovation in the classroom can lead to meaningful contributions to our field.',
 			isMandatory: false,
 		},
 		{
 			name: 'studentAccomplishment',
 			label: 'Student Accomplishment',
 			example:
-				'A student who initially struggled with data analysis went on to present their research findings at a national conference, showcasing significant improvement in their analytical skills.',
+				"A shy student, initially hesitant to participate, flourished through our course's scaffolded discussion techniques and small group activities. Gradually exposed to low-stakes presentations and peer feedback sessions, they built confidence over the semester. By the end, they voluntarily led a class debate, articulating complex ideas with clarity and engaging peers in thoughtful dialogue. This transformation highlighted how our structured approach to building communication skills can empower students to overcome personal barriers and excel academically.",
 			isMandatory: false,
 		},
 		{
 			name: 'teachingPhilosophyEvolution',
 			label: 'Evolution of Your Teaching Philosophy',
 			example:
-				'Reflect on how your teaching philosophy has evolved over time. Consider key experiences or insights that have shaped your approach to teaching and how you anticipate your philosophy might continue to develop in the future.',
+				"When I started teaching, I focused primarily on content delivery. However, after observing increased student engagement during group projects, I've shifted towards a more collaborative, problem-based approach. This evolution has led to deeper learning outcomes. Looking ahead, I'm excited to incorporate more technology-enhanced learning methods to further boost student interaction and real-world application of concepts.",
 			isMandatory: false,
 		},
 	] as const;
@@ -369,6 +370,16 @@ const TeachingPhilosophyGenerator = () => {
 			resultDisplayRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
 		}
 	}, [isStreamStarted]);
+
+	const customFieldsTooltipContent = `Enhance your teaching philosophy with additional, personalized information. Consider adding fields such as:
+
+1. "Personal Values": Describe how your moral compass influences your teaching approach.
+2. "Desired Teaching Discipline": Specify subject areas you're passionate about teaching.
+3. "Interdisciplinary Connections": Explain how you integrate knowledge from various fields.
+4. "Technology Integration": Discuss your approach to incorporating technology in education.
+5. "Mentorship Philosophy": Share your views on guiding and supporting students beyond the classroom.
+
+Choose fields that best complement your unique perspective and aspirations as an educator.`;
 
 	return (
 		<div className="pb-20">
@@ -625,13 +636,14 @@ const TeachingPhilosophyGenerator = () => {
 							value="custom"
 							className="space-y-8"
 						>
-							<div className="space-y-8">
-								<h3 className={cn('text-lg text-left mb-2 text-gray-600 font-normal', 'block')}>Custom Fields</h3>
-								<p className="text-sm text-gray-600">
-									Add any additional information that you feel is important to your teaching philosophy. For example,
-									you might add a field for "Desired Teaching Discipline" to specify a subject area you're interested in
-									teaching at the new university.
-								</p>
+							<div>
+								<h3 className={cn('text-lg text-left mb-2 text-gray-600 font-normal', 'block')}>
+									Custom Fields
+									<InfoTooltip 
+										content={customFieldsTooltipContent}
+										icon={<Info className="inline-block w-4 h-4 ml-2 text-gray-500" />}
+									/>
+								</h3>
 								{Object.entries(inputs.customFields).map(([fieldName, fieldValue]) => (
 									<div
 										key={fieldName}

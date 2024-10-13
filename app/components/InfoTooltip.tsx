@@ -1,33 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Info } from 'lucide-react';
 
 interface InfoTooltipProps {
 	content: string;
+	icon?: React.ReactNode;
 }
 
-export const InfoTooltip: React.FC<InfoTooltipProps> = ({ content }) => {
-	const [isOpen, setIsOpen] = useState(false);
-
-	const handleToggle = () => {
-		setIsOpen((prev) => !prev);
-	};
-
+export const InfoTooltip: React.FC<InfoTooltipProps> = ({ content, icon = <Info className="w-4 h-4" /> }) => {
 	return (
 		<TooltipProvider>
 			<Tooltip>
 				<TooltipTrigger asChild>
-					<div className="inline-flex items-center justify-center w-5 h-5 ml-2 text-gray-500 rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
-						<Info className="w-4 h-4" />
-						<span className="sr-only">More information</span>
-					</div>
+					<span className="inline-flex items-center justify-center ml-2 text-gray-500 cursor-pointer">{icon}</span>
 				</TooltipTrigger>
-				<TooltipContent
-					side="top"
-					align="center"
-					className="max-w-xs text-sm bg-white p-4 rounded shadow-lg border border-purple-500 text-[14px]"
-				>
-					<p>{content}</p>
+				<TooltipContent className="max-w-md border border-purple-500 p-3 text-[14px]">
+					<p style={{ whiteSpace: 'pre-wrap' }}>{content}</p>
 				</TooltipContent>
 			</Tooltip>
 		</TooltipProvider>
