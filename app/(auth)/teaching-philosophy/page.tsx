@@ -491,6 +491,11 @@ const TeachingPhilosophyGenerator = () => {
 								'I employ a mix of interactive lectures, group discussions, project-based learning, and field-specific case studies. These methods encourage active engagement and provide opportunities for practical application of concepts.',
 								true
 							)}
+							{renderTextArea(
+								'inclusiveness',
+								'Inclusiveness Approach',
+								'I create an inclusive environment by using diverse examples, promoting equitable participation, and providing multiple ways for students to demonstrate their understanding of complex concepts.'
+							)}
 							<div>
 								<Label
 									htmlFor="teachingValues"
@@ -591,11 +596,6 @@ const TeachingPhilosophyGenerator = () => {
 									))}
 								</div>
 							</div>
-							{renderTextArea(
-								'inclusiveness',
-								'Inclusiveness Approach',
-								'I create an inclusive environment by using diverse examples, promoting equitable participation, and providing multiple ways for students to demonstrate their understanding of complex concepts.'
-							)}
 						</TabsContent>
 						<TabsContent
 							value="growth"
