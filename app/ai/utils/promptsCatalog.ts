@@ -100,10 +100,13 @@ Create a professional and coherent teaching philosophy statement based on the fo
 5. Conclude with a summary that ties together the main points and reiterates the teacher's commitment to education.
 6. The statement should be approximately 1-2 pages long (500-1000 words).
 7. Use professional language throughout, but maintain a personal and authentic voice.
-8. Incorporate ALL provided information, including custom fields. Do not omit any details provided by the user.
+8. Incorporate all provided information, but feel free to organize and present it in the most effective way.
 9. Do not invent any information not provided in the input.
-10. If any field is empty or contains "N/A", do not mention it in the statement.
-11. Pay special attention to the custom fields and integrate them seamlessly into the statement where most appropriate.
+10. For lists of teaching styles, values, and assessment methods:
+    a. Do not list all items sequentially. Instead, group related items and discuss them thematically.
+    b. Highlight 3-5 key items that best represent the teacher's approach, and elaborate on how they are implemented.
+    c. Integrate the remaining items naturally throughout the statement where relevant, without forcing all items to be mentioned explicitly.
+    d. Use specific examples to illustrate how these styles, values, or methods are applied in practice.
 
 TEACHER INFORMATION:
 ${Object.entries({
@@ -140,8 +143,9 @@ FINAL INSTRUCTIONS:
 2. Ensure that every piece of non-empty information is incorporated into the teaching philosophy statement.
 3. Double-check that no provided information has been omitted from the final statement.
 4. Integrate custom fields naturally into the most relevant sections of the statement.
+5. Remember to follow the guidelines for handling lists of teaching styles, values, and assessment methods as outlined in the initial instructions.
 
-Based on this information, generate a comprehensive teaching philosophy statement that accurately represents the teacher's approach, values, and goals in education, ensuring ALL provided information is included.
+Based on this information, generate a comprehensive teaching philosophy statement that accurately represents the teacher's approach, values, and goals in education, ensuring ALL provided information is included in a meaningful and integrated manner.
 `,
 
 	// Add more prompt types as needed
