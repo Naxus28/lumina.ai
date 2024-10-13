@@ -499,7 +499,7 @@ const TeachingPhilosophyGenerator = () => {
 									className={cn('text-lg text-left mb-2 text-gray-600 font-normal', 'block')}
 								>
 									Primary Teaching Style<span className="text-red-500">*</span>
-									<InfoTooltip content="Select all that apply to your teaching approach" />
+									<InfoTooltip content="Select teaching styles that define your unique approach. Focus on methods you consistently employ and find most effective in engaging students and facilitating learning." />
 								</Label>
 								<div className="grid grid-cols-2 md:grid-cols-3 gap-2">
 									{primaryTeachingStyleCheckboxes.map((style) => (
@@ -543,7 +543,7 @@ const TeachingPhilosophyGenerator = () => {
 									className={cn('text-lg text-left mb-2 text-gray-600 font-normal', 'block')}
 								>
 									Teaching Values<span className="text-red-500">*</span>
-									<InfoTooltip content="Select the values that are most important to your teaching philosophy" />
+									<InfoTooltip content="Identify the core values that genuinely shape your teaching approach. Focus on those that consistently guide your decisions and actions in the classroom, reflecting the essence of your educational philosophy." />
 								</Label>
 								<div className="grid grid-cols-2 md:grid-cols-3 gap-2">
 									{teachingValuesCheckboxes.map((value) => (
@@ -572,7 +572,7 @@ const TeachingPhilosophyGenerator = () => {
 									className={cn('text-lg text-left mb-2 text-gray-600 font-normal', 'block')}
 								>
 									Assessment Methods<span className="text-red-500">*</span>
-									<InfoTooltip content="Select the assessment methods you use or plan to use in your teaching" />
+									<InfoTooltip content="Choose assessment methods that you've successfully implemented or plan to prioritize. Focus on approaches that best reflect your teaching philosophy and have proven effective in your experience." />
 								</Label>
 								<div className="grid grid-cols-2 md:grid-cols-3 gap-2">
 									{assessmentMethodsCheckboxes.map((method) => (
