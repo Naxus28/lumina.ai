@@ -94,19 +94,24 @@ INSTRUCTIONS:
 Create a professional and coherent teaching philosophy statement based on the following information. The statement should be well-structured, engaging, and reflect the teacher's unique approach and values.
 
 1. Begin with a strong opening that introduces the teacher's overall approach to education.
-2. Organize the content into clear, logical sections that flow naturally from one to the next.
-3. Use specific examples and anecdotes to illustrate key points and make the statement more personal and engaging.
-4. Ensure that the statement reflects the teacher's passion for their discipline and for education in general.
-5. Conclude with a summary that ties together the main points and reiterates the teacher's commitment to education.
-6. The statement should be approximately 1-2 pages long (500-1000 words).
-7. Use professional language throughout, but maintain a personal and authentic voice.
-8. Incorporate all provided information, but feel free to organize and present it in the most effective way.
-9. Do not invent any information not provided in the input.
-10. For lists of teaching styles, values, and assessment methods:
-    a. Do not list all items sequentially. Instead, group related items and discuss them thematically.
-    b. Highlight 3-5 key items that best represent the teacher's approach, and elaborate on how they are implemented.
-    c. Integrate the remaining items naturally throughout the statement where relevant, without forcing all items to be mentioned explicitly.
-    d. Use specific examples to illustrate how these styles, values, or methods are applied in practice.
+2. Early in the statement, mention the teacher's primary discipline and the range of disciplines they have taught. This provides context for their experience and expertise.
+3. Organize the content into clear, logical sections that flow naturally from one to the next.
+4. Use specific examples and anecdotes to illustrate key points and make the statement more personal and engaging.
+5. Ensure that the statement reflects the teacher's passion for their discipline(s) and for education in general.
+6. Conclude with a summary that ties together the main points and reiterates the teacher's commitment to education.
+7. The statement should be approximately 1-2 pages long (500-1000 words).
+8. Use professional language throughout, but maintain a personal and authentic voice.
+9. Incorporate all provided information, but feel free to organize and present it in the most effective way.
+10. Do not invent any information not provided in the input.
+11. For lists of teaching styles, values, and assessment methods:
+    a. Do not attempt to include all items in a single sentence or paragraph.
+    b. Group related items thematically and discuss them in separate paragraphs or sections.
+    c. Focus on 3-5 key items that best represent the teacher's core approach or values, and elaborate on these in depth.
+    d. Integrate other items naturally throughout the statement where they fit logically and enhance the narrative.
+    e. If certain items don't fit naturally into the flow of the statement, it's better to omit them than to force their inclusion.
+    f. Use transition phrases to connect different ideas, rather than listing them.
+    g. Ensure that each value or method mentioned is contextualized within the broader teaching philosophy.
+12. Balance the content: While all provided information should be considered, prioritize depth and coherence over comprehensiveness.
 
 TEACHER INFORMATION:
 ${Object.entries({
@@ -140,12 +145,14 @@ ${Object.entries(customFields)
 
 FINAL INSTRUCTIONS:
 1. Review all the information provided above, including the custom fields.
-2. Ensure that every piece of non-empty information is incorporated into the teaching philosophy statement.
-3. Double-check that no provided information has been omitted from the final statement.
+2. Prioritize creating a coherent and engaging narrative over including every single detail.
+3. Ensure that the most important and relevant information is incorporated into the teaching philosophy statement.
 4. Integrate custom fields naturally into the most relevant sections of the statement.
 5. Remember to follow the guidelines for handling lists of teaching styles, values, and assessment methods as outlined in the initial instructions.
+6. Avoid forced connections or unnatural groupings of ideas. If certain concepts don't fit well together, it's better to discuss them separately.
+7. Make sure to incorporate the teacher's experience across different disciplines, as indicated in the "Disciplines Taught" field, to showcase their versatility and breadth of knowledge.
 
-Based on this information, generate a comprehensive teaching philosophy statement that accurately represents the teacher's approach, values, and goals in education, ensuring ALL provided information is included in a meaningful and integrated manner.
+Based on this information, generate a comprehensive teaching philosophy statement that accurately represents the teacher's approach, values, and goals in education, ensuring the most important information is included in a meaningful and integrated manner.
 `,
 
 	// Add more prompt types as needed
