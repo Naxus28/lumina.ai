@@ -14,7 +14,7 @@ export const InfoTooltip: React.FC<InfoTooltipProps> = ({ content, icon = <Info 
 				<TooltipTrigger asChild>
 					<span className="inline-flex items-center justify-center ml-2 text-gray-500">{icon}</span>
 				</TooltipTrigger>
-				<TooltipContent className="max-w-md border border-purple-500 p-3 text-[14px]">
+				<TooltipContent className="max-w-md border border-purple-500 p-4 text-[14px]">
 					<p style={{ whiteSpace: 'pre-wrap' }}>{content}</p>
 				</TooltipContent>
 			</Tooltip>

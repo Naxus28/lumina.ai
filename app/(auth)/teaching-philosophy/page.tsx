@@ -649,10 +649,7 @@ Choose fields that best complement your unique perspective and aspirations as an
 									/>
 								</h3>
 								{Object.entries(inputs.customFields).map(([fieldName, fieldValue]) => (
-									<div
-										key={fieldName}
-										className="space-y-2"
-									>
+									<div key={fieldName}>
 										<div className="flex justify-between items-center">
 											<Label
 												htmlFor={fieldName}
@@ -673,7 +670,7 @@ Choose fields that best complement your unique perspective and aspirations as an
 											id={fieldName}
 											value={fieldValue}
 											onChange={(e) => handleCustomFieldChange(fieldName, e.target.value)}
-											className="max-h-32 min-h-[80px] w-full"
+											className="mb-6 max-h-32 min-h-[80px] w-full"
 										/>
 									</div>
 								))}
