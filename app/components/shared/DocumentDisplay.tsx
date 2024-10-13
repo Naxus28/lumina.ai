@@ -13,6 +13,7 @@ interface DocumentDisplayProps {
 	documentType: string;
 	onEdit?: (newContent: string) => void;
 	showAIWarning?: boolean;
+	isGenerationComplete: boolean;
 }
 
 const fontFamilies = ['Times New Roman', 'Arial', 'Calibri', 'Georgia'];
@@ -26,6 +27,7 @@ export const DocumentDisplay: React.FC<DocumentDisplayProps> = ({
 	isLoading,
 	documentType,
 	showAIWarning = true,
+	isGenerationComplete,
 }) => {
 	const [isEditing, setIsEditing] = useState(false);
 	const [editableContent, setEditableContent] = useState(content);
@@ -232,7 +234,7 @@ export const DocumentDisplay: React.FC<DocumentDisplayProps> = ({
 					)}
 				</div>
 			</div>
-			{showAIWarning && (
+			{showAIWarning && isGenerationComplete && (
 				<Alert className="mb-4 mt-4">
 					<AlertDescription>
 						This document was generated using AI technology. While it provides a solid foundation, we recommend

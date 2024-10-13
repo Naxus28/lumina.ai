@@ -16,6 +16,7 @@ import { SenderForm } from './components/address/SenderForm';
 import { RecipientForm } from './components/address/RecipientForm';
 import { AddressData } from './components/address/AddressFormBase';
 import { H1, H2, Paragraph, Span } from '@/app/components/typography';
+import { DownloadPdfButton } from '@/app/components/DownloadPdfButton';
 
 const CoverLetterGenerator: React.FC = () => {
 	const [selectedTemplate, setSelectedTemplate] = useState<CoverLetterTemplate | null>(null);
@@ -119,35 +120,6 @@ const CoverLetterGenerator: React.FC = () => {
 		setGeneratedCoverLetter(newContent);
 	}, []);
 
-	const handleDownloadPDF = useCallback(() => {
-		const doc = new jsPDF();
-		const pageHeight = doc.internal.pageSize.height;
-		const margin = 15;
-		const fontSize = 12;
-		const lineHeight = 1.15;
-		const font = ['times', 'roman'];
-		const indent = 36; // 0.5 inch indent (36 points)
-		let y = margin;
-
-		doc.setFont(font[0], font[1]);
-		doc.setFontSize(fontSize);
-
-		const lines = doc.splitTextToSize(generatedCoverLetter, doc.internal.pageSize.width - 2 * margin);
-
-		lines.forEach((line: string, lineIndex: number) => {
-			if (y > pageHeight - margin) {
-				doc.addPage();
-				y = margin;
-			}
-
-			const x = lineIndex > 0 ? margin : margin + indent;
-			doc.text(line, x, y);
-			y += fontSize * lineHeight;
-		});
-
-		doc.save('cover_letter.pdf');
-	}, [generatedCoverLetter]);
-
 	return (
 		<div className="min-h-screen bg-gray-50 w-full">
 			<main>
@@ -192,11 +164,12 @@ const CoverLetterGenerator: React.FC = () => {
 				</Container>
 
 				<Container>
-					<H2 className="text-lg">Additional details (optional)</H2>
+					<H2 className="text-lg">Additional details</H2>
 					<p className="text-sm text-gray-600 pb-4">
-						For precise customization, please complete the form below. If left blank, our AI system will automatically
-						extract relevant information from your CV and the provided job description (including recipient details if
-						available). You'll have the opportunity to review and edit the final document before submission.
+						For additional customization, you may provide extra details in the form below. If left blank, our AI system
+						will automatically extract relevant information from your CV and the provided job description (including
+						recipient details if available). You'll have the opportunity to review and edit the final document before
+						submission.
 					</p>
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 						<SenderForm onDataChange={handleSenderDataChange} />
@@ -223,17 +196,16 @@ const CoverLetterGenerator: React.FC = () => {
 							isEditable={true}
 							documentType="Cover Letter"
 							onEdit={handleEdit}
+							isGenerationComplete={isGenerationComplete}
 						/>
 					</div>
 				)}
 
 				{isGenerationComplete && (
-					<Button
-						onClick={handleDownloadPDF}
-						className="mt-4 bg-purple-800 hover:bg-purple-900 text-white"
-					>
-						Download as PDF
-					</Button>
+					<DownloadPdfButton
+						content={generatedCoverLetter}
+						fileName="cover_letter.pdf"
+					/>
 				)}
 			</main>
 		</div>

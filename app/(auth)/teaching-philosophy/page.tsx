@@ -19,6 +19,7 @@ import { useProgressCalculator } from '@/app/hooks/useProgressCalculator';
 import { LabeledTextarea } from '@/app/components/LabeledTextarea';
 import { LabeledInput } from '@/app/components/LabeledInput';
 import { Info } from 'lucide-react';
+import { DownloadPdfButton } from '@/app/components/DownloadPdfButton';
 
 interface Inputs {
 	discipline: string;
@@ -68,6 +69,7 @@ const TeachingPhilosophyGenerator = () => {
 	const [activeTab, setActiveTab] = useState('basics');
 	const [newFieldName, setNewFieldName] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
+	const [isGenerationComplete, setIsGenerationComplete] = useState(false);
 	const [generatedPhilosophy, setGeneratedPhilosophy] = useState('');
 	const [error, setError] = useState<string | null>(null);
 	const resultDisplayRef = useRef<HTMLDivElement>(null);
@@ -307,6 +309,7 @@ const TeachingPhilosophyGenerator = () => {
 
 	const handleGenerate = async () => {
 		setIsLoading(true);
+		setIsGenerationComplete(false);
 		setError(null);
 		setGeneratedPhilosophy('');
 		setIsStreamStarted(false);
@@ -339,6 +342,7 @@ const TeachingPhilosophyGenerator = () => {
 				while (true) {
 					const { done, value } = await reader.read();
 					if (done) {
+						setIsGenerationComplete(true);
 						break;
 					}
 					const chunk = decoder.decode(value, { stream: true });
@@ -711,8 +715,15 @@ Choose fields that best complement your unique perspective and aspirations as an
 						isEditable={true}
 						documentType="Teaching Philosophy"
 						onEdit={handleEdit}
+						isGenerationComplete={isGenerationComplete}
 					/>
 				</div>
+			)}
+			{isGenerationComplete && (
+				<DownloadPdfButton
+					content={generatedPhilosophy}
+					fileName="teaching_philosophy.pdf"
+				/>
 			)}
 		</div>
 	);
