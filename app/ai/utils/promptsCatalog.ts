@@ -52,10 +52,12 @@ export const promptsCatalog = {
 	teachingPhilosophy: ({
 		discipline,
 		experience,
+		disciplinesTaught,
 		educationPurpose,
 		teachingMotivation,
 		studentLearning,
 		teachingGoals,
+		teachingStyles,
 		effectiveMethods,
 		teachingValues,
 		assessmentMethods,
@@ -63,16 +65,19 @@ export const promptsCatalog = {
 		researchTeachingConnection,
 		challengesInnovations,
 		professionalDevelopment,
-		teachingStyles,
 		anecdote,
-		...customFields
+		studentAccomplishment,
+		teachingPhilosophyEvolution,
+		customFields,
 	}: {
 		discipline: string;
 		experience: string;
+		disciplinesTaught: string;
 		educationPurpose: string;
 		teachingMotivation: string;
 		studentLearning: string;
 		teachingGoals: string;
+		teachingStyles: string[];
 		effectiveMethods: string;
 		teachingValues: string[];
 		assessmentMethods: string[];
@@ -80,46 +85,64 @@ export const promptsCatalog = {
 		researchTeachingConnection: string;
 		challengesInnovations: string;
 		professionalDevelopment: string;
-		teachingStyles: string[];
 		anecdote: string;
-		[key: string]: string | string[];
+		studentAccomplishment: string;
+		teachingPhilosophyEvolution: string;
+		customFields: Record<string, string>;
 	}) => `
-  INSTRUCTIONS:
-  Create a professional and coherent teaching philosophy statement based on the following information. The statement should be well-structured, engaging, and reflect the teacher's unique approach and values.
+INSTRUCTIONS:
+Create a professional and coherent teaching philosophy statement based on the following information. The statement should be well-structured, engaging, and reflect the teacher's unique approach and values.
 
-  1. Begin with a strong opening that introduces the teacher's overall approach to education.
-  2. Organize the content into clear, logical sections that flow naturally from one to the next.
-  3. Use specific examples and anecdotes to illustrate key points and make the statement more personal and engaging.
-  4. Ensure that the statement reflects the teacher's passion for their discipline and for education in general.
-  5. Conclude with a summary that ties together the main points and reiterates the teacher's commitment to education.
-  6. The statement should be approximately 1-2 pages long (500-1000 words).
-  7. Use professional language throughout, but maintain a personal and authentic voice.
-  8. Incorporate all provided information, but feel free to organize and present it in the most effective way.
-  9. Do not invent any information not provided in the input.
+1. Begin with a strong opening that introduces the teacher's overall approach to education.
+2. Organize the content into clear, logical sections that flow naturally from one to the next.
+3. Use specific examples and anecdotes to illustrate key points and make the statement more personal and engaging.
+4. Ensure that the statement reflects the teacher's passion for their discipline and for education in general.
+5. Conclude with a summary that ties together the main points and reiterates the teacher's commitment to education.
+6. The statement should be approximately 1-2 pages long (500-1000 words).
+7. Use professional language throughout, but maintain a personal and authentic voice.
+8. Incorporate ALL provided information, including custom fields. Do not omit any details provided by the user.
+9. Do not invent any information not provided in the input.
+10. If any field is empty or contains "N/A", do not mention it in the statement.
+11. Pay special attention to the custom fields and integrate them seamlessly into the statement where most appropriate.
 
-  TEACHER INFORMATION:
-  Discipline: ${discipline}
-  Teaching Experience: ${experience}
-  Purpose of Education: ${educationPurpose}
-  Teaching Motivation: ${teachingMotivation}
-  View on Student Learning: ${studentLearning}
-  Teaching Goals: ${teachingGoals}
-  Effective Teaching Methods: ${effectiveMethods}
-  Teaching Values: ${teachingValues.join(', ')}
-  Assessment Methods: ${assessmentMethods.join(', ')}
-  Approach to Inclusiveness: ${inclusiveness}
-  Research-Teaching Connection: ${researchTeachingConnection}
-  Challenges and Innovations: ${challengesInnovations}
-  Professional Development: ${professionalDevelopment}
-  Teaching Styles: ${teachingStyles.join(', ')}
-  Illustrative Anecdote: ${anecdote}
+TEACHER INFORMATION:
+${Object.entries({
+	Discipline: discipline,
+	'Teaching Experience': experience,
+	'Disciplines Taught': disciplinesTaught,
+	'Purpose of Education': educationPurpose,
+	'Teaching Motivation': teachingMotivation,
+	'View on Student Learning': studentLearning,
+	'Teaching Goals': teachingGoals,
+	'Teaching Styles': teachingStyles.join(', '),
+	'Effective Teaching Methods': effectiveMethods,
+	'Teaching Values': teachingValues.join(', '),
+	'Assessment Methods': assessmentMethods.join(', '),
+	'Approach to Inclusiveness': inclusiveness,
+	'Research-Teaching Connection': researchTeachingConnection,
+	'Challenges and Innovations': challengesInnovations,
+	'Professional Development': professionalDevelopment,
+	'Illustrative Anecdote': anecdote,
+	'Student Accomplishment': studentAccomplishment,
+	'Teaching Philosophy Evolution': teachingPhilosophyEvolution,
+})
+	.map(([key, value]) => (value ? `${key}: ${value}` : null))
+	.filter(Boolean)
+	.join('\n')}
 
-  ${Object.entries(customFields)
-		.map(([key, value]) => `${key}: ${Array.isArray(value) ? value.join(', ') : value}`)
-		.join('\n')}
+CUSTOM FIELDS:
+${Object.entries(customFields)
+	.map(([key, value]) => `${key}: ${value}`)
+	.join('\n')}
 
-  Based on this information, generate a comprehensive teaching philosophy statement that accurately represents the teacher's approach, values, and goals in education.
-  `,
+FINAL INSTRUCTIONS:
+1. Review all the information provided above, including the custom fields.
+2. Ensure that every piece of non-empty information is incorporated into the teaching philosophy statement.
+3. Double-check that no provided information has been omitted from the final statement.
+4. Integrate custom fields naturally into the most relevant sections of the statement.
+
+Based on this information, generate a comprehensive teaching philosophy statement that accurately represents the teacher's approach, values, and goals in education, ensuring ALL provided information is included.
+`,
 
 	// Add more prompt types as needed
 };

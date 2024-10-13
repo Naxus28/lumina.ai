@@ -15,6 +15,7 @@ export async function generateDocument({
 	temperature = 0.3,
 	systemPrompt,
 }: GenerateDocumentParams): Promise<ReadableStream<Uint8Array>> {
+	console.log('prompt: ', prompt);
 	return new ReadableStream({
 		async start(controller) {
 			try {
