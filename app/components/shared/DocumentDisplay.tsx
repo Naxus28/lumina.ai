@@ -3,6 +3,8 @@ import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Pencil, Save, X } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { Alert, AlertDescription } from '@/components/ui/alert'; // Import these components
+import { AlertTriangle } from 'lucide-react'; // Import the alert icon
 
 interface DocumentDisplayProps {
 	content: string;
@@ -10,6 +12,7 @@ interface DocumentDisplayProps {
 	isEditable: boolean;
 	documentType: string;
 	onEdit?: (newContent: string) => void;
+	showAIWarning?: boolean;
 }
 
 const fontFamilies = ['Times New Roman', 'Arial', 'Calibri', 'Georgia'];
@@ -22,6 +25,7 @@ export const DocumentDisplay: React.FC<DocumentDisplayProps> = ({
 	onEdit,
 	isLoading,
 	documentType,
+	showAIWarning = true,
 }) => {
 	const [isEditing, setIsEditing] = useState(false);
 	const [editableContent, setEditableContent] = useState(content);
@@ -228,6 +232,15 @@ export const DocumentDisplay: React.FC<DocumentDisplayProps> = ({
 					)}
 				</div>
 			</div>
+			{showAIWarning && (
+				<Alert className="mb-4 mt-4">
+					<AlertDescription>
+						This document was generated using AI technology. While it provides a solid foundation, we recommend
+						carefully reviewing and personalizing the content to ensure it accurately reflects your unique experiences
+						and voice. Your expertise and personal touch will enhance the document's effectiveness and authenticity.
+					</AlertDescription>
+				</Alert>
+			)}
 		</div>
 	);
 };

@@ -639,7 +639,7 @@ Choose fields that best complement your unique perspective and aspirations as an
 							<div>
 								<h3 className={cn('text-lg text-left mb-2 text-gray-600 font-normal', 'block')}>
 									Custom Fields
-									<InfoTooltip 
+									<InfoTooltip
 										content={customFieldsTooltipContent}
 										icon={<Info className="inline-block w-4 h-4 ml-2 text-gray-500" />}
 									/>
