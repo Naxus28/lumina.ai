@@ -6,66 +6,15 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Progress } from '@/components/ui/progress';
-import { Info, X } from 'lucide-react';
 import { Container } from '@/app/layout-components/Container';
 import { H1, H2, Paragraph, Span } from '@/app/components/typography';
 import { DocumentDisplay } from '@/app/components/shared/DocumentDisplay';
 import { ErrorMessage } from '../cover-letter/components/ErrorMessage';
 import { GenerateButton } from '@/app/components/GenerateButton';
 import { cn } from '@/lib/utils';
-
-const InfoTooltip = ({ content }: { content: string }) => {
-	const [isOpen, setIsOpen] = useState(false);
-	const tooltipRef = useRef<HTMLDivElement>(null);
-
-	useEffect(() => {
-		const handleClickOutside = (event: MouseEvent) => {
-			if (tooltipRef.current && !tooltipRef.current.contains(event.target as Node)) {
-				setIsOpen(false);
-			}
-		};
-
-		document.addEventListener('mousedown', handleClickOutside);
-		return () => {
-			document.removeEventListener('mousedown', handleClickOutside);
-		};
-	}, []);
-
-	return (
-		<TooltipProvider>
-			<Tooltip open={isOpen}>
-				<TooltipTrigger asChild>
-					<button
-						onClick={() => setIsOpen(!isOpen)}
-						className="inline-flex items-center justify-center w-5 h-5 ml-2 text-gray-500 rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
-					>
-						<Info className="w-4 h-4" />
-						<span className="sr-only">More information</span>
-					</button>
-				</TooltipTrigger>
-				<TooltipContent
-					side="top"
-					align="center"
-					className="max-w-xs text-sm bg-white p-2 rounded shadow-lg border border-gray-200"
-					ref={tooltipRef}
-				>
-					<div className="flex justify-between items-start">
-						<p>{content}</p>
-						<button
-							onClick={() => setIsOpen(false)}
-							className="ml-2 text-gray-500 hover:text-gray-700"
-						>
-							<X className="w-4 h-4" />
-						</button>
-					</div>
-				</TooltipContent>
-			</Tooltip>
-		</TooltipProvider>
-	);
-};
+import { InfoTooltip } from '@/app/components/InfoTooltip';
 
 interface Inputs {
 	discipline: string;
