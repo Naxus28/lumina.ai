@@ -199,17 +199,41 @@ const TeachingPhilosophyGenerator = () => {
 		}
 	}, [isStreamStarted]);
 
+	const inputConfigs = [
+		{
+			name: 'discipline',
+			label: 'Academic Discipline',
+			example: 'History',
+			isMandatory: true,
+		},
+		{
+			name: 'experience',
+			label: 'Years of Teaching Experience',
+			example: '5',
+			type: 'number',
+			isMandatory: true,
+		},
+		{
+			name: 'disciplinesTaught',
+			label: 'Disciplines Taught and Where',
+			example: 'Modern European History at XYZ University, American Civil War at ABC College',
+			isMandatory: false,
+		},
+	];
+
 	const basicsTextAreaConfigs = [
 		{
 			name: 'educationPurpose',
 			label: 'Purpose of Education',
-			example: 'To cultivate critical thinking and foster a deep understanding of the subject matter, enabling students to apply their knowledge to real-world challenges.',
+			example:
+				'To cultivate critical thinking and foster a deep understanding of the subject matter, enabling students to apply their knowledge to real-world challenges.',
 			isMandatory: true,
 		},
 		{
 			name: 'teachingMotivation',
 			label: 'Teaching Motivation',
-			example: "I'm driven by the opportunity to inspire curiosity and facilitate intellectual growth, guiding students to become lifelong learners and contributors in their chosen fields.",
+			example:
+				"I'm driven by the opportunity to inspire curiosity and facilitate intellectual growth, guiding students to become lifelong learners and contributors in their chosen fields.",
 			isMandatory: true,
 		},
 	];
@@ -218,13 +242,15 @@ const TeachingPhilosophyGenerator = () => {
 		{
 			name: 'studentLearning',
 			label: 'How Students Learn Best',
-			example: 'Students learn best through a combination of theoretical foundations and practical applications, including engaging discussions, hands-on activities, and real-world case studies.',
+			example:
+				'Students learn best through a combination of theoretical foundations and practical applications, including engaging discussions, hands-on activities, and real-world case studies.',
 			isMandatory: true,
 		},
 		{
 			name: 'teachingGoals',
 			label: 'Teaching Goals',
-			example: "My goals are to develop students' critical thinking skills, foster creativity in problem-solving, build a strong foundation in core principles, and instill an understanding of the broader implications of their field.",
+			example:
+				"My goals are to develop students' critical thinking skills, foster creativity in problem-solving, build a strong foundation in core principles, and instill an understanding of the broader implications of their field.",
 			isMandatory: true,
 		},
 	];
@@ -233,13 +259,15 @@ const TeachingPhilosophyGenerator = () => {
 		{
 			name: 'effectiveMethods',
 			label: 'Effective Teaching Methods',
-			example: 'I employ a mix of interactive lectures, group discussions, project-based learning, and field-specific case studies. These methods encourage active engagement and provide opportunities for practical application of concepts.',
+			example:
+				'I employ a mix of interactive lectures, group discussions, project-based learning, and field-specific case studies. These methods encourage active engagement and provide opportunities for practical application of concepts.',
 			isMandatory: true,
 		},
 		{
 			name: 'inclusiveness',
 			label: 'Inclusiveness Approach',
-			example: 'I create an inclusive environment by using diverse examples, promoting equitable participation, and providing multiple ways for students to demonstrate their understanding of complex concepts.',
+			example:
+				'I create an inclusive environment by using diverse examples, promoting equitable participation, and providing multiple ways for students to demonstrate their understanding of complex concepts.',
 			isMandatory: false,
 		},
 	];
@@ -248,19 +276,22 @@ const TeachingPhilosophyGenerator = () => {
 		{
 			name: 'researchTeachingConnection',
 			label: 'Connection between Teaching, Research, and Service',
-			example: 'My research informs my teaching by providing current insights and methodologies. I involve students in research projects and community service initiatives that apply their skills to real-world issues, bridging academic learning with practical impact.',
+			example:
+				'My research informs my teaching by providing current insights and methodologies. I involve students in research projects and community service initiatives that apply their skills to real-world issues, bridging academic learning with practical impact.',
 			isMandatory: false,
 		},
 		{
 			name: 'challengesInnovations',
 			label: 'Challenges and Innovations',
-			example: "To address evolving educational needs, I've implemented a flexible curriculum that incorporates current trends and invited guest speakers from relevant industries. I've also developed interactive online modules to support self-paced learning of foundational concepts.",
+			example:
+				"To address evolving educational needs, I've implemented a flexible curriculum that incorporates current trends and invited guest speakers from relevant industries. I've also developed interactive online modules to support self-paced learning of foundational concepts.",
 			isMandatory: false,
 		},
 		{
 			name: 'professionalDevelopment',
 			label: 'Professional Development',
-			example: "I regularly attend educational conferences, participate in workshops on innovative teaching methods, and collaborate with colleagues to refine my teaching approach. I'm also pursuing additional certifications to stay at the forefront of my field.",
+			example:
+				"I regularly attend educational conferences, participate in workshops on innovative teaching methods, and collaborate with colleagues to refine my teaching approach. I'm also pursuing additional certifications to stay at the forefront of my field.",
 			isMandatory: false,
 		},
 	];
@@ -269,21 +300,88 @@ const TeachingPhilosophyGenerator = () => {
 		{
 			name: 'anecdote',
 			label: 'Memorable Teaching Anecdote',
-			example: 'During a class project, a student discovered an innovative approach that challenged existing methods in our field. This led to a class-wide discussion on critical thinking and innovation.',
+			example:
+				'During a class project, a student discovered an innovative approach that challenged existing methods in our field. This led to a class-wide discussion on critical thinking and innovation.',
 			isMandatory: false,
 		},
 		{
 			name: 'studentAccomplishment',
 			label: 'Student Accomplishment',
-			example: 'A student who initially struggled with data analysis went on to present their research findings at a national conference, showcasing significant improvement in their analytical skills.',
+			example:
+				'A student who initially struggled with data analysis went on to present their research findings at a national conference, showcasing significant improvement in their analytical skills.',
 			isMandatory: false,
 		},
 		{
 			name: 'teachingPhilosophyEvolution',
 			label: 'Evolution of Your Teaching Philosophy',
-			example: 'Reflect on how your teaching philosophy has evolved over time. Consider key experiences or insights that have shaped your approach to teaching and how you anticipate your philosophy might continue to develop in the future.',
+			example:
+				'Reflect on how your teaching philosophy has evolved over time. Consider key experiences or insights that have shaped your approach to teaching and how you anticipate your philosophy might continue to develop in the future.',
 			isMandatory: false,
 		},
+	];
+
+	const primaryTeachingStyleCheckboxes = [
+		'Lecture-based',
+		'Discussion-oriented',
+		'Experiential',
+		'Blended / Hybrid',
+		'Inquiry-based',
+		'Project-based',
+		'Flipped classroom',
+		'Collaborative learning',
+		'Problem-based learning',
+		'Gamification',
+		'Case study method',
+		'Socratic method',
+		'Differentiated instruction',
+		'Peer instruction',
+		'Team-based learning',
+	];
+
+	const teachingValuesCheckboxes = [
+		'Critical thinking',
+		'Ethical reasoning',
+		'Collaboration',
+		'Innovation',
+		'Lifelong learning',
+		'Diversity and inclusion',
+		'Academic integrity',
+		'Intellectual curiosity',
+		'Effective communication',
+		'Problem-solving',
+		'Global awareness',
+		'Interdisciplinary approach',
+		'Analytical skills',
+		'Creativity',
+		'Research skills',
+		'Professional development',
+		'Social responsibility',
+		'Adaptability',
+		'Leadership',
+		'Reflective practice',
+	];
+
+	const assessmentMethodsCheckboxes = [
+		'Research projects',
+		'Presentations',
+		'Peer reviews',
+		'Problem-solving tasks',
+		'Reflective essays',
+		'Written exams',
+		'Oral exams',
+		'Group projects',
+		'Portfolio assessments',
+		'Lab reports',
+		'Case study analyses',
+		'Literature reviews',
+		'Practical demonstrations',
+		'Simulations',
+		'Debates',
+		'Quizzes',
+		'Online discussions',
+		'Field work reports',
+		'Capstone projects',
+		'Thesis/Dissertation',
 	];
 
 	return (
@@ -357,51 +455,42 @@ const TeachingPhilosophyGenerator = () => {
 							value="basics"
 							className="space-y-8"
 						>
-							{renderInput({
-								name: 'discipline',
-								label: 'Academic Discipline',
-								example: 'History',
-								isMandatory: true,
-								value: inputs.discipline,
-								onChange: handleInputChange,
-							})}
-							{renderInput({
-								name: 'experience',
-								label: 'Years of Teaching Experience',
-								example: '5',
-								type: 'number',
-								isMandatory: true,
-								value: inputs.experience,
-								onChange: handleInputChange,
-							})}
-							{renderInput({
-								name: 'disciplinesTaught',
-								label: 'Disciplines Taught and Where',
-								example: 'Modern European History at XYZ University, American Civil War at ABC College',
-								value: inputs.disciplinesTaught,
-								onChange: handleInputChange,
-							})}
-							{basicsTextAreaConfigs.map((config) => renderTextArea({
-								name: config.name,
-								label: config.label,
-								example: config.example,
-								isMandatory: config.isMandatory,
-								value: String(inputs[config.name as keyof typeof inputs]),
-								onChange: handleInputChange,
-							}))}
+							{inputConfigs.map((config) =>
+								renderInput({
+									name: config.name,
+									label: config.label,
+									example: config.example,
+									type: config.type,
+									isMandatory: config.isMandatory,
+									value: String(inputs[config.name as keyof typeof inputs]),
+									onChange: handleInputChange,
+								})
+							)}
+							{basicsTextAreaConfigs.map((config) =>
+								renderTextArea({
+									name: config.name,
+									label: config.label,
+									example: config.example,
+									isMandatory: config.isMandatory,
+									value: String(inputs[config.name as keyof typeof inputs]),
+									onChange: handleInputChange,
+								})
+							)}
 						</TabsContent>
 						<TabsContent
 							value="approach"
 							className="space-y-8"
 						>
-							{approachTextAreaConfigs.map((config) => renderTextArea({
-								name: config.name,
-								label: config.label,
-								example: config.example,
-								isMandatory: config.isMandatory,
-								value: String(inputs[config.name as keyof typeof inputs]),
-								onChange: handleInputChange,
-							}))}
+							{approachTextAreaConfigs.map((config) =>
+								renderTextArea({
+									name: config.name,
+									label: config.label,
+									example: config.example,
+									isMandatory: config.isMandatory,
+									value: String(inputs[config.name as keyof typeof inputs]),
+									onChange: handleInputChange,
+								})
+							)}
 							<div>
 								<Label
 									htmlFor="teachingStyles"
@@ -411,23 +500,7 @@ const TeachingPhilosophyGenerator = () => {
 									<InfoTooltip content="Select all that apply to your teaching approach" />
 								</Label>
 								<div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-									{[
-										'Lecture-based',
-										'Discussion-oriented',
-										'Experiential',
-										'Blended / Hybrid',
-										'Inquiry-based',
-										'Project-based',
-										'Flipped classroom',
-										'Collaborative learning',
-										'Problem-based learning',
-										'Gamification',
-										'Case study method',
-										'Socratic method',
-										'Differentiated instruction',
-										'Peer instruction',
-										'Team-based learning',
-									].map((style) => (
+									{primaryTeachingStyleCheckboxes.map((style) => (
 										<div
 											key={style}
 											className="flex items-center"
@@ -452,14 +525,16 @@ const TeachingPhilosophyGenerator = () => {
 							value="methods"
 							className="space-y-8"
 						>
-							{methodsTextAreaConfigs.map((config) => renderTextArea({
-								name: config.name,
-								label: config.label,
-								example: config.example,
-								isMandatory: config.isMandatory,
-								value: String(inputs[config.name as keyof typeof inputs]),
-								onChange: handleInputChange,
-							}))}
+							{methodsTextAreaConfigs.map((config) =>
+								renderTextArea({
+									name: config.name,
+									label: config.label,
+									example: config.example,
+									isMandatory: config.isMandatory,
+									value: String(inputs[config.name as keyof typeof inputs]),
+									onChange: handleInputChange,
+								})
+							)}
 							<div>
 								<Label
 									htmlFor="teachingValues"
@@ -469,28 +544,7 @@ const TeachingPhilosophyGenerator = () => {
 									<InfoTooltip content="Select the values that are most important to your teaching philosophy" />
 								</Label>
 								<div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-									{[
-										'Critical thinking',
-										'Ethical reasoning',
-										'Collaboration',
-										'Innovation',
-										'Lifelong learning',
-										'Diversity and inclusion',
-										'Academic integrity',
-										'Intellectual curiosity',
-										'Effective communication',
-										'Problem-solving',
-										'Global awareness',
-										'Interdisciplinary approach',
-										'Analytical skills',
-										'Creativity',
-										'Research skills',
-										'Professional development',
-										'Social responsibility',
-										'Adaptability',
-										'Leadership',
-										'Reflective practice',
-									].map((value) => (
+									{teachingValuesCheckboxes.map((value) => (
 										<div
 											key={value}
 											className="flex items-center"
@@ -519,28 +573,7 @@ const TeachingPhilosophyGenerator = () => {
 									<InfoTooltip content="Select the assessment methods you use or plan to use in your teaching" />
 								</Label>
 								<div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-									{[
-										'Research projects',
-										'Presentations',
-										'Peer reviews',
-										'Problem-solving tasks',
-										'Reflective essays',
-										'Written exams',
-										'Oral exams',
-										'Group projects',
-										'Portfolio assessments',
-										'Lab reports',
-										'Case study analyses',
-										'Literature reviews',
-										'Practical demonstrations',
-										'Simulations',
-										'Debates',
-										'Quizzes',
-										'Online discussions',
-										'Field work reports',
-										'Capstone projects',
-										'Thesis/Dissertation',
-									].map((method) => (
+									{assessmentMethodsCheckboxes.map((method) => (
 										<div
 											key={method}
 											className="flex items-center"
@@ -565,27 +598,31 @@ const TeachingPhilosophyGenerator = () => {
 							value="growth"
 							className="space-y-8"
 						>
-							{growthTextAreaConfigs.map((config) => renderTextArea({
-								name: config.name,
-								label: config.label,
-								example: config.example,
-								isMandatory: config.isMandatory,
-								value: String(inputs[config.name as keyof typeof inputs]),
-								onChange: handleInputChange,
-							}))}
+							{growthTextAreaConfigs.map((config) =>
+								renderTextArea({
+									name: config.name,
+									label: config.label,
+									example: config.example,
+									isMandatory: config.isMandatory,
+									value: String(inputs[config.name as keyof typeof inputs]),
+									onChange: handleInputChange,
+								})
+							)}
 						</TabsContent>
 						<TabsContent
 							value="reflection"
 							className="space-y-8"
 						>
-							{reflectionTextAreaConfigs.map((config) => renderTextArea({
-								name: config.name,
-								label: config.label,
-								example: config.example,
-								isMandatory: config.isMandatory,
-								value: String(inputs[config.name as keyof typeof inputs]),
-								onChange: handleInputChange,
-							}))}
+							{reflectionTextAreaConfigs.map((config) =>
+								renderTextArea({
+									name: config.name,
+									label: config.label,
+									example: config.example,
+									isMandatory: config.isMandatory,
+									value: String(inputs[config.name as keyof typeof inputs]),
+									onChange: handleInputChange,
+								})
+							)}
 						</TabsContent>
 						<TabsContent
 							value="custom"
