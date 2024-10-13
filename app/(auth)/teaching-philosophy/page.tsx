@@ -89,6 +89,7 @@ const TeachingPhilosophyGenerator = () => {
 			name: 'discipline',
 			label: 'Academic Discipline',
 			example: 'History',
+			type: 'text',
 			isMandatory: true,
 		},
 		{
@@ -102,6 +103,7 @@ const TeachingPhilosophyGenerator = () => {
 			name: 'disciplinesTaught',
 			label: 'Disciplines Taught and Where',
 			example: 'Modern European History at XYZ University, American Civil War at ABC College',
+			type: 'text',
 			isMandatory: false,
 		},
 	] as const;

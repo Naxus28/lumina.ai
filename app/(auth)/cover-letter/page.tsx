@@ -164,7 +164,9 @@ const CoverLetterGenerator: React.FC = () => {
 				</Container>
 
 				<Container>
-					<H2 className="text-lg">Choose Your Cover Letter Style*</H2>
+					<H2 className="text-lg">
+						Choose Your Cover Letter Style<span className="text-red-500">*</span>
+					</H2>
 					<TemplateSelector
 						templates={coverLetterTemplates}
 						onSelectTemplate={handleSelectTemplate}
@@ -173,7 +175,9 @@ const CoverLetterGenerator: React.FC = () => {
 				</Container>
 
 				<Container>
-					<H2 className="text-lg">Enter Job Description*</H2>
+					<H2 className="text-lg">
+						Enter Job Description<span className="text-red-500">*</span>
+					</H2>
 					<JobDescriptionInput
 						jobDescription={jobDescription}
 						setJobDescription={setJobDescription}
@@ -181,7 +185,9 @@ const CoverLetterGenerator: React.FC = () => {
 				</Container>
 
 				<Container>
-					<H2 className="text-lg">Upload your CV*</H2>
+					<H2 className="text-lg">
+						Upload your CV<span className="text-red-500">*</span>
+					</H2>
 					<CVUpload onFileSelect={setCvFile} />
 				</Container>
 
