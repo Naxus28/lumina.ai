@@ -1,7 +1,7 @@
 import { generateDocument } from '@/app/ai';
 import { generatePrompt } from '../utils/generatePrompt';
 
-interface TeachingPhilosophyInputs {
+interface TeachingPhilosophyParams {
 	discipline: string;
 	experience: string;
 	disciplinesTaught: string;
@@ -23,7 +23,7 @@ interface TeachingPhilosophyInputs {
 	customFields: Record<string, string>;
 }
 
-export async function generateTeachingPhilosophy(inputs: TeachingPhilosophyInputs) {
+export async function generateTeachingPhilosophy(inputs: TeachingPhilosophyParams) {
 	const prompt = generatePrompt('teachingPhilosophy', inputs);
 
 	return generateDocument({

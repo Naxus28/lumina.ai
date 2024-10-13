@@ -15,6 +15,7 @@ import { ErrorMessage } from '../cover-letter/components/ErrorMessage';
 import { GenerateButton } from '@/app/components/GenerateButton';
 import { cn } from '@/lib/utils';
 import { InfoTooltip } from '@/app/components/InfoTooltip';
+import { renderInput, renderTextArea } from '@/app/utils/formUtils';
 
 interface Inputs {
 	discipline: string;
@@ -210,54 +211,6 @@ const TeachingPhilosophyGenerator = () => {
 		}
 	}, [isStreamStarted]);
 
-	const renderInput = (
-		name: keyof Inputs,
-		label: string,
-		example: string,
-		type: string = 'text',
-		isMandatory = false
-	) => (
-		<div key={name}>
-			<Label
-				htmlFor={name}
-				className={cn('text-lg text-left mb-2 text-gray-600 font-normal', 'block')}
-			>
-				{label}
-				{isMandatory && <span className="text-red-500">*</span>}
-				<InfoTooltip content={`e.g., ${example}`} />
-			</Label>
-			<Input
-				id={name}
-				name={name}
-				type={type}
-				value={inputs[name] as string}
-				onChange={handleInputChange}
-				min={type === 'number' ? 0 : undefined}
-				step={type === 'number' ? 1 : undefined}
-			/>
-		</div>
-	);
-
-	const renderTextArea = (name: keyof Inputs, label: string, example: string, isMandatory = false) => (
-		<div key={name}>
-			<Label
-				htmlFor={name}
-				className={cn('text-lg text-left mb-2 text-gray-600 font-normal', 'block')}
-			>
-				{label}
-				{isMandatory && <span className="text-red-500">*</span>}
-				<InfoTooltip content={`e.g., ${example}`} />
-			</Label>
-			<Textarea
-				id={name}
-				name={name}
-				value={inputs[name] as string}
-				onChange={handleInputChange}
-				className="max-h-32 min-h-[80px]"
-			/>
-		</div>
-	);
-
 	const checkFormCompletion = useCallback(() => {
 		const mandatoryFieldsFilled = mandatoryFields.every((field) => {
 			const value = inputs[field as keyof Inputs];
@@ -344,42 +297,67 @@ const TeachingPhilosophyGenerator = () => {
 							value="basics"
 							className="space-y-8"
 						>
-							{renderInput('discipline', 'Academic Discipline', 'History', 'text', true)}
-							{renderInput('experience', 'Years of Teaching Experience', '5', 'number', true)}
-							{renderInput(
-								'disciplinesTaught',
-								'Disciplines Taught and Where',
-								'Modern European History at XYZ University, American Civil War at ABC College'
-							)}
-							{renderTextArea(
-								'educationPurpose',
-								'Purpose of Education',
-								'To cultivate critical thinking and foster a deep understanding of the subject matter, enabling students to apply their knowledge to real-world challenges.',
-								true
-							)}
-							{renderTextArea(
-								'teachingMotivation',
-								'Teaching Motivation',
-								"I'm driven by the opportunity to inspire curiosity and facilitate intellectual growth, guiding students to become lifelong learners and contributors in their chosen fields.",
-								true
-							)}
+							{renderInput({
+								name: 'discipline',
+								label: 'Academic Discipline',
+								example: 'History',
+								isMandatory: true,
+								value: inputs.discipline,
+								onChange: handleInputChange
+							})}
+							{renderInput({
+								name: 'experience',
+								label: 'Years of Teaching Experience',
+								example: '5',
+								type: 'number',
+								isMandatory: true,
+								value: inputs.experience,
+								onChange: handleInputChange
+							})}
+							{renderInput({
+								name: 'disciplinesTaught',
+								label: 'Disciplines Taught and Where',
+								example: 'Modern European History at XYZ University, American Civil War at ABC College',
+								value: inputs.disciplinesTaught,
+								onChange: handleInputChange
+							})}
+							{renderTextArea({
+								name: 'educationPurpose',
+								label: 'Purpose of Education',
+								example: 'To cultivate critical thinking and foster a deep understanding of the subject matter, enabling students to apply their knowledge to real-world challenges.',
+								isMandatory: true,
+								value: inputs.educationPurpose,
+								onChange: handleInputChange
+							})}
+							{renderTextArea({
+								name: 'teachingMotivation',
+								label: 'Teaching Motivation',
+								example: "I'm driven by the opportunity to inspire curiosity and facilitate intellectual growth, guiding students to become lifelong learners and contributors in their chosen fields.",
+								isMandatory: true,
+								value: inputs.teachingMotivation,
+								onChange: handleInputChange
+							})}
 						</TabsContent>
 						<TabsContent
 							value="approach"
 							className="space-y-8"
 						>
-							{renderTextArea(
-								'studentLearning',
-								'How Students Learn Best',
-								'Students learn best through a combination of theoretical foundations and practical applications, including engaging discussions, hands-on activities, and real-world case studies.',
-								true
-							)}
-							{renderTextArea(
-								'teachingGoals',
-								'Teaching Goals',
-								"My goals are to develop students' critical thinking skills, foster creativity in problem-solving, build a strong foundation in core principles, and instill an understanding of the broader implications of their field.",
-								true
-							)}
+							{renderTextArea({
+								name: 'studentLearning',
+								label: 'How Students Learn Best',
+								example: 'Students learn best through a combination of theoretical foundations and practical applications, including engaging discussions, hands-on activities, and real-world case studies.',
+								isMandatory: true,
+								value: inputs.studentLearning,
+								onChange: handleInputChange
+							})}
+							{renderTextArea({
+								name: 'teachingGoals',
+								label: 'Teaching Goals',
+								example: "My goals are to develop students' critical thinking skills, foster creativity in problem-solving, build a strong foundation in core principles, and instill an understanding of the broader implications of their field.",
+								isMandatory: true,
+								value: inputs.teachingGoals,
+								onChange: handleInputChange
+							})}
 							<div>
 								<Label
 									htmlFor="teachingStyles"
@@ -430,17 +408,21 @@ const TeachingPhilosophyGenerator = () => {
 							value="methods"
 							className="space-y-8"
 						>
-							{renderTextArea(
-								'effectiveMethods',
-								'Effective Teaching Methods',
-								'I employ a mix of interactive lectures, group discussions, project-based learning, and field-specific case studies. These methods encourage active engagement and provide opportunities for practical application of concepts.',
-								true
-							)}
-							{renderTextArea(
-								'inclusiveness',
-								'Inclusiveness Approach',
-								'I create an inclusive environment by using diverse examples, promoting equitable participation, and providing multiple ways for students to demonstrate their understanding of complex concepts.'
-							)}
+							{renderTextArea({
+								name: 'effectiveMethods',
+								label: 'Effective Teaching Methods',
+								example: 'I employ a mix of interactive lectures, group discussions, project-based learning, and field-specific case studies. These methods encourage active engagement and provide opportunities for practical application of concepts.',
+								isMandatory: true,
+								value: inputs.effectiveMethods,
+								onChange: handleInputChange
+							})}
+							{renderTextArea({
+								name: 'inclusiveness',
+								label: 'Inclusiveness Approach',
+								example: 'I create an inclusive environment by using diverse examples, promoting equitable participation, and providing multiple ways for students to demonstrate their understanding of complex concepts.',
+								value: inputs.inclusiveness,
+								onChange: handleInputChange
+							})}
 							<div>
 								<Label
 									htmlFor="teachingValues"
@@ -546,41 +528,53 @@ const TeachingPhilosophyGenerator = () => {
 							value="growth"
 							className="space-y-8"
 						>
-							{renderTextArea(
-								'researchTeachingConnection',
-								'Connection between Teaching, Research, and Service',
-								'My research informs my teaching by providing current insights and methodologies. I involve students in research projects and community service initiatives that apply their skills to real-world issues, bridging academic learning with practical impact.'
-							)}
-							{renderTextArea(
-								'challengesInnovations',
-								'Challenges and Innovations',
-								"To address evolving educational needs, I've implemented a flexible curriculum that incorporates current trends and invited guest speakers from relevant industries. I've also developed interactive online modules to support self-paced learning of foundational concepts."
-							)}
-							{renderTextArea(
-								'professionalDevelopment',
-								'Professional Development',
-								"I regularly attend educational conferences, participate in workshops on innovative teaching methods, and collaborate with colleagues to refine my teaching approach. I'm also pursuing additional certifications to stay at the forefront of my field."
-							)}
+							{renderTextArea({
+								name: 'researchTeachingConnection',
+								label: 'Connection between Teaching, Research, and Service',
+								example: 'My research informs my teaching by providing current insights and methodologies. I involve students in research projects and community service initiatives that apply their skills to real-world issues, bridging academic learning with practical impact.',
+								value: inputs.researchTeachingConnection,
+								onChange: handleInputChange
+							})}
+							{renderTextArea({
+								name: 'challengesInnovations',
+								label: 'Challenges and Innovations',
+								example: "To address evolving educational needs, I've implemented a flexible curriculum that incorporates current trends and invited guest speakers from relevant industries. I've also developed interactive online modules to support self-paced learning of foundational concepts.",
+								value: inputs.challengesInnovations,
+								onChange: handleInputChange
+							})}
+							{renderTextArea({
+								name: 'professionalDevelopment',
+								label: 'Professional Development',
+								example: "I regularly attend educational conferences, participate in workshops on innovative teaching methods, and collaborate with colleagues to refine my teaching approach. I'm also pursuing additional certifications to stay at the forefront of my field.",
+								value: inputs.professionalDevelopment,
+								onChange: handleInputChange
+							})}
 						</TabsContent>
 						<TabsContent
 							value="reflection"
 							className="space-y-8"
 						>
-							{renderTextArea(
-								'anecdote',
-								'Memorable Teaching Anecdote',
-								'During a class project, a student discovered an innovative approach that challenged existing methods in our field. This led to a class-wide discussion on critical thinking and innovation.'
-							)}
-							{renderTextArea(
-								'studentAccomplishment',
-								'Student Accomplishment',
-								'A student who initially struggled with data analysis went on to present their research findings at a national conference, showcasing significant improvement in their analytical skills.'
-							)}
-							{renderTextArea(
-								'teachingPhilosophyEvolution',
-								'Evolution of Your Teaching Philosophy',
-								'Reflect on how your teaching philosophy has evolved over time. Consider key experiences or insights that have shaped your approach to teaching and how you anticipate your philosophy might continue to develop in the future.'
-							)}
+							{renderTextArea({
+								name: 'anecdote',
+								label: 'Memorable Teaching Anecdote',
+								example: 'During a class project, a student discovered an innovative approach that challenged existing methods in our field. This led to a class-wide discussion on critical thinking and innovation.',
+								value: inputs.anecdote,
+								onChange: handleInputChange
+							})}
+							{renderTextArea({
+								name: 'studentAccomplishment',
+								label: 'Student Accomplishment',
+								example: 'A student who initially struggled with data analysis went on to present their research findings at a national conference, showcasing significant improvement in their analytical skills.',
+								value: inputs.studentAccomplishment,
+								onChange: handleInputChange
+							})}
+							{renderTextArea({
+								name: 'teachingPhilosophyEvolution',
+								label: 'Evolution of Your Teaching Philosophy',
+								example: 'Reflect on how your teaching philosophy has evolved over time. Consider key experiences or insights that have shaped your approach to teaching and how you anticipate your philosophy might continue to develop in the future.',
+								value: inputs.teachingPhilosophyEvolution,
+								onChange: handleInputChange
+							})}
 						</TabsContent>
 						<TabsContent
 							value="custom"
