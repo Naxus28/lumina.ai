@@ -15,8 +15,9 @@ import { ErrorMessage } from '../cover-letter/components/ErrorMessage';
 import { GenerateButton } from '@/app/components/GenerateButton';
 import { cn } from '@/lib/utils';
 import { InfoTooltip } from '@/app/components/InfoTooltip';
-import { renderInput, renderTextArea } from '@/app/utils/formUtils';
 import { useProgressCalculator } from '@/app/hooks/useProgressCalculator';
+import { LabeledTextarea } from '@/app/components/LabeledTextarea';
+import { LabeledInput } from '@/app/components/LabeledInput';
 
 interface Inputs {
 	discipline: string;
@@ -105,23 +106,6 @@ const TeachingPhilosophyGenerator = () => {
 			example: 'Modern European History at XYZ University, American Civil War at ABC College',
 			type: 'text',
 			isMandatory: false,
-		},
-	] as const;
-
-	const basicsTextAreaConfigs = [
-		{
-			name: 'educationPurpose',
-			label: 'Purpose of Education',
-			example:
-				'To cultivate critical thinking and foster a deep understanding of the subject matter, enabling students to apply their knowledge to real-world challenges.',
-			isMandatory: true,
-		},
-		{
-			name: 'teachingMotivation',
-			label: 'Teaching Motivation',
-			example:
-				"I'm driven by the opportunity to inspire curiosity and facilitate intellectual growth, guiding students to become lifelong learners and contributors in their chosen fields.",
-			isMandatory: true,
 		},
 	] as const;
 
@@ -457,42 +441,50 @@ const TeachingPhilosophyGenerator = () => {
 							value="basics"
 							className="space-y-8"
 						>
-							{inputConfigs.map((config) =>
-								renderInput({
-									name: config.name,
-									label: config.label,
-									example: config.example,
-									type: config.type,
-									isMandatory: config.isMandatory,
-									value: String(inputs[config.name as keyof typeof inputs]),
-									onChange: handleInputChange,
-								})
-							)}
-							{basicsTextAreaConfigs.map((config) =>
-								renderTextArea({
-									name: config.name,
-									label: config.label,
-									example: config.example,
-									isMandatory: config.isMandatory,
-									value: String(inputs[config.name as keyof typeof inputs]),
-									onChange: handleInputChange,
-								})
-							)}
+							{inputConfigs.map((config) => (
+								<LabeledInput
+									key={config.name}
+									name={config.name}
+									label={config.label}
+									value={String(inputs[config.name as keyof typeof inputs])}
+									onChange={handleInputChange}
+									isMandatory={config.isMandatory}
+									tooltipContent={`e.g., ${config.example}`}
+									type={config.type}
+								/>
+							))}
+							<LabeledTextarea
+								name="educationPurpose"
+								label="Purpose of Education"
+								value={inputs.educationPurpose}
+								onChange={handleInputChange}
+								isMandatory={true}
+								tooltipContent="e.g., To cultivate critical thinking and foster a deep understanding of the subject matter, enabling students to apply their knowledge to real-world challenges."
+							/>
+							<LabeledTextarea
+								name="teachingMotivation"
+								label="Teaching Motivation"
+								value={inputs.teachingMotivation}
+								onChange={handleInputChange}
+								isMandatory={true}
+								tooltipContent="e.g., I'm driven by the opportunity to inspire curiosity and facilitate intellectual growth, guiding students to become lifelong learners and contributors in their chosen fields."
+							/>
 						</TabsContent>
 						<TabsContent
 							value="approach"
 							className="space-y-8"
 						>
-							{approachTextAreaConfigs.map((config) =>
-								renderTextArea({
-									name: config.name,
-									label: config.label,
-									example: config.example,
-									isMandatory: config.isMandatory,
-									value: String(inputs[config.name as keyof typeof inputs]),
-									onChange: handleInputChange,
-								})
-							)}
+							{approachTextAreaConfigs.map((config) => (
+								<LabeledTextarea
+									key={config.name}
+									name={config.name}
+									label={config.label}
+									value={String(inputs[config.name as keyof typeof inputs])}
+									onChange={handleInputChange}
+									isMandatory={config.isMandatory}
+									tooltipContent={`e.g., ${config.example}`}
+								/>
+							))}
 							<div>
 								<Label
 									htmlFor="teachingStyles"
@@ -527,16 +519,17 @@ const TeachingPhilosophyGenerator = () => {
 							value="methods"
 							className="space-y-8"
 						>
-							{methodsTextAreaConfigs.map((config) =>
-								renderTextArea({
-									name: config.name,
-									label: config.label,
-									example: config.example,
-									isMandatory: config.isMandatory,
-									value: String(inputs[config.name as keyof typeof inputs]),
-									onChange: handleInputChange,
-								})
-							)}
+							{methodsTextAreaConfigs.map((config) => (
+								<LabeledTextarea
+									key={config.name}
+									name={config.name}
+									label={config.label}
+									value={String(inputs[config.name as keyof typeof inputs])}
+									onChange={handleInputChange}
+									isMandatory={config.isMandatory}
+									tooltipContent={`e.g., ${config.example}`}
+								/>
+							))}
 							<div>
 								<Label
 									htmlFor="teachingValues"
@@ -600,31 +593,33 @@ const TeachingPhilosophyGenerator = () => {
 							value="growth"
 							className="space-y-8"
 						>
-							{growthTextAreaConfigs.map((config) =>
-								renderTextArea({
-									name: config.name,
-									label: config.label,
-									example: config.example,
-									isMandatory: config.isMandatory,
-									value: String(inputs[config.name as keyof typeof inputs]),
-									onChange: handleInputChange,
-								})
-							)}
+							{growthTextAreaConfigs.map((config) => (
+								<LabeledTextarea
+									key={config.name}
+									name={config.name}
+									label={config.label}
+									value={String(inputs[config.name as keyof typeof inputs])}
+									onChange={handleInputChange}
+									isMandatory={config.isMandatory}
+									tooltipContent={`e.g., ${config.example}`}
+								/>
+							))}
 						</TabsContent>
 						<TabsContent
 							value="reflection"
 							className="space-y-8"
 						>
-							{reflectionTextAreaConfigs.map((config) =>
-								renderTextArea({
-									name: config.name,
-									label: config.label,
-									example: config.example,
-									isMandatory: config.isMandatory,
-									value: String(inputs[config.name as keyof typeof inputs]),
-									onChange: handleInputChange,
-								})
-							)}
+							{reflectionTextAreaConfigs.map((config) => (
+								<LabeledTextarea
+									key={config.name}
+									name={config.name}
+									label={config.label}
+									value={String(inputs[config.name as keyof typeof inputs])}
+									onChange={handleInputChange}
+									isMandatory={config.isMandatory}
+									tooltipContent={`e.g., ${config.example}`}
+								/>
+							))}
 						</TabsContent>
 						<TabsContent
 							value="custom"
