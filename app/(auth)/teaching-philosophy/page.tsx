@@ -118,11 +118,9 @@ const TeachingPhilosophyGenerator = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [generatedPhilosophy, setGeneratedPhilosophy] = useState('');
 	const [error, setError] = useState<string | null>(null);
-	const [isGenerationComplete, setIsGenerationComplete] = useState(false);
 	const resultDisplayRef = useRef<HTMLDivElement>(null);
 	const [isStreamStarted, setIsStreamStarted] = useState(false);
 	const [isFormComplete, setIsFormComplete] = useState(false);
-	const [isGenerating, setIsGenerating] = useState(false);
 	const [filledFieldsCount, setFilledFieldsCount] = useState(0);
 
 	const mandatoryFields = [
@@ -186,7 +184,6 @@ const TeachingPhilosophyGenerator = () => {
 		setIsLoading(true);
 		setError(null);
 		setGeneratedPhilosophy('');
-		setIsGenerationComplete(false);
 		setIsStreamStarted(false);
 
 		try {
@@ -217,7 +214,6 @@ const TeachingPhilosophyGenerator = () => {
 				while (true) {
 					const { done, value } = await reader.read();
 					if (done) {
-						setIsGenerationComplete(true);
 						break;
 					}
 					const chunk = decoder.decode(value, { stream: true });
@@ -699,7 +695,7 @@ const TeachingPhilosophyGenerator = () => {
 					<GenerateButton
 						onClick={handleGenerate}
 						disabled={!isFormComplete}
-						isLoading={isGenerating}
+						isLoading={isLoading}
 						documentType="Teaching Philosophy"
 					/>
 				</Container>
