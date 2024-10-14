@@ -8,7 +8,6 @@ import { CVUpload } from './components/CVUpload';
 import { GenerateButton } from '@/app/components/GenerateButton';
 import { DocumentDisplay } from '@/app/components/shared/DocumentDisplay';
 import { ErrorMessage } from './components/ErrorMessage';
-import jsPDF from 'jspdf';
 import { CoverLetterTemplate } from './components/document-templates/models';
 import { coverLetterTemplates } from './components/document-templates/templates';
 import { Container } from '../../layout-components/Container';

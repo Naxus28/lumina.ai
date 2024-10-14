@@ -4,7 +4,7 @@ import { X } from 'lucide-react';
 import { TemplateCard } from './TemplateCard';
 import { CoverLetterTemplate } from './models';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
-import CoverLetterExample from './CoverLetterExamples';
+import { CoverLetterExamples } from './CoverLetterExamples';
 import { VisuallyHidden } from '@/components/ui/visually-hidden';
 
 interface TemplateSelectorProps {
@@ -69,7 +69,7 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = ({
 							<X className="h-4 w-4" />
 							<span className="sr-only">Close</span>
 						</button>
-						<CoverLetterExample templateType={viewingExample} />
+						<CoverLetterExamples templateType={viewingExample} />
 					</div>
 				</DialogContent>
 			</Dialog>

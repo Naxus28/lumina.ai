@@ -3,29 +3,29 @@ import { CoverLetterTemplate } from './models';
 
 export const coverLetterTemplates: CoverLetterTemplate[] = [
 	{
-		name: 'Traditional Academic',
-		description: 'A formal structure emphasizing academic achievements and research experience.',
+		name: 'Traditional',
+		description: 'A classic, formal structure suitable for most academic positions.',
 		pdfUrl: '/cover-letter-full.png',
 		color: '#4A90E2',
 		icon: FileText,
 	},
 	{
-		name: 'Research Emphasis',
-		description: 'Highlights your research contributions and potential for future projects.',
+		name: 'Research Focused',
+		description: 'Emphasizes research accomplishments and future research plans.',
 		pdfUrl: '/cover-letter-full.png',
 		color: '#50C878',
 		icon: LibraryBig,
 	},
 	{
-		name: 'Teaching Focus',
-		description: 'Showcases your teaching philosophy and classroom experiences.',
+		name: 'Teaching Focused',
+		description: 'Highlights teaching experience and pedagogical approach.',
 		pdfUrl: '/cover-letter-full.png',
 		color: '#F55555',
 		icon: GraduationCap,
 	},
 	{
-		name: 'Interdisciplinary Approach',
-		description: 'Demonstrates your ability to work across multiple academic disciplines.',
+		name: 'Interdisciplinary',
+		description: 'Showcases cross-disciplinary expertise and collaborative potential.',
 		pdfUrl: '/cover-letter-full.png',
 		color: '#F7C137',
 		icon: Network,
