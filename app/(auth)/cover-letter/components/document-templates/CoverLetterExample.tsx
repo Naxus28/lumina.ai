@@ -1,4 +1,6 @@
 import { H2, Span } from '@/app/components/typography';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { AlertTriangle } from 'lucide-react';
 import React from 'react';
 
 const examples = [
@@ -250,9 +252,11 @@ export function CoverLetterExample({ templateType }: { templateType: string }) {
 		>
 			<div className="h-full">
 				<H2 className="text-2xl font-bold text-center">{selectedExample.title}</H2>
-				<Span className="w-full inline-block mb-12 text-sm text-center">
-					Your actual cover letter may differ based on your specific inputs and requirements.
-				</Span>
+				<Alert className="mb-4 w-4/5 m-auto mb-12">
+					<AlertDescription>
+						This AI-generated sample illustrates the general format of this cover letter style. Your actual cover letter will be uniquely crafted based on your specific inputs and may vary in structure from this example.
+					</AlertDescription>
+				</Alert>
 				<div className="pr-4 h-[calc(100%-4rem)]">
 					{selectedExample.sections.map((section, index) => (
 						<div
