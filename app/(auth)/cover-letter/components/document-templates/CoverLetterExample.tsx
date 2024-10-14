@@ -1,4 +1,4 @@
-import { H2 } from '@/app/components/typography';
+import { H2, Span } from '@/app/components/typography';
 import React from 'react';
 
 const examples = [
@@ -249,7 +249,10 @@ export function CoverLetterExample({ templateType }: { templateType: string }) {
 			style={{ height: '11in' }}
 		>
 			<div className="h-full">
-				<H2 className="text-2xl font-bold text-center mb-12">{selectedExample.title}</H2>
+				<H2 className="text-2xl font-bold text-center">{selectedExample.title}</H2>
+				<Span className="w-full inline-block mb-12 text-sm text-center">
+					Your actual cover letter may differ based on your specific inputs and requirements.
+				</Span>
 				<div className="pr-4 h-[calc(100%-4rem)]">
 					{selectedExample.sections.map((section, index) => (
 						<div
@@ -261,7 +264,7 @@ export function CoverLetterExample({ templateType }: { templateType: string }) {
 							</div>
 							<div className="w-5/6">
 								<div
-									className="border-s-4 border-gray-400 rounded-md"
+									className="border-s-4 border-gray-600 rounded-md"
 									style={{ ...commonStyles, paddingLeft: '1rem' }}
 								>
 									<p className="text-[16px]">{section.content}</p>
