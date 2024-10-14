@@ -1,16 +1,18 @@
 export const promptsCatalog = {
 	coverLetter: ({
-		template,
 		jobDescription,
 		cv,
-		sender,
 		addressee,
+		sender,
+		template,
+		customFields,
 	}: {
-		template: string;
 		jobDescription: string;
 		cv: string;
-		sender: any;
 		addressee: any;
+		sender: any;
+		template: string;
+		customFields: string;
 	}) => `
   SENDER_INFO:
   ${JSON.stringify(sender)}
@@ -24,6 +26,9 @@ export const promptsCatalog = {
   JOB_DESCRIPTION:
   ${jobDescription}
   
+  CUSTOM_FIELDS:
+  ${customFields}
+
   INSTRUCTIONS:
   1. Format the letter in the following order:
      a. Current date (at the very top)
@@ -46,9 +51,17 @@ export const promptsCatalog = {
   15. Do NOT add any additional line breaks before or after the signature line.
   16. Do NOT add any introductory or explanatory text before or after the letter content.
   17. Use only the information provided in the CV, job description, sender info, and addressee info. Do not invent or assume any additional details.
+  18. For the CUSTOM FIELDS section:
+      a. Use the exact phrasing provided in the custom fields, especially for conditional statements like "If offered a position".
+      b. Do not paraphrase or omit important qualifiers or conditions stated in the custom fields.
+      c. Integrate the custom field content into the letter while maintaining the original intent and tone of the applicant's statement.
+      d. If the custom field includes a conditional statement, ensure that this conditionality is clearly conveyed in the letter.
+  19. Ensure that the integration of custom fields maintains a coherent and professional tone throughout the letter.
+  20. If any custom field seems irrelevant or inappropriate for a cover letter, use your judgment to either omit it or find a subtle way to incorporate its essence without compromising the letter's professionalism.
   
   Generate a ${template}-style cover letter based on the above information, ensuring absolute fidelity to the provided CV and following all the guidelines above. The AI has the freedom to choose different phrases for offering contact information, as long as it conveys the same message and uses only the information provided or appropriate placeholders where information is missing.
   `,
+
 	teachingPhilosophy: ({
 		discipline,
 		experience,

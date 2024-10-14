@@ -7,6 +7,7 @@ interface GenerateCoverLetterParams {
 	template: string;
 	sender?: string;
 	addressee?: string;
+	customFields?: Record<string, string>;
 }
 
 export async function generateCoverLetter({
@@ -15,13 +16,21 @@ export async function generateCoverLetter({
 	template,
 	sender,
 	addressee,
+	customFields,
 }: GenerateCoverLetterParams) {
+	const customFieldsText = customFields
+		? Object.entries(customFields)
+				.map(([key, value]) => `${key}:\n${value}`)
+				.join('\n\n')
+		: '';
+
 	const prompt = generatePrompt('coverLetter', {
 		jobDescription,
 		cv: cvText,
 		addressee,
 		sender,
 		template,
+		customFields: customFieldsText,
 	});
 
 	return generateDocument({

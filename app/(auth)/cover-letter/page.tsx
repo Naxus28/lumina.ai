@@ -17,6 +17,9 @@ import { RecipientForm } from './components/address/RecipientForm';
 import { AddressData } from './components/address/AddressFormBase';
 import { H1, H2, Paragraph, Span } from '@/app/components/typography';
 import { DownloadPdfButton } from '@/app/components/DownloadPdfButton';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Input } from '@/components/ui/input';
 
 const CoverLetterGenerator: React.FC = () => {
 	const [selectedTemplate, setSelectedTemplate] = useState<CoverLetterTemplate | null>(null);
@@ -35,6 +38,9 @@ const CoverLetterGenerator: React.FC = () => {
 	});
 	const resultDisplayRef = useRef<HTMLDivElement>(null);
 	const [isStreamStarted, setIsStreamStarted] = useState(false);
+	const [customFields, setCustomFields] = useState<Record<string, string>>({});
+	const [newFieldName, setNewFieldName] = useState('');
+	const [additionalDetails, setAdditionalDetails] = useState<string>('');
 
 	useEffect(() => {
 		if (isStreamStarted && resultDisplayRef.current) {
@@ -76,6 +82,7 @@ const CoverLetterGenerator: React.FC = () => {
 			if (Object.values(addresseeData).some((value) => value !== '')) {
 				formData.append('addressee', JSON.stringify(addresseeData));
 			}
+			formData.append('customFields', JSON.stringify(customFields));
 
 			const response = await fetch('/api/generate-cover-letter', {
 				method: 'POST',
@@ -114,11 +121,36 @@ const CoverLetterGenerator: React.FC = () => {
 		} finally {
 			setIsLoading(false);
 		}
-	}, [selectedTemplate, jobDescription, cvFile, senderData, addresseeData]);
+	}, [selectedTemplate, jobDescription, cvFile, senderData, addresseeData, customFields]);
 
 	const handleEdit = useCallback((newContent: string) => {
 		setGeneratedCoverLetter(newContent);
 	}, []);
+
+	const handleAddCustomField = () => {
+		if (newFieldName.trim() !== '') {
+			setCustomFields((prev) => ({
+				...prev,
+				[newFieldName.trim()]: '',
+			}));
+			setNewFieldName('');
+		}
+	};
+
+	const handleRemoveCustomField = (fieldName: string) => {
+		setCustomFields((prev) => {
+			const newFields = { ...prev };
+			delete newFields[fieldName];
+			return newFields;
+		});
+	};
+
+	const handleCustomFieldChange = (fieldName: string, value: string) => {
+		setCustomFields((prev) => ({
+			...prev,
+			[fieldName]: value,
+		}));
+	};
 
 	return (
 		<div className="min-h-screen bg-gray-50 w-full">
@@ -165,15 +197,60 @@ const CoverLetterGenerator: React.FC = () => {
 
 				<Container>
 					<H2 className="text-lg">Additional details</H2>
-					<p className="text-sm text-gray-600 pb-4">
+					<Paragraph className="text-sm text-gray-600 pb-4">
 						For additional customization, you may provide extra details in the form below. If left blank, our AI system
 						will automatically extract relevant information from your CV and the provided job description (including
 						recipient details if available). You'll have the opportunity to review and edit the final document before
 						submission.
-					</p>
+					</Paragraph>
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 						<SenderForm onDataChange={handleSenderDataChange} />
 						<RecipientForm onDataChange={handleAddresseeDataChange} />
+					</div>
+				</Container>
+
+				<Container>
+					<H2 className="text-lg">Custom Fields</H2>
+					<Paragraph className="text-sm text-gray-600 pb-4">
+						Add any additional sections you'd like to include in your cover letter.
+					</Paragraph>
+					<div className="space-y-4">
+						{Object.entries(customFields).map(([fieldName, fieldValue]) => (
+							<div
+								key={fieldName}
+								className="flex flex-col space-y-2"
+							>
+								<div className="flex justify-between items-center">
+									<Label htmlFor={fieldName}>{fieldName}</Label>
+									<Button
+										onClick={() => handleRemoveCustomField(fieldName)}
+										variant="ghost"
+										size="sm"
+									>
+										Remove
+									</Button>
+								</div>
+								<Textarea
+									id={fieldName}
+									value={fieldValue}
+									onChange={(e) => handleCustomFieldChange(fieldName, e.target.value)}
+									placeholder={`Enter content for ${fieldName}`}
+								/>
+							</div>
+						))}
+						<div className="flex space-x-2">
+							<Input
+								placeholder="New field name"
+								value={newFieldName}
+								onChange={(e) => setNewFieldName(e.target.value)}
+							/>
+							<Button
+								className="bg-purple-500 hover:bg-purple-600"
+								onClick={handleAddCustomField}
+							>
+								Add Field
+							</Button>
+						</div>
 					</div>
 				</Container>
 

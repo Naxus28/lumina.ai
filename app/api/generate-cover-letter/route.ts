@@ -9,6 +9,16 @@ export async function POST(req: NextRequest) {
 	const jobDescription = formData.get('jobDescription') as string | null;
 	const sender = formData.get('sender') as string | null;
 	const addressee = formData.get('addressee') as string | null;
+	const customFieldsJson = formData.get('customFields') as string;
+	let customFields: Record<string, string> = {};
+
+	if (customFieldsJson) {
+		try {
+			customFields = JSON.parse(customFieldsJson);
+		} catch (error) {
+			console.error('Error parsing custom fields:', error);
+		}
+	}
 
 	if (!file || !template || !jobDescription) {
 		return new Response(JSON.stringify({ error: 'Missing required fields' }), { status: 400 });
@@ -22,6 +32,7 @@ export async function POST(req: NextRequest) {
 			jobDescription,
 			sender: sender || undefined,
 			addressee: addressee || undefined,
+			customFields,
 		});
 
 		// Return the streaming response
