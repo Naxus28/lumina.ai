@@ -36,10 +36,9 @@ const CoverLetterGenerator: React.FC = () => {
 		address: '',
 	});
 	const resultDisplayRef = useRef<HTMLDivElement>(null);
-	const [isStreamStarted, setIsStreamStarted] = useState(false);
+	const [isStreamStarted, setIsStreamStarted] = useState<boolean>(false);
 	const [customFields, setCustomFields] = useState<Record<string, string>>({});
-	const [newFieldName, setNewFieldName] = useState('');
-	const [additionalDetails, setAdditionalDetails] = useState<string>('');
+	const [newFieldName, setNewFieldName] = useState<string>('');
 
 	useEffect(() => {
 		if (isStreamStarted && resultDisplayRef.current) {
