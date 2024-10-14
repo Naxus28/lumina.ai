@@ -223,9 +223,10 @@ const CoverLetterGenerator: React.FC = () => {
 								<div className="flex justify-between items-center">
 									<Label htmlFor={fieldName}>{fieldName}</Label>
 									<Button
-										onClick={() => handleRemoveCustomField(fieldName)}
-										variant="ghost"
+										type="button"
+										variant="outline"
 										size="sm"
+										onClick={() => handleRemoveCustomField(fieldName)}
 									>
 										Remove
 									</Button>
@@ -245,7 +246,7 @@ const CoverLetterGenerator: React.FC = () => {
 								onChange={(e) => setNewFieldName(e.target.value)}
 							/>
 							<Button
-								className="bg-purple-500 hover:bg-purple-600"
+								className="bg-purple-700 hover:bg-purple-800"
 								onClick={handleAddCustomField}
 							>
 								Add Field

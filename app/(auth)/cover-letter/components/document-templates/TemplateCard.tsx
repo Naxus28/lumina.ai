@@ -33,7 +33,7 @@ export const TemplateCard: React.FC<TemplateCardProps> = ({ template, isSelected
 					size="sm"
 					onClick={onSelect}
 					className={`flex-1 ${
-						isSelected ? 'bg-purple-700 text-white hover:bg-purple-800' : 'bg-purple-500 text-white hover:bg-purple-600'
+						isSelected ? 'bg-purple-500 text-white hover:bg-purple-600' : 'bg-purple-700 text-white hover:bg-purple-800'
 					}`}
 				>
 					{isSelected ? 'Selected' : 'Select'}

@@ -17,7 +17,7 @@ export const DownloadPdfButton: React.FC<DownloadPdfButtonProps> = ({ content, f
 	return (
 		<Button
 			onClick={handleDownloadPDF}
-			className={`w-full mt-4 bg-purple-800 hover:bg-purple-900 text-white ${className || ''}`}
+			className={`w-full mt-4 bg-purple-700 hover:bg-purple-800 text-white ${className || ''}`}
 		>
 			<Download className="mr-2 h-4 w-4" /> {/* Add the Download icon */}
 			Download as PDF
