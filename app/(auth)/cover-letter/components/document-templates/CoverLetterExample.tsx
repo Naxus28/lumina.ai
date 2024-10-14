@@ -1,6 +1,7 @@
+import { H2 } from '@/app/components/typography';
 import React from 'react';
 
-const templates = [
+const examples = [
 	{
 		title: 'Traditional Academic Cover Letter Example',
 		type: 'Traditional',
@@ -162,7 +163,7 @@ Dear Dr. Brown and Members of the Search Committee,`,
 			},
 			{
 				title: 'Signature',
-				content: 'Sincerely,\n\n______________\nProfessor Emily Chen',
+				content: 'Sincerely,\n\n__________________\nProfessor Emily Chen',
 			},
 		],
 	},
@@ -174,19 +175,19 @@ Dear Dr. Brown and Members of the Search Committee,`,
 				title: 'Sender and Recipient Information',
 				content: `December 1, 2024
 	
-	Dr. David Kim
-	101 Academia Boulevard
-	Interdisciplinary City, ST 56789
-	david.kim@email.edu
-	(012) 345-6789
+Dr. David Kim
+101 Academia Boulevard
+Interdisciplinary City, ST 56789
+david.kim@email.edu
+(012) 345-6789
 
-	Dr. Rachel Green
-	Chair, Search Committee
-	Department of Interdisciplinary Studies
-	Comprehensive University
-	Interdisciplinary City, ST 56789
+Dr. Rachel Green
+Chair, Search Committee
+Department of Interdisciplinary Studies
+Comprehensive University
+Interdisciplinary City, ST 56789
 
-	Dear Dr. Green and Members of the Search Committee,`,
+Dear Dr. Green and Members of the Search Committee,`,
 			},
 			{
 				title: 'Introduction',
@@ -226,44 +227,44 @@ Dear Dr. Brown and Members of the Search Committee,`,
 	},
 ];
 
-export function CoverLetterExample({ templateType }: { templateType: string }) {
-	const selectedExample = templates.find((template) => template.type === templateType) || templates[0];
+const commonStyles: React.CSSProperties = {
+	fontFamily: 'Times New Roman',
+	fontSize: '12pt',
+	lineHeight: '1.15',
+	width: '100%',
+	height: '100%',
+	boxSizing: 'border-box',
+	margin: 0,
+	overflowY: 'auto',
+	whiteSpace: 'pre-wrap',
+	wordWrap: 'break-word',
+};
 
-	const commonStyles: React.CSSProperties = {
-		fontFamily: 'Times New Roman',
-		fontSize: '12pt',
-		lineHeight: '1.15',
-		width: '100%',
-		height: '100%',
-		boxSizing: 'border-box',
-		margin: 0,
-		overflowY: 'auto',
-		whiteSpace: 'pre-wrap',
-		wordWrap: 'break-word',
-	};
+export function CoverLetterExample({ templateType }: { templateType: string }) {
+	const selectedExample = examples.find((template) => template.type === templateType) || examples[0];
 
 	return (
 		<div
-			className="w-full max-w-[8.5in] mx-auto bg-white shadow-none"
+			className="w-full  mx-auto bg-white shadow-none"
 			style={{ height: '11in' }}
 		>
-			<div className="h-full overflow-hidden">
-				<h2 className="text-2xl font-bold text-center mb-6">{selectedExample.title}</h2>
-				<div className="pr-4 h-[calc(100%-4rem)] overflow-y-auto">
+			<div className="h-full">
+				<H2 className="text-2xl font-bold text-center mb-12">{selectedExample.title}</H2>
+				<div className="pr-4 h-[calc(100%-4rem)]">
 					{selectedExample.sections.map((section, index) => (
 						<div
 							key={index}
 							className="flex items-center gap-8 mb-4"
 						>
 							<div className="w-1/6 text-right">
-								<span className="text-xs font-semibold text-gray-500">{section.title}</span>
+								<span className="text-[16px] font-semibold text-gray-500">{section.title}</span>
 							</div>
 							<div className="w-5/6">
 								<div
-									className="border-s-2 border-gray-400"
-									style={{ ...commonStyles, paddingLeft: '.5rem' }}
+									className="border-s-4 border-gray-400 rounded-md"
+									style={{ ...commonStyles, paddingLeft: '1rem' }}
 								>
-									<p className="text-sm">{section.content}</p>
+									<p className="text-[16px]">{section.content}</p>
 								</div>
 							</div>
 						</div>

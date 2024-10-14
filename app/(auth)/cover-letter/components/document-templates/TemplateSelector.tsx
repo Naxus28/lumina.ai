@@ -56,11 +56,11 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = ({
 				open={!!viewingExample}
 				onOpenChange={() => setViewingExample(null)}
 			>
-				<DialogContent className="max-w-4xl w-full h-[90vh] p-0 overflow-hidden">
+				<DialogContent className="max-w-5xl w-full h-[90vh] overflow-scroll">
 					<DialogTitle>
 						<VisuallyHidden>Cover Letter Example</VisuallyHidden>
 					</DialogTitle>
-					<div className="relative w-full h-full">
+					<div className="relative w-full h-full p-4">
 						<button
 							onClick={() => setViewingExample(null)}
 							className="absolute right-2 top-2 z-10 p-1 rounded-full hover:bg-gray-200 transition-colors"
