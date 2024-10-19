@@ -29,38 +29,69 @@ export const promptsCatalog = {
   CUSTOM_FIELDS:
   ${customFields}
 
-  INSTRUCTIONS:
-  1. Format the letter in the following order:
-     a. Current date (at the very top)
-     b. Sender's information (name, address, etc.)
-     c. Recipient's information (name, title, institution, address)
-  2. If sender information is not provided, extract it from the CV. Include the applicant's name, address, and contact information (email and phone) as found in the CV.
-  3. If addressee information is not provided and not found in the job description, use placeholders like [Search Committee Chair's Title and Name], [Institution Name], [Institution Address], etc.
-  4. Begin the letter with "Dear [Search Committee Chair's Title and Name]," if available, or "Dear Search Committee," if not.
-  5. Mention the position and qualifications
-  6. Highlight relevant experiences
-  7. Relate skills to job requirements
-  8. Do NOT make up any additional information that is not in the CV or job description
-  9. Conclude with interest in the position and thanks
-  10. Before the closing, add a paragraph offering additional information. Use the applicant's actual contact information from the CV or sender info, not placeholders. For example:
-      "If you require any additional information or have any questions, please don't hesitate to contact me at [email from CV] or [phone number from CV], or both if they are both present on the CV. I look forward to the opportunity to further discuss how I can contribute to [Institution Name]."
-  11. End with "Sincerely," followed by two line breaks (\n\n).
-  12. Add the sender's name (use the name from the CV if not provided in sender info).
-  13. After the sender's name, add six line breaks (\n\n\n\n\n\n).
-  14. Create a signature line using underscores (_). The number of underscores should EXACTLY match the number of characters in the sender's name, including spaces but EXCLUDING periods, PLUS TWO ADDITIONAL UNDERSCORES. For example, if the name is "John A. Doe", the signature line should be "_____________" (13 underscores: 11 for the name + 2 extra).
-  15. Do NOT add any additional line breaks before or after the signature line.
-  16. Do NOT add any introductory or explanatory text before or after the letter content.
-  17. Use only the information provided in the CV, job description, sender info, and addressee info. Do not invent or assume any additional details.
-  18. For the CUSTOM FIELDS section:
-      a. Use the exact phrasing provided in the custom fields, especially for conditional statements like "If offered a position".
-      b. Do not paraphrase or omit important qualifiers or conditions stated in the custom fields.
-      c. Integrate the custom field content into the letter while maintaining the original intent and tone of the applicant's statement.
-      d. If the custom field includes a conditional statement, ensure that this conditionality is clearly conveyed in the letter.
-  19. Ensure that the integration of custom fields maintains a coherent and professional tone throughout the letter.
-  20. If any custom field seems irrelevant or inappropriate for a cover letter, use your judgment to either omit it or find a subtle way to incorporate its essence without compromising the letter's professionalism.
-  
-  Generate a ${template}-style cover letter based on the above information, ensuring absolute fidelity to the provided CV and following all the guidelines above. The AI has the freedom to choose different phrases for offering contact information, as long as it conveys the same message and uses only the information provided or appropriate placeholders where information is missing.
-  `,
+INSTRUCTIONS:
+1. Format the letter in this order:
+   a. Today's ACTUAL date (top): full month name, day, and year in long form (e.g., "May 15, 2023")
+   b. Sender's information (extract from CV if not provided)
+   c. Recipient's information (use placeholders if not available)
+
+2. Sender Information: If not provided, extract from CV including name, address, email, and phone.
+
+3. Addressee Information: If not provided and not in job description, use placeholders like [Search Committee Chair's Title and Name], [Institution Name], [Institution Address].
+
+4. Begin with "Dear [Search Committee Chair's Title and Name]," if available, or "Dear Search Committee," if not.
+
+5. IMPORTANT: Recognize the applicant's highest degree. Always use "Dr." for PhD holders in the letter, regardless of how they refer to themselves in the CV.
+
+6. Content Guidelines:
+   - Mention the position and qualifications
+   - Highlight relevant experiences, aligning with job requirements
+   - Emphasize experience in areas mentioned in the job description
+   - Demonstrate alignment of research/teaching interests with department focus
+   - Include teaching experience, course development, and mentorship information
+   - Highlight professional service, committee work, or leadership roles
+   - Address unique requirements from the job description
+   - Integrate organically topics from published articles or conferences where appropriate to highlight the qualifications of the candidate for the current job description
+
+7. Use only information from the CV, job description, sender info, and addressee info. Do not invent details.
+
+8. For numerical data:
+   - DO NOT use specific numbers for grants, mentees, or students advised.
+   - Instead, use descriptive terms (e.g., "secured multiple grants", "mentored numerous students", "advised several graduate students")
+   - For financial information, use general terms (e.g., "secured substantial funding", "awarded significant grants") without specifying exact amounts or currencies
+
+9. If CUSTOM_FIELDS are provided, integrate them organically in the letter, maintaining original intent and conditionality. 
+
+10. Before concluding, add a paragraph offering additional information using the applicant's actual contact details.
+
+11. Conclude with interest in the position and thanks. Avoid repeating information already stated in the letter.
+
+12. End with "Sincerely," followed by EXACTLY two line breaks.
+
+13. Signature block:
+    a. Create a signature line with underscores matching the sender's name length (excluding periods) plus two
+    b. Add EXACTLY one line break after the signature line
+    c. Add sender's name with appropriate title (e.g., "Dr." for PhD holders)
+    d. On the next line, add the sender's current academic position (if applicable)
+    e. On the following line, add the sender's current institution (if applicable)
+    f. After the complete signature block, add EXACTLY four line breaks
+
+Example:
+______________________
+
+Dr. Jane Doe
+Assistant Professor of Biology
+University of Example
+
+
+
+
+14. Do not add any introductory or explanatory text before or after the letter.
+
+15. FINAL CHECK: Ensure that "Dr." is used consistently throughout the letter for PhD holders.
+
+Generate a ${template}-style cover letter based on these guidelines, ensuring accuracy and adherence to the provided information. Use the jargon from the academic area of the applicant where appropriate and without exaggeration. Finally, avoid repetition, especially in the closing paragraph.
+`,
 
 	teachingPhilosophy: ({
 		discipline,
