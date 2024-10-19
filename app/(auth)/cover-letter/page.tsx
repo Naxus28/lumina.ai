@@ -13,7 +13,7 @@ import { coverLetterTemplates } from './components/document-templates/templates'
 import { Container } from '../../layout-components/Container';
 import { SenderForm } from './components/address/SenderForm';
 import { RecipientForm } from './components/address/RecipientForm';
-import { AddressData } from './components/address/AddressFormBase';
+import { AddressFormData } from './components/address/hooks/useAddressForm';
 import { H1, H2, Paragraph, Span } from '@/app/components/typography';
 import { DownloadPdfButton } from '@/app/components/DownloadPdfButton';
 import { Label } from '@/components/ui/label';
@@ -28,8 +28,8 @@ const CoverLetterGenerator: React.FC = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 	const [isGenerationComplete, setIsGenerationComplete] = useState(false);
-	const [senderData, setSenderData] = useState<AddressData>({ name: '', title: '', institution: '', address: '' });
-	const [addresseeData, setAddresseeData] = useState<AddressData>({
+	const [senderData, setSenderData] = useState<AddressFormData>({ name: '', title: '', institution: '', address: '' });
+	const [recipientData, setRecipientData] = useState<AddressFormData>({
 		name: '',
 		title: '',
 		institution: '',
@@ -50,12 +50,12 @@ const CoverLetterGenerator: React.FC = () => {
 		setSelectedTemplate(template);
 	}, []);
 
-	const handleSenderDataChange = useCallback((data: AddressData) => {
+	const handleSenderDataChange = useCallback((data: AddressFormData) => {
 		setSenderData(data);
 	}, []);
 
-	const handleAddresseeDataChange = useCallback((data: AddressData) => {
-		setAddresseeData(data);
+	const handleRecipientDataChange = useCallback((data: AddressFormData) => {
+		setRecipientData(data);
 	}, []);
 
 	const handleGenerate = useCallback(async () => {
@@ -70,17 +70,24 @@ const CoverLetterGenerator: React.FC = () => {
 			if (selectedTemplate) {
 				formData.append('template', selectedTemplate.name);
 			}
+
 			formData.append('jobDescription', jobDescription);
+
 			if (cvFile) {
 				formData.append('file', cvFile);
 			}
+
 			if (Object.values(senderData).some((value) => value !== '')) {
 				formData.append('sender', JSON.stringify(senderData));
 			}
-			if (Object.values(addresseeData).some((value) => value !== '')) {
-				formData.append('addressee', JSON.stringify(addresseeData));
+
+			if (Object.values(recipientData).some((value) => value !== '')) {
+				formData.append('recipient', JSON.stringify(recipientData));
 			}
-			formData.append('customFields', JSON.stringify(customFields));
+
+			if (Object.values(customFields).length > 0) {
+				formData.append('customFields', JSON.stringify(customFields));
+			}
 
 			const response = await fetch('/api/generate-cover-letter', {
 				method: 'POST',
@@ -119,7 +126,7 @@ const CoverLetterGenerator: React.FC = () => {
 		} finally {
 			setIsLoading(false);
 		}
-	}, [selectedTemplate, jobDescription, cvFile, senderData, addresseeData, customFields]);
+	}, [selectedTemplate, jobDescription, cvFile, senderData, recipientData, customFields]);
 
 	const handleEdit = useCallback((newContent: string) => {
 		setGeneratedCoverLetter(newContent);
@@ -203,7 +210,7 @@ const CoverLetterGenerator: React.FC = () => {
 					</Paragraph>
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 						<SenderForm onDataChange={handleSenderDataChange} />
-						<RecipientForm onDataChange={handleAddresseeDataChange} />
+						<RecipientForm onDataChange={handleRecipientDataChange} />
 					</div>
 				</Container>
 

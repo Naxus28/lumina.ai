@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
 	const template = formData.get('template') as string | null;
 	const jobDescription = formData.get('jobDescription') as string | null;
 	const sender = formData.get('sender') as string | null;
-	const addressee = formData.get('addressee') as string | null;
+	const recipient = formData.get('recipient') as string | null;
 	const customFieldsJson = formData.get('customFields') as string;
 	let customFields: Record<string, string> = {};
 
@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
 			cvText,
 			jobDescription,
 			sender: sender || undefined,
-			addressee: addressee || undefined,
+			recipient: recipient || undefined,
 			customFields,
 		});
 

@@ -2,23 +2,25 @@ export const promptsCatalog = {
 	coverLetter: ({
 		jobDescription,
 		cv,
-		addressee,
+		recipient,
 		sender,
 		template,
 		customFields,
 	}: {
 		jobDescription: string;
 		cv: string;
-		addressee: any;
+		recipient: any;
 		sender: any;
 		template: string;
 		customFields: string;
-	}) => `
+	}) => {
+    console.log('sender', JSON.stringify(sender))
+		return `
   SENDER_INFO:
   ${JSON.stringify(sender)}
 
-  ADDRESSEE_INFO:
-  ${JSON.stringify(addressee)}
+  RECIPIENT_INFO:
+  ${JSON.stringify(recipient)}
 
   CV_INFO:
   ${cv}
@@ -31,13 +33,13 @@ export const promptsCatalog = {
 
 INSTRUCTIONS:
 1. Format the letter in this order:
-   a. Today's ACTUAL date (top): full month name, day, and year in long form (e.g., "May 15, 2023")
+   a. Use [Month DD, YYYY] as a placeholder at the top
    b. Sender's information (extract from CV if not provided)
    c. Recipient's information (use placeholders if not available)
 
 2. Sender Information: If not provided, extract from CV including name, address, email, and phone.
 
-3. Addressee Information: If not provided and not in job description, use placeholders like [Search Committee Chair's Title and Name], [Institution Name], [Institution Address].
+3. Recipient Information: If not provided in SENDER_INFO and not in job description, use placeholders like [Search Committee Chair's Title and Name], [Institution Name], [Institution Address].
 
 4. Begin with "Dear [Search Committee Chair's Title and Name]," if available, or "Dear Search Committee," if not.
 
@@ -53,7 +55,7 @@ INSTRUCTIONS:
    - Address unique requirements from the job description
    - Integrate organically topics from published articles or conferences where appropriate to highlight the qualifications of the candidate for the current job description
 
-7. Use only information from the CV, job description, sender info, and addressee info. Do not invent details.
+7. Use only information from the CV, job description, sender info, and recipient info. Do not invent details.
 
 8. For numerical data:
    - DO NOT use specific numbers for grants, mentees, or students advised.
@@ -91,7 +93,8 @@ University of Example
 15. FINAL CHECK: Ensure that "Dr." is used consistently throughout the letter for PhD holders.
 
 Generate a ${template}-style cover letter based on these guidelines, ensuring accuracy and adherence to the provided information. Use the jargon from the academic area of the applicant where appropriate and without exaggeration. Finally, avoid repetition, especially in the closing paragraph.
-`,
+`;
+	},
 
 	teachingPhilosophy: ({
 		discipline,
