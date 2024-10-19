@@ -84,16 +84,59 @@ Example of a complete recipient block using only placeholders:
    - Address unique requirements from the job description
    - Integrate organically topics from published articles or conferences where appropriate to highlight the qualifications of the candidate for the current job description
 
-7. Use only information from the CV, job description, sender info, and recipient info. Do not invent details.
+7. Tailor the letter based on applicant's seniority:
 
-8. For numerical data:
+   a. Determine seniority level:
+      - Junior: PhD within last 3 years, 0-3 publications, limited teaching/service
+      - Mid-Career: 3-10 years post-PhD, 4-15 publications, established teaching/service record
+      - Senior: 10+ years post-PhD, 15+ publications, significant grants, leadership roles
+
+   b. Adjust letter content and structure:
+      - Junior: 
+        * Length: 1 page maximum
+        * Focus: Potential, relevance of PhD work to position, eagerness to contribute
+        * Tone: Enthusiastic, forward-looking
+      - Mid-Career:
+        * Length: 1-1.5 pages
+        * Focus: Key achievements, growth in research/teaching, increasing service roles
+        * Tone: Confident, emphasizing continued growth
+      - Senior:
+        * Length: 1.5-2 pages
+        * Focus: Leadership, significant impacts in field, vision for role
+        * Tone: Authoritative, emphasizing broad influence and future directions
+
+   c. Mandatory structure (expand or contract based on seniority):
+      1. Introduction (state position, brief overview of fit)
+      2. Research achievements and future plans
+      3. Teaching philosophy and experience
+      4. Service and leadership contributions
+      5. Conclusion (reaffirm interest, thank committee)
+
+   d. Highlight service appropriate to seniority:
+      - Junior: Peer reviews, departmental committees, conference volunteering
+      - Mid-Career: Journal editorial roles, significant committee work, conference organizing
+      - Senior: Leadership in professional societies, major conference roles, mentoring programs
+
+   e. Writing guidelines:
+      - Use active voice and concrete examples
+      - Quantify achievements where possible (without specific numbers)
+      - Align content closely with job description requirements
+      - For longer letters, use clear topic sentences and transitions
+
+IMPORTANT: This tailoring based on seniority is crucial. Ensure the letter's length, focus, and tone clearly reflect the applicant's career stage.
+
+Remember: Prioritize addressing job requirements over strict length adherence. Emphasize service activities that align with the institution's values and the specific position requirements.
+
+8. Use only information from the CV, job description, sender info, and recipient info. Do not invent details.
+
+9. For numerical data:
    - DO NOT use specific numbers for grants, mentees, or students advised.
    - Instead, use descriptive terms (e.g., "secured multiple grants", "mentored numerous students", "advised several graduate students")
    - For financial information, use general terms (e.g., "secured substantial funding", "awarded significant grants") without specifying exact amounts or currencies
 
-9. If CUSTOM_FIELDS ${customFields} are provided, integrate them organically in the letter, maintaining original intent and conditionality. 
+10. If CUSTOM_FIELDS ${customFields} are provided, integrate them organically in the letter, maintaining original intent and conditionality. 
 
-10. Before concluding, add a paragraph offering additional information using this exact structure:
+11. Before concluding, add a paragraph offering additional information using this exact structure:
 
 "If you require any additional information or have any questions, please don't hesitate to contact me at [EMAIL] or [PHONE NUMBER]. I look forward to the opportunity to further discuss how I can contribute to [INSTITUTION NAME]."
 
@@ -107,11 +150,11 @@ Or if no phone number is provided:
 
 Ensure this paragraph is included in every letter, with the appropriate contact information and institution name.
 
-11. Conclude with interest in the position and thanks. Avoid repeating information already stated in the letter.
+12. Conclude with interest in the position and thanks. Avoid repeating information already stated in the letter.
 
-12. End with "Sincerely," followed by EXACTLY two line breaks.
+13. End with "Sincerely," followed by EXACTLY two line breaks.
 
-13. Signature block:
+14. Signature block:
     a. Create a signature line with underscores matching the sender's name length (excluding periods) plus two
     b. Add EXACTLY one line break after the signature line
     c. Add sender's name with appropriate title (e.g., "Dr." for PhD holders)
@@ -127,11 +170,10 @@ Assistant Professor of Biology
 University of Example
 
 
+15. Do not add any introductory or explanatory text before or after the letter.
 
+16. FINAL CHECK: Ensure that "Dr." is used consistently throughout the letter for PhD holders.
 
-14. Do not add any introductory or explanatory text before or after the letter.
-
-15. FINAL CHECK: Ensure that "Dr." is used consistently throughout the letter for PhD holders.
 
 Generate a ${template}-style cover letter based on these guidelines, ensuring accuracy and adherence to the provided information. Use the jargon from the academic area of the applicant where appropriate and without exaggeration. Finally, avoid repetition, especially in the closing paragraph.
 `;
