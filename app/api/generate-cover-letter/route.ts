@@ -26,6 +26,7 @@ export async function POST(req: NextRequest) {
 
 	try {
 		const cvText = await parsePDF(file);
+		console.log('recipient', recipient);
 		const stream = await generateCoverLetter({
 			template,
 			cvText,

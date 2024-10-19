@@ -14,13 +14,14 @@ export const promptsCatalog = {
 		template: string;
 		customFields: string;
 	}) => {
-    console.log('sender', JSON.stringify(sender))
+		const senderInfo = JSON.stringify(sender);
+		const recipientInfo = JSON.stringify(recipient);
 		return `
   SENDER_INFO:
-  ${JSON.stringify(sender)}
+  ${senderInfo}
 
   RECIPIENT_INFO:
-  ${JSON.stringify(recipient)}
+  ${recipientInfo}
 
   CV_INFO:
   ${cv}
@@ -37,9 +38,37 @@ INSTRUCTIONS:
    b. Sender's information (extract from CV if not provided)
    c. Recipient's information (use placeholders if not available)
 
-2. Sender Information: If not provided, extract from CV including name, address, email, and phone.
+2. Sender Information: Use ${senderInfo} if not empty, otherwise extract from CV including name, address, email, and phone.
 
-3. Recipient Information: If not provided in SENDER_INFO and not in job description, use placeholders like [Search Committee Chair's Title and Name], [Institution Name], [Institution Address].
+3. Recipient Information: 
+   a. ALWAYS use ${recipientInfo} if it is not empty. Do not use any placeholders if ${recipientInfo} contains information.
+   b. Only if ${recipientInfo} is completely empty:
+      i. Use recipient details from the job description if available.
+      ii. If job description lacks complete details, use these placeholders for missing information:
+         - [Search Committee Chair's Title and Name]
+         - [Department Name]
+         - [Institution Name]
+         - [Institution Address]
+   c. Never mix placeholders with provided information from ${recipientInfo}.
+
+Example of correct usage:
+If ${recipientInfo} contains: 
+Dr. Jane Smith
+Department of Computer Science
+
+Then use exactly that, do not add any placeholders.
+
+If ${recipientInfo} is empty, and job description only provides the institution, use:
+[Search Committee Chair's Title and Name]
+[Department Name]
+University of Example
+[Institution Address]
+
+Example of a complete recipient block using only placeholders:
+[Search Committee Chair's Title and Name]
+[Department Name]
+[Institution Name]
+[Institution Address]
 
 4. Begin with "Dear [Search Committee Chair's Title and Name]," if available, or "Dear Search Committee," if not.
 
@@ -62,9 +91,21 @@ INSTRUCTIONS:
    - Instead, use descriptive terms (e.g., "secured multiple grants", "mentored numerous students", "advised several graduate students")
    - For financial information, use general terms (e.g., "secured substantial funding", "awarded significant grants") without specifying exact amounts or currencies
 
-9. If CUSTOM_FIELDS are provided, integrate them organically in the letter, maintaining original intent and conditionality. 
+9. If CUSTOM_FIELDS ${customFields} are provided, integrate them organically in the letter, maintaining original intent and conditionality. 
 
-10. Before concluding, add a paragraph offering additional information using the applicant's actual contact details.
+10. Before concluding, add a paragraph offering additional information using this exact structure:
+
+"If you require any additional information or have any questions, please don't hesitate to contact me at [EMAIL] or [PHONE NUMBER]. I look forward to the opportunity to further discuss how I can contribute to [INSTITUTION NAME]."
+
+Replace [EMAIL], [PHONE NUMBER], and [INSTITUTION NAME] with the applicant's actual email, phone number, and the name of the institution they're applying to. If the phone number is not provided in the CV, omit that part of the sentence.
+
+Example:
+"If you require any additional information or have any questions, please don't hesitate to contact me at jsmith@email.com or 555-123-4567. I look forward to the opportunity to further discuss how I can contribute to University of Example."
+
+Or if no phone number is provided:
+"If you require any additional information or have any questions, please don't hesitate to contact me at jsmith@email.com. I look forward to the opportunity to further discuss how I can contribute to University of Example."
+
+Ensure this paragraph is included in every letter, with the appropriate contact information and institution name.
 
 11. Conclude with interest in the position and thanks. Avoid repeating information already stated in the letter.
 
@@ -74,7 +115,7 @@ INSTRUCTIONS:
     a. Create a signature line with underscores matching the sender's name length (excluding periods) plus two
     b. Add EXACTLY one line break after the signature line
     c. Add sender's name with appropriate title (e.g., "Dr." for PhD holders)
-    d. On the next line, add the sender's current academic position (if applicable)
+    d. On the next line, add the sender's current academic position and academic area taken from Ph.D degree (if applicable)
     e. On the following line, add the sender's current institution (if applicable)
     f. After the complete signature block, add EXACTLY four line breaks
 

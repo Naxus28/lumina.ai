@@ -76,7 +76,7 @@ const CoverLetterGenerator: React.FC = () => {
 			if (cvFile) {
 				formData.append('file', cvFile);
 			}
-
+			
 			if (Object.values(senderData).some((value) => value !== '')) {
 				formData.append('sender', JSON.stringify(senderData));
 			}
@@ -84,7 +84,7 @@ const CoverLetterGenerator: React.FC = () => {
 			if (Object.values(recipientData).some((value) => value !== '')) {
 				formData.append('recipient', JSON.stringify(recipientData));
 			}
-
+			console.log('senderData', senderData);
 			if (Object.values(customFields).length > 0) {
 				formData.append('customFields', JSON.stringify(customFields));
 			}
