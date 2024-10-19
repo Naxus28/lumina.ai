@@ -1,18 +1,16 @@
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { User, Building, MapPin } from 'lucide-react';
-import { AddressFormBase, AddressFormBaseProps } from './AddressFormBase';
+import { AddressFormProps, useAddressForm } from './hooks/useAddressForm';
 import { InputGroup } from './InputGroup';
 
-export const SenderForm: React.FC<AddressFormBaseProps> = ({ onDataChange }) => {
-	const { formData, handleInputChange } = AddressFormBase({ onDataChange });
+export const SenderForm: React.FC<AddressFormProps> = ({ onDataChange }) => {
+	const { formData, handleInputChange } = useAddressForm({ onDataChange });
 
 	return (
 		<Card>
 			<CardContent className="p-4">
-				<h3 className="text-lg font-semibold mb-4 text-gray-600 flex items-center">
-					Sender Information
-				</h3>
+				<h3 className="text-lg font-semibold mb-4 text-gray-600 flex items-center">Sender Information</h3>
 				<div className="space-y-4">
 					<InputGroup
 						label="Full Name"
