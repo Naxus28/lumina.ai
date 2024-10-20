@@ -18,10 +18,34 @@ export const promptsCatalog = {
 	}) => {
 		const senderInfo = JSON.stringify(sender);
 		const recipientInfo = JSON.stringify(recipient);
+		const customFieldsBlock =
+			customFields?.length > 0
+				? `IMPORTANT: Incorporate the following custom information provided by the applicant:
+         
+          ${customFields}
+
+          For each custom field:
+          1. Integrate it naturally into the letter without attributing it to the CV or any specific document.
+          2. Present it as part of the applicant's interests, goals, or additional qualifications.
+          3. Connect it to the job requirements or the role where relevant.
+          4. Ensure it complements the overall narrative of the letter without disrupting the flow.
+
+          Do not present custom fields as if they were sections or highlights from the CV.`
+				: '';
 		const highlightsBlock =
 			highlights?.length > 0
-				? ` - IMPORTANT: If present, pay special attention to the following aspects of the CV, ensuring they are highlighted in the cover letter in relation to the job description (if applicable) if relevant to the position. Don\'t just mention these items; gather information from the CV and be very detailed, making meaningful connections between them and the job description. 
-        ${highlights.map((highlight, index) => `${index + 1}. ${highlight}`).join('\n      ')}`
+				? `CRITICAL INSTRUCTION: Seamlessly integrate the following key elements from the CV into the cover letter:
+    
+    ${highlights.map((highlight, index) => `${index + 1}. ${highlight}`).join('\n')}
+    
+    For each item:
+    1. Incorporate it naturally into the letter's narrative without explicitly labeling it.
+    2. Provide specific, relevant details from the CV related to this item,.
+    3. Demonstrate clear connections between the applicant's experience in this area and the job requirements.
+    4. Illustrate how this aspect of the applicant's background contributes to their suitability for the position.
+    5. Provide concrete and relevant examples taken from the applicant's CV for each item provided.
+    
+    Ensure all items are addressed thoroughly, maintaining a smooth and professional tone throughout the letter. The integration should feel organic and aligned with the overall flow of the letter.`
 				: '';
 		console.log('customFields', customFields);
 		console.log('highlights', highlights);
@@ -113,6 +137,7 @@ INSTRUCTIONS:
    - Do not add any introductory or explanatory text before or after the letter.
    - When referring to the number of mentees, students, or grants, do not add up or provide specific total numbers. Instead, use descriptive words that highlight the extent of experience, such as "numerous grants," "extensive teaching experience," "significant mentorship roles," etc. Only use specific numbers if they are explicitly stated as totals in the CV.
    ${highlightsBlock}
+   ${customFieldsBlock}
   
 4. Tailor the letter based on applicant's seniority:
 
@@ -160,8 +185,6 @@ IMPORTANT: This tailoring based on seniority is crucial. Ensure the letter's len
    - Instead, use descriptive terms (e.g., "secured multiple grants", "mentored numerous students", "advised several graduate students")
    - For financial information, use general terms (e.g., "secured substantial funding", "awarded significant grants") without specifying exact amounts or currencies
 
-6. If CUSTOM_FIELDS are provided, integrate them organically in the letter, maintaining original intent and conditionality. 
-
 7. Before concluding, reiterate interest in the position. Avoid repeating information already stated in the letter.
 
 8. Conclude by adding a paragraph offering additional information using this exact structure:
@@ -173,12 +196,12 @@ Replace [EMAIL], [PHONE NUMBER], and [INSTITUTION NAME] with the applicant's act
 Example:
 "If you require any additional information or have any questions, please don't hesitate to contact me at jsmith@email.com or 555-123-4567. I look forward to the opportunity to further discuss how I can contribute to University of Example."
 
-Or if no phone number is provided:
+Or if no phone number is provided in CV:
 "If you require any additional information or have any questions, please don't hesitate to contact me at jsmith@email.com. I look forward to the opportunity to further discuss how I can contribute to University of Example."
 
 Ensure this paragraph is included in every letter, with the appropriate contact information and institution name.
 
-9. End with "Sincerely," followed by EXACTLY two line breaks.
+9. End with "Sincerely," followed by EXACTLY six line breaks(\n\n\n\n\n\n).
 
 10. Signature block:
     a. Create a signature line with underscores matching the sender's name length (excluding periods) plus two
@@ -190,7 +213,6 @@ Ensure this paragraph is included in every letter, with the appropriate contact 
 
 Example:
 ______________________
-
 Dr. Jane Doe
 Assistant Professor of Biology
 University of Example
