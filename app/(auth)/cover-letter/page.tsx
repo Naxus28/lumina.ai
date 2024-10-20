@@ -18,6 +18,7 @@ import { SenderForm } from './components/address/SenderForm';
 import { RecipientForm } from './components/address/RecipientForm';
 import { HighlightInput } from './components/HighlightInput';
 import { CustomFields } from './components/CustomFields';
+import { ProgressBar, ProgressStep } from '@/app/components/ProgressBar';
 
 const CoverLetterGenerator: React.FC = () => {
 	const [selectedTemplate, setSelectedTemplate] = useState<CoverLetterTemplate | null>(null);
@@ -39,6 +40,7 @@ const CoverLetterGenerator: React.FC = () => {
 	const [newFieldName, setNewFieldName] = useState('');
 	const resultDisplayRef = useRef<HTMLDivElement>(null);
 	const [isStreamStarted, setIsStreamStarted] = useState(false);
+	const [currentStep, setCurrentStep] = useState(0);
 
 	const handleSelectTemplate = (template: CoverLetterTemplate) => {
 		console.log('template', template);
@@ -125,6 +127,21 @@ const CoverLetterGenerator: React.FC = () => {
 			resultDisplayRef.current.scrollIntoView({ behavior: 'smooth' });
 		}
 	}, [isStreamStarted]);
+
+	const progressSteps: ProgressStep[] = [
+		{ id: 'template', label: 'Template', isMandatory: true, isCompleted: !!selectedTemplate },
+		{ id: 'jobDescription', label: 'Job Description', isMandatory: true, isCompleted: !!jobDescription },
+		{ id: 'cv', label: 'CV', isMandatory: true, isCompleted: !!cvFile },
+		{ id: 'sender', label: 'Sender', isMandatory: true, isCompleted: !!senderData.name },
+		{ id: 'recipient', label: 'Recipient', isMandatory: true, isCompleted: !!recipientData.name },
+		{ id: 'highlights', label: 'Highlights', isMandatory: false, isCompleted: highlights.length > 0 },
+		{
+			id: 'customFields',
+			label: 'Custom Fields',
+			isMandatory: false,
+			isCompleted: Object.keys(customFields).length > 0,
+		},
+	];
 
 	const steps: WizardStep[] = [
 		{
@@ -228,8 +245,18 @@ const CoverLetterGenerator: React.FC = () => {
 				<Span className="text-xs block mt-2 italic">
 					Items marked with <Span className="text-red-500">*</Span> are required.
 				</Span>
+				<ProgressBar
+					steps={progressSteps}
+					currentStep={currentStep}
+				/>
 				<Container>
-					<CoverLetterWizard steps={steps} />
+					<CoverLetterWizard
+						steps={steps}
+						onComplete={handleGenerate}
+						isLoading={isLoading}
+						currentStep={currentStep}
+						setCurrentStep={setCurrentStep}
+					/>
 				</Container>
 				<Container>
 					<GenerateButton

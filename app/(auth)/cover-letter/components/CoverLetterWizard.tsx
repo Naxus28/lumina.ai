@@ -12,11 +12,19 @@ export interface WizardStep {
 
 interface CoverLetterWizardProps {
 	steps: WizardStep[];
+	onComplete: () => void;
+	isLoading: boolean;
+	currentStep: number;
+	setCurrentStep: (step: number) => void;
 }
 
-export const CoverLetterWizard: React.FC<CoverLetterWizardProps> = ({ steps }) => {
-	const [currentStep, setCurrentStep] = useState(0);
-
+export const CoverLetterWizard: React.FC<CoverLetterWizardProps> = ({ 
+	steps, 
+	onComplete, 
+	isLoading, 
+	currentStep, 
+	setCurrentStep 
+}) => {
 	const goToNextStep = () => {
 		if (currentStep < steps.length - 1) {
 			setCurrentStep(currentStep + 1);
