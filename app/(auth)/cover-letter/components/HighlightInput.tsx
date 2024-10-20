@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { X } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { X, Plus } from 'lucide-react';
 
 interface HighlightInputProps {
 	highlights: string[];
@@ -15,9 +16,8 @@ export const HighlightInput: React.FC<HighlightInputProps> = ({ highlights, setH
 		setInputValue(e.target.value);
 	};
 
-	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-		if (e.key === 'Enter' && inputValue.trim()) {
-			e.preventDefault();
+	const addHighlight = () => {
+		if (inputValue.trim()) {
 			const newHighlight = inputValue.trim();
 			if (!highlights.includes(newHighlight)) {
 				setHighlights([...highlights, newHighlight]);
@@ -32,13 +32,20 @@ export const HighlightInput: React.FC<HighlightInputProps> = ({ highlights, setH
 
 	return (
 		<div className="space-y-2">
-			<Input
-				value={inputValue}
-				onChange={handleInputChange}
-				onKeyDown={handleKeyDown}
-				placeholder="Enter a key point to highlight and press Enter"
-				className="w-full"
-			/>
+			<div className="flex gap-2">
+				<Input
+					value={inputValue}
+					onChange={handleInputChange}
+					placeholder="Enter a key point to highlight"
+					className="flex-grow"
+				/>
+				<Button
+					onClick={addHighlight}
+					className="flex-shrink-0 bg-purple-700 hover:bg-purple-800"
+				>
+					Add
+				</Button>
+			</div>
 			<div className="flex flex-wrap gap-2">
 				{highlights.map((highlight, index) => (
 					<Badge

@@ -1,20 +1,20 @@
 import React, { useState, ReactNode } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Span } from '@/app/components/typography';
 
 export interface WizardStep {
 	title: string;
 	description: string;
 	component: ReactNode;
+	isMandatory: boolean;
 }
 
 interface CoverLetterWizardProps {
 	steps: WizardStep[];
-	onComplete: () => void;
-	isLoading: boolean;
 }
 
-export const CoverLetterWizard: React.FC<CoverLetterWizardProps> = ({ steps, onComplete, isLoading }) => {
+export const CoverLetterWizard: React.FC<CoverLetterWizardProps> = ({ steps }) => {
 	const [currentStep, setCurrentStep] = useState(0);
 
 	const goToNextStep = () => {
@@ -40,7 +40,9 @@ export const CoverLetterWizard: React.FC<CoverLetterWizardProps> = ({ steps, onC
 						style={{ width: `${progressPercentage}%` }}
 					></div>
 				</div> */}
-				<CardTitle className="text-2xl text-gray-600">{steps[currentStep].title}</CardTitle>
+				<CardTitle className="text-2xl text-gray-600">
+					{steps[currentStep].title} {steps[currentStep].isMandatory ? <Span className="text-red-500">*</Span> : ''}
+				</CardTitle>
 				<CardDescription className="text-sm text-gray-600 mb-4">{steps[currentStep].description}</CardDescription>
 			</CardHeader>
 			<CardContent>{steps[currentStep].component}</CardContent>

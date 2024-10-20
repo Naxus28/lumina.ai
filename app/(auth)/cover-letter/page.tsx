@@ -130,6 +130,7 @@ const CoverLetterGenerator: React.FC = () => {
 		{
 			title: 'Choose Your Cover Letter Structure',
 			description: 'Select a template that best fits the style and format you want for your cover letter.',
+			isMandatory: true,
 			component: (
 				<TemplateSelector
 					templates={coverLetterTemplates}
@@ -142,6 +143,7 @@ const CoverLetterGenerator: React.FC = () => {
 			title: 'Job Description',
 			description:
 				'Paste or type the job description here. This will help tailor your cover letter to the specific position.',
+			isMandatory: true,
 			component: (
 				<JobDescriptionInput
 					jobDescription={jobDescription}
@@ -152,12 +154,14 @@ const CoverLetterGenerator: React.FC = () => {
 		{
 			title: 'Upload CV',
 			description: 'Your CV will be used to extract relevant information for your cover letter.',
+			isMandatory: true,
 			component: <CVUpload onFileSelect={setCvFile} />,
 		},
 		{
 			title: 'Additional Details',
 			description:
 				'Optionally add sender and recipient details. If omitted, the AI will extract the sender details from your CV and recipient details from the job description (if available). You can review and edit the final letter later, adding the details if needed.',
+			isMandatory: false,
 			component: (
 				<>
 					<SenderForm
@@ -170,12 +174,14 @@ const CoverLetterGenerator: React.FC = () => {
 		},
 		{
 			title: 'Custom Fields',
-			description: 'Add specific aspects of your CV to highlight and include custom fields in your cover letter.',
+			description:
+				'Optionally add specific aspects of your CV to highlight and include custom fields in your cover letter.',
+			isMandatory: false,
 			component: (
 				<Container>
 					<Container
 						paddingY="none"
-						className="border-b border-gray-300 pb-8"
+						className="border-b border-gray-400 pb-8"
 					>
 						<H2 className="text-md font-medium text-gray-900">CV Highlights</H2>
 						<Paragraph className="text-sm text-gray-600">
@@ -223,11 +229,7 @@ const CoverLetterGenerator: React.FC = () => {
 					Items marked with <Span className="text-red-500">*</Span> are required.
 				</Span>
 				<Container>
-					<CoverLetterWizard
-						steps={steps}
-						onComplete={handleGenerate}
-						isLoading={isLoading}
-					/>
+					<CoverLetterWizard steps={steps} />
 				</Container>
 				<Container>
 					<GenerateButton
