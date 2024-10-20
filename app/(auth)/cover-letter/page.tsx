@@ -11,9 +11,16 @@ import { DocumentDisplay } from '@/app/components/shared/DocumentDisplay';
 import { ErrorMessage } from './components/ErrorMessage';
 import { DownloadPdfButton } from '@/app/components/DownloadPdfButton';
 import { GenerateButton } from '@/app/components/GenerateButton';
+import { TemplateSelector } from './components/document-templates/TemplateSelector';
+import { JobDescriptionInput } from './components/JobDescriptionInput';
+import { CVUpload } from './components/CVUpload';
+import { SenderForm } from './components/address/SenderForm';
+import { RecipientForm } from './components/address/RecipientForm';
+import { HighlightInput } from './components/HighlightInput';
+import { CustomFields } from './components/CustomFields';
 
 const CoverLetterGenerator: React.FC = () => {
-	const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
+	const [selectedTemplate, setSelectedTemplate] = useState<CoverLetterTemplate | null>(null);
 	const [jobDescription, setJobDescription] = useState('');
 	const [cvFile, setCvFile] = useState<File | null>(null);
 	const [generatedCoverLetter, setGeneratedCoverLetter] = useState('');
@@ -34,6 +41,7 @@ const CoverLetterGenerator: React.FC = () => {
 	const [isStreamStarted, setIsStreamStarted] = useState(false);
 
 	const handleSelectTemplate = (template: CoverLetterTemplate) => {
+		console.log('template', template);
 		setSelectedTemplate(template);
 	};
 
@@ -118,6 +126,58 @@ const CoverLetterGenerator: React.FC = () => {
 		}
 	}, [isStreamStarted]);
 
+	const steps = [
+		{
+			title: 'Choose Your Cover Letter Structure',
+			component: (
+				<TemplateSelector
+					templates={coverLetterTemplates}
+					selectedTemplate={selectedTemplate?.name || null}
+					onSelectTemplate={handleSelectTemplate}
+				/>
+			),
+		},
+		{
+			title: 'Job Description',
+			component: (
+				<JobDescriptionInput
+					jobDescription={jobDescription}
+					setJobDescription={setJobDescription}
+				/>
+			),
+		},
+		{
+			title: 'Upload CV',
+			component: <CVUpload onFileSelect={setCvFile} />,
+		},
+		{
+			title: 'Additional Details',
+			component: (
+				<>
+					<SenderForm onDataChange={setSenderData} />
+					<RecipientForm onDataChange={setRecipientData} />
+				</>
+			),
+		},
+		{
+			title: 'Custom',
+			component: (
+				<>
+					<HighlightInput
+						highlights={highlights}
+						setHighlights={setHighlights}
+					/>
+					<CustomFields
+						customFields={customFields}
+						setCustomFields={setCustomFields}
+						newFieldName={newFieldName}
+						setNewFieldName={setNewFieldName}
+					/>
+				</>
+			),
+		},
+	];
+
 	return (
 		<div className="container mx-auto px-4 py-8">
 			<main>
@@ -133,23 +193,9 @@ const CoverLetterGenerator: React.FC = () => {
 				</Span>
 				<Container>
 					<CoverLetterWizard
-						templates={coverLetterTemplates}
-						selectedTemplate={selectedTemplate}
-						onSelectTemplate={handleSelectTemplate}
-						jobDescription={jobDescription}
-						setJobDescription={setJobDescription}
-						cvFile={cvFile}
-						setCvFile={setCvFile}
-						senderData={senderData}
-						setSenderData={setSenderData}
-						recipientData={recipientData}
-						setRecipientData={setRecipientData}
-						highlights={highlights}
-						setHighlights={setHighlights}
-						customFields={customFields}
-						setCustomFields={setCustomFields}
-						newFieldName={newFieldName}
-						setNewFieldName={setNewFieldName}
+						steps={steps}
+						onComplete={handleGenerate}
+						isLoading={isLoading}
 					/>
 				</Container>
 				<Container>

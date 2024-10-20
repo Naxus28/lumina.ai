@@ -26,6 +26,7 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = ({
 
 	const handleSelectTemplate = (template: CoverLetterTemplate) => {
 		onSelectTemplate(template);
+		console.log('template', template);
 	};
 
 	return (

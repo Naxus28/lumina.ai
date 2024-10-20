@@ -26,7 +26,7 @@ export const TemplateCard: React.FC<TemplateCardProps> = ({ template, isSelected
 					onClick={onView}
 					className="flex-1"
 				>
-					Preview
+					Example
 				</Button>
 				<Button
 					variant={isSelected ? 'secondary' : 'default'}
