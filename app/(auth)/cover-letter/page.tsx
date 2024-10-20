@@ -132,8 +132,8 @@ const CoverLetterGenerator: React.FC = () => {
 		{ id: 'template', label: 'Template', isMandatory: true, isCompleted: !!selectedTemplate },
 		{ id: 'jobDescription', label: 'Job Description', isMandatory: true, isCompleted: !!jobDescription },
 		{ id: 'cv', label: 'CV', isMandatory: true, isCompleted: !!cvFile },
-		{ id: 'sender', label: 'Sender', isMandatory: true, isCompleted: !!senderData.name },
-		{ id: 'recipient', label: 'Recipient', isMandatory: true, isCompleted: !!recipientData.name },
+		{ id: 'sender', label: 'Sender', isMandatory: false, isCompleted: !!senderData.name },
+		{ id: 'recipient', label: 'Recipient', isMandatory: false, isCompleted: !!recipientData.name },
 		{ id: 'highlights', label: 'Highlights', isMandatory: false, isCompleted: highlights.length > 0 },
 		{
 			id: 'customFields',
@@ -248,6 +248,7 @@ const CoverLetterGenerator: React.FC = () => {
 				<ProgressBar
 					steps={progressSteps}
 					currentStep={currentStep}
+					className="mt-16"
 				/>
 				<Container>
 					<CoverLetterWizard
