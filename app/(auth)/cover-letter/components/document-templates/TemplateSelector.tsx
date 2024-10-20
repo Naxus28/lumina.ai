@@ -60,7 +60,6 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = ({
 					<DialogTitle>
 						<VisuallyHidden>Cover Letter Example</VisuallyHidden>
 					</DialogTitle>
-					<DialogDescription>Use this example as inspiration for your own cover letter.</DialogDescription>
 					<div className="relative w-full h-full p-4">
 						<button
 							onClick={() => setViewingExample(null)}

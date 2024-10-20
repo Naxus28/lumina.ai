@@ -67,7 +67,6 @@ export const promptsCatalog = {
   ${customFields}
   
 
-
 INSTRUCTIONS:
 1. Format the letter in this order:
    a. Use [Month DD, YYYY] as a placeholder at the top
