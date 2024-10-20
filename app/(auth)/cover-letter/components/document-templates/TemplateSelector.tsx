@@ -30,9 +30,10 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = ({
 
 	return (
 		<section className="space-y-4">
-			<div className="grid grid-cols-1 xs:grid-cols-2 gap-8">
+			<div className="grid xm:grid-cols-1 sm:grid-cols-2 gap-4 xs:gap-8">
 				{templates.map((template: CoverLetterTemplate) => (
 					<TemplateCard
+						key={template.name}
 						template={template}
 						isSelected={selectedTemplate === template.name}
 						onSelect={() => handleSelectTemplate(template)}
