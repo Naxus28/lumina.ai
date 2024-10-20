@@ -19,6 +19,7 @@ import { DownloadPdfButton } from '@/app/components/DownloadPdfButton';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
+import { HighlightInput } from './components/HighlightInput';
 
 const CoverLetterGenerator: React.FC = () => {
 	const [selectedTemplate, setSelectedTemplate] = useState<CoverLetterTemplate | null>(null);
@@ -39,6 +40,7 @@ const CoverLetterGenerator: React.FC = () => {
 	const [isStreamStarted, setIsStreamStarted] = useState<boolean>(false);
 	const [customFields, setCustomFields] = useState<Record<string, string>>({});
 	const [newFieldName, setNewFieldName] = useState<string>('');
+	const [highlights, setHighlights] = useState<string[]>([]);
 
 	useEffect(() => {
 		if (isStreamStarted && resultDisplayRef.current) {
@@ -76,7 +78,7 @@ const CoverLetterGenerator: React.FC = () => {
 			if (cvFile) {
 				formData.append('file', cvFile);
 			}
-			
+
 			if (Object.values(senderData).some((value) => value !== '')) {
 				formData.append('sender', JSON.stringify(senderData));
 			}
@@ -87,6 +89,10 @@ const CoverLetterGenerator: React.FC = () => {
 			console.log('senderData', senderData);
 			if (Object.values(customFields).length > 0) {
 				formData.append('customFields', JSON.stringify(customFields));
+			}
+
+			if (highlights.length > 0) {
+				formData.append('highlights', JSON.stringify(highlights));
 			}
 
 			const response = await fetch('/api/generate-cover-letter', {
@@ -212,6 +218,17 @@ const CoverLetterGenerator: React.FC = () => {
 						<SenderForm onDataChange={handleSenderDataChange} />
 						<RecipientForm onDataChange={handleRecipientDataChange} />
 					</div>
+				</Container>
+
+				<Container>
+					<H2 className="text-lg">Highlights</H2>
+					<Paragraph className="text-sm text-gray-600 pb-4">
+						Enter aspects of your CV you'd like to highlight in the cover letter. Separate items with commas.
+					</Paragraph>
+					<HighlightInput
+						highlights={highlights}
+						setHighlights={setHighlights}
+					/>
 				</Container>
 
 				<Container>

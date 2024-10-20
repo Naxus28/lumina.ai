@@ -8,6 +8,7 @@ interface GenerateCoverLetterParams {
 	sender?: string;
 	recipient?: string;
 	customFields?: Record<string, string>;
+	highlights?: string[];
 }
 
 export async function generateCoverLetter({
@@ -17,6 +18,7 @@ export async function generateCoverLetter({
 	sender,
 	recipient,
 	customFields,
+	highlights,
 }: GenerateCoverLetterParams) {
 	const customFieldsText = customFields
 		? Object.entries(customFields)
@@ -31,6 +33,7 @@ export async function generateCoverLetter({
 		sender,
 		template,
 		customFields: customFieldsText,
+		highlights: highlights || [],
 	});
 
 	return generateDocument({

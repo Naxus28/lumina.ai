@@ -6,6 +6,7 @@ export const promptsCatalog = {
 		sender,
 		template,
 		customFields,
+		highlights,
 	}: {
 		jobDescription: string;
 		cv: string;
@@ -13,9 +14,16 @@ export const promptsCatalog = {
 		sender: any;
 		template: string;
 		customFields: string;
+		highlights: string[];
 	}) => {
 		const senderInfo = JSON.stringify(sender);
 		const recipientInfo = JSON.stringify(recipient);
+		const highlightsBlock =
+			highlights.length > 0
+				? ` - IMPORTANT: If present, pay special attention to the following aspects of the CV, ensuring they are highlighted in the cover letter in relation to the job description (if applicable) if relevant to the position. Don\'t just mention these items; gather information from the CV and be very detailed, making meaningful connections between them and the job description. 
+        ${highlights.map((highlight, index) => `${index + 1}. ${highlight}`).join('\n      ')}`
+				: '';
+
 		return `
   SENDER_INFO:
   ${senderInfo}
@@ -32,49 +40,64 @@ export const promptsCatalog = {
   CUSTOM_FIELDS:
   ${customFields}
 
+
 INSTRUCTIONS:
 1. Format the letter in this order:
    a. Use [Month DD, YYYY] as a placeholder at the top
-   b. Sender's information (extract from CV if not provided)
+   b.  Sender Information: Use SENDER_INFO if not empty, otherwise extract from CV including name, address, email, and phone.
+    - if affiliated with a University
+      - [Applicant's Title (if Ph.D) and Name] 
+      - [Department Name]
+      - [Institution Name]
+      - [Institution Address]
+      - [Applicant's Email]
+      - [Applicant's Phone Number]
+     
+      e.g. 
+      Dr. John Doe
+      Music Building, office 12
+      University of Florida, Gainesville, FL
+      john.doe@ufl.edu
+      +1 352 234 567
+
+    - if not affiliated with a University
+      - [Applicant's Title (if Ph.D) and Name] 
+      - [Applicant's Address]
+      - [Applicant's Email]
+      - [Applicant's Phone Number]
+    
+      e.g. 
+      Dr. John Doe
+      75 Elm St.
+      Winter Park, FL 32792
+      john.doe@ufl.edu
+      +1 352 234 567
+   
    c. Recipient's information (use placeholders if not available)
+    - ALWAYS use RECIPIENT_INFO if it is not empty.
+    - If RECIPIENT_INFO is an empty string:
+        i. Use recipient details from the job description if available.
+        ii. If job description lacks complete details, use these placeholders for missing information:
+          - [Search Committee Chair's Title and Name]
+          - [Department Name]
+          - [Institution Name]
+          - [Institution Address]
+    - Never mix placeholders with provided information from RECIPIENT_INFO.
+      e.g. 
+      Dr. John Doe, Chair
+      Music Building, office 12
+      University of Georgia, Athens, GA
+      john.doe@uga.edu
+      +1 919 234 567
 
-2. Sender Information: Use ${senderInfo} if not empty, otherwise extract from CV including name, address, email, and phone.
+1. Begin with "Dear [Search Committee Chair's Title and Name]," if name and title available in RECIPIENT_INFO or JOB_DESCRIPTION, otherwise use "Dear Search Committee,".
 
-3. Recipient Information: 
-   a. ALWAYS use ${recipientInfo} if it is not empty. Do not use any placeholders if ${recipientInfo} contains information.
-   b. Only if ${recipientInfo} is completely empty:
-      i. Use recipient details from the job description if available.
-      ii. If job description lacks complete details, use these placeholders for missing information:
-         - [Search Committee Chair's Title and Name]
-         - [Department Name]
-         - [Institution Name]
-         - [Institution Address]
-   c. Never mix placeholders with provided information from ${recipientInfo}.
+2. IMPORTANT: Recognize the applicant's highest degree. Always use "Dr." for PhD holders in the letter, regardless of how they refer to themselves in the CV.
 
-Example of correct usage:
-If ${recipientInfo} contains: 
-Dr. Jane Smith
-Department of Computer Science
-
-Then use exactly that, do not add any placeholders.
-
-If ${recipientInfo} is empty, and job description only provides the institution, use:
-[Search Committee Chair's Title and Name]
-[Department Name]
-University of Example
-[Institution Address]
-
-Example of a complete recipient block using only placeholders:
-[Search Committee Chair's Title and Name]
-[Department Name]
-[Institution Name]
-[Institution Address]
-
-4. Begin with "Dear [Search Committee Chair's Title and Name]," if available, or "Dear Search Committee," if not.
-
-5. IMPORTANT: Recognize the applicant's highest degree. Always use "Dr." for PhD holders in the letter, regardless of how they refer to themselves in the CV.
-
-6. Content Guidelines:
+3. Content Guidelines:
+   - Use only information from the CV, job description, sender info, and recipient info. Do not invent details.
+   - Ensure that "Dr." is used consistently throughout the letter for PhD holders.
+   - IMPORTANT: Always use the name and department of the University in the Job Description when addressing the place the applicant is applying for; NEVER use placeholders when this information is available.
    - Mention the position and qualifications
    - Highlight relevant experiences, aligning with job requirements
    - Emphasize experience in areas mentioned in the job description
@@ -83,8 +106,12 @@ Example of a complete recipient block using only placeholders:
    - Highlight professional service, committee work, or leadership roles
    - Address unique requirements from the job description
    - Integrate organically topics from published articles or conferences where appropriate to highlight the qualifications of the candidate for the current job description
-
-7. Tailor the letter based on applicant's seniority:
+   - Prioritize addressing job requirements over strict length adherence. Emphasize service activities that align with the institution's values and the specific position requirements.
+   - Do not add any introductory or explanatory text before or after the letter.
+   - When referring to the number of mentees, students, or grants, do not add up or provide specific total numbers. Instead, use descriptive words that highlight the extent of experience, such as "numerous grants," "extensive teaching experience," "significant mentorship roles," etc. Only use specific numbers if they are explicitly stated as totals in the CV.
+   ${highlightsBlock}
+  
+4. Tailor the letter based on applicant's seniority:
 
    a. Determine seniority level:
       - Junior: PhD within last 3 years, 0-3 publications, limited teaching/service
@@ -93,15 +120,15 @@ Example of a complete recipient block using only placeholders:
 
    b. Adjust letter content and structure:
       - Junior: 
-        * Length: 1 page maximum
+        * Length: 350 words for the letter content (not counting sender and receiver info or signature block)
         * Focus: Potential, relevance of PhD work to position, eagerness to contribute
         * Tone: Enthusiastic, forward-looking
       - Mid-Career:
-        * Length: 1-1.5 pages
+        * Length: 350-425 words (not counting sender and receiver info or signature block)
         * Focus: Key achievements, growth in research/teaching, increasing service roles
         * Tone: Confident, emphasizing continued growth
       - Senior:
-        * Length: 1.5-2 pages
+        * Length: 425-500 words (not counting sender and receiver info or signature block)
         * Focus: Leadership, significant impacts in field, vision for role
         * Tone: Authoritative, emphasizing broad influence and future directions
 
@@ -125,18 +152,16 @@ Example of a complete recipient block using only placeholders:
 
 IMPORTANT: This tailoring based on seniority is crucial. Ensure the letter's length, focus, and tone clearly reflect the applicant's career stage.
 
-Remember: Prioritize addressing job requirements over strict length adherence. Emphasize service activities that align with the institution's values and the specific position requirements.
-
-8. Use only information from the CV, job description, sender info, and recipient info. Do not invent details.
-
-9. For numerical data:
+5. For numerical data:
    - DO NOT use specific numbers for grants, mentees, or students advised.
    - Instead, use descriptive terms (e.g., "secured multiple grants", "mentored numerous students", "advised several graduate students")
    - For financial information, use general terms (e.g., "secured substantial funding", "awarded significant grants") without specifying exact amounts or currencies
 
-10. If CUSTOM_FIELDS ${customFields} are provided, integrate them organically in the letter, maintaining original intent and conditionality. 
+6. If CUSTOM_FIELDS are provided, integrate them organically in the letter, maintaining original intent and conditionality. 
 
-11. Before concluding, add a paragraph offering additional information using this exact structure:
+7. Before concluding, reiterate interest in the position. Avoid repeating information already stated in the letter.
+
+8. Conclude by adding a paragraph offering additional information using this exact structure:
 
 "If you require any additional information or have any questions, please don't hesitate to contact me at [EMAIL] or [PHONE NUMBER]. I look forward to the opportunity to further discuss how I can contribute to [INSTITUTION NAME]."
 
@@ -150,11 +175,9 @@ Or if no phone number is provided:
 
 Ensure this paragraph is included in every letter, with the appropriate contact information and institution name.
 
-12. Conclude with interest in the position and thanks. Avoid repeating information already stated in the letter.
+9. End with "Sincerely," followed by EXACTLY two line breaks.
 
-13. End with "Sincerely," followed by EXACTLY two line breaks.
-
-14. Signature block:
+10. Signature block:
     a. Create a signature line with underscores matching the sender's name length (excluding periods) plus two
     b. Add EXACTLY one line break after the signature line
     c. Add sender's name with appropriate title (e.g., "Dr." for PhD holders)
@@ -170,12 +193,7 @@ Assistant Professor of Biology
 University of Example
 
 
-15. Do not add any introductory or explanatory text before or after the letter.
-
-16. FINAL CHECK: Ensure that "Dr." is used consistently throughout the letter for PhD holders.
-
-
-Generate a ${template}-style cover letter based on these guidelines, ensuring accuracy and adherence to the provided information. Use the jargon from the academic area of the applicant where appropriate and without exaggeration. Finally, avoid repetition, especially in the closing paragraph.
+Generate a ${template}-style cover letter based on the above information, ensuring absolute fidelity to the provided CV and following all the guidelines above. Pay special attention to accuracy, especially with numerical data and the applicant's title, use descriptive terms for mentees, students, and grants as instructed, and emphasize the highlighted aspects of the CV. The AI has the freedom to choose different phrases for offering contact information, as long as it conveys the same message and uses only the information provided or appropriate placeholders where information is missing.
 `;
 	},
 
