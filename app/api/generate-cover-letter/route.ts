@@ -11,6 +11,7 @@ export async function POST(req: NextRequest) {
 	const recipient = formData.get('recipient') as string | null;
 	const customFieldsJson = formData.get('customFields') as string;
 	let customFields: Record<string, string> = {};
+	const highlightsJson = formData.get('highlights') as string;
 
 	if (customFieldsJson) {
 		try {
@@ -20,6 +21,16 @@ export async function POST(req: NextRequest) {
 		}
 	}
 
+	let highlights: string[] = [];
+	if (highlightsJson) {
+		try {
+			highlights = JSON.parse(highlightsJson);
+		} catch (error) {
+			console.error('Error parsing highlights:', error);
+		}
+	}
+
+	// TODO: add zod validation
 	if (!file || !template || !jobDescription) {
 		return new Response(JSON.stringify({ error: 'Missing required fields' }), { status: 400 });
 	}
@@ -33,6 +44,7 @@ export async function POST(req: NextRequest) {
 			sender: sender || undefined,
 			recipient: recipient || undefined,
 			customFields,
+			highlights,
 		});
 
 		// Return the streaming response

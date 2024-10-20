@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useCallback, useRef, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
 import { TemplateSelector } from './components/document-templates/TemplateSelector';
 import { JobDescriptionInput } from './components/JobDescriptionInput';
 import { CVUpload } from './components/CVUpload';
@@ -16,10 +15,8 @@ import { RecipientForm } from './components/address/RecipientForm';
 import { AddressFormData } from './components/address/hooks/useAddressForm';
 import { H1, H2, Paragraph, Span } from '@/app/components/typography';
 import { DownloadPdfButton } from '@/app/components/DownloadPdfButton';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Input } from '@/components/ui/input';
 import { HighlightInput } from './components/HighlightInput';
+import { CustomFields } from './components/CustomFields';
 
 const CoverLetterGenerator: React.FC = () => {
 	const [selectedTemplate, setSelectedTemplate] = useState<CoverLetterTemplate | null>(null);
@@ -78,19 +75,16 @@ const CoverLetterGenerator: React.FC = () => {
 			if (cvFile) {
 				formData.append('file', cvFile);
 			}
-
 			if (Object.values(senderData).some((value) => value !== '')) {
 				formData.append('sender', JSON.stringify(senderData));
 			}
-
 			if (Object.values(recipientData).some((value) => value !== '')) {
 				formData.append('recipient', JSON.stringify(recipientData));
 			}
-			console.log('senderData', senderData);
 			if (Object.values(customFields).length > 0) {
 				formData.append('customFields', JSON.stringify(customFields));
 			}
-
+			console.log('highlights page', highlights);
 			if (highlights.length > 0) {
 				formData.append('highlights', JSON.stringify(highlights));
 			}
@@ -137,31 +131,6 @@ const CoverLetterGenerator: React.FC = () => {
 	const handleEdit = useCallback((newContent: string) => {
 		setGeneratedCoverLetter(newContent);
 	}, []);
-
-	const handleAddCustomField = () => {
-		if (newFieldName.trim() !== '') {
-			setCustomFields((prev) => ({
-				...prev,
-				[newFieldName.trim()]: '',
-			}));
-			setNewFieldName('');
-		}
-	};
-
-	const handleRemoveCustomField = (fieldName: string) => {
-		setCustomFields((prev) => {
-			const newFields = { ...prev };
-			delete newFields[fieldName];
-			return newFields;
-		});
-	};
-
-	const handleCustomFieldChange = (fieldName: string, value: string) => {
-		setCustomFields((prev) => ({
-			...prev,
-			[fieldName]: value,
-		}));
-	};
 
 	return (
 		<div className="min-h-screen bg-gray-50 w-full">
@@ -234,6 +203,21 @@ const CoverLetterGenerator: React.FC = () => {
 				<Container>
 					<H2 className="text-lg">Custom Fields</H2>
 					<Paragraph className="text-sm text-gray-600 pb-4">
+						Add any additional information that you feel is important to your cover letter. For example, you might add a
+						field for "Personal Values", where you describe how your moral compass impacts your teaching, or add a field
+						"Desired Teaching Discipline" to specify a subject area you're interested in teaching at the new university.
+					</Paragraph>
+					<CustomFields
+						customFields={customFields}
+						setCustomFields={setCustomFields}
+						newFieldName={newFieldName}
+						setNewFieldName={setNewFieldName}
+					/>
+				</Container>
+
+				{/* <Container>
+					<H2 className="text-lg">Custom Fields</H2>
+					<Paragraph className="text-sm text-gray-600 pb-4">
 						Add any additional sections you'd like to include in your cover letter.
 					</Paragraph>
 					<div className="space-y-4">
@@ -275,7 +259,7 @@ const CoverLetterGenerator: React.FC = () => {
 							</Button>
 						</div>
 					</div>
-				</Container>
+				</Container> */}
 
 				<Container>
 					<GenerateButton

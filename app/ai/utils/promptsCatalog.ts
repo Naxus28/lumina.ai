@@ -19,11 +19,13 @@ export const promptsCatalog = {
 		const senderInfo = JSON.stringify(sender);
 		const recipientInfo = JSON.stringify(recipient);
 		const highlightsBlock =
-			highlights.length > 0
+			highlights?.length > 0
 				? ` - IMPORTANT: If present, pay special attention to the following aspects of the CV, ensuring they are highlighted in the cover letter in relation to the job description (if applicable) if relevant to the position. Don\'t just mention these items; gather information from the CV and be very detailed, making meaningful connections between them and the job description. 
         ${highlights.map((highlight, index) => `${index + 1}. ${highlight}`).join('\n      ')}`
 				: '';
-
+		console.log('customFields', customFields);
+		console.log('highlights', highlights);
+		console.log('highlightsBlock', highlightsBlock);
 		return `
   SENDER_INFO:
   ${senderInfo}
@@ -39,6 +41,7 @@ export const promptsCatalog = {
   
   CUSTOM_FIELDS:
   ${customFields}
+  
 
 
 INSTRUCTIONS:

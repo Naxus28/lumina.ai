@@ -26,6 +26,8 @@ export async function generateCoverLetter({
 				.join('\n\n')
 		: '';
 
+	console.log('highlights', highlights);
+
 	const prompt = generatePrompt('coverLetter', {
 		jobDescription,
 		cv: cvText,
