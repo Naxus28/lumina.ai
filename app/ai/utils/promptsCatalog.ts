@@ -135,56 +135,15 @@ INSTRUCTIONS:
    - When referring to the number of mentees, students, or grants, do not add up or provide specific total numbers. Instead, use descriptive words that highlight the extent of experience, such as "numerous grants," "extensive teaching experience," "significant mentorship roles," etc. Only use specific numbers if they are explicitly stated as totals in the CV.
    ${highlightsBlock}
    ${customFieldsBlock}
-  
-4. Tailor the letter based on applicant's seniority:
 
-   a. Determine seniority level:
-      - Junior: PhD within last 3 years, 0-3 publications, limited teaching/service
-      - Mid-Career: 3-10 years post-PhD, 4-15 publications, established teaching/service record
-      - Senior: 10+ years post-PhD, 15+ publications, significant grants, leadership roles
-
-   b. Adjust letter content and structure:
-      - Junior: 
-        * Length: 350 words for the letter content (not counting sender and receiver info or signature block)
-        * Focus: Potential, relevance of PhD work to position, eagerness to contribute
-        * Tone: Enthusiastic, forward-looking
-      - Mid-Career:
-        * Length: 350-425 words (not counting sender and receiver info or signature block)
-        * Focus: Key achievements, growth in research/teaching, increasing service roles
-        * Tone: Confident, emphasizing continued growth
-      - Senior:
-        * Length: 425-500 words (not counting sender and receiver info or signature block)
-        * Focus: Leadership, significant impacts in field, vision for role
-        * Tone: Authoritative, emphasizing broad influence and future directions
-
-   c. Mandatory structure (expand or contract based on seniority):
-      1. Introduction (state position, brief overview of fit)
-      2. Research achievements and future plans
-      3. Teaching philosophy and experience
-      4. Service and leadership contributions
-      5. Conclusion (reaffirm interest, thank committee)
-
-   d. Highlight service appropriate to seniority:
-      - Junior: Peer reviews, departmental committees, conference volunteering
-      - Mid-Career: Journal editorial roles, significant committee work, conference organizing
-      - Senior: Leadership in professional societies, major conference roles, mentoring programs
-
-   e. Writing guidelines:
-      - Use active voice and concrete examples
-      - Quantify achievements where possible (without specific numbers)
-      - Align content closely with job description requirements
-      - For longer letters, use clear topic sentences and transitions
-
-IMPORTANT: This tailoring based on seniority is crucial. Ensure the letter's length, focus, and tone clearly reflect the applicant's career stage.
-
-5. For numerical data:
+4. For numerical data:
    - DO NOT use specific numbers for grants, mentees, or students advised.
    - Instead, use descriptive terms (e.g., "secured multiple grants", "mentored numerous students", "advised several graduate students")
    - For financial information, use general terms (e.g., "secured substantial funding", "awarded significant grants") without specifying exact amounts or currencies
 
-7. Before concluding, reiterate interest in the position. Avoid repeating information already stated in the letter.
+5. Before concluding, reiterate interest in the position. Avoid repeating information already stated in the letter.
 
-8. Conclude by adding a paragraph offering additional information using this exact structure:
+6. Conclude by adding a paragraph offering additional information using this exact structure:
 
 "If you require any additional information or have any questions, please don't hesitate to contact me at [EMAIL] or [PHONE NUMBER]. I look forward to the opportunity to further discuss how I can contribute to [INSTITUTION NAME]."
 
@@ -198,9 +157,9 @@ Or if no phone number is provided in CV:
 
 Ensure this paragraph is included in every letter, with the appropriate contact information and institution name.
 
-9. End with "Sincerely," followed by EXACTLY six line breaks(\n\n\n\n\n\n).
+7. End with "Sincerely," followed by EXACTLY six line breaks(\n\n\n\n\n\n).
 
-10. Signature block:
+8. Signature block:
     a. Create a signature line with underscores matching the sender's name length (excluding periods) plus two
     b. Add EXACTLY one line break after the signature line
     c. Add sender's name with appropriate title (e.g., "Dr." for PhD holders)
