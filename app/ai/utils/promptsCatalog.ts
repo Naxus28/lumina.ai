@@ -47,9 +47,7 @@ export const promptsCatalog = {
     
     Ensure all items are addressed thoroughly, maintaining a smooth and professional tone throughout the letter. The integration should feel organic and aligned with the overall flow of the letter.`
 				: '';
-		console.log('customFields', customFields);
-		console.log('highlights', highlights);
-		console.log('highlightsBlock', highlightsBlock);
+
 		return `
   SENDER_INFO:
   ${senderInfo}
