@@ -1,5 +1,6 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
+import { H3 } from './typography';
 
 export interface ProgressStep {
 	id: string;
@@ -23,6 +24,7 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({ steps, currentStep, cl
 
 	return (
 		<div className={cn('w-full mb-8', className)}>
+			<H3 className="text-gray-600 mb-8">Progress Tracker</H3>
 			<div className="flex flex-col sm:flex-row justify-between mb-2">
 				{steps.map((step, index) => (
 					<div
