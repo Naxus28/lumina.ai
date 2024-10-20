@@ -1,6 +1,5 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
-import { H2, H3 } from './typography';
 
 export interface ProgressStep {
 	id: string;
@@ -24,16 +23,18 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({ steps, currentStep, cl
 
 	return (
 		<div className={cn('w-full mb-8', className)}>
-			<H3 className="mb-8 text-gray-600">Progress Tracker</H3>
-			<div className="flex justify-between mb-2">
+			<div className="flex flex-col sm:flex-row justify-between mb-2">
 				{steps.map((step, index) => (
 					<div
 						key={step.id}
-						className={cn('flex flex-col items-center', index <= currentStep ? 'text-purple-600' : 'text-gray-400')}
+						className={cn(
+							'flex items-center mb-2 sm:mb-0 sm:flex-col',
+							index <= currentStep ? 'text-purple-600' : 'text-gray-400'
+						)}
 					>
 						<div
 							className={cn(
-								'w-8 h-8 rounded-full flex items-center justify-center border-2',
+								'w-8 h-8 rounded-full flex items-center justify-center border-2 mr-2 sm:mr-0',
 								step.isCompleted
 									? 'bg-purple-600 border-purple-600 text-white'
 									: index <= currentStep
@@ -44,13 +45,13 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({ steps, currentStep, cl
 						>
 							{index + 1}
 						</div>
-						<span className="text-xs mt-1">{step.label}</span>
+						<span className="text-xs mt-0 sm:mt-1">{step.label}</span>
 					</div>
 				))}
 			</div>
 			<div className="relative pt-1">
 				<div className="flex mb-2 items-center justify-between">
-					<div className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-purple-600 bg-purple-200">
+					<div className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-purple-600 bg-purple-200 mt-4 mb-2">
 						Mandatory Fields Progress
 					</div>
 					{allMandatoryCompleted && (
