@@ -3,7 +3,6 @@ import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/compone
 import { X } from 'lucide-react';
 import { TemplateCard } from './TemplateCard';
 import { CoverLetterTemplate } from './models';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { CoverLetterExample } from './CoverLetterExample';
 import { VisuallyHidden } from '@/components/ui/visually-hidden';
 
@@ -31,26 +30,15 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = ({
 
 	return (
 		<section className="space-y-4">
-			<div className="relative">
-				<Carousel className="w-full">
-					<CarouselContent className="-ml-2 md:-ml-4">
-						{templates.map((template: CoverLetterTemplate) => (
-							<CarouselItem
-								key={template.name}
-								className="pl-2 md:pl-4 basis-[85%] sm:basis-[45%] md:basis-1/3"
-							>
-								<TemplateCard
-									template={template}
-									isSelected={selectedTemplate === template.name}
-									onSelect={() => handleSelectTemplate(template)}
-									onView={() => handleViewExample(template.name)}
-								/>
-							</CarouselItem>
-						))}
-					</CarouselContent>
-					<CarouselPrevious className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[calc(100%+8px)] hover:bg-purple-800 hover:text-white data-[disabled]:opacity-50 data-[disabled]:cursor-not-allowed hidden md:flex" />
-					<CarouselNext className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-[calc(100%+8px)] hover:bg-purple-800 hover:text-white data-[disabled]:opacity-50 data-[disabled]:cursor-not-allowed hidden md:flex" />
-				</Carousel>
+			<div className="grid grid-cols-1 xs:grid-cols-2 gap-8">
+				{templates.map((template: CoverLetterTemplate) => (
+					<TemplateCard
+						template={template}
+						isSelected={selectedTemplate === template.name}
+						onSelect={() => handleSelectTemplate(template)}
+						onView={() => handleViewExample(template.name)}
+					/>
+				))}
 			</div>
 
 			<Dialog
