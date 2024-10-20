@@ -1,4 +1,5 @@
 import { anthropicSDK } from '../sdk/anthropicClient';
+
 const MAX_RETRIES = 3;
 const INITIAL_BACKOFF = 1000; // 1 second
 
@@ -77,3 +78,51 @@ export async function generateDocument({
 		},
 	});
 }
+
+/**
+ * CHAT WITH IDEAS FOR LIMITING TOKEN USAGE PER USER: https://claude.ai/chat/2391e297-8045-47e6-9c3c-8256f8bc0d95
+ * TODO: Usage-Aware generateDocument Function
+ * export async function generateDocument({
+  prompt,
+  model = 'claude-3-sonnet-20240229',
+  maxTokens = 1500,
+  temperature = 0.3,
+  systemPrompt,
+}: GenerateDocumentParams): Promise<ReadableStream<Uint8Array>> {
+  return new ReadableStream({
+    async start(controller) {
+      try {
+        const messageStream = await anthropicSDK.messages.stream({
+          model,
+          max_tokens: maxTokens,
+          temperature,
+          system: systemPrompt,
+          messages: [{ role: 'user', content: prompt }],
+        });
+
+        let accumulatedText = '';
+        for await (const chunk of messageStream) {
+          if (chunk.type === 'content_block_delta' && 'text' in chunk.delta) {
+            accumulatedText += chunk.delta.text;
+            controller.enqueue(new TextEncoder().encode(chunk.delta.text));
+          }
+        }
+
+        // After streaming is complete, get usage information
+        const tokensUsed = parseInt(messageStream.headers['anthropic-token-usage'], 10);
+        tokenTracker.addUsage(tokensUsed);
+
+        console.log(`Tokens used in this request: ${tokensUsed}`);
+        console.log(`Total tokens used in the last minute: ${tokenTracker.getCurrentUsage()}`);
+
+        controller.close();
+      } catch (error) {
+        console.error('Error in generateDocument:', error);
+        controller.error(error);
+      }
+    },
+  });
+}
+ * 
+ * 
+ */
