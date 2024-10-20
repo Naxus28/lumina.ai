@@ -192,7 +192,7 @@ const CoverLetterGenerator: React.FC = () => {
 				<Container>
 					<H2 className="text-lg">Highlights</H2>
 					<Paragraph className="text-sm text-gray-600 pb-4">
-						Enter aspects of your CV you'd like to highlight in the cover letter. Separate items with commas.
+						Enter aspects of your CV you'd like to highlight in the cover letter.
 					</Paragraph>
 					<HighlightInput
 						highlights={highlights}
