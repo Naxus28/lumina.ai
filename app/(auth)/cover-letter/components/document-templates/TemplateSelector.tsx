@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog';
 import { X } from 'lucide-react';
 import { TemplateCard } from './TemplateCard';
 import { CoverLetterTemplate } from './models';
@@ -60,6 +60,7 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = ({
 					<DialogTitle>
 						<VisuallyHidden>Cover Letter Example</VisuallyHidden>
 					</DialogTitle>
+					<DialogDescription>Use this example as inspiration for your own cover letter.</DialogDescription>
 					<div className="relative w-full h-full p-4">
 						<button
 							onClick={() => setViewingExample(null)}

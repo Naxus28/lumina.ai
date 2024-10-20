@@ -1,25 +1,19 @@
 'use client';
 
 import React, { useState, useCallback, useRef, useEffect } from 'react';
-import { TemplateSelector } from './components/document-templates/TemplateSelector';
-import { JobDescriptionInput } from './components/JobDescriptionInput';
-import { CVUpload } from './components/CVUpload';
-import { GenerateButton } from '@/app/components/GenerateButton';
+import { CoverLetterWizard } from './components/CoverLetterWizard';
+import { coverLetterTemplates } from './components/document-templates/templates';
+import { Container } from '@/app/layout-components/Container';
+import { H1, Paragraph, Span } from '@/app/components/typography';
+import { AddressFormData } from './components/address/hooks/useAddressForm';
+import { CoverLetterTemplate } from './components/document-templates/models';
 import { DocumentDisplay } from '@/app/components/shared/DocumentDisplay';
 import { ErrorMessage } from './components/ErrorMessage';
-import { CoverLetterTemplate } from './components/document-templates/models';
-import { coverLetterTemplates } from './components/document-templates/templates';
-import { Container } from '../../layout-components/Container';
-import { SenderForm } from './components/address/SenderForm';
-import { RecipientForm } from './components/address/RecipientForm';
-import { AddressFormData } from './components/address/hooks/useAddressForm';
-import { H1, H2, Paragraph, Span } from '@/app/components/typography';
 import { DownloadPdfButton } from '@/app/components/DownloadPdfButton';
-import { HighlightInput } from './components/HighlightInput';
-import { CustomFields } from './components/CustomFields';
+import { GenerateButton } from '@/app/components/GenerateButton';
 
 const CoverLetterGenerator: React.FC = () => {
-	const [selectedTemplate, setSelectedTemplate] = useState<CoverLetterTemplate | null>(null);
+	const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
 	const [jobDescription, setJobDescription] = useState('');
 	const [cvFile, setCvFile] = useState<File | null>(null);
 	const [generatedCoverLetter, setGeneratedCoverLetter] = useState('');
@@ -33,29 +27,15 @@ const CoverLetterGenerator: React.FC = () => {
 		institution: '',
 		address: '',
 	});
-	const resultDisplayRef = useRef<HTMLDivElement>(null);
-	const [isStreamStarted, setIsStreamStarted] = useState<boolean>(false);
-	const [customFields, setCustomFields] = useState<Record<string, string>>({});
-	const [newFieldName, setNewFieldName] = useState<string>('');
 	const [highlights, setHighlights] = useState<string[]>([]);
+	const [customFields, setCustomFields] = useState<Record<string, string>>({});
+	const [newFieldName, setNewFieldName] = useState('');
+	const resultDisplayRef = useRef<HTMLDivElement>(null);
+	const [isStreamStarted, setIsStreamStarted] = useState(false);
 
-	useEffect(() => {
-		if (isStreamStarted && resultDisplayRef.current) {
-			resultDisplayRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-		}
-	}, [isStreamStarted]);
-
-	const handleSelectTemplate = useCallback((template: CoverLetterTemplate) => {
+	const handleSelectTemplate = (template: CoverLetterTemplate) => {
 		setSelectedTemplate(template);
-	}, []);
-
-	const handleSenderDataChange = useCallback((data: AddressFormData) => {
-		setSenderData(data);
-	}, []);
-
-	const handleRecipientDataChange = useCallback((data: AddressFormData) => {
-		setRecipientData(data);
-	}, []);
+	};
 
 	const handleGenerate = useCallback(async () => {
 		setIsLoading(true);
@@ -128,139 +108,50 @@ const CoverLetterGenerator: React.FC = () => {
 		}
 	}, [selectedTemplate, jobDescription, cvFile, senderData, recipientData, customFields]);
 
-	const handleEdit = useCallback((newContent: string) => {
+	const handleEdit = (newContent: string) => {
 		setGeneratedCoverLetter(newContent);
-	}, []);
+	};
+
+	useEffect(() => {
+		if (isStreamStarted && resultDisplayRef.current) {
+			resultDisplayRef.current.scrollIntoView({ behavior: 'smooth' });
+		}
+	}, [isStreamStarted]);
 
 	return (
-		<div className="min-h-screen bg-gray-50 w-full">
+		<div className="container mx-auto px-4 py-8">
 			<main>
+				<H1>Cover Letter Generator</H1>
+				<Paragraph>
+					Our AI analyzes your CV and the job description to craft a tailored cover letter. It highlights your relevant
+					scholarly achievements, research experience, and academic potential, aligning them with the position's
+					requirements. Once generated, you can refine and personalize the letter, ensuring it captivates hiring
+					committees with your unique voice and qualifications.
+				</Paragraph>
+				<Span className="text-xs block mt-2 italic">
+					Items marked with <Span className="text-red-500">*</Span> are required.
+				</Span>
 				<Container>
-					<header>
-						<H1>Create Your Academic Cover Letter</H1>
-						<Paragraph>
-							Let our AI craft a tailored cover letter showcasing your scholarly achievements and academic potential.
-							You'll then have the opportunity to refine and personalize the letter, ensuring it captivates hiring
-							committees with your unique voice and qualifications.
-						</Paragraph>
-						<Span className="text-xs block mt-2 italic">Items marked with * are required.</Span>
-					</header>
-				</Container>
-
-				<Container>
-					<H2 className="text-lg">
-						Choose Your Cover Letter Style<span className="text-red-500">*</span>
-					</H2>
-					<TemplateSelector
+					<CoverLetterWizard
 						templates={coverLetterTemplates}
+						selectedTemplate={selectedTemplate}
 						onSelectTemplate={handleSelectTemplate}
-						selectedTemplate={selectedTemplate?.name || null}
-					/>
-				</Container>
-
-				<Container>
-					<H2 className="text-lg">
-						Enter Job Description<span className="text-red-500">*</span>
-					</H2>
-					<JobDescriptionInput
 						jobDescription={jobDescription}
 						setJobDescription={setJobDescription}
-					/>
-				</Container>
-
-				<Container>
-					<H2 className="text-lg">
-						Upload your CV<span className="text-red-500">*</span>
-					</H2>
-					<CVUpload onFileSelect={setCvFile} />
-				</Container>
-
-				<Container>
-					<H2 className="text-lg">Additional details</H2>
-					<Paragraph className="text-sm text-gray-600 pb-4">
-						For additional customization, you may provide extra details in the form below. If left blank, our AI system
-						will automatically extract relevant information from your CV and the provided job description (including
-						recipient details if available). You'll have the opportunity to review and edit the final document before
-						submission.
-					</Paragraph>
-					<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-						<SenderForm onDataChange={handleSenderDataChange} />
-						<RecipientForm onDataChange={handleRecipientDataChange} />
-					</div>
-				</Container>
-
-				<Container>
-					<H2 className="text-lg">Highlights</H2>
-					<Paragraph className="text-sm text-gray-600 pb-4">
-						Enter aspects of your CV you'd like to highlight in the cover letter.
-					</Paragraph>
-					<HighlightInput
+						cvFile={cvFile}
+						setCvFile={setCvFile}
+						senderData={senderData}
+						setSenderData={setSenderData}
+						recipientData={recipientData}
+						setRecipientData={setRecipientData}
 						highlights={highlights}
 						setHighlights={setHighlights}
-					/>
-				</Container>
-
-				<Container>
-					<H2 className="text-lg">Custom Fields</H2>
-					<Paragraph className="text-sm text-gray-600 pb-4">
-						Add any additional information that you feel is important to your cover letter. For example, you might add a
-						field for "Personal Values", where you describe how your moral compass impacts your teaching, or add a field
-						"Desired Teaching Discipline" to specify a subject area you're interested in teaching at the new university.
-					</Paragraph>
-					<CustomFields
 						customFields={customFields}
 						setCustomFields={setCustomFields}
 						newFieldName={newFieldName}
 						setNewFieldName={setNewFieldName}
 					/>
 				</Container>
-
-				{/* <Container>
-					<H2 className="text-lg">Custom Fields</H2>
-					<Paragraph className="text-sm text-gray-600 pb-4">
-						Add any additional sections you'd like to include in your cover letter.
-					</Paragraph>
-					<div className="space-y-4">
-						{Object.entries(customFields).map(([fieldName, fieldValue]) => (
-							<div
-								key={fieldName}
-								className="flex flex-col space-y-2"
-							>
-								<div className="flex justify-between items-center">
-									<Label htmlFor={fieldName}>{fieldName}</Label>
-									<Button
-										type="button"
-										variant="outline"
-										size="sm"
-										onClick={() => handleRemoveCustomField(fieldName)}
-									>
-										Remove
-									</Button>
-								</div>
-								<Textarea
-									id={fieldName}
-									value={fieldValue}
-									onChange={(e) => handleCustomFieldChange(fieldName, e.target.value)}
-									placeholder={`Enter content for ${fieldName}`}
-								/>
-							</div>
-						))}
-						<div className="flex space-x-2">
-							<Input
-								placeholder="New field name"
-								value={newFieldName}
-								onChange={(e) => setNewFieldName(e.target.value)}
-							/>
-							<Button
-								className="bg-purple-700 hover:bg-purple-800"
-								onClick={handleAddCustomField}
-							>
-								Add Field
-							</Button>
-						</div>
-					</div>
-				</Container> */}
-
 				<Container>
 					<GenerateButton
 						onClick={handleGenerate}
@@ -271,7 +162,6 @@ const CoverLetterGenerator: React.FC = () => {
 				</Container>
 
 				{error && <ErrorMessage message={error} />}
-
 				{generatedCoverLetter && (
 					<div ref={resultDisplayRef}>
 						<DocumentDisplay
@@ -284,7 +174,6 @@ const CoverLetterGenerator: React.FC = () => {
 						/>
 					</div>
 				)}
-
 				{isGenerationComplete && (
 					<DownloadPdfButton
 						content={generatedCoverLetter}
