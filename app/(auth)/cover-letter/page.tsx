@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useState, useCallback, useRef, useEffect } from 'react';
-import { CoverLetterWizard } from './components/CoverLetterWizard';
+import { CoverLetterWizard, WizardStep } from './components/CoverLetterWizard';
 import { coverLetterTemplates } from './components/document-templates/templates';
 import { Container } from '@/app/layout-components/Container';
-import { H1, Paragraph, Span } from '@/app/components/typography';
+import { H1, H2, Paragraph, Span } from '@/app/components/typography';
 import { AddressFormData } from './components/address/hooks/useAddressForm';
 import { CoverLetterTemplate } from './components/document-templates/models';
 import { DocumentDisplay } from '@/app/components/shared/DocumentDisplay';
@@ -126,9 +126,10 @@ const CoverLetterGenerator: React.FC = () => {
 		}
 	}, [isStreamStarted]);
 
-	const steps = [
+	const steps: WizardStep[] = [
 		{
 			title: 'Choose Your Cover Letter Structure',
+			description: 'Select a template that best fits the style and format you want for your cover letter.',
 			component: (
 				<TemplateSelector
 					templates={coverLetterTemplates}
@@ -139,6 +140,8 @@ const CoverLetterGenerator: React.FC = () => {
 		},
 		{
 			title: 'Job Description',
+			description:
+				'Paste or type the job description here. This will help tailor your cover letter to the specific position.',
 			component: (
 				<JobDescriptionInput
 					jobDescription={jobDescription}
@@ -148,32 +151,60 @@ const CoverLetterGenerator: React.FC = () => {
 		},
 		{
 			title: 'Upload CV',
+			description: 'Your CV will be used to extract relevant information for your cover letter.',
 			component: <CVUpload onFileSelect={setCvFile} />,
 		},
 		{
 			title: 'Additional Details',
+			description:
+				'Optionally add sender and recipient details. If omitted, the AI will extract the sender details from your CV and recipient details from the job description (if available). You can review and edit the final letter later, adding the details if needed.',
 			component: (
 				<>
-					<SenderForm onDataChange={setSenderData} />
+					<SenderForm
+						onDataChange={setSenderData}
+						styleOverrides={{ card: 'mb-8' }}
+					/>
 					<RecipientForm onDataChange={setRecipientData} />
 				</>
 			),
 		},
 		{
-			title: 'Custom',
+			title: 'Custom Fields',
+			description: 'Add specific aspects of your CV to highlight and include custom fields in your cover letter.',
 			component: (
-				<>
-					<HighlightInput
-						highlights={highlights}
-						setHighlights={setHighlights}
-					/>
-					<CustomFields
-						customFields={customFields}
-						setCustomFields={setCustomFields}
-						newFieldName={newFieldName}
-						setNewFieldName={setNewFieldName}
-					/>
-				</>
+				<Container>
+					<Container
+						paddingY="none"
+						className="border-b border-gray-300 pb-8"
+					>
+						<H2 className="text-md font-medium text-gray-900">CV Highlights</H2>
+						<Paragraph className="text-sm text-gray-600">
+							Enter aspects of your CV you'd like to highlight in the cover letter (e.g. publications, grants acquired,
+							teaching approach, etc). For better results, limit to a maximum of two aspects.
+						</Paragraph>
+						<HighlightInput
+							highlights={highlights}
+							setHighlights={setHighlights}
+						/>
+					</Container>
+					<Container
+						paddingY="none"
+						className="mt-8"
+					>
+						<H2 className="text-md font-medium text-gray-900">Custom Fields</H2>
+						<Paragraph className="text-sm text-gray-600">
+							Add custom fields for important additional information. Specify a field name, then provide its
+							description. Examples: "Personal Values" (how your ethics influence teaching) or "Desired Teaching
+							Discipline" (subject you would like to teach if hired).
+						</Paragraph>
+						<CustomFields
+							customFields={customFields}
+							setCustomFields={setCustomFields}
+							newFieldName={newFieldName}
+							setNewFieldName={setNewFieldName}
+						/>
+					</Container>
+				</Container>
 			),
 		},
 	];

@@ -3,13 +3,14 @@ import { Card, CardContent } from '@/components/ui/card';
 import { User, Building, MapPin } from 'lucide-react';
 import { AddressFormProps, useAddressForm } from './hooks/useAddressForm';
 import { InputGroup } from './InputGroup';
+import { cn } from '@/lib/utils';
 
-export const SenderForm: React.FC<AddressFormProps> = ({ onDataChange }) => {
+export const SenderForm: React.FC<AddressFormProps> = ({ onDataChange, styleOverrides }) => {
 	const { formData, handleInputChange } = useAddressForm({ onDataChange });
 
 	return (
-		<Card>
-			<CardContent className="p-4">
+		<Card className={styleOverrides?.card}>
+			<CardContent className={cn('p-4', styleOverrides?.cardContent)}>
 				<h3 className="text-lg font-semibold mb-4 text-gray-600 flex items-center">Sender Information</h3>
 				<div className="space-y-4">
 					<InputGroup

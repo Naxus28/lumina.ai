@@ -44,7 +44,7 @@ export const HighlightInput: React.FC<HighlightInputProps> = ({ highlights, setH
 					<Badge
 						key={index}
 						variant="outline"
-						className="px-3 py-1 text-sm flex items-center group border border-purple-500"
+						className="px-3 py-1 text-sm flex items-center group border border-purple-500 text-gray-500"
 					>
 						{highlight}
 						<button

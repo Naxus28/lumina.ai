@@ -1,9 +1,10 @@
 import React, { useState, ReactNode } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 
-interface WizardStep {
+export interface WizardStep {
 	title: string;
+	description: string;
 	component: ReactNode;
 }
 
@@ -39,20 +40,21 @@ export const CoverLetterWizard: React.FC<CoverLetterWizardProps> = ({ steps, onC
 						style={{ width: `${progressPercentage}%` }}
 					></div>
 				</div> */}
-				<CardTitle className="text-lg mb-4 text-gray-600">{steps[currentStep].title}</CardTitle>
+				<CardTitle className="text-2xl text-gray-600">{steps[currentStep].title}</CardTitle>
+				<CardDescription className="text-sm text-gray-600 mb-4">{steps[currentStep].description}</CardDescription>
 			</CardHeader>
 			<CardContent>{steps[currentStep].component}</CardContent>
 			<CardFooter className="flex justify-between mt-16">
 				<Button
 					onClick={goToPreviousStep}
-					className="bg-purple-600 hover:bg-purple-700"
+					className="bg-purple-700 hover:bg-purple-800"
 					disabled={currentStep === 0}
 				>
 					Previous
 				</Button>
 				<Button
 					onClick={goToNextStep}
-					className="bg-purple-600 hover:bg-purple-700"
+					className="bg-purple-800 hover:bg-purple-700"
 					disabled={currentStep === steps.length - 1}
 				>
 					Next
