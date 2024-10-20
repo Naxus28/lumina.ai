@@ -2,6 +2,7 @@ import React, { useState, ReactNode } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Span } from '@/app/components/typography';
+import { cn } from '@/lib/utils';
 
 export interface WizardStep {
 	title: string;
@@ -12,18 +13,16 @@ export interface WizardStep {
 
 interface CoverLetterWizardProps {
 	steps: WizardStep[];
-	onComplete: () => void;
-	isLoading: boolean;
 	currentStep: number;
 	setCurrentStep: (step: number) => void;
+	styleOverrides?: { card?: string; cardContent?: string };
 }
 
-export const CoverLetterWizard: React.FC<CoverLetterWizardProps> = ({ 
-	steps, 
-	onComplete, 
-	isLoading, 
-	currentStep, 
-	setCurrentStep 
+export const CoverLetterWizard: React.FC<CoverLetterWizardProps> = ({
+	steps,
+	currentStep,
+	setCurrentStep,
+	styleOverrides,
 }) => {
 	const goToNextStep = () => {
 		if (currentStep < steps.length - 1) {
@@ -37,18 +36,10 @@ export const CoverLetterWizard: React.FC<CoverLetterWizardProps> = ({
 		}
 	};
 
-	const progressPercentage = ((currentStep + 1) / steps.length) * 100;
-
 	return (
-		<Card className="p-12">
+		<Card className={cn(styleOverrides?.card)}>
 			<CardHeader>
-				{/* <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mt-4">
-					<div
-						className="bg-purple-600 h-2.5 rounded-full"
-						style={{ width: `${progressPercentage}%` }}
-					></div>
-				</div> */}
-				<CardTitle className="text-2xl text-gray-600">
+				<CardTitle className={cn('text-2xl text-gray-600', styleOverrides?.cardContent)}>
 					{steps[currentStep].title} {steps[currentStep].isMandatory ? <Span className="text-red-500">*</Span> : ''}
 				</CardTitle>
 				<CardDescription className="text-sm text-gray-600 mb-4">{steps[currentStep].description}</CardDescription>

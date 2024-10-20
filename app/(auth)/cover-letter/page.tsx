@@ -248,13 +248,11 @@ const CoverLetterGenerator: React.FC = () => {
 				<ProgressBar
 					steps={progressSteps}
 					currentStep={currentStep}
-					className="mt-16"
+					styleOverrides={{ card: 'mt-8' }}
 				/>
 				<Container>
 					<CoverLetterWizard
 						steps={steps}
-						onComplete={handleGenerate}
-						isLoading={isLoading}
 						currentStep={currentStep}
 						setCurrentStep={setCurrentStep}
 					/>
