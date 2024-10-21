@@ -252,7 +252,7 @@ export function CoverLetterExample({ templateType }: { templateType: string }) {
 		>
 			<div className="h-full">
 				<H2 className="text-2xl font-bold text-center">{selectedExample.title}</H2>
-				<Alert className="mb-4 w-4/5 m-auto mb-12">
+				<Alert className="w-4/5 m-auto mb-12 mt-8">
 					<AlertDescription>
 						This sample illustrates the general format of this cover letter style. Your actual cover letter will be
 						uniquely crafted based on your specific inputs and may vary in structure from this example.
