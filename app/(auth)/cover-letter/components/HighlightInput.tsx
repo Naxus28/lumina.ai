@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { X, Plus } from 'lucide-react';
+import { X } from 'lucide-react';
 
 interface HighlightInputProps {
 	highlights: string[];
@@ -11,18 +11,31 @@ interface HighlightInputProps {
 
 export const HighlightInput: React.FC<HighlightInputProps> = ({ highlights, setHighlights }) => {
 	const [inputValue, setInputValue] = useState('');
+	const [isMobile, setIsMobile] = useState(false);
+
+	useEffect(() => {
+		const checkIfMobile = () => setIsMobile(window.innerWidth < 768);
+		checkIfMobile();
+		window.addEventListener('resize', checkIfMobile);
+		return () => window.removeEventListener('resize', checkIfMobile);
+	}, []);
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setInputValue(e.target.value);
 	};
 
+	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+		if (e.key === 'Enter' && inputValue.trim()) {
+			e.preventDefault();
+			addHighlight();
+		}
+	};
+
 	const addHighlight = () => {
-		if (inputValue.trim()) {
-			const newHighlight = inputValue.trim();
-			if (!highlights.includes(newHighlight)) {
-				setHighlights([...highlights, newHighlight]);
-				setInputValue('');
-			}
+		const newHighlight = inputValue.trim();
+		if (newHighlight && !highlights.includes(newHighlight)) {
+			setHighlights([...highlights, newHighlight]);
+			setInputValue('');
 		}
 	};
 
@@ -32,26 +45,22 @@ export const HighlightInput: React.FC<HighlightInputProps> = ({ highlights, setH
 
 	return (
 		<div className="space-y-2">
-			<div className="flex gap-2">
+			<div className="flex space-x-2">
 				<Input
 					value={inputValue}
 					onChange={handleInputChange}
-					placeholder="Enter a key point to highlight"
-					className="flex-grow"
+					onKeyDown={handleKeyDown}
+					placeholder='Type a key point to highlight and press "Enter"'
+					className="w-full"
 				/>
-				<Button
-					onClick={addHighlight}
-					className="flex-shrink-0 bg-purple-700 hover:bg-purple-800"
-				>
-					Add
-				</Button>
+				{isMobile && <Button onClick={addHighlight}>Add</Button>}
 			</div>
 			<div className="flex flex-wrap gap-2">
 				{highlights.map((highlight, index) => (
 					<Badge
 						key={index}
 						variant="outline"
-						className="px-3 py-1 text-sm flex items-center group border border-purple-500 text-gray-500"
+						className="px-3 py-1 text-sm flex items-center group"
 					>
 						{highlight}
 						<button

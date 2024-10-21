@@ -127,7 +127,6 @@ const CoverLetterGenerator: React.FC = () => {
 		{ id: 'template', label: 'Template', isMandatory: true, isCompleted: !!selectedTemplate },
 		{ id: 'jobDescription', label: 'Job Description', isMandatory: true, isCompleted: !!jobDescription },
 		{ id: 'cv', label: 'CV', isMandatory: true, isCompleted: !!cvFile },
-		// { id: 'sender', label: 'Sender', isMandatory: false, isCompleted: !!senderData.name },
 		{ id: 'recipient', label: 'Recipient', isMandatory: false, isCompleted: !!recipientData.name },
 		{ id: 'highlights', label: 'Highlights', isMandatory: false, isCompleted: highlights.length > 0 },
 		{
@@ -182,12 +181,10 @@ const CoverLetterGenerator: React.FC = () => {
 				'Optionally add specific aspects of your CV to highlight in the cover letter (e.g. publications, grants acquired, teaching approach, etc). For better results, limit to a maximum of two items.',
 			isMandatory: false,
 			component: (
-				<Container paddingY="none">
-					<HighlightInput
-						highlights={highlights}
-						setHighlights={setHighlights}
-					/>
-				</Container>
+				<HighlightInput
+					highlights={highlights}
+					setHighlights={setHighlights}
+				/>
 			),
 		},
 		{
@@ -196,17 +193,12 @@ const CoverLetterGenerator: React.FC = () => {
 				'Optionally include custom fields in your cover letter. Specify a field name, then provide its description. Examples: "Personal Values" (how your ethics shape your teaching) or "Desired Teaching Discipline" (subject you would like to teach if hired).',
 			isMandatory: false,
 			component: (
-				<Container
-					paddingY="none"
-					className="mt-8"
-				>
-					<CustomFields
-						customFields={customFields}
-						setCustomFields={setCustomFields}
-						newFieldName={newFieldName}
-						setNewFieldName={setNewFieldName}
-					/>
-				</Container>
+				<CustomFields
+					customFields={customFields}
+					setCustomFields={setCustomFields}
+					newFieldName={newFieldName}
+					setNewFieldName={setNewFieldName}
+				/>
 			),
 		},
 	];

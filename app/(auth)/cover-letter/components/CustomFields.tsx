@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
+import { X } from 'lucide-react';
+import { Container } from '@/app/layout-components/Container';
+import { H2, Paragraph } from '@/app/components/typography';
 
 interface CustomFieldsProps {
 	customFields: Record<string, string>;
 	setCustomFields: React.Dispatch<React.SetStateAction<Record<string, string>>>;
 	newFieldName: string;
-	setNewFieldName: React.Dispatch<React.SetStateAction<string>>;
+	setNewFieldName: (value: string) => void;
 }
 
 export const CustomFields: React.FC<CustomFieldsProps> = ({
@@ -17,6 +18,15 @@ export const CustomFields: React.FC<CustomFieldsProps> = ({
 	newFieldName,
 	setNewFieldName,
 }) => {
+	const [isMobile, setIsMobile] = useState(false);
+
+	useEffect(() => {
+		const checkIfMobile = () => setIsMobile(window.innerWidth < 768);
+		checkIfMobile();
+		window.addEventListener('resize', checkIfMobile);
+		return () => window.removeEventListener('resize', checkIfMobile);
+	}, []);
+
 	const handleAddCustomField = () => {
 		if (newFieldName.trim() !== '') {
 			setCustomFields((prev) => ({
@@ -24,6 +34,13 @@ export const CustomFields: React.FC<CustomFieldsProps> = ({
 				[newFieldName.trim()]: '',
 			}));
 			setNewFieldName('');
+		}
+	};
+
+	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+		if (e.key === 'Enter') {
+			e.preventDefault();
+			handleAddCustomField();
 		}
 	};
 
@@ -50,17 +67,22 @@ export const CustomFields: React.FC<CustomFieldsProps> = ({
 					className="flex flex-col space-y-2"
 				>
 					<div className="flex justify-between items-center">
-						<Label htmlFor={fieldName}>{fieldName}</Label>
+						<label
+							htmlFor={fieldName}
+							className="text-sm font-medium text-gray-700"
+						>
+							{fieldName}
+						</label>
 						<Button
-							type="button"
+							onClick={() => handleRemoveCustomField(fieldName)}
 							variant="outline"
 							size="sm"
-							onClick={() => handleRemoveCustomField(fieldName)}
 						>
+							{/* <X className="h-4 w-4" /> */}
 							Remove
 						</Button>
 					</div>
-					<Textarea
+					<Input
 						id={fieldName}
 						value={fieldValue}
 						onChange={(e) => handleCustomFieldChange(fieldName, e.target.value)}
@@ -70,16 +92,12 @@ export const CustomFields: React.FC<CustomFieldsProps> = ({
 			))}
 			<div className="flex space-x-2">
 				<Input
-					placeholder="New field name"
+					placeholder='Type a new field name and press "Enter"'
 					value={newFieldName}
 					onChange={(e) => setNewFieldName(e.target.value)}
+					onKeyDown={handleKeyDown}
 				/>
-				<Button
-					className="bg-purple-700 hover:bg-purple-800"
-					onClick={handleAddCustomField}
-				>
-					Add Field
-				</Button>
+				{isMobile && <Button onClick={handleAddCustomField}>Add Field</Button>}
 			</div>
 		</div>
 	);
