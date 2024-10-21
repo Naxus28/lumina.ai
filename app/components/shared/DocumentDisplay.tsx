@@ -4,7 +4,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Pencil, Save, X } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Alert, AlertDescription } from '@/components/ui/alert'; // Import these components
-import { AlertTriangle } from 'lucide-react'; // Import the alert icon
 
 interface DocumentDisplayProps {
 	content: string;

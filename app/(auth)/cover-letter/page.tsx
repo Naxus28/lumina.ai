@@ -4,7 +4,7 @@ import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { CoverLetterWizard, WizardStep } from './components/CoverLetterWizard';
 import { coverLetterTemplates } from './components/document-templates/templates';
 import { Container } from '@/app/layout-components/Container';
-import { H1, H2, Paragraph, Span } from '@/app/components/typography';
+import { H1, Paragraph, Span } from '@/app/components/typography';
 import { AddressFormData } from './components/address/hooks/useAddressForm';
 import { CoverLetterTemplate } from './components/document-templates/models';
 import { DocumentDisplay } from '@/app/components/shared/DocumentDisplay';
@@ -14,7 +14,6 @@ import { GenerateButton } from '@/app/components/GenerateButton';
 import { TemplateSelector } from './components/document-templates/TemplateSelector';
 import { JobDescriptionInput } from './components/JobDescriptionInput';
 import { CVUpload } from './components/CVUpload';
-import { SenderForm } from './components/address/SenderForm';
 import { RecipientForm } from './components/address/RecipientForm';
 import { HighlightInput } from './components/HighlightInput';
 import { CustomFields } from './components/CustomFields';
@@ -28,7 +27,6 @@ const CoverLetterGenerator: React.FC = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 	const [isGenerationComplete, setIsGenerationComplete] = useState(false);
-	const [senderData, setSenderData] = useState<AddressFormData>({ name: '', title: '', institution: '', address: '' });
 	const [recipientData, setRecipientData] = useState<AddressFormData>({
 		name: '',
 		title: '',
@@ -64,9 +62,6 @@ const CoverLetterGenerator: React.FC = () => {
 
 			if (cvFile) {
 				formData.append('file', cvFile);
-			}
-			if (Object.values(senderData).some((value) => value !== '')) {
-				formData.append('sender', JSON.stringify(senderData));
 			}
 			if (Object.values(recipientData).some((value) => value !== '')) {
 				formData.append('recipient', JSON.stringify(recipientData));
@@ -116,7 +111,7 @@ const CoverLetterGenerator: React.FC = () => {
 		} finally {
 			setIsLoading(false);
 		}
-	}, [selectedTemplate, jobDescription, cvFile, senderData, recipientData, customFields]);
+	}, [selectedTemplate, jobDescription, cvFile, recipientData, customFields]);
 
 	const handleEdit = (newContent: string) => {
 		setGeneratedCoverLetter(newContent);

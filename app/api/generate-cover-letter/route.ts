@@ -7,7 +7,6 @@ export async function POST(req: NextRequest) {
 	const file = formData.get('file') as File | null;
 	const template = formData.get('template') as string | null;
 	const jobDescription = formData.get('jobDescription') as string | null;
-	const sender = formData.get('sender') as string | null;
 	const recipient = formData.get('recipient') as string | null;
 	const customFieldsJson = formData.get('customFields') as string;
 	let customFields: Record<string, string> = {};
@@ -41,7 +40,6 @@ export async function POST(req: NextRequest) {
 			template,
 			cvText,
 			jobDescription,
-			sender: sender || undefined,
 			recipient: recipient || undefined,
 			customFields,
 			highlights,

@@ -4,7 +4,6 @@ export const promptsCatalog = {
 		jobDescription,
 		cv,
 		recipient,
-		sender,
 		template,
 		customFields,
 		highlights,
@@ -12,7 +11,6 @@ export const promptsCatalog = {
 		jobDescription: string;
 		cv: string;
 		recipient: any;
-		sender: any;
 		template: string;
 		customFields: string;
 		highlights: string[];
@@ -20,7 +18,6 @@ export const promptsCatalog = {
 		console.log('template', template);
 		const coverLetterExample = coverLetterExamples.find((example) => example.type === template);
 		console.log('coverLetterExample: ', coverLetterExample);
-		const senderInfo = JSON.stringify(sender);
 		const recipientInfo = JSON.stringify(recipient);
 		const customFieldsBlock =
 			customFields?.length > 0
@@ -53,9 +50,6 @@ export const promptsCatalog = {
 				: '';
 
 		return `
-  SENDER_INFO:
-  ${senderInfo}
-
   RECIPIENT_INFO:
   ${recipientInfo}
 
@@ -72,7 +66,7 @@ export const promptsCatalog = {
 INSTRUCTIONS:
 1. Format the letter in this order:
    a. Use [Month DD, YYYY] as a placeholder at the top
-   b.  Sender Information: Use SENDER_INFO if not empty, otherwise extract from CV including name, address, email, and phone.
+   b.  Sender Information: extract from CV including name, address, email, and phone.
     - if affiliated with a University
       - [Applicant's Title (if Ph.D) and Name] 
       - [Department Name]
