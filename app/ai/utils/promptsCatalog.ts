@@ -1,3 +1,4 @@
+import { coverLetterExamples } from '../../(auth)/cover-letter/components/document-templates/CoverLetterExample';
 export const promptsCatalog = {
 	coverLetter: ({
 		jobDescription,
@@ -16,6 +17,9 @@ export const promptsCatalog = {
 		customFields: string;
 		highlights: string[];
 	}) => {
+		console.log('template', template);
+		const coverLetterExample = coverLetterExamples.find((example) => example.type === template);
+		console.log('coverLetterExample: ', coverLetterExample);
 		const senderInfo = JSON.stringify(sender);
 		const recipientInfo = JSON.stringify(recipient);
 		const customFieldsBlock =
@@ -157,7 +161,7 @@ Or if no phone number is provided in CV:
 
 Ensure this paragraph is included in every letter, with the appropriate contact information and institution name.
 
-7. End with "Sincerely," followed by EXACTLY six line breaks(\n\n\n\n\n\n).
+7. End with "Sincerely," followed by EXACTLY four line breaks(\n\n\n\n).
 
 8. Signature block:
     a. Create a signature line with underscores matching the sender's name length (excluding periods) plus two
@@ -168,13 +172,20 @@ Ensure this paragraph is included in every letter, with the appropriate contact 
     f. After the complete signature block, add EXACTLY four line breaks
 
 Example:
+Sincerely,
+
+
+
 ______________________
 Dr. Jane Doe
 Assistant Professor of Biology
 University of Example
 
 
-Generate a ${template}-style cover letter based on the above information, ensuring absolute fidelity to the provided CV and following all the guidelines above. Pay special attention to accuracy, especially with numerical data and the applicant's title, use descriptive terms for mentees, students, and grants as instructed, and emphasize the highlighted aspects of the CV. The AI has the freedom to choose different phrases for offering contact information, as long as it conveys the same message and uses only the information provided or appropriate placeholders where information is missing.
+Generate a ${template}-style cover letter based on the above information, ensuring absolute fidelity to the provided CV and following all the guidelines above. Structure the letter similarly to the way it is structured in this ${template} example ${coverLetterExample}
+
+
+Pay special attention to accuracy, especially with numerical data and the applicant's title, use descriptive terms for mentees, students, and grants as instructed, and emphasize the highlighted aspects of the CV. The AI has the freedom to choose different phrases for offering contact information, as long as it conveys the same message and uses only the information provided or appropriate placeholders where information is missing.
 `;
 	},
 

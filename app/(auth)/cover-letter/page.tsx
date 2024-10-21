@@ -132,7 +132,7 @@ const CoverLetterGenerator: React.FC = () => {
 		{ id: 'template', label: 'Template', isMandatory: true, isCompleted: !!selectedTemplate },
 		{ id: 'jobDescription', label: 'Job Description', isMandatory: true, isCompleted: !!jobDescription },
 		{ id: 'cv', label: 'CV', isMandatory: true, isCompleted: !!cvFile },
-		{ id: 'sender', label: 'Sender', isMandatory: false, isCompleted: !!senderData.name },
+		// { id: 'sender', label: 'Sender', isMandatory: false, isCompleted: !!senderData.name },
 		{ id: 'recipient', label: 'Recipient', isMandatory: false, isCompleted: !!recipientData.name },
 		{ id: 'highlights', label: 'Highlights', isMandatory: false, isCompleted: highlights.length > 0 },
 		{
@@ -175,58 +175,42 @@ const CoverLetterGenerator: React.FC = () => {
 			component: <CVUpload onFileSelect={setCvFile} />,
 		},
 		{
-			title: 'Additional Details',
+			title: 'Additional Details (optional)',
 			description:
-				'Optionally add sender and recipient details. If omitted, the AI will extract the sender details from your CV and recipient details from the job description (if available). You can review and edit the final letter later, adding the details if needed.',
+				'Optionally add recipient details (the AI will extract the sender details from your CV). IAI will use job description info if omitted. Sender details come from your CV. You can add or edit all details when reviewing the final letter.',
+			isMandatory: false,
+			component: <RecipientForm onDataChange={setRecipientData} />,
+		},
+		{
+			title: 'Custom Highligts',
+			description:
+				'Optionally add specific aspects of your CV to highlight in the cover letter (e.g. publications, grants acquired, teaching approach, etc). For better results, limit to a maximum of two items.',
 			isMandatory: false,
 			component: (
-				<>
-					<SenderForm
-						onDataChange={setSenderData}
-						styleOverrides={{ card: 'mb-8' }}
+				<Container paddingY="none">
+					<HighlightInput
+						highlights={highlights}
+						setHighlights={setHighlights}
 					/>
-					<RecipientForm onDataChange={setRecipientData} />
-				</>
+				</Container>
 			),
 		},
 		{
 			title: 'Custom Fields',
 			description:
-				'Optionally add specific aspects of your CV to highlight and include custom fields in your cover letter.',
+				'Optionally include custom fields in your cover letter. Specify a field name, then provide its description. Examples: "Personal Values" (how your ethics shape your teaching) or "Desired Teaching Discipline" (subject you would like to teach if hired).',
 			isMandatory: false,
 			component: (
-				<Container>
-					<Container
-						paddingY="none"
-						className="border-b border-gray-400 pb-8"
-					>
-						<H2 className="text-md font-medium text-gray-900">CV Highlights</H2>
-						<Paragraph className="text-sm text-gray-600">
-							Enter aspects of your CV you'd like to highlight in the cover letter (e.g. publications, grants acquired,
-							teaching approach, etc). For better results, limit to a maximum of two aspects.
-						</Paragraph>
-						<HighlightInput
-							highlights={highlights}
-							setHighlights={setHighlights}
-						/>
-					</Container>
-					<Container
-						paddingY="none"
-						className="mt-8"
-					>
-						<H2 className="text-md font-medium text-gray-900">Custom Fields</H2>
-						<Paragraph className="text-sm text-gray-600">
-							Add custom fields for important additional information. Specify a field name, then provide its
-							description. Examples: "Personal Values" (how your ethics influence teaching) or "Desired Teaching
-							Discipline" (subject you would like to teach if hired).
-						</Paragraph>
-						<CustomFields
-							customFields={customFields}
-							setCustomFields={setCustomFields}
-							newFieldName={newFieldName}
-							setNewFieldName={setNewFieldName}
-						/>
-					</Container>
+				<Container
+					paddingY="none"
+					className="mt-8"
+				>
+					<CustomFields
+						customFields={customFields}
+						setCustomFields={setCustomFields}
+						newFieldName={newFieldName}
+						setNewFieldName={setNewFieldName}
+					/>
 				</Container>
 			),
 		},

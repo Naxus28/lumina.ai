@@ -1,9 +1,8 @@
-import { H2, Span } from '@/app/components/typography';
+import { H2 } from '@/app/components/typography';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { AlertTriangle } from 'lucide-react';
 import React from 'react';
 
-const examples = [
+export const coverLetterExamples = [
 	{
 		title: 'Traditional Academic Cover Letter Example',
 		type: 'Traditional',
@@ -243,7 +242,8 @@ const commonStyles: React.CSSProperties = {
 };
 
 export function CoverLetterExample({ templateType }: { templateType: string }) {
-	const selectedExample = examples.find((template) => template.type === templateType) || examples[0];
+	const selectedExample =
+		coverLetterExamples.find((template) => template.type === templateType) || coverLetterExamples[0];
 
 	return (
 		<div
