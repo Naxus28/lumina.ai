@@ -203,6 +203,10 @@ const CoverLetterGenerator: React.FC = () => {
 		},
 	];
 
+	const handleStepClick = (index: number) => {
+		setCurrentStep(index);
+	};
+
 	return (
 		<div className="container mx-auto px-4 py-8">
 			<main>
@@ -219,7 +223,7 @@ const CoverLetterGenerator: React.FC = () => {
 				<ProgressBar
 					steps={progressSteps}
 					currentStep={currentStep}
-					styleOverrides={{ card: 'mt-8' }}
+					onStepClick={handleStepClick}
 				/>
 				<Container>
 					<CoverLetterWizard
