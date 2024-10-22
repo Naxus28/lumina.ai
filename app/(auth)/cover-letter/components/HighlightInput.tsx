@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -11,14 +11,6 @@ interface HighlightInputProps {
 
 export const HighlightInput: React.FC<HighlightInputProps> = ({ highlights, setHighlights }) => {
 	const [inputValue, setInputValue] = useState('');
-	const [isMobile, setIsMobile] = useState(false);
-
-	useEffect(() => {
-		const checkIfMobile = () => setIsMobile(window.innerWidth < 768);
-		checkIfMobile();
-		window.addEventListener('resize', checkIfMobile);
-		return () => window.removeEventListener('resize', checkIfMobile);
-	}, []);
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setInputValue(e.target.value);
@@ -50,12 +42,13 @@ export const HighlightInput: React.FC<HighlightInputProps> = ({ highlights, setH
 					value={inputValue}
 					onChange={handleInputChange}
 					onKeyDown={handleKeyDown}
-					placeholder='Type a key point to highlight and press "Enter"'
+					placeholder="Enter a key point to highlight and press Enter"
 					className="w-full"
 				/>
-				{isMobile && <Button onClick={addHighlight}>Add</Button>}
+				<Button onClick={addHighlight} className="bg-purple-600 hover:bg-purple-700 text-white">
+					Add
+				</Button>
 			</div>
-
 			{highlights.length ? (
 				<div className="flex flex-wrap gap-2">
 					{highlights.map((highlight, index) => (
@@ -74,9 +67,7 @@ export const HighlightInput: React.FC<HighlightInputProps> = ({ highlights, setH
 						</Badge>
 					))}
 				</div>
-			) : (
-				''
-			)}
+			) : null}
 		</div>
 	);
 };

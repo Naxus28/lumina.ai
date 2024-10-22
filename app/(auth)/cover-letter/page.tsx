@@ -124,7 +124,7 @@ const CoverLetterGenerator: React.FC = () => {
 		} finally {
 			setIsLoading(false);
 		}
-	}, [selectedTemplate, jobDescription, cvFile, recipientData, customFields]);
+	}, [selectedTemplate, jobDescription, cvFile, recipientData, customFields, highlights]);
 
 	const handleEdit = (newContent: string) => {
 		setGeneratedCoverLetter(newContent);
