@@ -8,13 +8,12 @@ interface InputGroupProps {
 	label: string;
 	name: string;
 	placeholder: string;
-	icon?: React.ReactNode;
 	value: string;
 	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 	tooltip?: string;
 }
 
-export function InputGroup({ label, name, placeholder, icon, value, onChange, tooltip }: InputGroupProps) {
+export function InputGroup({ label, name, placeholder, value, onChange, tooltip }: InputGroupProps) {
 	return (
 		<div className="space-y-2">
 			<div className="flex items-center">

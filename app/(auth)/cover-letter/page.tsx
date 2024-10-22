@@ -5,7 +5,7 @@ import { CoverLetterWizard, WizardStep } from './components/CoverLetterWizard';
 import { coverLetterTemplates } from './components/document-templates/templates';
 import { Container } from '@/app/layout-components/Container';
 import { H1, Paragraph, Span } from '@/app/components/typography';
-import { AddressFormData } from './components/address/hooks/useAddressForm';
+import { AddressFormData, useAddressForm } from './components/address/hooks/useAddressForm';
 import { CoverLetterTemplate } from './components/document-templates/models';
 import { DocumentDisplay } from '@/app/components/shared/DocumentDisplay';
 import { ErrorMessage } from './components/ErrorMessage';
@@ -63,6 +63,8 @@ const CoverLetterGenerator: React.FC = () => {
 
 			if (cvFile) {
 				formData.append('file', cvFile);
+
+				console.log('======recipientData', recipientData);
 			}
 			if (Object.values(recipientData).some((value) => value !== '')) {
 				formData.append('recipient', JSON.stringify(recipientData));
@@ -180,7 +182,12 @@ const CoverLetterGenerator: React.FC = () => {
 			description:
 				'Optionally add recipient details (the AI will extract the sender details from your CV). IAI will use job description info if omitted. Sender details come from your CV. You can add or edit all details when reviewing the final letter.',
 			isMandatory: false,
-			component: <RecipientForm onDataChange={setRecipientData} />,
+			component: (
+				<RecipientForm
+					handleInputChange={setRecipientData}
+					formData={recipientData}
+				/>
+			),
 		},
 		{
 			title: 'Custom Highligts',

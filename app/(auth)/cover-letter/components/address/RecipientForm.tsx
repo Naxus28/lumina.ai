@@ -1,12 +1,19 @@
 import React from 'react';
-import { Card, CardContent } from '@/components/ui/card';
-import { User, Building, MapPin } from 'lucide-react';
-import { AddressFormProps, useAddressForm } from './hooks/useAddressForm';
+import { AddressFormData } from './hooks/useAddressForm';
 import { InputGroup } from './InputGroup';
 import { cn } from '@/lib/utils';
 
-export const RecipientForm: React.FC<AddressFormProps> = ({ onDataChange, styleOverrides }) => {
-	const { formData, handleInputChange } = useAddressForm({ onDataChange });
+interface RecipientFormProps {
+	handleInputChange: React.Dispatch<React.SetStateAction<AddressFormData>>;
+	formData: AddressFormData;
+	styleOverrides?: { card?: string; cardContent?: string };
+}
+
+export const RecipientForm: React.FC<RecipientFormProps> = ({ handleInputChange, styleOverrides, formData }) => {
+	const handleChange = (field: string, e: React.ChangeEvent<HTMLInputElement>) => {
+		const updatedFields = { ...formData, [field]: e.target.value };
+		handleInputChange(updatedFields);
+	};
 
 	return (
 		<div className={cn('p-4', styleOverrides?.cardContent)}>
@@ -17,28 +24,28 @@ export const RecipientForm: React.FC<AddressFormProps> = ({ onDataChange, styleO
 					name="name"
 					placeholder="e.g. Dr. John Doe"
 					value={formData.name}
-					onChange={handleInputChange}
+					onChange={(e) => handleChange('name', e)}
 				/>
 				<InputGroup
 					label="Title"
 					name="title"
 					placeholder="e.g. Chair, Search Committee"
 					value={formData.title}
-					onChange={handleInputChange}
+					onChange={(e) => handleChange('title', e)}
 				/>
 				<InputGroup
 					label="Institution"
 					name="institution"
 					placeholder="e.g. Stanford University"
 					value={formData.institution}
-					onChange={handleInputChange}
+					onChange={(e) => handleChange('institution', e)}
 				/>
 				<InputGroup
 					label="Address"
 					name="address"
 					placeholder="e.g. 450 Serra Mall, Stanford, CA 94305"
 					value={formData.address}
-					onChange={handleInputChange}
+					onChange={(e) => handleChange('address', e)}
 				/>
 			</div>
 		</div>

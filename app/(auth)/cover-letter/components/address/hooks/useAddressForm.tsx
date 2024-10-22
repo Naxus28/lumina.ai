@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 export interface AddressFormProps {
 	onDataChange: (data: AddressFormData) => void;
-	styleOverrides?: { card?: string; cardContent?: string };
 }
 
 export interface AddressFormData {
