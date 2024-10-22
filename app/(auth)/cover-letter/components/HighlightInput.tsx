@@ -55,23 +55,28 @@ export const HighlightInput: React.FC<HighlightInputProps> = ({ highlights, setH
 				/>
 				{isMobile && <Button onClick={addHighlight}>Add</Button>}
 			</div>
-			<div className="flex flex-wrap gap-2">
-				{highlights.map((highlight, index) => (
-					<Badge
-						key={index}
-						variant="outline"
-						className="px-3 py-1 text-sm flex items-center group"
-					>
-						{highlight}
-						<button
-							onClick={() => removeHighlight(highlight)}
-							className="ml-2 text-gray-500 hover:text-gray-700 opacity-0 group-hover:opacity-100 transition-opacity"
+
+			{highlights.length ? (
+				<div className="flex flex-wrap gap-2">
+					{highlights.map((highlight, index) => (
+						<Badge
+							key={index}
+							variant="outline"
+							className="px-3 py-1 text-sm flex items-center group"
 						>
-							<X size={14} />
-						</button>
-					</Badge>
-				))}
-			</div>
+							{highlight}
+							<button
+								onClick={() => removeHighlight(highlight)}
+								className="ml-2 text-gray-500 hover:text-gray-700 opacity-0 group-hover:opacity-100 transition-opacity"
+							>
+								<X size={14} />
+							</button>
+						</Badge>
+					))}
+				</div>
+			) : (
+				''
+			)}
 		</div>
 	);
 };

@@ -60,7 +60,7 @@ export const CustomFields: React.FC<CustomFieldsProps> = ({
 	};
 
 	return (
-		<div className="space-y-4">
+		<div className="space-y-2">
 			{Object.entries(customFields).map(([fieldName, fieldValue]) => (
 				<div
 					key={fieldName}
@@ -78,7 +78,6 @@ export const CustomFields: React.FC<CustomFieldsProps> = ({
 							variant="outline"
 							size="sm"
 						>
-							{/* <X className="h-4 w-4" /> */}
 							Remove
 						</Button>
 					</div>
