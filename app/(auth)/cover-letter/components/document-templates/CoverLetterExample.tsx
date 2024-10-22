@@ -20,7 +20,7 @@ jane.doe@email.com
 Dr. John Smith
 Chair, Search Committee
 Department of English
-University of California, Berkeley
+Traditional Academic University
 Berkeley, CA 94720
 
 Dear Dr. Smith and Members of the Search Committee,
@@ -29,7 +29,7 @@ Dear Dr. Smith and Members of the Search Committee,
 			{
 				title: 'Introduction',
 				content:
-					"I am writing to apply for the position of Assistant Professor of English at the University of California, Berkeley. As a recent Ph.D. graduate from Stanford University with a specialization in 20th Century American Literature, I am excited about the opportunity to contribute to your department's renowned program.",
+					"I am writing to apply for the position of Assistant Professor of English at the Traditional Academic University. As a recent Ph.D. graduate from Stanford University with a specialization in 20th Century American Literature, I am excited about the opportunity to contribute to your department's renowned program.",
 			},
 			{
 				title: 'Research',

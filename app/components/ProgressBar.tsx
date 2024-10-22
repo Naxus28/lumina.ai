@@ -57,7 +57,7 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({ steps, currentStep, on
 						))}
 					</div>
 					<div className="relative pt-1">
-						<div className="flex mb-2 items-center justify-between">
+						<div className="flex mb-2 items-center justify-between mt-4 mb-4">
 							<div className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-purple-600 bg-purple-200">
 								Mandatory Fields Progress
 							</div>
