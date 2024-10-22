@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { X } from 'lucide-react';
 import { Container } from '@/app/layout-components/Container';
 import { H2, Paragraph } from '@/app/components/typography';
+import { Textarea } from '@/components/ui/textarea';
 
 interface CustomFieldsProps {
 	customFields: Record<string, string>;
@@ -81,12 +82,13 @@ export const CustomFields: React.FC<CustomFieldsProps> = ({
 							Remove
 						</Button>
 					</div>
-					<Input
+					<Textarea
 						id={fieldName}
 						value={fieldValue}
 						onChange={(e) => handleCustomFieldChange(fieldName, e.target.value)}
 						placeholder={`Enter content for ${fieldName}`}
 					/>
+					<div className="border border-gray-300 !mb-8 !mt-8" />
 				</div>
 			))}
 			<div className="flex space-x-2">
