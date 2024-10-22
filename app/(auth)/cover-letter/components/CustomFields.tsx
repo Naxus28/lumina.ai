@@ -1,8 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Container } from '@/app/layout-components/Container';
 import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui/button';
+import { X } from 'lucide-react';
+import { Container } from '@/app/layout-components/Container';
+import { H2, Paragraph } from '@/app/components/typography';
 
 interface CustomFieldsProps {
 	customFields: Record<string, string>;
@@ -17,15 +19,7 @@ export const CustomFields: React.FC<CustomFieldsProps> = ({
 	newFieldName,
 	setNewFieldName,
 }) => {
-	const [isMobile, setIsMobile] = useState(false);
 	const lastTextareaRef = useRef<HTMLTextAreaElement>(null);
-
-	useEffect(() => {
-		const checkIfMobile = () => setIsMobile(window.innerWidth < 768);
-		checkIfMobile();
-		window.addEventListener('resize', checkIfMobile);
-		return () => window.removeEventListener('resize', checkIfMobile);
-	}, []);
 
 	useEffect(() => {
 		if (lastTextareaRef.current) {
@@ -66,49 +60,52 @@ export const CustomFields: React.FC<CustomFieldsProps> = ({
 	};
 
 	return (
-		<Container>
-			<div className="space-y-4">
-				{Object.entries(customFields).map(([fieldName, fieldValue], index) => (
-					<div
-						key={fieldName}
-						className="flex flex-col space-y-2"
-					>
-						<div className="flex justify-between items-center">
-							<label
-								htmlFor={fieldName}
-								className="text-sm font-medium text-gray-700"
-							>
-								{fieldName}
-							</label>
-							<Button
-								onClick={() => handleRemoveCustomField(fieldName)}
-								variant="outline"
-								size="sm"
-							>
-								Remove
-							</Button>
-						</div>
-						<Textarea
-							id={fieldName}
-							value={fieldValue}
-							onChange={(e) => handleCustomFieldChange(fieldName, e.target.value)}
-							placeholder={`Enter content for ${fieldName}`}
-							ref={index === Object.keys(customFields).length - 1 ? lastTextareaRef : null}
-							className="max-h-32 min-h-[80px]"
-						/>
-						<div className="border border-gray-300 !mb-8 !mt-8" />
+		<div className="space-y-4">
+			{Object.entries(customFields).map(([fieldName, fieldValue], index) => (
+				<div
+					key={fieldName}
+					className="flex flex-col space-y-2"
+				>
+					<div className="flex justify-between items-center">
+						<label
+							htmlFor={fieldName}
+							className="text-sm font-medium text-gray-700"
+						>
+							{fieldName}
+						</label>
+						<Button
+							onClick={() => handleRemoveCustomField(fieldName)}
+							variant="ghost"
+							size="sm"
+						>
+							<X className="h-4 w-4" />
+						</Button>
 					</div>
-				))}
-				<div className="flex space-x-2">
-					<Input
-						placeholder='Type a new field name and press "Enter"'
-						value={newFieldName}
-						onChange={(e) => setNewFieldName(e.target.value)}
-						onKeyDown={handleKeyDown}
+					<Textarea
+						id={fieldName}
+						value={fieldValue}
+						onChange={(e) => handleCustomFieldChange(fieldName, e.target.value)}
+						placeholder={`Enter content for ${fieldName}`}
+						ref={index === Object.keys(customFields).length - 1 ? lastTextareaRef : null}
+						className="max-h-32 min-h-[80px]"
 					/>
-					{isMobile && <Button onClick={handleAddCustomField}>Add Field</Button>}
+					<div className="border border-gray-300 !mb-8 !mt-8" />
 				</div>
+			))}
+			<div className="flex space-x-2">
+				<Input
+					placeholder="New field name"
+					value={newFieldName}
+					onChange={(e) => setNewFieldName(e.target.value)}
+					onKeyDown={handleKeyDown}
+				/>
+				<Button
+					onClick={handleAddCustomField}
+					className="bg-purple-600 hover:bg-purple-700 text-white"
+				>
+					Add Field
+				</Button>
 			</div>
-		</Container>
+		</div>
 	);
 };
