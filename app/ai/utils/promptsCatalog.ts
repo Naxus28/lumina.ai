@@ -17,9 +17,7 @@ export const promptsCatalog = {
 		customFields: string;
 		highlights: string[];
 	}) => {
-		// console.log('template', template);
 		const coverLetterExample = coverLetterExamples.find((example) => example.type === template);
-		// console.log('coverLetterExample: ', coverLetterExample);
 		const todayDate = formatLetterDate(new Date());
 		const recipientInfo = JSON.stringify(recipient);
 		const customFieldsBlock =
@@ -121,6 +119,7 @@ INSTRUCTIONS:
 2. IMPORTANT: Recognize the applicant's highest degree. Always use "Dr." for PhD holders in the letter, regardless of how they refer to themselves in the CV.
 
 3. Content Guidelines:
+    The main body of the letter (excluding sender/receiver information and signature block) should be 300 to 500 words. Adjust the word count based on the CV accomplishments and user-added custom fields.
    - Use only information from the CV, job description, sender info, and recipient info. Do not invent details.
    - Ensure that "Dr." is used consistently throughout the letter for PhD holders.
    - IMPORTANT: Always use the name and department of the University in the Job Description when addressing the place the applicant is applying for; NEVER use placeholders when this information is available.
@@ -179,7 +178,7 @@ Assistant Professor of Biology
 University of Example
 
 
-Generate a ${template}-style cover letter based on the above information, ensuring absolute fidelity to the provided CV and following all the guidelines above. Structure the letter similarly to the way it is structured in this ${template} example ${coverLetterExample}
+Generate a ${template}-style cover letter based on the above information, ensuring absolute fidelity to the provided CV and following all the guidelines above. Structure the letter similarly to the way it is structured in this ${template} example ${coverLetterExample}.
 Pay special attention to accuracy, especially with numerical data and the applicant's title, use descriptive terms for mentees, students, and grants as instructed, and emphasize the highlighted aspects of the CV. The AI has the freedom to choose different phrases for offering contact information, as long as it conveys the same message and uses only the information provided or appropriate placeholders where information is missing.
 `;
 	},
