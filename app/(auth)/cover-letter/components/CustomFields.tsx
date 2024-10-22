@@ -3,8 +3,6 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { X } from 'lucide-react';
-import { Container } from '@/app/layout-components/Container';
-import { H2, Paragraph } from '@/app/components/typography';
 
 interface CustomFieldsProps {
 	customFields: Record<string, string>;

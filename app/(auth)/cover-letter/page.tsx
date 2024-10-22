@@ -268,10 +268,12 @@ const CoverLetterGenerator: React.FC = () => {
 			<main>
 				<H1>Cover Letter Generator</H1>
 				<Paragraph>
-					Our AI analyzes your CV, the job description, and custom fields to craft a tailored cover letter. It
-					highlights your relevant scholarly achievements, research experience, and academic potential, aligning them
-					with the position's requirements. Once generated, you can refine and personalize the letter, ensuring it
-					captivates hiring committees with your unique voice and qualifications.
+					Our AI crafts a tailored cover letter by analyzing your CV, job description, and custom inputs. It showcases
+					your scholarly achievements, research experience, and academic potential, aligning them with the position's
+					requirements. Following standard guidelines the letter's body will contain 300-500 words, with length varying
+					based on custom highlights and fields you provide. Use discretion when adding custom content. After
+					generation, you can refine the letter to ensure it reflects your unique voice and captivates hiring
+					committees.
 				</Paragraph>
 				<Span className="text-xs block mt-2 italic">
 					Items marked with <Span className="text-red-500">*</Span> are required.
