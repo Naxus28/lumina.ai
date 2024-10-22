@@ -1,4 +1,6 @@
+import { formatLetterDate } from '@/app/utils/dateUtils';
 import { coverLetterExamples } from '../../(auth)/cover-letter/components/document-templates/CoverLetterExample';
+
 export const promptsCatalog = {
 	coverLetter: ({
 		jobDescription,
@@ -15,9 +17,10 @@ export const promptsCatalog = {
 		customFields: string;
 		highlights: string[];
 	}) => {
-		console.log('template', template);
+		// console.log('template', template);
 		const coverLetterExample = coverLetterExamples.find((example) => example.type === template);
-		console.log('coverLetterExample: ', coverLetterExample);
+		// console.log('coverLetterExample: ', coverLetterExample);
+		const todayDate = formatLetterDate(new Date());
 		const recipientInfo = JSON.stringify(recipient);
 		const customFieldsBlock =
 			customFields?.length > 0
@@ -65,35 +68,36 @@ export const promptsCatalog = {
 
 INSTRUCTIONS:
 1. Format the letter in this order:
-   a. Use [Month DD, YYYY] as a placeholder at the top
-   b.  Sender Information: extract from CV including name, address, email, and phone.
-    - if affiliated with a University
-      - [Applicant's Title (if Ph.D) and Name] 
-      - [Department Name]
-      - [Institution Name]
-      - [Institution Address]
+   a. Use ${todayDate} as a placeholder at the top
+   b. Sender Information: Extract from CV using appropriate capitalization (first letter of each word).
+
+    - If affiliated with a University:
+      - [Applicant's Title (use "Dr." if Ph.D.) and Name] 
+      - [Department Name and Office/Building]
+      - [Institution Name, City, State]
       - [Applicant's Email]
       - [Applicant's Phone Number]
      
-      e.g. 
+      Example: 
       Dr. John Doe
-      Music Building, office 12
+      Music Building, Office 12
       University of Florida, Gainesville, FL
       john.doe@ufl.edu
-      +1 352 234 567
+      +1 352 234 5678
 
-    - if not affiliated with a University
-      - [Applicant's Title (if Ph.D) and Name] 
-      - [Applicant's Address]
+    - If not affiliated with a University:
+      - [Applicant's Title (use "Dr." if Ph.D.) and Name] 
+      - [Street Address]
+      - [City, State ZIP]
       - [Applicant's Email]
       - [Applicant's Phone Number]
     
-      e.g. 
+      Example: 
       Dr. John Doe
       75 Elm St.
       Winter Park, FL 32792
       john.doe@ufl.edu
-      +1 352 234 567
+      +1 352 234 5678
    
    c. Recipient's information (use placeholders if not available)
     - ALWAYS use RECIPIENT_INFO if it is not empty.
@@ -155,7 +159,7 @@ Or if no phone number is provided in CV:
 
 Ensure this paragraph is included in every letter, with the appropriate contact information and institution name.
 
-7. End with "Sincerely," followed by EXACTLY four line breaks(\n\n\n\n).
+7. End with "Sincerely," followed by EXACTLY six line breaks, then the signature block.
 
 8. Signature block:
     a. Create a signature line with underscores matching the sender's name length (excluding periods) plus two
@@ -163,22 +167,19 @@ Ensure this paragraph is included in every letter, with the appropriate contact 
     c. Add sender's name with appropriate title (e.g., "Dr." for PhD holders)
     d. On the next line, add the sender's current academic position and academic area taken from Ph.D degree (if applicable)
     e. On the following line, add the sender's current institution (if applicable)
-    f. After the complete signature block, add EXACTLY four line breaks
+    f. After the complete signature block, add EXACTLY six line breaks of \n\n\n\n\n\n
 
 Example:
 Sincerely,
+[add six line breaks]
 
-
-
-______________________
+___________________
 Dr. Jane Doe
 Assistant Professor of Biology
 University of Example
 
 
 Generate a ${template}-style cover letter based on the above information, ensuring absolute fidelity to the provided CV and following all the guidelines above. Structure the letter similarly to the way it is structured in this ${template} example ${coverLetterExample}
-
-
 Pay special attention to accuracy, especially with numerical data and the applicant's title, use descriptive terms for mentees, students, and grants as instructed, and emphasize the highlighted aspects of the CV. The AI has the freedom to choose different phrases for offering contact information, as long as it conveys the same message and uses only the information provided or appropriate placeholders where information is missing.
 `;
 	},

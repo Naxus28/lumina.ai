@@ -11,13 +11,27 @@ export interface GenerateDocumentParams {
 	systemPrompt: string;
 }
 
-export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
-interface CustomError extends Error {
-	status: number;
-	headers: { 'retry-after': string };
-	type: 'rate_limit_error';
+interface AnthropicError extends Error {
+	status?: number;
+	headers?: {
+		'retry-after'?: string;
+		'anthropic-ratelimit-requests-limit'?: string;
+		'anthropic-ratelimit-requests-remaining'?: string;
+		'anthropic-ratelimit-requests-reset'?: string;
+		'anthropic-ratelimit-tokens-limit'?: string;
+		'anthropic-ratelimit-tokens-remaining'?: string;
+		'anthropic-ratelimit-tokens-reset'?: string;
+	};
+	error?: {
+		type: string;
+		error: {
+			type: string;
+			message: string;
+		};
+	};
 }
+
+export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export async function generateDocument({
 	prompt,
@@ -26,8 +40,6 @@ export async function generateDocument({
 	temperature = 0.3,
 	systemPrompt,
 }: GenerateDocumentParams): Promise<ReadableStream<Uint8Array>> {
-	// console.log('prompt: ', prompt);
-
 	return new ReadableStream({
 		async start(controller) {
 			let retries = 0;
@@ -50,18 +62,22 @@ export async function generateDocument({
 					controller.close();
 					return; // Success, exit the retry loop
 				} catch (err) {
-					const error = err as CustomError;
+					const error = err as AnthropicError;
 					console.error('Error in generateDocument:', error);
 
 					if (error.status === 429) {
-						const retryAfter = parseInt(error.headers['retry-after'] || '1', 10);
+						const retryAfter = parseInt(error.headers?.['retry-after'] || '1', 10);
 						const backoffTime = Math.max(retryAfter * 1000, INITIAL_BACKOFF * Math.pow(2, retries));
 						console.log(`Rate limited. Retrying in ${backoffTime / 1000} seconds...`);
 						await sleep(backoffTime);
 						retries++;
 
 						// Optionally reduce maxTokens if we're hitting token limits
-						if (error?.type === 'rate_limit_error' && error?.message.includes('tokens')) {
+						if (
+							error.error?.type === 'error' &&
+							error.error?.error?.type === 'rate_limit_error' &&
+							error.error?.error?.message.includes('tokens')
+						) {
 							maxTokens = Math.floor(maxTokens * 0.8); // Reduce by 20%
 							console.log(`Reducing max tokens to ${maxTokens}`);
 						}
@@ -78,6 +94,64 @@ export async function generateDocument({
 		},
 	});
 }
+
+// export async function generateDocument({
+// 	prompt,
+// 	model = 'claude-3-sonnet-20240229',
+// 	maxTokens = 1500,
+// 	temperature = 0.3,
+// 	systemPrompt,
+// }: GenerateDocumentParams): Promise<ReadableStream<Uint8Array>> {
+// 	return new ReadableStream({
+// 		async start(controller) {
+// 			let retries = 0;
+
+// 			while (retries <= MAX_RETRIES) {
+// 				try {
+// 					const messageStream = anthropicSDK.messages.stream({
+// 						model,
+// 						max_tokens: maxTokens,
+// 						temperature,
+// 						system: systemPrompt,
+// 						messages: [{ role: 'user', content: prompt }],
+// 					});
+
+// 					for await (const chunk of messageStream) {
+// 						if (chunk.type === 'content_block_delta' && 'text' in chunk.delta) {
+// 							controller.enqueue(new TextEncoder().encode(chunk.delta.text));
+// 						}
+// 					}
+// 					controller.close();
+// 					return; // Success, exit the retry loop
+// 				} catch (err) {
+// 					const error = err as AnthropicError;
+// 					console.error('Error in generateDocument:', error);
+
+// 					if (error.status === 429) {
+// 						const retryAfter = parseInt(error.headers['retry-after'] || '1', 10);
+// 						const backoffTime = Math.max(retryAfter * 1000, INITIAL_BACKOFF * Math.pow(2, retries));
+// 						console.log(`Rate limited. Retrying in ${backoffTime / 1000} seconds...`);
+// 						await sleep(backoffTime);
+// 						retries++;
+
+// 						// Optionally reduce maxTokens if we're hitting token limits
+// 						if (error?.type === 'rate_limit_error' && error?.message.includes('tokens')) {
+// 							maxTokens = Math.floor(maxTokens * 0.8); // Reduce by 20%
+// 							console.log(`Reducing max tokens to ${maxTokens}`);
+// 						}
+// 					} else {
+// 						// For non-rate-limit errors, fail immediately
+// 						controller.error(error);
+// 						return;
+// 					}
+// 				}
+// 			}
+
+// 			// If we've exhausted all retries
+// 			controller.error(new Error('Max retries reached. Unable to generate document.'));
+// 		},
+// 	});
+// }
 
 /**
  * CHAT WITH IDEAS FOR LIMITING TOKEN USAGE PER USER: https://claude.ai/chat/2391e297-8045-47e6-9c3c-8256f8bc0d95
