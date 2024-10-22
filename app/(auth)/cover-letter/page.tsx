@@ -5,7 +5,7 @@ import { CoverLetterWizard, WizardStep } from './components/CoverLetterWizard';
 import { coverLetterTemplates } from './components/document-templates/templates';
 import { Container } from '@/app/layout-components/Container';
 import { H1, Paragraph, Span } from '@/app/components/typography';
-import { AddressFormData, useAddressForm } from './components/address/hooks/useAddressForm';
+import { AddressFormData } from './components/address/hooks/useAddressForm';
 import { CoverLetterTemplate } from './components/document-templates/models';
 import { DocumentDisplay } from '@/app/components/shared/DocumentDisplay';
 import { ErrorMessage } from './components/ErrorMessage';
@@ -18,6 +18,20 @@ import { RecipientForm } from './components/address/RecipientForm';
 import { HighlightInput } from './components/HighlightInput';
 import { CustomFields } from './components/CustomFields';
 import { ProgressBar, ProgressStep } from '@/app/components/ProgressBar';
+
+interface CoverLetterStep {
+	progressStep: ProgressStep;
+	wizardStep: WizardStep;
+}
+
+interface CoverLetterSteps {
+	template: CoverLetterStep;
+	jobDescription: CoverLetterStep;
+	cv: CoverLetterStep;
+	recipient: CoverLetterStep;
+	highlights: CoverLetterStep;
+	customFields: CoverLetterStep;
+}
 
 const CoverLetterGenerator: React.FC = () => {
 	const [selectedTemplate, setSelectedTemplate] = useState<CoverLetterTemplate | null>(null);
@@ -122,10 +136,10 @@ const CoverLetterGenerator: React.FC = () => {
 		}
 	}, [isStreamStarted]);
 
-	const coverLetterSteps = {
+	const coverLetterSteps: CoverLetterSteps = {
 		template: {
-			progressSteps: { id: 'template', label: 'Template', isMandatory: true, isCompleted: !!selectedTemplate },
-			wizardSteps: {
+			progressStep: { id: 'template', label: 'Template', isMandatory: true, isCompleted: !!selectedTemplate },
+			wizardStep: {
 				title: 'Choose Your Cover Letter Structure',
 				description: 'Select a template that best fits the style and format you want for your cover letter.',
 				isMandatory: true,
@@ -139,13 +153,13 @@ const CoverLetterGenerator: React.FC = () => {
 			},
 		},
 		jobDescription: {
-			progressSteps: {
+			progressStep: {
 				id: 'jobDescription',
 				label: 'Job Description',
 				isMandatory: true,
 				isCompleted: !!jobDescription,
 			},
-			wizardSteps: {
+			wizardStep: {
 				title: 'Job Description',
 				description:
 					'Paste or type the job description here. This will help tailor your cover letter to the specific position.',
@@ -159,8 +173,8 @@ const CoverLetterGenerator: React.FC = () => {
 			},
 		},
 		cv: {
-			progressSteps: { id: 'cv', label: 'CV', isMandatory: true, isCompleted: !!cvFile },
-			wizardSteps: {
+			progressStep: { id: 'cv', label: 'CV', isMandatory: true, isCompleted: !!cvFile },
+			wizardStep: {
 				title: 'Upload CV',
 				description: 'Your CV will be used to extract relevant information for your cover letter.',
 				isMandatory: true,
@@ -174,8 +188,8 @@ const CoverLetterGenerator: React.FC = () => {
 			},
 		},
 		recipient: {
-			progressSteps: { id: 'recipient', label: 'Recipient', isMandatory: false, isCompleted: !!recipientData.name },
-			wizardSteps: {
+			progressStep: { id: 'recipient', label: 'Recipient', isMandatory: false, isCompleted: !!recipientData.name },
+			wizardStep: {
 				title: 'Recipient (optional)',
 				description:
 					'Enter recipient details here. If omitted the AI will use details from the job description (if receiver info is available). Sender details come from your CV. You can add or edit all details when reviewing the final letter.',
@@ -189,8 +203,8 @@ const CoverLetterGenerator: React.FC = () => {
 			},
 		},
 		highlights: {
-			progressSteps: { id: 'highlights', label: 'Highlights', isMandatory: false, isCompleted: highlights.length > 0 },
-			wizardSteps: {
+			progressStep: { id: 'highlights', label: 'Highlights', isMandatory: false, isCompleted: highlights.length > 0 },
+			wizardStep: {
 				title: 'Highligts (optional)',
 				description:
 					'Add specific aspects of your CV to highlight in the cover letter (e.g. publications, grants acquired, teaching approach, etc). For better results, limit to a maximum of two items.',
@@ -204,13 +218,13 @@ const CoverLetterGenerator: React.FC = () => {
 			},
 		},
 		customFields: {
-			progressSteps: {
+			progressStep: {
 				id: 'customFields',
 				label: 'Custom Fields',
 				isMandatory: false,
 				isCompleted: Object.values(customFields).filter(Boolean).length > 0,
 			},
-			wizardSteps: {
+			wizardStep: {
 				title: 'Custom Fields (optional)',
 				description:
 					'Include custom fields in your cover letter. Specify a field name, then provide its description. Examples: "Personal Values" (how your ethics shape your teaching) or "Desired Teaching Discipline" (subject you would like to teach if hired).',
@@ -228,21 +242,21 @@ const CoverLetterGenerator: React.FC = () => {
 	};
 
 	const progressSteps: ProgressStep[] = [
-		coverLetterSteps.template.progressSteps,
-		coverLetterSteps.jobDescription.progressSteps,
-		coverLetterSteps.cv.progressSteps,
-		coverLetterSteps.recipient.progressSteps,
-		coverLetterSteps.highlights.progressSteps,
-		coverLetterSteps.customFields.progressSteps,
+		coverLetterSteps.template.progressStep,
+		coverLetterSteps.jobDescription.progressStep,
+		coverLetterSteps.cv.progressStep,
+		coverLetterSteps.recipient.progressStep,
+		coverLetterSteps.highlights.progressStep,
+		coverLetterSteps.customFields.progressStep,
 	];
 
 	const steps: WizardStep[] = [
-		coverLetterSteps.template.wizardSteps,
-		coverLetterSteps.jobDescription.wizardSteps,
-		coverLetterSteps.cv.wizardSteps,
-		coverLetterSteps.recipient.wizardSteps,
-		coverLetterSteps.highlights.wizardSteps,
-		coverLetterSteps.customFields.wizardSteps,
+		coverLetterSteps.template.wizardStep,
+		coverLetterSteps.jobDescription.wizardStep,
+		coverLetterSteps.cv.wizardStep,
+		coverLetterSteps.recipient.wizardStep,
+		coverLetterSteps.highlights.wizardStep,
+		coverLetterSteps.customFields.wizardStep,
 	];
 
 	const handleStepClick = (index: number) => {
