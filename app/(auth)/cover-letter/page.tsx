@@ -42,7 +42,6 @@ const CoverLetterGenerator: React.FC = () => {
 	const [currentStep, setCurrentStep] = useState(0);
 
 	const handleSelectTemplate = (template: CoverLetterTemplate) => {
-		console.log('template', template);
 		setSelectedTemplate(template);
 	};
 
@@ -63,14 +62,13 @@ const CoverLetterGenerator: React.FC = () => {
 
 			if (cvFile) {
 				formData.append('file', cvFile);
-
-				console.log('======recipientData', recipientData);
 			}
 			if (Object.values(recipientData).some((value) => value !== '')) {
 				formData.append('recipient', JSON.stringify(recipientData));
 			}
 			if (Object.values(customFields).length > 0) {
-				formData.append('customFields', JSON.stringify(customFields));
+				const validCustomFields = Object.fromEntries(Object.entries(customFields).filter(([_, v]) => v !== ''));
+				formData.append('customFields', JSON.stringify(validCustomFields));
 			}
 			console.log('highlights page', highlights);
 			if (highlights.length > 0) {
@@ -136,7 +134,7 @@ const CoverLetterGenerator: React.FC = () => {
 			id: 'customFields',
 			label: 'Custom Fields',
 			isMandatory: false,
-			isCompleted: Object.keys(customFields).length > 0,
+			isCompleted: Object.values(customFields).filter(Boolean).length > 0,
 		},
 	];
 
