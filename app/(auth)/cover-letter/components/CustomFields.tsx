@@ -94,6 +94,7 @@ export const CustomFields: React.FC<CustomFieldsProps> = ({
 							onChange={(e) => handleCustomFieldChange(fieldName, e.target.value)}
 							placeholder={`Enter content for ${fieldName}`}
 							ref={index === Object.keys(customFields).length - 1 ? lastTextareaRef : null}
+							className="max-h-32 min-h-[80px]"
 						/>
 						<div className="border border-gray-300 !mb-8 !mt-8" />
 					</div>
