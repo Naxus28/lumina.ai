@@ -5,23 +5,24 @@ import { Input } from '@/components/ui/input';
 
 interface CVUploadProps {
 	onFileSelect: (file: File | null) => void;
+	setCVFileName: (name: string | undefined) => void;
+	cvFileName?: string;
 }
 
-export const CVUpload: React.FC<CVUploadProps> = ({ onFileSelect }) => {
-	const [fileName, setFileName] = useState<string | null>(null);
+export const CVUpload: React.FC<CVUploadProps> = ({ onFileSelect, setCVFileName, cvFileName }) => {
 	const [isDragging, setIsDragging] = useState(false);
 	const fileInputRef = useRef<HTMLInputElement>(null);
 
 	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const file = event.target.files?.[0];
 		if (file) {
-			setFileName(file.name);
+			setCVFileName(file.name);
 			onFileSelect(file);
 		}
 	};
 
 	const handleRemoveFile = () => {
-		setFileName(null);
+		setCVFileName(undefined);
 		onFileSelect(null);
 		if (fileInputRef.current) {
 			fileInputRef.current.value = '';
@@ -52,7 +53,7 @@ export const CVUpload: React.FC<CVUploadProps> = ({ onFileSelect }) => {
 
 		const file = e.dataTransfer.files?.[0];
 		if (file && file.type === 'application/pdf') {
-			setFileName(file.name);
+			setCVFileName(file.name);
 			onFileSelect(file);
 		}
 	};
@@ -60,7 +61,9 @@ export const CVUpload: React.FC<CVUploadProps> = ({ onFileSelect }) => {
 	return (
 		<div>
 			<div
-				className={`flex flex-col items-center justify-center w-full h-64 border-2 border-dashed rounded-lg cursor-pointer ${isDragging ? 'border-[#006D77] bg-[#E0F2F1]' : 'border-gray-300 bg-gray-50 hover:bg-gray-100'}`}
+				className={`flex flex-col items-center justify-center w-full h-64 border-2 border-dashed rounded-lg cursor-pointer ${
+					isDragging ? 'border-[#006D77] bg-[#E0F2F1]' : 'border-gray-300 bg-gray-50 hover:bg-gray-100'
+				}`}
 				onDragEnter={handleDragEnter}
 				onDragLeave={handleDragLeave}
 				onDragOver={handleDragOver}
@@ -81,9 +84,9 @@ export const CVUpload: React.FC<CVUploadProps> = ({ onFileSelect }) => {
 					onChange={handleFileChange}
 				/>
 			</div>
-			{fileName && (
+			{cvFileName && (
 				<div className="flex items-center mt-4">
-					<p className="text-sm text-gray-600 mr-2">{fileName}</p>
+					<p className="text-sm text-gray-600 mr-2">{cvFileName}</p>
 					<Button
 						variant="ghost"
 						size="sm"

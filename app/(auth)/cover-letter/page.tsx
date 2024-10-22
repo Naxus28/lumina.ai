@@ -23,6 +23,7 @@ const CoverLetterGenerator: React.FC = () => {
 	const [selectedTemplate, setSelectedTemplate] = useState<CoverLetterTemplate | null>(null);
 	const [jobDescription, setJobDescription] = useState('');
 	const [cvFile, setCvFile] = useState<File | null>(null);
+	const [cvFileName, setCVFileName] = useState<string | undefined>(undefined);
 	const [generatedCoverLetter, setGeneratedCoverLetter] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
@@ -166,7 +167,13 @@ const CoverLetterGenerator: React.FC = () => {
 			title: 'Upload CV',
 			description: 'Your CV will be used to extract relevant information for your cover letter.',
 			isMandatory: true,
-			component: <CVUpload onFileSelect={setCvFile} />,
+			component: (
+				<CVUpload
+					onFileSelect={setCvFile}
+					setCVFileName={setCVFileName}
+					cvFileName={cvFileName}
+				/>
+			),
 		},
 		{
 			title: 'Additional Details (optional)',
