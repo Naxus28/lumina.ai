@@ -180,7 +180,7 @@ const CoverLetterGenerator: React.FC = () => {
 		{
 			title: 'Additional Details (optional)',
 			description:
-				'Optionally add recipient details (the AI will extract the sender details from your CV). IAI will use job description info if omitted. Sender details come from your CV. You can add or edit all details when reviewing the final letter.',
+				'Enter recipient details here. If omitted the AI will use details from the job description (if receiver info is available). Sender details come from your CV. You can add or edit all details when reviewing the final letter.',
 			isMandatory: false,
 			component: (
 				<RecipientForm
@@ -190,9 +190,9 @@ const CoverLetterGenerator: React.FC = () => {
 			),
 		},
 		{
-			title: 'Custom Highligts',
+			title: 'Highligts (optional)',
 			description:
-				'Optionally add specific aspects of your CV to highlight in the cover letter (e.g. publications, grants acquired, teaching approach, etc). For better results, limit to a maximum of two items.',
+				'Add specific aspects of your CV to highlight in the cover letter (e.g. publications, grants acquired, teaching approach, etc). For better results, limit to a maximum of two items.',
 			isMandatory: false,
 			component: (
 				<HighlightInput
@@ -202,9 +202,9 @@ const CoverLetterGenerator: React.FC = () => {
 			),
 		},
 		{
-			title: 'Custom Fields',
+			title: 'Custom Fields (optional)',
 			description:
-				'Optionally include custom fields in your cover letter. Specify a field name, then provide its description. Examples: "Personal Values" (how your ethics shape your teaching) or "Desired Teaching Discipline" (subject you would like to teach if hired).',
+				'Include custom fields in your cover letter. Specify a field name, then provide its description. Examples: "Personal Values" (how your ethics shape your teaching) or "Desired Teaching Discipline" (subject you would like to teach if hired).',
 			isMandatory: false,
 			component: (
 				<CustomFields

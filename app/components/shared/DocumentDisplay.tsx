@@ -4,6 +4,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Pencil, Save, X } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Alert, AlertDescription } from '@/components/ui/alert'; // Import these components
+import { H2, Paragraph } from '../typography';
 
 interface DocumentDisplayProps {
 	content: string;
@@ -100,10 +101,12 @@ export const DocumentDisplay: React.FC<DocumentDisplayProps> = ({
 
 	return (
 		<div className="mt-8">
-			<div className="flex justify-between items-center mb-4">
-				<h2 className="text-xl font-semibold text-gray-900">Generated {documentType}</h2>
+			<div className="mb-8">
+				<H2 className="text-2xl text-gray-800 mb-4">Generated {documentType}</H2>
+				<Paragraph className="text-sm text-gray-600 mb-4">
+					You can edit this document before downloading the PDF
+				</Paragraph>
 			</div>
-			<p className="text-sm text-gray-600 mb-4">You can edit this document before downloading the PDF</p>
 
 			<div className="mb-4 flex items-center space-x-4">
 				{!isLoading && initialIsEditable && (
