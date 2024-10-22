@@ -54,12 +54,11 @@ const CoverLetterGenerator: React.FC = () => {
 
 		try {
 			const formData = new FormData();
+			formData.append('jobDescription', jobDescription);
+
 			if (selectedTemplate) {
 				formData.append('template', selectedTemplate.name);
 			}
-
-			formData.append('jobDescription', jobDescription);
-
 			if (cvFile) {
 				formData.append('file', cvFile);
 			}
@@ -70,7 +69,6 @@ const CoverLetterGenerator: React.FC = () => {
 				const validCustomFields = Object.fromEntries(Object.entries(customFields).filter(([_, v]) => v !== ''));
 				formData.append('customFields', JSON.stringify(validCustomFields));
 			}
-			console.log('highlights page', highlights);
 			if (highlights.length > 0) {
 				formData.append('highlights', JSON.stringify(highlights));
 			}
@@ -124,95 +122,127 @@ const CoverLetterGenerator: React.FC = () => {
 		}
 	}, [isStreamStarted]);
 
-	const progressSteps: ProgressStep[] = [
-		{ id: 'template', label: 'Template', isMandatory: true, isCompleted: !!selectedTemplate },
-		{ id: 'jobDescription', label: 'Job Description', isMandatory: true, isCompleted: !!jobDescription },
-		{ id: 'cv', label: 'CV', isMandatory: true, isCompleted: !!cvFile },
-		{ id: 'recipient', label: 'Recipient', isMandatory: false, isCompleted: !!recipientData.name },
-		{ id: 'highlights', label: 'Highlights', isMandatory: false, isCompleted: highlights.length > 0 },
-		{
-			id: 'customFields',
-			label: 'Custom Fields',
-			isMandatory: false,
-			isCompleted: Object.values(customFields).filter(Boolean).length > 0,
+	const coverLetterSteps = {
+		template: {
+			progressSteps: { id: 'template', label: 'Template', isMandatory: true, isCompleted: !!selectedTemplate },
+			wizardSteps: {
+				title: 'Choose Your Cover Letter Structure',
+				description: 'Select a template that best fits the style and format you want for your cover letter.',
+				isMandatory: true,
+				component: (
+					<TemplateSelector
+						templates={coverLetterTemplates}
+						selectedTemplate={selectedTemplate?.name || null}
+						onSelectTemplate={handleSelectTemplate}
+					/>
+				),
+			},
 		},
+		jobDescription: {
+			progressSteps: {
+				id: 'jobDescription',
+				label: 'Job Description',
+				isMandatory: true,
+				isCompleted: !!jobDescription,
+			},
+			wizardSteps: {
+				title: 'Job Description',
+				description:
+					'Paste or type the job description here. This will help tailor your cover letter to the specific position.',
+				isMandatory: true,
+				component: (
+					<JobDescriptionInput
+						jobDescription={jobDescription}
+						setJobDescription={setJobDescription}
+					/>
+				),
+			},
+		},
+		cv: {
+			progressSteps: { id: 'cv', label: 'CV', isMandatory: true, isCompleted: !!cvFile },
+			wizardSteps: {
+				title: 'Upload CV',
+				description: 'Your CV will be used to extract relevant information for your cover letter.',
+				isMandatory: true,
+				component: (
+					<CVUpload
+						onFileSelect={setCvFile}
+						setCVFileName={setCVFileName}
+						cvFileName={cvFileName}
+					/>
+				),
+			},
+		},
+		recipient: {
+			progressSteps: { id: 'recipient', label: 'Recipient', isMandatory: false, isCompleted: !!recipientData.name },
+			wizardSteps: {
+				title: 'Recipient (optional)',
+				description:
+					'Enter recipient details here. If omitted the AI will use details from the job description (if receiver info is available). Sender details come from your CV. You can add or edit all details when reviewing the final letter.',
+				isMandatory: false,
+				component: (
+					<RecipientForm
+						handleInputChange={setRecipientData}
+						formData={recipientData}
+					/>
+				),
+			},
+		},
+		highlights: {
+			progressSteps: { id: 'highlights', label: 'Highlights', isMandatory: false, isCompleted: highlights.length > 0 },
+			wizardSteps: {
+				title: 'Highligts (optional)',
+				description:
+					'Add specific aspects of your CV to highlight in the cover letter (e.g. publications, grants acquired, teaching approach, etc). For better results, limit to a maximum of two items.',
+				isMandatory: false,
+				component: (
+					<HighlightInput
+						highlights={highlights}
+						setHighlights={setHighlights}
+					/>
+				),
+			},
+		},
+		customFields: {
+			progressSteps: {
+				id: 'customFields',
+				label: 'Custom Fields',
+				isMandatory: false,
+				isCompleted: Object.values(customFields).filter(Boolean).length > 0,
+			},
+			wizardSteps: {
+				title: 'Custom Fields (optional)',
+				description:
+					'Include custom fields in your cover letter. Specify a field name, then provide its description. Examples: "Personal Values" (how your ethics shape your teaching) or "Desired Teaching Discipline" (subject you would like to teach if hired).',
+				isMandatory: false,
+				component: (
+					<CustomFields
+						customFields={customFields}
+						setCustomFields={setCustomFields}
+						newFieldName={newFieldName}
+						setNewFieldName={setNewFieldName}
+					/>
+				),
+			},
+		},
+	};
+
+	const progressSteps: ProgressStep[] = [
+		coverLetterSteps.template.progressSteps,
+		coverLetterSteps.jobDescription.progressSteps,
+		coverLetterSteps.cv.progressSteps,
+		coverLetterSteps.recipient.progressSteps,
+		coverLetterSteps.highlights.progressSteps,
+		coverLetterSteps.customFields.progressSteps,
 	];
 
 	const steps: WizardStep[] = [
-		{
-			title: 'Choose Your Cover Letter Structure',
-			description: 'Select a template that best fits the style and format you want for your cover letter.',
-			isMandatory: true,
-			component: (
-				<TemplateSelector
-					templates={coverLetterTemplates}
-					selectedTemplate={selectedTemplate?.name || null}
-					onSelectTemplate={handleSelectTemplate}
-				/>
-			),
-		},
-		{
-			title: 'Job Description',
-			description:
-				'Paste or type the job description here. This will help tailor your cover letter to the specific position.',
-			isMandatory: true,
-			component: (
-				<JobDescriptionInput
-					jobDescription={jobDescription}
-					setJobDescription={setJobDescription}
-				/>
-			),
-		},
-		{
-			title: 'Upload CV',
-			description: 'Your CV will be used to extract relevant information for your cover letter.',
-			isMandatory: true,
-			component: (
-				<CVUpload
-					onFileSelect={setCvFile}
-					setCVFileName={setCVFileName}
-					cvFileName={cvFileName}
-				/>
-			),
-		},
-		{
-			title: 'Additional Details (optional)',
-			description:
-				'Enter recipient details here. If omitted the AI will use details from the job description (if receiver info is available). Sender details come from your CV. You can add or edit all details when reviewing the final letter.',
-			isMandatory: false,
-			component: (
-				<RecipientForm
-					handleInputChange={setRecipientData}
-					formData={recipientData}
-				/>
-			),
-		},
-		{
-			title: 'Highligts (optional)',
-			description:
-				'Add specific aspects of your CV to highlight in the cover letter (e.g. publications, grants acquired, teaching approach, etc). For better results, limit to a maximum of two items.',
-			isMandatory: false,
-			component: (
-				<HighlightInput
-					highlights={highlights}
-					setHighlights={setHighlights}
-				/>
-			),
-		},
-		{
-			title: 'Custom Fields (optional)',
-			description:
-				'Include custom fields in your cover letter. Specify a field name, then provide its description. Examples: "Personal Values" (how your ethics shape your teaching) or "Desired Teaching Discipline" (subject you would like to teach if hired).',
-			isMandatory: false,
-			component: (
-				<CustomFields
-					customFields={customFields}
-					setCustomFields={setCustomFields}
-					newFieldName={newFieldName}
-					setNewFieldName={setNewFieldName}
-				/>
-			),
-		},
+		coverLetterSteps.template.wizardSteps,
+		coverLetterSteps.jobDescription.wizardSteps,
+		coverLetterSteps.cv.wizardSteps,
+		coverLetterSteps.recipient.wizardSteps,
+		coverLetterSteps.highlights.wizardSteps,
+		coverLetterSteps.customFields.wizardSteps,
 	];
 
 	const handleStepClick = (index: number) => {
