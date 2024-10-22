@@ -102,7 +102,7 @@ export const DocumentDisplay: React.FC<DocumentDisplayProps> = ({
 	return (
 		<div className="mt-8">
 			<div className="mb-8">
-				<H2 className="text-2xl text-gray-800 mb-4">Generated {documentType}</H2>
+				<H2 className="text-3xl text-gray-600 mb-4">Generated {documentType}</H2>
 				<Paragraph className="text-sm text-gray-600 mb-4">
 					You can edit this document before downloading the PDF
 				</Paragraph>

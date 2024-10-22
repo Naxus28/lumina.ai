@@ -136,6 +136,7 @@ INSTRUCTIONS:
    - When referring to the number of mentees, students, or grants, do not add up or provide specific total numbers. Instead, use descriptive words that highlight the extent of experience, such as "numerous grants," "extensive teaching experience," "significant mentorship roles," etc. Only use specific numbers if they are explicitly stated as totals in the CV.
    ${highlightsBlock}
    ${customFieldsBlock}
+   - Strategically reference the CV: Occasionally use phrases like "As detailed in my CV," or "My CV further illustrates," to guide the committee to specific achievements or qualifications. Use these references sparingly and only for significant points that merit additional attention. Ensure these references feel natural and don't disrupt the letter's flow.
 
 4. For numerical data:
    - DO NOT use specific numbers for grants, mentees, or students advised.
