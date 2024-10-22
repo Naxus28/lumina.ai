@@ -224,6 +224,7 @@ const CoverLetterGenerator: React.FC = () => {
 					steps={progressSteps}
 					currentStep={currentStep}
 					onStepClick={handleStepClick}
+					styleOverrides={{ card: 'mt-8' }}
 				/>
 				<Container>
 					<CoverLetterWizard
