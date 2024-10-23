@@ -48,14 +48,14 @@ export const CoverLetterWizard: React.FC<CoverLetterWizardProps> = ({
 			<CardFooter className="flex justify-between mt-16">
 				<Button
 					onClick={goToPreviousStep}
-					className="bg-purple-700 hover:bg-purple-800"
+					className="bg-purple-700 hover:bg-purple-800 w-24"
 					disabled={currentStep === 0}
 				>
 					Previous
 				</Button>
 				<Button
 					onClick={goToNextStep}
-					className="bg-purple-800 hover:bg-purple-700"
+					className="bg-purple-800 hover:bg-purple-700 w-24"
 					disabled={currentStep === steps.length - 1}
 				>
 					Next
