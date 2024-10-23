@@ -28,8 +28,8 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({ steps, currentStep, on
 		<Card className={styleOverrides?.card}>
 			<CardContent className={cn('pt-6', styleOverrides?.cardContent)}>
 				<H3 className="text-gray-600 mb-8">Progress Tracker</H3>
-				<div className="w-full mb-8">
-					<div className="flex flex-col xs:flex-row justify-between mb-2">
+				<div className="w-full mb-4">
+					<div className="flex flex-col xs:flex-row justify-between mb-4">
 						{steps.map((step, index) => (
 							<div
 								key={step.id}
