@@ -227,7 +227,7 @@ const CoverLetterGenerator: React.FC = () => {
 			wizardStep: {
 				title: 'Custom Fields (optional)',
 				description:
-					'Include custom fields in your cover letter. Specify a field name, then provide its description. Examples: "Personal Values" (how your ethics shape your teaching) or "Desired Teaching Discipline" (subject you would like to teach if hired).',
+					'To include custom fields in your cover letter, first specify a field name, then provide its description. Examples: "Personal Values" (how your ethics shape your teaching) or "Desired Teaching Discipline" (subject you would like to teach if hired).',
 				isMandatory: false,
 				component: (
 					<CustomFields
@@ -272,15 +272,17 @@ const CoverLetterGenerator: React.FC = () => {
 					your scholarly achievements, research experience, and academic potential, aligning them with the position's
 					requirements. The letter follows standard guidelines (300-500 words), with length varying based on your custom
 					highlights and fields. Use discretion when adding custom content. After generation, refine the letter to
-					ensure it reflects your unique voice and captivates hiring committees.{' '}
-					<Paragraph className="bg-gray-50 p-2">
-						Each generation may yield different results, even with identical inputs. We recommend saving versions you
-						like, allowing you to choose the best one or combine ideas from different versions for your final letter.
+					ensure it reflects your unique voice and captivates hiring committees.
+					<Span className="text-xs block mt-2 italic mb-2">
+						Items marked with <Span className="text-red-500">*</Span> are required.
+					</Span>
+					<Paragraph className="bg-gray-100 p-3 rounded-md text-sm italic">
+						Each generation may yield different results, even with identical inputs. We recommend saving the versions
+						you like, allowing you to choose the best one or combine ideas from different versions for your final
+						letter.
 					</Paragraph>
 				</Paragraph>
-				<Span className="text-xs block mt-2 italic">
-					Items marked with <Span className="text-red-500">*</Span> are required.
-				</Span>
+
 				<ProgressBar
 					steps={progressSteps}
 					currentStep={currentStep}
