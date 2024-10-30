@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 
 export interface WizardStep {
 	title: string;
-	description: string;
+	description: string | ReactNode;
 	component: ReactNode;
 	isMandatory: boolean;
 }

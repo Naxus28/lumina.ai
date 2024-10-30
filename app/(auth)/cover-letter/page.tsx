@@ -226,8 +226,19 @@ const CoverLetterGenerator: React.FC = () => {
 			},
 			wizardStep: {
 				title: 'Custom Fields (optional)',
-				description:
-					'To include custom fields in your cover letter, first specify a field name, then provide its description. Examples: "Personal Values" (how your ethics shape your teaching) or "Desired Teaching Discipline" (subject you would like to teach if hired).',
+				description: (
+					<>
+						<Paragraph>
+							To include custom fields in your cover letter, first add a field name (e.g. "Personal Values" or "Desired
+							Teaching Discipline"), then enter your content in the generated description field. If you'd like AI
+							assistance in expanding or refining your content, add "[complete based on CV]" at the end.
+						</Paragraph>
+						<Span className="block bg-gray-50 p-2 rounded-md">
+							<Span className="font-semibold">Example:</Span> "Personal Values" - I prioritize ethical conduct and
+							inclusivity in my teaching approach [complete based on CV]
+						</Span>
+					</>
+				),
 				isMandatory: false,
 				component: (
 					<CustomFields
