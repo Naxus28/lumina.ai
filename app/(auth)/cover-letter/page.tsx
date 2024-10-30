@@ -138,7 +138,7 @@ const CoverLetterGenerator: React.FC = () => {
 
 	const coverLetterSteps: CoverLetterSteps = {
 		template: {
-			progressStep: { id: 'template', label: 'Template', isMandatory: true, isCompleted: !!selectedTemplate },
+			progressStep: { id: 'template', label: 'Template*', isMandatory: true, isCompleted: !!selectedTemplate },
 			wizardStep: {
 				title: 'Choose Your Cover Letter Structure',
 				description: 'Select a template that best fits the style and format you want for your cover letter.',
@@ -155,7 +155,7 @@ const CoverLetterGenerator: React.FC = () => {
 		jobDescription: {
 			progressStep: {
 				id: 'jobDescription',
-				label: 'Job Description',
+				label: 'Job Description*',
 				isMandatory: true,
 				isCompleted: !!jobDescription,
 			},
@@ -173,7 +173,7 @@ const CoverLetterGenerator: React.FC = () => {
 			},
 		},
 		cv: {
-			progressStep: { id: 'cv', label: 'CV', isMandatory: true, isCompleted: !!cvFile },
+			progressStep: { id: 'cv', label: 'CV*', isMandatory: true, isCompleted: !!cvFile },
 			wizardStep: {
 				title: 'Upload CV',
 				description: 'Your CV will be used to extract relevant information for your cover letter.',
@@ -283,9 +283,10 @@ const CoverLetterGenerator: React.FC = () => {
 				<Paragraph>
 					Our AI crafts a tailored cover letter by analyzing your CV, job description, and custom inputs. It showcases
 					your scholarly achievements, research experience, and academic potential, aligning them with the position's
-					requirements. The letter follows standard guidelines (300-500 words), with length varying based on your custom
-					highlights and fields. Use discretion when adding custom content. After generation, refine the letter to
-					ensure it reflects your unique voice and captivates hiring committees.
+					requirements. The letter follows standard guidelines (300-500 words), with length varying based on your CV
+					content, custom highlights, and custom fields. Use discretion when adding custom content. After generation,
+					you will have the opportunity to refine the letter to ensure it reflects your unique voice and captivates
+					hiring committees.
 					<Span className="text-xs block mt-2 italic mb-2">
 						Items marked with <Span className="text-red-500">*</Span> are required.
 					</Span>
