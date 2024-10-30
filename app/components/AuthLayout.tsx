@@ -69,7 +69,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
 	}, []);
 
 	return (
-		<div className="flex min-h-screen bg-gray-50">
+		<div className="flex min-h-screen">
 			{/* Hamburger menu for small screens */}
 			<Button
 				variant="ghost"
@@ -161,7 +161,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
 				</div>
 
 				{/* Menu items column */}
-				<div className="w-56 bg-gray-50 p-4 flex flex-col border-r-[1px] border-gray-200">
+				<div className="w-56 bg-white p-4 flex flex-col border-r-[1px] border-gray-200">
 					<h2 className="text-xl font-bold mb-4 text-gray-700">{activeItem}</h2>
 					<nav className="space-y-2 flex-grow">
 						{menuItems

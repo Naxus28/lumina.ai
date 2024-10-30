@@ -270,10 +270,13 @@ const CoverLetterGenerator: React.FC = () => {
 				<Paragraph>
 					Our AI crafts a tailored cover letter by analyzing your CV, job description, and custom inputs. It showcases
 					your scholarly achievements, research experience, and academic potential, aligning them with the position's
-					requirements. Following standard guidelines the letter's body will contain 300-500 words, with length varying
-					based on custom highlights and fields you provide. Use discretion when adding custom content. After
-					generation, you can refine the letter to ensure it reflects your unique voice and captivates hiring
-					committees.
+					requirements. The letter follows standard guidelines (300-500 words), with length varying based on your custom
+					highlights and fields. Use discretion when adding custom content. After generation, refine the letter to
+					ensure it reflects your unique voice and captivates hiring committees.{' '}
+					<Paragraph className="bg-gray-50 p-2">
+						Each generation may yield different results, even with identical inputs. We recommend saving versions you
+						like, allowing you to choose the best one or combine ideas from different versions for your final letter.
+					</Paragraph>
 				</Paragraph>
 				<Span className="text-xs block mt-2 italic">
 					Items marked with <Span className="text-red-500">*</Span> are required.

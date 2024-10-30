@@ -19,22 +19,20 @@ export const TemplateCard: React.FC<TemplateCardProps> = ({ template, isSelected
 			</div>
 			<Paragraph className="text-sm mb-2 flex-grow">{template.description}</Paragraph>
 			<div className="flex justify-between mt-auto pt-4 gap-2">
-				<Button
+				{/* <Button
 					variant="outline"
 					size="sm"
 					onClick={onView}
 					className="flex-1"
 				>
 					Example
-				</Button>
+				</Button> */}
 				<Button
-					variant={isSelected ? 'secondary' : 'default'}
+					variant={'outline'}
 					size="sm"
 					onClick={onSelect}
-					className={`flex-1 ${
-						isSelected
-							? 'border bg-purple-500 text-white hover:bg-purple-600'
-							: 'bg-purple-700 text-white hover:bg-purple-800'
+					className={`flex-1 border ${
+						isSelected ? 'border-purple-500 text-purple-500 ' : 'text-purple-700 border-purple-700'
 					}`}
 				>
 					{isSelected ? 'Selected' : 'Select'}
