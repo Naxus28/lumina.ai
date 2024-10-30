@@ -228,12 +228,14 @@ const CoverLetterGenerator: React.FC = () => {
 				title: 'Custom Fields (optional)',
 				description: (
 					<>
-						<Paragraph>
-							To include custom fields in your cover letter, first add a field name (e.g. "Personal Values" or "Desired
-							Teaching Discipline"), then enter your content in the generated description field. If you'd like AI
-							assistance in expanding or refining your content, add "[complete based on CV]" at the end.
-						</Paragraph>
-						<Span className="block bg-gray-50 p-2 rounded-md">
+						<Span className="block text-sm mb-2">
+							Enhance your cover letter with personalized information using custom fields. Start by adding a field name
+							(such as "Personal Values" or "Desired Teaching Discipline"), then share your unique perspective or
+							aspirations. This is your opportunity to include meaningful aspects of your scholarly or personal journey
+							that complement your CV. For AI assistance in expanding your content, simply add "[complete based on CV]"
+							at the end of your text.
+						</Span>
+						<Span className="block bg-gray-50 p-2 rounded-md text-sm">
 							<Span className="font-semibold">Example:</Span> "Personal Values" - I prioritize ethical conduct and
 							inclusivity in my teaching approach [complete based on CV]
 						</Span>
@@ -287,7 +289,7 @@ const CoverLetterGenerator: React.FC = () => {
 					<Span className="text-xs block mt-2 italic mb-2">
 						Items marked with <Span className="text-red-500">*</Span> are required.
 					</Span>
-					<Paragraph className="bg-gray-100 p-3 rounded-md text-sm italic">
+					<Paragraph className="bg-gray-50 p-3 rounded-md text-sm italic">
 						Each generation may yield different results, even with identical inputs. We recommend saving the versions
 						you like, allowing you to choose the best one or combine ideas from different versions for your final
 						letter.
