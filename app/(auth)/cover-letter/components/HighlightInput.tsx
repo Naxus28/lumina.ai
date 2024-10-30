@@ -45,7 +45,11 @@ export const HighlightInput: React.FC<HighlightInputProps> = ({ highlights, setH
 					placeholder="Enter a key point to highlight and press Enter"
 					className="w-full"
 				/>
-				<Button onClick={addHighlight} className="bg-purple-600 hover:bg-purple-700 text-white">
+				<Button
+					onClick={addHighlight}
+					variant="outline"
+					className="text-slate-600 border-slate-400 hover:bg-slate-50 w-24"
+				>
 					Add
 				</Button>
 			</div>

@@ -99,9 +99,10 @@ export const CustomFields: React.FC<CustomFieldsProps> = ({
 				/>
 				<Button
 					onClick={handleAddCustomField}
-					className="bg-purple-600 hover:bg-purple-700 text-white"
+					variant="outline"
+					className="text-slate-600 border-slate-400 hover:bg-slate-50 w-24"
 				>
-					Add Field
+					Add
 				</Button>
 			</div>
 		</div>

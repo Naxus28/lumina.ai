@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Span } from '@/app/components/typography';
 import { cn } from '@/lib/utils';
+import { Container } from '@/app/layout-components/Container';
 
 export interface WizardStep {
 	title: string;
@@ -37,30 +38,35 @@ export const CoverLetterWizard: React.FC<CoverLetterWizardProps> = ({
 	};
 
 	return (
-		<Card className={cn(styleOverrides?.card)}>
-			<CardHeader>
-				<CardTitle className={cn('text-2xl text-gray-600', styleOverrides?.cardContent)}>
-					{steps[currentStep].title} {steps[currentStep].isMandatory ? <Span className="text-red-500">*</Span> : ''}
-				</CardTitle>
-				<CardDescription className="text-sm text-gray-600 mb-4">{steps[currentStep].description}</CardDescription>
-			</CardHeader>
-			<CardContent>{steps[currentStep].component}</CardContent>
-			<CardFooter className="flex justify-between mt-16">
+		<div>
+			<Card className={cn(styleOverrides?.card)}>
+				<CardHeader>
+					<CardTitle className={cn('text-2xl text-gray-600', styleOverrides?.cardContent)}>
+						{steps[currentStep].title} {steps[currentStep].isMandatory ? <Span className="text-red-500">*</Span> : ''}
+					</CardTitle>
+					<CardDescription className="text-sm text-gray-600 mb-4">{steps[currentStep].description}</CardDescription>
+				</CardHeader>
+				<CardContent>{steps[currentStep].component}</CardContent>
+			</Card>
+
+			<Container className="flex justify-between mt-4">
 				<Button
 					onClick={goToPreviousStep}
-					className="bg-purple-700 hover:bg-purple-800 w-24"
+					variant="outline"
+					className="text-purple-600 border-purple-600 hover:bg-purple-100 hover:text-purple-600 w-24"
 					disabled={currentStep === 0}
 				>
 					Previous
 				</Button>
 				<Button
 					onClick={goToNextStep}
-					className="bg-purple-800 hover:bg-purple-700 w-24"
+					variant="outline"
+					className="text-purple-600 border-purple-600 hover:bg-purple-100 hover:text-purple-600 w-24"
 					disabled={currentStep === steps.length - 1}
 				>
 					Next
 				</Button>
-			</CardFooter>
-		</Card>
+			</Container>
+		</div>
 	);
 };
