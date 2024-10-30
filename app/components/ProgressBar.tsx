@@ -27,7 +27,6 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({ steps, currentStep, on
 	return (
 		<Card className={styleOverrides?.card}>
 			<CardContent className={cn('pt-6', styleOverrides?.cardContent)}>
-				<H3 className="text-gray-600 mb-8">Progress Tracker</H3>
 				<div className="w-full mb-4">
 					<div className="flex flex-col xs:flex-row justify-between mb-4">
 						{steps.map((step, index) => (
@@ -58,11 +57,11 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({ steps, currentStep, on
 					</div>
 					<div className="relative pt-1">
 						<div className="flex mb-2 items-center justify-between mt-4 mb-4">
-							<div className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-purple-600 bg-purple-200">
+							<div className="text-xs inline-block py-1 px-2 uppercase rounded-full text-purple-600 bg-purple-200">
 								Mandatory Fields Progress
 							</div>
 							{allMandatoryCompleted && (
-								<div className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-green-600 bg-green-200">
+								<div className="text-xs inline-block py-1 px-2 uppercase rounded-full text-green-600 bg-green-200">
 									All Mandatory Fields Completed
 								</div>
 							)}
