@@ -31,10 +31,10 @@ export const TemplateCard: React.FC<TemplateCardProps> = ({ template, isSelected
 					variant={'outline'}
 					size="sm"
 					onClick={onSelect}
-					className={`flex-1 border hover:text-[#9333ea] ${
+					className={`flex-1 bordertext-slate-600 border-slate-400 hover:bg-slate-50 ${
 						isSelected
-							? 'bg-[#9333ea]/30 text-[#9333ea] hover:bg-[#9333ea]/40'
-							: 'bg-[#9333ea]/10 text-[#9333ea] hover:bg-[#9333ea]/20'
+							? 'bg-purple-400 hover:bg-purple-400 text-white hover:text-white'
+							: 'text-slate-600 border-slate-400 hover:bg-slate-50'
 					}`}
 				>
 					{isSelected ? 'Selected' : 'Select'}
