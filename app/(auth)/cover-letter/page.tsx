@@ -192,7 +192,7 @@ const CoverLetterGenerator: React.FC = () => {
 			wizardStep: {
 				title: 'Recipient (optional)',
 				description:
-					'Enter recipient details here. If omitted the AI will use details from the job description (if receiver info is available). Sender details come from your CV. You can add or edit all details when reviewing the final letter.',
+					'Enter recipient details here. If omitted the AI will use details from the job description (if receiver info is available). Sender details come from your CV.',
 				isMandatory: false,
 				component: (
 					<RecipientForm
@@ -229,15 +229,18 @@ const CoverLetterGenerator: React.FC = () => {
 				description: (
 					<>
 						<Span className="block text-sm mb-2">
-							Enhance your cover letter with personalized information using custom fields. Start by adding a field name
-							(such as "Personal Values" or "Desired Teaching Discipline"), then share your unique perspective or
-							aspirations. This is your opportunity to include meaningful aspects of your scholarly or personal journey
-							that complement your CV. For AI assistance in expanding your content, simply add "[complete based on CV]"
-							at the end of your text.
+							Enhance your cover letter with personalized information using custom fields. This is your opportunity to
+							include meaningful aspects of your scholarly or personal journey that complement your CV such as "Personal
+							Values" or "Desired Teaching Discipline" for example. Start by 1.) adding a field name, then 2.) share
+							your unique perspective or aspirations in the textbox created for that field. For AI assistance in
+							expanding your content, simply add "[complete based on CV]" at the end of your text.
 						</Span>
 						<Span className="block bg-gray-50 p-2 rounded-md text-sm">
-							<Span className="font-semibold">Example:</Span> "Personal Values" - I prioritize ethical conduct and
-							inclusivity in my teaching approach [complete based on CV]
+							<Span className="font-semibold">Example:</Span>
+							<Span className="block text-sm">Field: Personal Values</Span>
+							<Span className="block text-sm">
+								Content: I prioritize ethical conduct and inclusivity in my teaching approach [complete based on CV]
+							</Span>
 						</Span>
 					</>
 				),
