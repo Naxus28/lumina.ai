@@ -207,7 +207,7 @@ const CoverLetterGenerator: React.FC = () => {
 			wizardStep: {
 				title: 'Highligts (optional)',
 				description:
-					'Add specific aspects of your CV to highlight in the cover letter (e.g. publications, grants acquired, teaching approach, etc). For better results, limit to a maximum of two items.',
+					'Add specific aspects of your CV to highlight in the cover letter (e.g. publications, grants acquired, teaching approach, etc). For better results, avoid adding more than two items.',
 				isMandatory: false,
 				component: (
 					<HighlightInput
