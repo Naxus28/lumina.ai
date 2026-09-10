@@ -1,40 +1,53 @@
-<<<<<<< HEAD
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Lumina AI
 
-## Getting Started
+An AI assistant for academic job applications. Upload your CV, describe the position, and get help drafting the materials that academic hiring actually asks for.
 
-First, run the development server:
+> **Status:** work in progress. Core flows are built and running locally; some features are still being wired up. Built solo.
+
+## Why I built it
+
+Academic job applications are their own genre. A single position can ask for a cover letter, a CV, a research statement, a teaching philosophy, and a diversity statement, each with its own conventions and each expected to be tailored to the department. The work is mostly re-expressing the same underlying material for different audiences, which is exactly the kind of thing a language model is good at when it has enough context.
+
+I have a PhD myself, so this started as a tool for a problem I understood well.
+
+## What it does
+
+- Parses an uploaded CV (PDF) and extracts the content the assistant works from
+- Generates and refines application materials against a specific posting
+- Exports finished documents back out as PDFs
+- Guided, multi-step forms with validation rather than a single blank prompt box
+
+## Stack
+
+| Layer | Choice |
+| --- | --- |
+| Framework | Next.js 14 (App Router), React 18 |
+| Language | TypeScript |
+| AI | Anthropic SDK, Vercel AI SDK |
+| UI | Tailwind CSS, shadcn/ui on Radix primitives |
+| Forms | React Hook Form with Zod schemas |
+| Motion | Framer Motion |
+| Documents | pdf-parse for ingest, jsPDF for export |
+
+## Notes on the build
+
+**Server and client boundaries.** Anything touching the Anthropic SDK stays server-side. Deciding what runs where in the App Router is most of the architectural work in a project like this, and getting it wrong leaks keys or ships far too much JavaScript to the browser.
+
+**Composable UI over a component grab bag.** shadcn/ui on Radix means the components live in the repo rather than in `node_modules`, so they can be shaped to the product instead of fought with. That matches how I prefer to work: a small set of primitives that compose, with variants handled through `class-variance-authority` rather than prop explosions.
+
+**Typed inputs end to end.** Zod schemas validate form input and describe the shape the model is asked to work with, so a bad input fails at the edge rather than halfway through a generation.
+
+**Documents in, documents out.** PDF parsing and PDF generation are both messy in the browser. Handling ingest and export cleanly took more iteration than the AI integration did.
+
+## Running locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Requires an `ANTHROPIC_API_KEY` in `.env.local`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## License
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-=======
-# lumina.ai
->>>>>>> e7139fafb05a266f1168a222894642eae8c42205
+MIT
