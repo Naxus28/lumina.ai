@@ -48,7 +48,7 @@ export const HighlightInput: React.FC<HighlightInputProps> = ({ highlights, setH
 				<Button
 					onClick={addHighlight}
 					variant="outline"
-					className="text-slate-600 border-slate-400 hover:bg-slate-50 w-24"
+					className="tm w-24"
 				>
 					Add
 				</Button>
